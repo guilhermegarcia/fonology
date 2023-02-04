@@ -12,7 +12,6 @@ getFeat = function(ph = c(), lg = "Portuguese"){
 
   require(tidyverse, quietly = TRUE)
   require(gtools, quietly = TRUE)
-  suppressWarnings(suppressPackageStartupMessages(library(tidyverse)))
 
   phonemes = "i.y.ɨ.ʉ.ɯ.u.ɪ.ʏ.ʊ.e.ø.ɘ.ɵ.ɤ.o.ɛ.œ.ə.ɜ.ɞ.ʌ.ɔ.ɐ.æ.ɶ.a.ɑ.ɒ.ɛ̃.œ̃.ɔ.j.ɥ.w.p.b.t.d.ʈ.ɖ.c.ɟ.k.ɡ.q.ɢ.ʔ.m.ɱ.n.ɳ.ɲ.ŋ.ɴ.ʙ.r.ʀ.ⱱ.ɾ.ɽ.ɸ.β.f.v.θ.ð.s.z.ʃ.ʒ.ʂ.ʐ.ç.ʝ.x.ɣ.χ.ʁ.ħ.ʕ.h.ɦ.ɬ.ɮ.ʋ.ɹ.ɻ.j.ɰ.l.ɭ.ʎ.ʟ.d͡z.t͡s.t͡ʃ.d͡ʒ"
 
@@ -88,8 +87,6 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     filter(ipa %in% chosenPh) %>%
     droplevels()
 
-  glimpse(chosenPhF)
-
   # Pick intersection:
 
   all_cols = names(chosenPhF)[-1]
@@ -99,7 +96,7 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     summarize(across(.cols = all_of(all_cols), .fns = same)) %>%
     select(where(~sum(!is.na(.x)) > 0))
 
-  combinedFeatures = targetF %>% right_join(uniqueF)
+  combinedFeatures = targetF %>% suppressMessages(right_join(uniqueF))
 
   if(nrow(combinedFeatures) > length(chosenPh)){
     return("Not a natural class in this language.")

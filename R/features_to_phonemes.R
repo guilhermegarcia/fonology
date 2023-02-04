@@ -12,7 +12,6 @@ getPhon = function(ft = c(), lg = "Portuguese"){
 
   require(tidyverse, quietly = TRUE)
   require(gtools, quietly = TRUE)
-  suppressWarnings(suppressPackageStartupMessages(library(tidyverse)))
 
   # Pick one language to work with:
   portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.ɡ.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
