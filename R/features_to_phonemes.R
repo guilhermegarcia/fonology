@@ -36,10 +36,10 @@ getPhon = function(ft = c(), lg = "Portuguese"){
   fNames = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg"
 
   # Extract features:
-  features = str_extract_all(string = feat, pattern = fNames) %>% unlist()
+  features = str_extract_all(string = ft, pattern = fNames) %>% unlist()
 
   # Extract values:
-  values = str_extract_all(string = feat, pattern = "^[\\+\\-0]") %>% unlist()
+  values = str_extract_all(string = ft, pattern = "^[\\+\\-0]") %>% unlist()
 
   featuresIn = tibble(feature = features,
                       values = values) %>%
