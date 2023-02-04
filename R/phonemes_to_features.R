@@ -96,7 +96,7 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     summarize(across(.cols = all_of(all_cols), .fns = same)) %>%
     select(where(~sum(!is.na(.x)) > 0))
 
-  combinedFeatures = targetF %>% suppressMessages(right_join(uniqueF))
+  combinedFeatures = targetF %>% right_join(uniqueF)
 
   if(nrow(combinedFeatures) > length(chosenPh)){
     return("Not a natural class in this language.")
