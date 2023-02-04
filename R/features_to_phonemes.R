@@ -13,7 +13,7 @@ getPhon = function(ft = c(), lg = "Portuguese"){
   require(tidyverse)
   require(gtools)
 
-  load("data/sysdata.rda")
+  load("data/allFeatures.rda")
 
   # Pick one language to work with:
   portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.ɡ.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
