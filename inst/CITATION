@@ -5,7 +5,6 @@ citEntry(
   title    = "Fonology: an R package for segmental phonology",
   author   = "Garcia, Guilherme D",
   year     = 2023,
-  note     = "Available at https://github.com/guilhermegarcia/fonology"
   url      = "https://github.com/guilhermegarcia/fonology",
   textVersion = paste("Garcia, Guilherme D. (2023). Fonology: an R package for segmental phonology. Available at https://github.com/guilhermegarcia/fonology"
 
