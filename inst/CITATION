@@ -1,16 +1,9 @@
-citHeader("To cite Fonology in publications use:")
+citHeader("To cite Fonology in publications, use:")
 
 citEntry(
-  entry    = "R Package",
+  entry    = "manual",
   title    = "Fonology",
-  author   = "Guilherme D. Garcia",
-  journal  = ,
+  author   = "Garcia, Guilherme D",
   year     = 2023,
-  volume   = ,
-  number   = ,
-  pages    = ,
   url      = "https://github.com/guilhermegarcia/fonology",
-  textVersion = paste(
-
-  )
 )
