@@ -1,6 +1,16 @@
+#' Syllabifier for Portuguese
+#'
+#' Returns syllabification for a given string
+#' @param word The string of interest using IPA phonemic transcription
+#' @return The syllabification for the string in question
+#' @examples
+#' syllabify_pt(word = "komputadoɾ");
+#' @export
+
 syllabify_pt = function(word = ""){
 
-  source("R/transcribe_pt.R")
+  if (!require("pacman")) install.packages("pacman")
+  pacman::p_load(tidyverse)
 
   # Start with CV:
   word = str_replace_all(string = word,

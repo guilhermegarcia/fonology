@@ -8,12 +8,13 @@
 #' @examples
 #' ipa_pt(word = "palado);
 #' @export
+
 ipa_pt = function(word = ""){
 
-  source("R/stress_pt.R")
+  if (!require("pacman")) install.packages("pacman")
+  pacman::p_load(tidyverse)
 
   wd = str_to_lower(word)
-  load("data/pt_lex.rda")
 
   # Check if word is in PSL:
   # If yes, pick pro column

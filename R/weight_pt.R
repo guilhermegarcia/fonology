@@ -1,4 +1,16 @@
+#' Syllable weight labeller
+#'
+#' Labels a given string according to its weight profile using Ls and Hs
+#' @param word The string of interest using IPA phonemic transcription, already syllabified and stressed
+#' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
+#' @examples
+#' weight_pt(word = "kom.pu.ta.'doɾ");
+#' @export
+
 weight_pt = function(word = ""){
+
+  if (!require("pacman")) install.packages("pacman")
+  pacman::p_load(tidyverse)
 
   # Remove stress
   word = str_remove_all(string = word,

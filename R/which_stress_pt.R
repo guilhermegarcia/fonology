@@ -1,4 +1,15 @@
+#' Stress labeller for Portuguese
+#'
+#' Labels a given stressed string as follows: Final, Penult, Antepenult
+#' @param word The string of interest using IPA phonemic transcription, already syllabified and stressed
+#' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
+#' @examples
+#' weight_pt(word = "kom.pu.ta.'doɾ");
+#' @export
+
 which_stress_pt = function(word = ""){
+  if (!require("pacman")) install.packages("pacman")
+  pacman::p_load(tidyverse)
 
   word = str_split(string = word,
                    pattern = "\\.") %>%
