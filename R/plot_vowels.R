@@ -9,7 +9,9 @@
 #' @export
 
 plotVowels = function(lg = "English"){
-require(tidyverse)
+
+  if (!require("pacman")) install.packages("pacman")
+  pacman::p_load(tidyverse)
 
   # Tex file:
   texOutput = "\\documentclass[12pt, letterpaper]{article}
