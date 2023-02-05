@@ -6,7 +6,7 @@
 #' @param word A possible string in Portuguese in its orthographic form
 #' @return The phonemic transcription for the string in question
 #' @examples
-#' ipa_pt(word = "palado);
+#' ipa_pt(word = "palado");
 #' @export
 
 ipa_pt = function(word = ""){
