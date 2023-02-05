@@ -6,4 +6,7 @@ citEntry(
   author   = "Garcia, Guilherme D",
   year     = 2023,
   url      = "https://github.com/guilhermegarcia/fonology",
+  textVersion = paste(
+
+  )
 )
