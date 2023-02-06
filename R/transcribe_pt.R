@@ -54,7 +54,10 @@ transcribe_pt = function(word = ""){
                       pattern = "c([ei])",
                       replacement = "s\\1")
 
-
+  # C before other consonant
+  word = str_replace_all(word,
+                         pattern = "c([pbtdkgszfvʃʒʎɲmnlr])",
+                         replacement = "k\\1")
 
   # [R
   word = str_replace_all(word,
@@ -76,6 +79,10 @@ transcribe_pt = function(word = ""){
                       replacement = "\\1ɛr")
 
   # X
+  word = str_replace_all(word,
+                         pattern = "^x",
+                         replacement = "ʃ")
+
   word = str_replace_all(word,
                       pattern = "([aeiou])x([aeiou])",
                       replacement = "\\1z\\2")
