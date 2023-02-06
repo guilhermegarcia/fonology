@@ -24,8 +24,9 @@ syllabify_pt = function(word = ""){
 
   # Fix onset clusteres:
   word = str_replace_all(string = word,
-                      pattern = "\\.([lmnɾskp])([pbtdkgsɾzfvʃʒʎɲmn])",
+                      pattern = "\\.([lmnɾskp])([pbtdkgsxzfvʃʒʎɲmn])",
                       replacement = "\\1.\\2")
+
 
   # Remove empty final syllables:
   word = str_remove_all(string = word,
@@ -35,6 +36,11 @@ syllabify_pt = function(word = ""){
   word = str_replace_all(string = word,
                       pattern = "\\.([pbtdkgszfvʃʒʎlmnɾs])$",
                       replacement = "\\1")
+
+  # Fix voicing
+  word = str_replace_all(string = word,
+                         pattern = "s(\\.[mnl])",
+                         replacement = "z\\1")
 
   return(word)
 
