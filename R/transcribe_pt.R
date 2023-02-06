@@ -12,8 +12,13 @@ transcribe_pt = function(word = ""){
   pacman::p_load(tidyverse)
 
   word = str_replace_all(word,
-                      pattern = "gui",
-                      replacement = "gi")
+                         pattern = "(gu)([aeoéáóêô]n)",
+                         replacement = "gw\\2")
+
+    word = str_replace_all(word,
+                      pattern = "gu([ei])",
+                      replacement = "g\\1")
+
 
   word = str_replace_all(word,
                       pattern = "qu(en|a)",
@@ -23,6 +28,32 @@ transcribe_pt = function(word = ""){
                       pattern = "qu([ieoéóôê])",
                       replacement = "k\\1")
 
+
+  # Diacritics
+  word = str_replace_all(word,
+                         pattern = "á",
+                         replacement = "a")
+
+
+  word = str_replace_all(word,
+                         pattern = "ê",
+                         replacement = "e")
+
+  word = str_replace_all(word,
+                         pattern = "ê",
+                         replacement = "e")
+
+  word = str_replace_all(word,
+                         pattern = "í",
+                         replacement = "i")
+
+  word = str_replace_all(word,
+                         pattern = "ô",
+                         replacement = "o")
+
+  word = str_replace_all(word,
+                         pattern = "ú",
+                         replacement = "u")
 
 
   # Intervocalic S
@@ -72,6 +103,7 @@ transcribe_pt = function(word = ""){
   word = str_replace_all(word,
                       pattern = "ó",
                       replacement = "ɔ")
+
 
   # Subjunctive (future; 2nd group; irregulars)
   word = str_replace_all(word,
