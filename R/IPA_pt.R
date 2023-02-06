@@ -23,10 +23,11 @@ ipa_pt = function(word = ""){
       filter(word == wd) %>%
       slice(1) %>%
       pull(pro)
+    temp = str_c("/", temp, "/")
 
     return(temp)
 
-  # If not, run functions:
+    # If not, run functions:
 
   } else {
 
@@ -34,20 +35,23 @@ ipa_pt = function(word = ""){
       transcribe_pt() %>%
       syllabify_pt()
 
-  # Feed probabilistic patterns in lexicon:
+    # Feed probabilistic patterns in lexicon:
     weight = weight_pt(wd)
 
     if(weight %in% c("HLL", "LLL")){
       wd %>% apu_candidates() %>%
-        return()
+        str_c("/", ., "/")
+      return()
 
     } else if(weight %in% c("LLH", "LH")){
       wd %>% pu_candidates() %>%
+        str_c("/", ., "/") %>%
         return()
 
-      } else {
+    } else {
       wd %>%
         stress_pt() %>%
+        str_c("/", ., "/") %>%
         return()
     }
   }
