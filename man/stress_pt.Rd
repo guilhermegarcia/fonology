@@ -2,7 +2,7 @@
 % Please edit documentation in R/stress_pt.R
 \name{stress_pt}
 \alias{stress_pt}
-\title{Stress assigner for Portuguese}
+\title{Functions to assign stress to Portuguese words}
 \usage{
 stress_pt(word = "")
 }
@@ -13,7 +13,7 @@ stress_pt(word = "")
 The stressed version of the string in question
 }
 \description{
-Assigns stress to a given string
+Assigns stress to a given string.
 }
 \examples{
 stress_pt(word = "kom.pu.ta.doɾ");

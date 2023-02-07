@@ -1,4 +1,4 @@
-#' Word transcriber for Portuguese
+#' IPA transcriber for Portuguese
 #'
 #' Given a string, the function returns its IPA transcription with stress and syllabification.
 #' Stress is assigned on the basis of the Portuguese Stress Lexicon for existing words, or lexical regularities

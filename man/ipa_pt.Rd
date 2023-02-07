@@ -2,7 +2,7 @@
 % Please edit documentation in R/IPA_pt.R
 \name{ipa_pt}
 \alias{ipa_pt}
-\title{Word transcriber for Portuguese}
+\title{IPA transcriber for Portuguese}
 \usage{
 ipa_pt(word = "")
 }

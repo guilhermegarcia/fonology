@@ -1,6 +1,6 @@
-#' Stress assigner for Portuguese
+#' Functions to assign stress to Portuguese words
 #'
-#' Assigns stress to a given string
+#' Assigns stress to a given string.
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
 #' @return The stressed version of the string in question
 #' @examples
@@ -36,6 +36,53 @@ stress_pt = function(word = ""){
 }
 
 
+
+antSyl = function(word = ""){
+
+  syllables = word %>%
+    transcribe_pt() %>%
+    syllabify_pt() %>%
+    str_split(pattern = "\\.") %>%
+    unlist() %>%
+    rev()
+
+  if(length(syllables) > 2){
+    return(syllables[3])
+  } else {
+    return(NA)
+  }
+
+}
+
+penSyl = function(word = ""){
+
+  syllables = word %>%
+    transcribe_pt() %>%
+    syllabify_pt() %>%
+    str_split(pattern = "\\.") %>%
+    unlist() %>%
+    rev()
+
+  if(length(syllables) > 1){
+    return(syllables[2])
+  } else {
+    return(NA)
+  }
+}
+
+
+finSyl = function(word = ""){
+
+  syllables = word %>%
+    transcribe_pt() %>%
+    syllabify_pt() %>%
+    str_split(pattern = "\\.") %>%
+    unlist() %>%
+    rev()
+
+  return(syllables[1])
+}
+
 pu_candidates = function(word = ""){
 
   c1 = str_replace(string = word,
@@ -47,12 +94,19 @@ pu_candidates = function(word = ""){
                    replacement = "\\1'\\2")
 
   candidates = c(c1, c2)
-  winner = sample(candidates, size = 1, prob = c(0.25, 0.75))
+
+  finalSegment = str_sub(string = word, start = -1L, end = -1L)
+  if(finalSegment %in% c("l", "m")){
+    winner = sample(candidates, size = 1, prob = c(0.4, 0.6))
+  } else if(finalSegment %in% c("s")){
+    winner = sample(candidates, size = 1, prob = c(0.1, 0.9))
+  } else {
+    winner = sample(candidates, size = 1, prob = c(0.02, 0.98))
+  }
 
   return(winner)
 
 }
-
 
 apu_candidates = function(word = ""){
 
