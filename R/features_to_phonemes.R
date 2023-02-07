@@ -13,6 +13,27 @@ getPhon = function(ft = c(), lg = "Portuguese"){
   require(tidyverse, quietly = TRUE)
   require(gtools, quietly = TRUE)
 
+  features = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg"
+
+  plusFt = str_split(features, pattern = "\\|") %>% unlist() %>% str_c("+", .)
+  minusFt = str_split(features, pattern = "\\|") %>% unlist() %>% str_c("-", .)
+  zeroFt = str_split(features, pattern = "\\|") %>% unlist() %>% str_c("0", .)
+
+  ftCombs = c(plusFt, minusFt, zeroFt)
+
+  checkFt = ft %in% ftCombs
+
+  if(sum(checkFt) != length(checkFt)){
+    stop("Incorrect feature. Type ?getPhon to see which features are allowed.")
+  }
+
+  availableLg = c("portuguese", "french", "english")
+
+  if(!str_to_lower(lg) %in% availableLg){
+    stop("Language not supported (or misspelled).")
+  }
+
+
   # Pick one language to work with:
   portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.ɡ.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
     str_split(pattern = "\\.") %>%
