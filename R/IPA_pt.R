@@ -11,7 +11,7 @@
 
 ipa_pt = function(word = ""){
 
-  if(!require("pacman")){install.packages("pacman")}
+  if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
   wd = str_to_lower(word)
