@@ -9,7 +9,7 @@
 
 weight_pt = function(word = ""){
 
-  if (!require("pacman")) install.packages("pacman")
+  if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
   # Remove stress

@@ -40,7 +40,7 @@ ipa_pt = function(word = ""){
 
     if(weight %in% c("HLL", "LLL")){
       wd %>% apu_candidates() %>%
-        str_c("/", ., "/")
+        str_c("/", ., "/") %>%
       return()
 
     } else if(weight %in% c("LLH", "LH")){
