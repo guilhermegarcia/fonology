@@ -7,7 +7,7 @@
 getPhon(ft = c(), lg = "Portuguese")
 }
 \arguments{
-\item{ft}{The abbreviated features of interest}
+\item{ft}{The abbreviated features of interest, defined as syl, son, cons, cont, DR, lat, nas, strid, vce, sg, cg, ant, cor, distr, lab, hi, lo, back, round, vel, tense, long, hitone, hireg}
 
 \item{lg}{The language of interest}
 }
@@ -15,7 +15,7 @@ getPhon(ft = c(), lg = "Portuguese")
 The phonemes given the features provided
 }
 \description{
-Returns a set of phonemes given different distinctive feature values. Feature abbreviations: syl, son, cons, cont, DR, lat, nas, strid, vce, sg, cg, ant, cor, distr, lab, hi, lo, back, round, vel, tense, long, hitone, hireg
+Returns a set of phonemes given different distinctive feature values.
 }
 \examples{
 getFeat(ft = c("+hi", "+tense"), lg = "english");
