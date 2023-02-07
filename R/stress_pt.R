@@ -9,7 +9,7 @@
 
 stress_pt = function(word = ""){
 
-  if (!require("pacman")) install.packages("pacman")
+  if(!require("pacman")){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
   # Stress is final if word ends in consonant, diph OR high vowel (Tupi):
