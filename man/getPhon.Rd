@@ -9,7 +9,7 @@ getPhon(ft = c(), lg = "Portuguese")
 \arguments{
 \item{ft}{The abbreviated features of interest: syl, son, cons, cont, DR, lat, nas, strid, vce, sg, cg, ant, cor, distr, lab, hi, lo, back, round, vel, tense, long, hitone, hireg}
 
-\item{lg}{The language of interest: English, French, Portuguese}
+\item{lg}{The language of interest: English, French, Portuguese, Spanish}
 }
 \value{
 The phonemes given the features provided

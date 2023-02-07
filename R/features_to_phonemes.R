@@ -2,7 +2,7 @@
 #'
 #' Returns a set of phonemes given different distinctive feature values.
 #' @param ft The abbreviated features of interest: syl, son, cons, cont, DR, lat, nas, strid, vce, sg, cg, ant, cor, distr, lab, hi, lo, back, round, vel, tense, long, hitone, hireg
-#' @param lg The language of interest: English, French, Portuguese
+#' @param lg The language of interest: English, French, Portuguese, Spanish
 #' @return The phonemes given the features provided
 #' @examples
 #' getFeat(ft = c("+hi", "+tense"), lg = "english");
@@ -24,10 +24,10 @@ getPhon = function(ft = c(), lg = "Portuguese"){
   checkFt = ft %in% ftCombs
 
   if(sum(checkFt) != length(checkFt)){
-    stop("Incorrect feature. Type ?getPhon to see which features are allowed.")
+    stop("Incorrect feature. Type ?getPhon to see which features are allowed. All features must be immediately preceded by +, -, or 0.")
   }
 
-  availableLg = c("portuguese", "french", "english")
+  availableLg = c("portuguese", "french", "english", "spanish")
 
   if(!str_to_lower(lg) %in% availableLg){
     stop("Language not supported (or misspelled).")
@@ -35,7 +35,7 @@ getPhon = function(ft = c(), lg = "Portuguese"){
 
 
   # Pick one language to work with:
-  portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.ɡ.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
+  portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
     str_split(pattern = "\\.") %>%
     unlist()
 
@@ -43,7 +43,11 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     str_split(pattern = "\\.") %>%
     unlist()
 
-  english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.v.t.d.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
+  english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.v.t.d.k.g.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
+    str_split(pattern = "\\.") %>%
+    unlist()
+
+  spanish = c("a.e.ɑ.i.o.u.p.b.f.v.t.d.k.g.s.z.t͡ʃ.θ.m.ɲ.w.j.l.r.ɾ.ʎ.x.ʝ") %>%
     str_split(pattern = "\\.") %>%
     unlist()
 
