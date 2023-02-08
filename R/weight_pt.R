@@ -14,7 +14,7 @@ weight_pt = function(word = ""){
 
   # Remove stress
   word = str_remove_all(string = word,
-                 pattern = "'")
+                 pattern = "ˈ")
 
 
   # Light syllables

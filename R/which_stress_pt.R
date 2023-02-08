@@ -4,7 +4,7 @@
 #' @param word The string of interest using IPA phonemic transcription, already syllabified and stressed
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 #' @examples
-#' weight_pt(word = "kom.pu.ta.'doɾ");
+#' weight_pt(word = "kom.pu.ta.ˈdoɾ");
 #' @export
 
 which_stress_pt = function(word = ""){
@@ -14,7 +14,7 @@ which_stress_pt = function(word = ""){
   word = str_split(string = word,
                    pattern = "\\.") %>%
     unlist() %>%
-    str_detect("'")
+    str_detect("ˈ")
 
   if(word[length(word)] == TRUE){
     return("Final")
