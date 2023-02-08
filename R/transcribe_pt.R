@@ -111,6 +111,11 @@ transcribe_pt = function(word = ""){
                       replacement = "\\1ɛr")
 
   # X
+
+  word = str_replace(word,
+                     pattern = "x$",
+                     replacement = "ks")
+
   word = str_replace_all(word,
                          pattern = "^x",
                          replacement = "ʃ")
@@ -236,3 +241,15 @@ transcribe_pt = function(word = ""){
   return(word)
 
 }
+
+transcribe_pt("peixe")
+transcribe_pt("laixa")
+transcribe_pt("laxa")
+transcribe_pt("enxobre")
+transcribe_pt("expobre")
+transcribe_pt("exopido")
+transcribe_pt("xopido")
+transcribe_pt("sexta")
+transcribe_pt("lixo")
+transcribe_pt("fixo")
+transcribe_pt("forax") %>% syllabify_pt()
