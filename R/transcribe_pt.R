@@ -116,8 +116,47 @@ transcribe_pt = function(word = ""){
                          replacement = "ʃ")
 
   word = str_replace_all(word,
-                      pattern = "([aeiou])x([aeiou])",
+                         pattern = "([pbtdkgszfvʃʒʎɲmnlr][a])x([a])",
+                         replacement = "\\1ʃ\\2")
+
+  word = str_replace_all(word,
+                         pattern = "(^[a])x([a])",
+                         replacement = "\\1ʃ\\2")
+
+
+  word = str_replace_all(word,
+                         pattern = "([pbtdkgszfvʃʒʎɲmnlr][i])x([o])",
+                         replacement = "\\1ʃ\\2")
+
+  word = str_replace_all(word,
+                         pattern = "(^[i])x([o])",
+                         replacement = "\\1ʃ\\2")
+
+  word = str_replace_all(word,
+                         pattern = "([pbtdkgszfvʃʒʎɲmnlr][o])x([u])",
+                         replacement = "\\1ʃ\\2")
+
+  word = str_replace_all(word,
+                         pattern = "(^[o])x([u])",
+                         replacement = "\\1ʃ\\2")
+
+  word = str_replace_all(word,
+                         pattern = "([pbtdkgszfvʃʒʎɲmnlr][u])x([a]])",
+                         replacement = "\\1ʃ\\2")
+
+  word = str_replace_all(word,
+                         pattern = "(^[u])x([a]])",
+                         replacement = "\\1ʃ\\2")
+
+
+  word = str_replace_all(word,
+                      pattern = "([pbtdkgszfvʃʒʎɲmnlr][aeiou])x([aeiou])",
                       replacement = "\\1z\\2")
+
+  word = str_replace_all(word,
+                         pattern = "(^[aeiou])x([aeiou])",
+                         replacement = "\\1z\\2")
+
 
   word = str_replace_all(word,
                       pattern = "([aeiou])x([pbtdkgmn])",
@@ -185,7 +224,14 @@ transcribe_pt = function(word = ""){
   # Adjust x in diphthongs:
   word = str_replace_all(word,
                       pattern = "([aeiou])([wj])x",
-                      replacement = "\\1\\2s")
+                      replacement = "\\1\\2ʃ")
+
+  # Adjust x after n:
+  word = str_replace_all(word,
+                         pattern = "([aeiou])([n])x",
+                         replacement = "\\1\\2ʃ")
+
+
 
   return(word)
 
