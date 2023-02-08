@@ -12,26 +12,36 @@ stress_pt = function(word = ""){
   if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
-  # Stress is final if word ends in consonant, diph OR high vowel (Tupi):
-  word = str_replace_all(string = word,
-                         pattern = "\\.(\\w+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃])$",
-                         replacement = ".ˈ\\1")
+  if(str_detect(string = word, pattern = "\\.\\w+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃]$")){
+    # Stress is final if word ends in consonant, diph OR high vowel (Tupi):
+    word = str_replace_all(string = word,
+                           pattern = "\\.(\\w+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃])$",
+                           replacement = ".ˈ\\1")
 
-  word = str_replace_all(string = word,
-                         pattern = "^(\\w*)$",
-                         replacement = "ˈ\\1")
+    word = str_replace_all(string = word,
+                           pattern = "^(\\w*)$",
+                           replacement = "ˈ\\1")
 
-  # Stress is antepenultimate if vowel is open:
-  word = str_replace_all(string = word,
-                         pattern = "(\\w*[ɔɛ]\\w*)(\\.\\w*\\.\\w*$)",
-                         replacement = "ˈ\\1\\2")
+    return(word)
 
-  # Else, penultimate stress:
-  word = str_replace_all(string = word,
-                         pattern = "(\\w+)(\\.\\w+)$",
-                         replacement = "ˈ\\1\\2")
+  } else if(str_detect(string = word, pattern = "\\w*[ɔɛ]\\w*\\.\\w*\\.\\w*$")) {
 
-  return(word)
+    # Stress is antepenultimate if vowel is open:
+    word = str_replace_all(string = word,
+                           pattern = "(\\w*[ɔɛ]\\w*)(\\.\\w*\\.\\w*$)",
+                           replacement = "ˈ\\1\\2")
+    return(word)
+  } else {
+
+    # Else, penultimate stress:
+    word = str_replace_all(string = word,
+                           pattern = "(\\w+)(\\.\\w+)$",
+                           replacement = "ˈ\\1\\2")
+
+    return(word)
+
+  }
+
 
 }
 
@@ -71,49 +81,49 @@ sec_stress_pt = function(word = ""){
       return()
   } else
 
-  # Penultimate stress
-  if(mainStressPosition == 2 & nSyl > 3 & nSyl %% 2 == 0){
-    # Assign secondary stress to every other syllable starting at 3rd syllable R-L
-    split_word = str_split(word, "\\.") %>% unlist() %>% rev()
+    # Penultimate stress
+    if(mainStressPosition == 2 & nSyl > 3 & nSyl %% 2 == 0){
+      # Assign secondary stress to every other syllable starting at 3rd syllable R-L
+      split_word = str_split(word, "\\.") %>% unlist() %>% rev()
 
-    stressed_word = c()
+      stressed_word = c()
 
-    for(i in seq(from = 1, to = nSyl)){
-      if(i %in% seq(from = 4, to = nSyl, by = 2)){
-        stressed_word[length(stressed_word) + 1] = str_c("ˌ", split_word[i])
-      } else {
-        stressed_word[length(stressed_word) + 1] = split_word[i]
+      for(i in seq(from = 1, to = nSyl)){
+        if(i %in% seq(from = 4, to = nSyl, by = 2)){
+          stressed_word[length(stressed_word) + 1] = str_c("ˌ", split_word[i])
+        } else {
+          stressed_word[length(stressed_word) + 1] = split_word[i]
+        }
       }
-    }
 
-    stressed_word %>%
-      rev() %>%
-      str_c(collapse = ".") %>%
-      return()
-  } else
+      stressed_word %>%
+        rev() %>%
+        str_c(collapse = ".") %>%
+        return()
+    } else
 
-  # Antepenultimate stress
-  if(mainStressPosition == 3 & nSyl > 4 & nSyl %% 2 != 0){
-    # Assign secondary stress to every other syllable starting at 3rd syllable R-L
-    split_word = str_split(word, "\\.") %>% unlist() %>% rev()
+      # Antepenultimate stress
+      if(mainStressPosition == 3 & nSyl > 4 & nSyl %% 2 != 0){
+        # Assign secondary stress to every other syllable starting at 3rd syllable R-L
+        split_word = str_split(word, "\\.") %>% unlist() %>% rev()
 
-    stressed_word = c()
+        stressed_word = c()
 
-    for(i in seq(from = 1, to = nSyl)){
-      if(i %in% seq(from = 5, to = nSyl, by = 2)){
-        stressed_word[length(stressed_word) + 1] = str_c("ˌ", split_word[i])
+        for(i in seq(from = 1, to = nSyl)){
+          if(i %in% seq(from = 5, to = nSyl, by = 2)){
+            stressed_word[length(stressed_word) + 1] = str_c("ˌ", split_word[i])
+          } else {
+            stressed_word[length(stressed_word) + 1] = split_word[i]
+          }
+        }
+
+        stressed_word %>%
+          rev() %>%
+          str_c(collapse = ".") %>%
+          return()
       } else {
-        stressed_word[length(stressed_word) + 1] = split_word[i]
+        return(word)
       }
-    }
-
-    stressed_word %>%
-      rev() %>%
-      str_c(collapse = ".") %>%
-      return()
-  } else {
-    return(word)
-  }
 
 
 }
