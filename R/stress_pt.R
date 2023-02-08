@@ -15,26 +15,108 @@ stress_pt = function(word = ""){
   # Stress is final if word ends in consonant, diph OR high vowel (Tupi):
   word = str_replace_all(string = word,
                          pattern = "\\.(\\w+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃])$",
-                         replacement = ".'\\1")
+                         replacement = ".ˈ\\1")
 
   word = str_replace_all(string = word,
                          pattern = "^(\\w*)$",
-                         replacement = "'\\1")
+                         replacement = "ˈ\\1")
 
   # Stress is antepenultimate if vowel is open:
   word = str_replace_all(string = word,
                          pattern = "(\\w*[ɔɛ]\\w*)(\\.\\w*\\.\\w*$)",
-                         replacement = "'\\1\\2")
+                         replacement = "ˈ\\1\\2")
 
   # Else, penultimate stress:
   word = str_replace_all(string = word,
                          pattern = "(\\w+)(\\.\\w+)$",
-                         replacement = "'\\1\\2")
+                         replacement = "ˈ\\1\\2")
 
   return(word)
 
 }
 
+sec_stress_pt = function(word = ""){
+
+  # Tokenize input and get stress position:
+  mainStressPosition = word %>%
+    stress_pt() %>%
+    str_split(pattern = "\\.") %>%
+    unlist() %>%
+    str_detect("ˈ") %>%
+    rev() %>%
+    which(isTRUE(.))
+
+  # Number of syllables:
+  nSyl = word %>%
+    str_count(pattern = "\\.") + 1
+
+  # Final stress if odd number of syllables:
+  if(mainStressPosition == 1 & nSyl > 2 & nSyl %% 2 != 0){
+    # Assign secondary stress to every other syllable starting at 3rd syllable R-L
+    split_word = str_split(word, "\\.") %>% unlist() %>% rev()
+
+    stressed_word = c()
+
+    for(i in seq(from = 1, to = nSyl)){
+      if(i %in% seq(from = 3, to = nSyl, by = 2)){
+        stressed_word[length(stressed_word) + 1] = str_c("ˌ", split_word[i])
+      } else {
+        stressed_word[length(stressed_word) + 1] = split_word[i]
+      }
+    }
+
+    stressed_word %>%
+      rev() %>%
+      str_c(collapse = ".") %>%
+      return()
+  } else
+
+  # Penultimate stress
+  if(mainStressPosition == 2 & nSyl > 3 & nSyl %% 2 == 0){
+    # Assign secondary stress to every other syllable starting at 3rd syllable R-L
+    split_word = str_split(word, "\\.") %>% unlist() %>% rev()
+
+    stressed_word = c()
+
+    for(i in seq(from = 1, to = nSyl)){
+      if(i %in% seq(from = 4, to = nSyl, by = 2)){
+        stressed_word[length(stressed_word) + 1] = str_c("ˌ", split_word[i])
+      } else {
+        stressed_word[length(stressed_word) + 1] = split_word[i]
+      }
+    }
+
+    stressed_word %>%
+      rev() %>%
+      str_c(collapse = ".") %>%
+      return()
+  } else
+
+  # Antepenultimate stress
+  if(mainStressPosition == 3 & nSyl > 4 & nSyl %% 2 != 0){
+    # Assign secondary stress to every other syllable starting at 3rd syllable R-L
+    split_word = str_split(word, "\\.") %>% unlist() %>% rev()
+
+    stressed_word = c()
+
+    for(i in seq(from = 1, to = nSyl)){
+      if(i %in% seq(from = 5, to = nSyl, by = 2)){
+        stressed_word[length(stressed_word) + 1] = str_c("ˌ", split_word[i])
+      } else {
+        stressed_word[length(stressed_word) + 1] = split_word[i]
+      }
+    }
+
+    stressed_word %>%
+      rev() %>%
+      str_c(collapse = ".") %>%
+      return()
+  } else {
+    return(word)
+  }
+
+
+}
 
 
 antSyl = function(word = ""){
@@ -87,11 +169,11 @@ pu_candidates = function(word = ""){
 
   c1 = str_replace(string = word,
                    pattern = "(\\w+\\.\\w+$)",
-                   replacement = "'\\1")
+                   replacement = "ˈ\\1")
 
   c2 = str_replace(string = word,
                    pattern = "(\\w+\\.)(\\w+$)",
-                   replacement = "\\1'\\2")
+                   replacement = "\\1ˈ\\2")
 
   candidates = c(c1, c2)
 
@@ -112,11 +194,11 @@ apu_candidates = function(word = ""){
 
   c1 = str_replace(string = word,
                    pattern = "(\\w+\\.\\w+\\.\\w+$)",
-                   replacement = "'\\1")
+                   replacement = "ˈ\\1")
 
   c2 = str_replace(string = word,
                    pattern = "(\\w+\\.)(\\w+\\.\\w+$)",
-                   replacement = "\\1'\\2")
+                   replacement = "\\1ˈ\\2")
 
   candidates = c(c1, c2)
   winner = sample(candidates, size = 1, prob = c(0.2, 0.8))

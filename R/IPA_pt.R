@@ -22,7 +22,9 @@ ipa_pt = function(word = ""){
     temp = pt_lex %>%
       filter(word == wd) %>%
       slice(1) %>%
-      pull(pro)
+      pull(pro) %>%
+      sec_stress_pt()
+
     temp = str_c("/", temp, "/")
 
     return(temp)
@@ -40,17 +42,20 @@ ipa_pt = function(word = ""){
 
     if(weight %in% c("HLL", "LLL")){
       wd %>% apu_candidates() %>%
+        sec_stress_pt() %>%
         str_c("/", ., "/") %>%
       return()
 
     } else if(weight %in% c("LLH", "LH")){
       wd %>% pu_candidates() %>%
+        sec_stress_pt() %>%
         str_c("/", ., "/") %>%
         return()
 
     } else {
       wd %>%
         stress_pt() %>%
+        sec_stress_pt() %>%
         str_c("/", ., "/") %>%
         return()
     }

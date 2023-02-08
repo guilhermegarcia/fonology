@@ -2,7 +2,7 @@
 #'
 #' Generates a feature matrix for a given set of phonemes in a given language
 #' @param ph The phonemes of interest
-#' @param lg The language of interest
+#' @param lg The language of interest: English, French, Portuguese, Spanish
 #' @return The minimal matrix of features given ph and lg
 #' @examples
 #' getFeat(ph = c("i", "u"), lg = "english");
@@ -45,8 +45,19 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     str_split(pattern = "\\.") %>%
     unlist()
 
+  spanish = c("a.e.ɑ.i.o.u.p.b.f.v.t.d.k.g.s.z.t͡ʃ.θ.m.ɲ.w.j.l.r.ɾ.ʎ.x.ʝ") %>%
+    str_split(pattern = "\\.") %>%
+    unlist()
+
   # Select language:
   targetLanguage = eval(parse(text = str_to_lower(lg)))
+
+
+  availableLg = c("portuguese", "french", "english", "spanish")
+
+  if(!str_to_lower(lg) %in% availableLg){
+    stop("Language not supported (or misspelled).")
+  }
 
   # Select features for phonemes:
   targetF = allFeatures %>%
