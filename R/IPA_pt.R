@@ -20,16 +20,13 @@ ipa_pt = function(word = ""){
   # If yes, pick pro column
   if(wd %in% pt_lex$word){
 
-    temp = pt_lex %>%
+    pt_lex %>%
       filter(word == wd) %>%
       slice(1) %>%
       pull(pro) %>%
       str_replace(pattern = "'", replacement = "ˈ") %>%
-      sec_stress_pt()
-
-    temp = str_c("/", temp, "/")
-
-    return(temp)
+      sec_stress_pt() %>%
+      return()
 
     # If not, run functions:
 
@@ -45,20 +42,20 @@ ipa_pt = function(word = ""){
     if(weight %in% c("HLL", "LLL")){
       wd %>% apu_candidates() %>%
         sec_stress_pt() %>%
-        str_c("/", ., "/") %>%
+        # str_c("/", ., "/") %>%
       return()
 
     } else if(weight %in% c("LLH", "LH")){
       wd %>% pu_candidates() %>%
         sec_stress_pt() %>%
-        str_c("/", ., "/") %>%
+        # str_c("/", ., "/") %>%
         return()
 
     } else {
       wd %>%
         stress_pt() %>%
         sec_stress_pt() %>%
-        str_c("/", ., "/") %>%
+        # str_c("/", ., "/") %>%
         return()
     }
   }
