@@ -19,10 +19,12 @@ ipa_pt = function(word = ""){
   # Check if word is in PSL:
   # If yes, pick pro column
   if(wd %in% pt_lex$word){
+
     temp = pt_lex %>%
       filter(word == wd) %>%
       slice(1) %>%
       pull(pro) %>%
+      str_replace(pattern = "'", replacement = "ˈ") %>%
       sec_stress_pt()
 
     temp = str_c("/", temp, "/")
