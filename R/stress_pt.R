@@ -61,7 +61,7 @@ sec_stress_pt = function(word = ""){
     str_count(pattern = "\\.") + 1
 
   # Final stress if odd number of syllables:
-  if(mainStressPosition == 1 & nSyl > 2 & nSyl %% 2 != 0){
+  if(mainStressPosition == 1 & nSyl > 2){
     # Assign secondary stress to every other syllable starting at 3rd syllable R-L
     split_word = str_split(word, "\\.") %>% unlist() %>% rev()
 
@@ -82,7 +82,7 @@ sec_stress_pt = function(word = ""){
   } else
 
     # Penultimate stress
-    if(mainStressPosition == 2 & nSyl > 3 & nSyl %% 2 == 0){
+    if(mainStressPosition == 2 & nSyl > 3){
       # Assign secondary stress to every other syllable starting at 3rd syllable R-L
       split_word = str_split(word, "\\.") %>% unlist() %>% rev()
 
@@ -103,7 +103,7 @@ sec_stress_pt = function(word = ""){
     } else
 
       # Antepenultimate stress
-      if(mainStressPosition == 3 & nSyl > 4 & nSyl %% 2 != 0){
+      if(mainStressPosition == 3 & nSyl > 4){
         # Assign secondary stress to every other syllable starting at 3rd syllable R-L
         split_word = str_split(word, "\\.") %>% unlist() %>% rev()
 
