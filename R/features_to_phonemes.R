@@ -33,7 +33,6 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     stop("Language not supported (or misspelled).")
   }
 
-
   # Pick one language to work with:
   portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
     str_split(pattern = "\\.") %>%
@@ -43,14 +42,13 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     str_split(pattern = "\\.") %>%
     unlist()
 
-  english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.v.t.d.k.g.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
+  english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.k.g.v.t.d.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
     str_split(pattern = "\\.") %>%
     unlist()
 
   spanish = c("a.e.ɑ.i.o.u.p.b.f.v.t.d.k.g.s.z.t͡ʃ.θ.m.ɲ.w.j.l.r.ɾ.ʎ.x.ʝ") %>%
     str_split(pattern = "\\.") %>%
     unlist()
-
   # Select language:
   targetLanguage = eval(parse(text = str_to_lower(lg)))
 
