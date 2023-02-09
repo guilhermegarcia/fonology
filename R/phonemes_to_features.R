@@ -33,7 +33,7 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     select(ipa, syl, cons, son, approx, cont:hireg)
 
   # Pick one language to work with:
-  portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.ɡ.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
+  portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
     str_split(pattern = "\\.") %>%
     unlist()
 
@@ -41,7 +41,7 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     str_split(pattern = "\\.") %>%
     unlist()
 
-  english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.v.t.d.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
+  english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.k.g.v.t.d.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
     str_split(pattern = "\\.") %>%
     unlist()
 
