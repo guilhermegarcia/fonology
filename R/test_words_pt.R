@@ -29,6 +29,9 @@ test_pt = function(){
 
 
   for(i in 1:length(testWords)){
+
+    print(str_c(testWords[i], ":"))
+
     ipa_pt(testWords[i]) %>%
       print()
 
