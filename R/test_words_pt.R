@@ -7,8 +7,10 @@
 #' @export
 
 test_pt = function(){
-  require(Fonology)
-  require(tidyverse)
+  if(!require("pacman", quietly = T)){install.packages("pacman")}
+  pacman::p_load(tidyverse)
+
+  require(tidyverse, quietly = T)
 
   testWords = c("strada",
                 "cavalo",
