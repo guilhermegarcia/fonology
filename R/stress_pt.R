@@ -12,15 +12,21 @@ stress_pt = function(word = ""){
   if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
+  # If word is monosyllabic:
+  if(str_count(string = word,
+               pattern = "\\.") == 0){
+    word = str_replace_all(string = word,
+                           pattern = "^(\\w*)$",
+                           replacement = "ˈ\\1")
+    return(word)
+  }
+
   if(str_detect(string = word, pattern = "\\.\\w+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃]$")){
     # Stress is final if word ends in consonant, diph OR high vowel (Tupi):
     word = str_replace_all(string = word,
                            pattern = "\\.(\\w+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃])$",
                            replacement = ".ˈ\\1")
 
-    word = str_replace_all(string = word,
-                           pattern = "^(\\w*)$",
-                           replacement = "ˈ\\1")
 
     return(word)
 
@@ -45,11 +51,12 @@ stress_pt = function(word = ""){
 
 }
 
+# Secondary stress function
 sec_stress_pt = function(word = ""){
 
   # Tokenize input and get stress position:
   mainStressPosition = word %>%
-    stress_pt() %>%
+    # stress_pt() %>%
     str_split(pattern = "\\.") %>%
     unlist() %>%
     str_detect("ˈ") %>%

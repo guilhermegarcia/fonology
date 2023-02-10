@@ -16,5 +16,5 @@ The sequence of Ls and Hs based on the word's weight profile given the phonology
 Labels a given stressed string as follows: Final, Penult, Antepenult
 }
 \examples{
-weight_pt(word = "kom.pu.ta.'doɾ");
+weight_pt(word = "kom.pu.ta.ˈdoɾ");
 }

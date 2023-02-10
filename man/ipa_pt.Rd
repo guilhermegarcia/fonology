@@ -4,7 +4,7 @@
 \alias{ipa_pt}
 \title{IPA transcriber for Portuguese}
 \usage{
-ipa_pt(word = "")
+ipa_pt(word = "", narrow = F)
 }
 \arguments{
 \item{word}{A possible string in Portuguese in its orthographic form}

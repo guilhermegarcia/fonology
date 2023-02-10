@@ -9,55 +9,74 @@
 #' ipa_pt(word = "palado");
 #' @export
 
-ipa_pt = function(word = ""){
+ipa_pt = function(word = "", narrow = F){
 
   if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
   wd = str_to_lower(word)
 
+
   # Check if word is in PSL:
   # If yes, pick pro column
   if(wd %in% pt_lex$word){
 
-    pt_lex %>%
+    broadLex = pt_lex %>%
       filter(word == wd) %>%
       slice(1) %>%
       pull(pro) %>%
-      str_replace(pattern = "'", replacement = "ˈ") %>%
-      sec_stress_pt() %>%
-      return()
+      str_replace(pattern = "'", replacement = "ˈ")
 
-    # If not, run functions:
+    if(narrow == F){
+      broadLex %>%
+        return()
+
+    } else if(narrow == T){
+      broadLex %>%
+        narrow_pt() %>%
+        return()
+    }
+
 
   } else {
 
+    # If not, run functions:
+
+    # Broad transcription:
     wd = wd %>%
       transcribe_pt() %>%
       syllabify_pt()
 
-    # Feed probabilistic patterns in lexicon:
+    # Feed probabilistic patterns in lexicon (but only if word doesn't end in high V):
     weight = weight_pt(wd)
 
-    if(weight %in% c("HLL", "LLL")){
-      wd %>% apu_candidates() %>%
-        sec_stress_pt() %>%
-        # str_c("/", ., "/") %>%
-      return()
+    if(weight %in% c("HLL", "LLL") & str_detect(wd, pattern = "[^iu]$")){
+      wd = wd %>%
+        apu_candidates() %>%
+        dact_pt()
 
-    } else if(weight %in% c("LLH", "LH")){
-      wd %>% pu_candidates() %>%
-        sec_stress_pt() %>%
-        # str_c("/", ., "/") %>%
-        return()
+    } else if(weight %in% c("LLH", "LH", "HH", "LHH")){
+      wd =  wd %>%
+        pu_candidates() %>%
+        spond_pt()
+      # If stress is final and weight = (X)LH, e,o -> E,O
 
     } else {
+      wd = wd %>%
+        stress_pt()
+    }
+
+    # Check for narrow transcription:
+    if(narrow == T){
       wd %>%
-        stress_pt() %>%
-        sec_stress_pt() %>%
-        # str_c("/", ., "/") %>%
+        narrow_pt() %>%
+        return()
+    } else if (narrow == F){
+      wd %>%
         return()
     }
+
+
   }
 
 }
