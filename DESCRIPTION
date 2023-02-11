@@ -10,6 +10,8 @@ Description: The package currently contains functions to determine minimal matri
 License: MIT License
 Encoding: UTF-8
 LazyData: true
+VignetteBuilder: knitr
+Suggests: knitr, rmarkdown
 Depends: 
     R (>= 2.10)
 RoxygenNote: 7.2.3

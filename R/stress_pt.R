@@ -5,7 +5,6 @@
 #' @return The stressed version of the string in question
 #' @examples
 #' stress_pt(word = "kom.pu.ta.doɾ");
-#' @export
 
 stress_pt = function(word = ""){
 

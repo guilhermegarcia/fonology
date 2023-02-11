@@ -13,5 +13,5 @@ A list of words broadly and narrowly transcribed using ipa_pt
 Returns a list of words. No arguments needed.
 }
 \examples{
-;
+test_pt();
 }

@@ -5,7 +5,6 @@
 #' @return The IPA transcription of said string with surface-level adjustments
 #' @examples
 #' narrow_pt(word = "ˈpsi.ko");
-#' @export
 
 narrow_pt = function(word = ""){
   if (!require("pacman", quietly = T)){install.packages("pacman")}
@@ -30,14 +29,14 @@ narrow_pt = function(word = ""){
 
   # Palatalization:
   narrow = str_replace_all(narrow,
-                         pattern = "t([iɪ])",
-                         replacement = "t͡ʃ\\1")
+                           pattern = "t([iɪ])",
+                           replacement = "t͡ʃ\\1")
 
   narrow = str_replace_all(narrow,
                            pattern = "d([iɪ])",
                            replacement = "d͡ʒ\\1")
 
-    # Vowel devoicing word-finally after voiceless affricate:
+  # Vowel devoicing word-finally after voiceless affricate:
   narrow = str_replace(narrow,
                        pattern = "(t͡ʃ)ɪ$",
                        replacement = "\\1ɪ̥")

@@ -1,0 +1,90 @@
+---
+title: "Fonology package"
+author: "Guilherme D. Garcia | [gdgarcia.ca](https://gdgarcia.ca)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Fonology package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Distinctive features
+
+### From phonemes to features
+
+The function `getFeat()` requires a set of phonemes `ph` and a language `lg`. It outputs the minimal matrix of distinctive features for `ph` given the phonemic inventory of `lg`. Four languages are supported: English, French, Portuguese, and Spanish. Here are some examples.
+
+```{r, message=F}
+library(Fonology)
+
+getFeat(ph = c("i", "u"), lg = "English")
+getFeat(ph = c("i", "u"), lg = "French")
+getFeat(ph = c("i", "y", "u"), lg = "French")
+getFeat(ph = c("p", "b"), lg = "Portuguese")
+
+```
+
+### From features to phonemes
+
+The function `getPhon()` requires a feature matrix `ft` and a language `lg`. It outputs the set of phonemes represented by `ft` given the phonemic inventory of `lg`. The languages supported are the same as those supported by `getFeat()`.
+
+```{r, message=F}
+library(Fonology)
+
+getPhon(ft = c("+syl", "+hi"), lg = "French")
+getPhon(ft = c("-DR", "-cont", "-son"), lg = "English")
+getPhon(ft = c("-son", "+vce"), lg = "Spanish")
+
+```
+
+
+## IPA transcription for Portuguese
+
+The function `ipa_pt()` takes a monomorphemic Portuguese `word` (real or not) in its orthographic form and returns its phonemic (i.e., broad) transcription based on **Brazilian Portuguese**. The narrow transcription can be generated adding `narrow = T` to the function. 
+
+```{r, message=F}
+library(Fonology)
+
+ipa_pt("atletico") # existing word
+ipa_pt("cantalo", narrow = T) # nonce word with nasalized vowel
+ipa_pt("wagner") # proper name with rare grapheme (w) and onset-coda cluster (g-n)
+ipa_pt("wagner", narrow = T) # epenthesis expected in narrow transcription
+ipa_pt("teatro")
+ipa_pt("antidepressivo", narrow = T) # secondary stress in narrow transcription
+ipa_pt("feris") # nonce word with potential penultimate stress despite final syllable
+ipa_pt("tialo")
+ipa_pt("piato", narrow = T) # diphthongization expected in narrow transcription
+
+```
+
+### A note on stress
+
+Stress is assigned based on two scenarios. First, **real** words (non-verbs) have their stress assignment derived from the [Portuguese Stress Lexicon](https://gdgarcia.ca/psl.html) (if the word is listed there). Second, **nonce** words follow the general patterns of Portuguese stress *as well as* probabilistic tendencies shown in my work (Garcia, [2017a](https://gdgarcia.ca/thesis.html), [2017b](https://gdgarcia.ca/garcia_phon_2017.html), [2019](https://gdgarcia.ca/garcia_lg_2019.html)). As a result, a nonce word *may* have antepenultimate stress under the right conditions based on lexical statistics in the language. Likewise, words with other so-called exceptional stress patterns are also generated probabilistically (e.g., `LH]` words with penultimate stress). Stress and weight are also used to apply both spondaic and dactylic lowering to narrow transcriptions, following work such as Wetzels (2007). Secondary stress is provided when `narrow = T`.
+
+### A note on key assumptions
+
+There are several assumptions about surface-forms when `narrow = T`. Most of these assumptions can (and probably will) be adjusted as the package improves its accuracy and coverage. Diphthongization, for example, is sensitive to phonotactics. A word such as `CV.ˈV.CV` will be narrowly transcribed as `ˈCGV.CV` (except when the initial consonant is an affricate (allophonic), which *seems* to lower the probability of diphthongization based on my judgement). Diphthongization is not applied if the onset is complex. Needless to say, these assumptions are based on a particular dialect of Brazilian Portuguese, and I do not expect all of them to seamlessly apply to other dialects (although some assumptions are more easily generalizable than others).
+
+Narrow transcription also includes (final) vowel reduction, voicing assimilation, l-vocalization, vowel devoicing, palatalization, and epenthesis in `sC` clusters and other consonant sequences that are expected to be repaired on surface forms (e.g., *kt*, *gn*). Examples can be generated with the function `test_pt()`.
+
+## References
+
+- Garcia, G. D. (2014). Portuguese Stress Lexicon. Available at [gdgarcia.ca/psl.html](https://gdgarcia.ca/psl.html).
+
+- Garcia, G. D. (2017). Weight effects on stress: Lexicon and grammar [PhD thesis, McGill University]. https://doi.org/10.31219/osf.io/bt8hk
+
+- Garcia, G. D. (2017). Weight gradience and stress in Portuguese. Phonology, 34(1), 41–79. https://doi.org/10.1017/S0952675717000033
+
+- Garcia, G. D. (2019). When lexical statistics and the grammar conflict: Learning and repairing weight effects on stress. Language, 95(4), 612–641. https://doi.org/10.1353/lan.2019.0068
+
+- Wetzels, L., (2007) “Primary Word Stress in Brazilian Portuguese and the Weight Parameter”, Journal of Portuguese Linguistics 6(1), 9-58. doi: https://doi.org/10.5334/jpl.144
+
+

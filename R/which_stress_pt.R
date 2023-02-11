@@ -5,7 +5,6 @@
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 #' @examples
 #' weight_pt(word = "kom.pu.ta.ˈdoɾ");
-#' @export
 
 which_stress_pt = function(word = ""){
   if (!require("pacman")) install.packages("pacman")

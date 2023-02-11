@@ -135,9 +135,16 @@ getFeat = function(ph = c(), lg = "Portuguese"){
         x5 = targetF %>% right_join(x4)
 
         if(nrow(x5) == nrow(chosenPhF)){
-          print("Found minimal matrix:")
+          # print("Found minimal matrix:")
+
+          feats = c()
+
+          for(i in 1:length(names(x4))){
+            feats[length(feats)+1] =  str_c(x4[1,i], names(x4[i]))
+          }
+
           minimalMatrix = TRUE
-          return(x4)
+          return(feats)
 
           break
         }

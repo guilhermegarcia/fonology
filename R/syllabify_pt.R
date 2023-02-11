@@ -5,7 +5,6 @@
 #' @return The syllabification for the string in question
 #' @examples
 #' syllabify_pt(word = "komputadoɾ");
-#' @export
 
 syllabify_pt = function(word = ""){
 

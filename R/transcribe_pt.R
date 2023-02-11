@@ -5,7 +5,6 @@
 #' @return The IPA transcription of said string without syllabification or stress
 #' @examples
 #' transcribe_pt(word = "computador");
-#' @export
 
 transcribe_pt = function(word = ""){
   if (!require("pacman", quietly = T)){install.packages("pacman")}

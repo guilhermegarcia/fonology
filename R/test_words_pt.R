@@ -3,7 +3,7 @@
 #' Returns a list of words. No arguments needed.
 #' @return A list of words broadly and narrowly transcribed using ipa_pt
 #' @examples
-#' ;
+#' test_pt();
 #' @export
 
 test_pt = function(){
