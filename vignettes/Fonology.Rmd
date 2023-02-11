@@ -75,6 +75,16 @@ There are several assumptions about surface-forms when `narrow = T`. Most of the
 
 Narrow transcription also includes (final) vowel reduction, voicing assimilation, l-vocalization, vowel devoicing, palatalization, and epenthesis in `sC` clusters and other consonant sequences that are expected to be repaired on surface forms (e.g., *kt*, *gn*). Examples can be generated with the function `test_pt()`.
 
+
+## Plotting vowels
+
+The function `plotVowels()` creates a vowel trapezoid using `ggplot2` and also returns the LaTeX code to create the same trapezoid using the [`vowel` package](https://ctan.org/pkg/vowel?lang=en).
+
+## Bigram probabilities
+
+The function `biGram_pt()`returns the log bigram probability for a possible `word` in Portuguese (`word` must be broadly transcribed). The string must use broad phonemic transcription, but no syllabification or stress. Diacritics allows: `~` for `a` and `w` in nasal diphthongs. The reference used calculate probabilities is the [Portuguese Stress Lexicon](https://gdgarcia.ca/psl.html).
+
+
 ## References
 
 - Garcia, G. D. (2014). Portuguese Stress Lexicon. Available at [gdgarcia.ca/psl.html](https://gdgarcia.ca/psl.html).
