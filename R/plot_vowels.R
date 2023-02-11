@@ -10,7 +10,7 @@
 
 plotVowels = function(lg = "English"){
 
-  if (!require("pacman")) install.packages("pacman")
+  if (!require("pacman", quietly = T)) install.packages("pacman")
   pacman::p_load(tidyverse)
 
   # Tex file:

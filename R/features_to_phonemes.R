@@ -10,8 +10,8 @@
 
 getPhon = function(ft = c(), lg = "Portuguese"){
 
-  require(tidyverse, quietly = TRUE)
-  require(gtools, quietly = TRUE)
+  if (!require("pacman", quietly = TRUE)) install.packages("pacman")
+  pacman::p_load(tidyverse, gtools)
 
   features = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg"
 

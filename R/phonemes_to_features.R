@@ -10,7 +10,7 @@
 
 getFeat = function(ph = c(), lg = "Portuguese"){
 
-  if (!require("pacman")) install.packages("pacman")
+  if (!require("pacman", quietly = TRUE)) install.packages("pacman")
   pacman::p_load(tidyverse, gtools)
 
   phonemes = "i.y.ɨ.ʉ.ɯ.u.ɪ.ʏ.ʊ.e.ø.ɘ.ɵ.ɤ.o.ɛ.œ.ə.ɜ.ɞ.ʌ.ɔ.ɐ.æ.ɶ.a.ɑ.ɒ.ɛ̃.œ̃.ɔ.j.ɥ.w.p.b.t.d.ʈ.ɖ.c.ɟ.k.ɡ.q.ɢ.ʔ.m.ɱ.n.ɳ.ɲ.ŋ.ɴ.ʙ.r.ʀ.ⱱ.ɾ.ɽ.ɸ.β.f.v.θ.ð.s.z.ʃ.ʒ.ʂ.ʐ.ç.ʝ.x.ɣ.χ.ʁ.ħ.ʕ.h.ɦ.ɬ.ɮ.ʋ.ɹ.ɻ.j.ɰ.l.ɭ.ʎ.ʟ.d͡z.t͡s.t͡ʃ.d͡ʒ"
