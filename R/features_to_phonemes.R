@@ -69,8 +69,9 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     pivot_wider(names_from = feature,
                 values_from = values)
 
-  phonemes = allFeatures %>%
-    right_join(featuresIn)
+  # phonemes = allFeatures %>%
+  #   right_join(featuresIn)
+  phonemes = merge(allFeatures, featuresIn, all.y = TRUE)
 
   if(is.na(phonemes$ipa[1])){
     return("No phonemes with the features in question.")

@@ -107,7 +107,9 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     summarize(across(.cols = all_of(all_cols), .fns = same)) %>%
     select(where(~sum(!is.na(.x)) > 0))
 
-  combinedFeatures = targetF %>% right_join(uniqueF)
+  # combinedFeatures = targetF %>% right_join(uniqueF)
+
+  combinedFeatures = merge(targetF, uniqueF, all.y = TRUE)
 
   if(nrow(combinedFeatures) > length(chosenPh)){
     return("Not a natural class in this language.")
@@ -132,7 +134,8 @@ getFeat = function(ph = c(), lg = "Portuguese"){
           unlist()
 
         x4 = uniqueF %>% select(all_of(as.vector(x3)))
-        x5 = targetF %>% right_join(x4)
+        # x5 = targetF %>% right_join(x4)
+        x5 = merge(targetF, x4, all.y = TRUE)
 
         if(nrow(x5) == nrow(chosenPhF)){
           # print("Found minimal matrix:")
