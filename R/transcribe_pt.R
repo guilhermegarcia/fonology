@@ -251,6 +251,14 @@ transcribe_pt = function(word = ""){
                          pattern = "ão|am$",
                          replacement = "ãw̃")
 
+  word = str_replace_all(word,
+                         pattern = "õe$",
+                         replacement = "õj̃")
+
+  word = str_replace_all(word,
+                         pattern = "ãe$",
+                         replacement = "ãj̃")
+
   # Adjust x in diphthongs:
   word = str_replace_all(word,
                          pattern = "([aeiou])([wj])x",
