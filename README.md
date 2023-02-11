@@ -15,7 +15,8 @@ The package `fonology` will contain functions to plot vowel trapezoids, find pho
 
 ```
 library(devtools)
-install_github("guilhermegarcia/fonology")
+install_github("guilhermegarcia/fonology", build_vignettes = TRUE)
 
 library(Fonology)
+vignette("Fonology")
 ```
