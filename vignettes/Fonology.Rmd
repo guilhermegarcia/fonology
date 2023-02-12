@@ -55,8 +55,6 @@ library(Fonology)
 
 ipa_pt("atletico") # existing word
 ipa_pt("cantalo", narrow = T) # nonce word with nasalized vowel
-ipa_pt("wagner") # proper name with rare grapheme (w) and onset-coda cluster (g-n)
-ipa_pt("wagner", narrow = T) # epenthesis expected in narrow transcription
 ipa_pt("teatro")
 ipa_pt("antidepressivo", narrow = T) # secondary stress in narrow transcription
 ipa_pt("feris") # nonce word with potential penultimate stress despite final syllable
