@@ -5,6 +5,7 @@
 #' @return The singular form of the word
 #' @examples
 #' dePlu_pt(word = "variedades")
+#' @export
 
 dePlu_pt = function(word = ""){
   if(!require("pacman", quietly = T)){install.packages("pacman")}
