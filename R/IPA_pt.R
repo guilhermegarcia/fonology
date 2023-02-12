@@ -49,7 +49,7 @@ ipa_pt = function(word = "", narrow = F){
       syllabify_pt()
 
     # Feed probabilistic patterns in lexicon (but only if word doesn't end in high V):
-    weight = weight_pt(wd)
+    weight = getWeight_pt(wd)
 
     if(weight %in% c("HLL", "LLL") & str_detect(wd, pattern = "[^iu]$")){
       wd = wd %>%

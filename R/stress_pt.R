@@ -5,6 +5,7 @@
 #' @return The stressed version of the string in question
 #' @examples
 #' stress_pt(word = "kom.pu.ta.doɾ");
+#' @export
 
 stress_pt = function(word = ""){
 
@@ -135,51 +136,7 @@ sec_stress_pt = function(word = ""){
 }
 
 
-antSyl = function(word = ""){
 
-  syllables = word %>%
-    transcribe_pt() %>%
-    syllabify_pt() %>%
-    str_split(pattern = "\\.") %>%
-    unlist() %>%
-    rev()
-
-  if(length(syllables) > 2){
-    return(syllables[3])
-  } else {
-    return(NA)
-  }
-
-}
-
-penSyl = function(word = ""){
-
-  syllables = word %>%
-    transcribe_pt() %>%
-    syllabify_pt() %>%
-    str_split(pattern = "\\.") %>%
-    unlist() %>%
-    rev()
-
-  if(length(syllables) > 1){
-    return(syllables[2])
-  } else {
-    return(NA)
-  }
-}
-
-
-finSyl = function(word = ""){
-
-  syllables = word %>%
-    transcribe_pt() %>%
-    syllabify_pt() %>%
-    str_split(pattern = "\\.") %>%
-    unlist() %>%
-    rev()
-
-  return(syllables[1])
-}
 
 pu_candidates = function(word = ""){
 

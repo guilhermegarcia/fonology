@@ -12,8 +12,8 @@
 
 spond_pt = function(word = ""){
 
-  wordWeight = weight_pt(word)
-  wordStress = which_stress_pt(word)
+  wordWeight = getWeight_pt(word)
+  wordStress = getStress(word)
 
   if(wordStress == "Penult" &
      str_detect(wordWeight, pattern = "LH$")){
