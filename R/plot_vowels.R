@@ -2,13 +2,14 @@
 #'
 #' Generates vowel trapezoid using ggplot2 as well as LaTeX code using vowel package.
 #' @param lg The language whose vowel inventory will be plotted
+#' @param tex Whether a latex file is desired. By deafult, tex = FALSE
 #' @return The vowel inventory desired
 #' @examples
 #' plotVowels(lg = "portuguese");
 #' plotVowels(lg = "english");
 #' @export
 
-plotVowels = function(lg = "English"){
+plotVowels = function(lg = "English", tex = F){
 
   if (!require("pacman", quietly = T)) install.packages("pacman")
   pacman::p_load(tidyverse)
@@ -277,7 +278,9 @@ if(lg == "all"){
     pull(lines) %>%
     str_c(collapse = "\n")
 
-  print(str_c("LaTeX code: ", texOutput))
+  if(tex == T){
+    write_lines(texOutput, file = "vowels.tex")
+  }
   return(fig)
 
 }

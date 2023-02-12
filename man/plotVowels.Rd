@@ -4,10 +4,12 @@
 \alias{plotVowels}
 \title{Vowel plot generator}
 \usage{
-plotVowels(lg = "English")
+plotVowels(lg = "English", tex = F)
 }
 \arguments{
 \item{lg}{The language whose vowel inventory will be plotted}
+
+\item{tex}{Whether a latex file is desired. By deafult, tex = FALSE}
 }
 \value{
 The vowel inventory desired
