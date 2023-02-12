@@ -280,6 +280,7 @@ if(lg == "all"){
 
   if(tex == T){
     write_lines(texOutput, file = "vowels.tex")
+    print("'vowels.tex' exported to your current working directory.")
   }
   return(fig)
 
