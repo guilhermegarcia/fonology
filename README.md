@@ -1,6 +1,6 @@
 # Fonology (BETA)
 
-The package `fonology` will contain functions to plot vowel trapezoids, find phonemes on the basis of a set of features (or vice-versa), as well as functions to explore the phonology of Portuguese.
+The package `fonology` will contain functions to plot vowel trapezoids, find phonemes on the basis of a set of features (or vice-versa), as well as functions to explore the phonology of Portuguese. `tidyverse` is required.
 
 ## Current functions
 
