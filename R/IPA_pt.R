@@ -17,6 +17,32 @@ ipa_pt = function(word = "", narrow = F){
 
   wd = str_to_lower(word)
 
+  # Check to see if word ends in potentially plural-s:
+  if(str_detect(string = wd,
+                pattern = "s$")){
+    pluralS = str_remove(wd, pattern = "s$")
+
+    if(pluralS %in% pt_lex$word){
+
+      broadLex = pt_lex %>%
+        filter(word == pluralS) %>%
+        slice(1) %>%
+        pull(pro) %>%
+        str_replace(pattern = "'", replacement = "ˈ")
+
+      if(narrow == F){
+        broadLex %>%
+          str_c("s") %>%
+          return()
+
+      } else if(narrow == T){
+        broadLex %>%
+          narrow_pt() %>%
+          str_c("s")
+          return()
+      }
+    }
+  } else
 
   # Check if word is in PSL:
   # If yes, pick pro column
