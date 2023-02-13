@@ -30,12 +30,12 @@ ipa_pt = function(word = "", narrow = F){
 
     if(narrow == F){
       broadLex %>%
-        str_c("-s") %>%
+        str_c("s") %>%
         return()
     } else if(narrow == T){
       broadLex %>%
         narrow_pt() %>%
-        str_c("-s") %>%
+        str_c("s") %>%
         return()
     }
 
