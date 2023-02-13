@@ -21,89 +21,89 @@ ipa_pt = function(word = "", narrow = F){
   if(str_detect(string = wd,
                 pattern = "s$")){
     pluralS = str_remove(wd, pattern = "s$")
+  }
 
-    if(pluralS %in% pt_lex$word){
-
-      broadLex = pt_lex %>%
-        filter(word == pluralS) %>%
-        slice(1) %>%
-        pull(pro) %>%
-        str_replace(pattern = "'", replacement = "ˈ")
-
-      if(narrow == F){
-        broadLex %>%
-          str_c("s") %>%
-          return()
-
-      } else if(narrow == T){
-        broadLex %>%
-          narrow_pt() %>%
-          str_c("s")
-          return()
-      }
-    }
-  } else
-
-  # Check if word is in PSL:
-  # If yes, pick pro column
-  if(wd %in% pt_lex$word){
+  if(pluralS %in% pt_lex$word){
 
     broadLex = pt_lex %>%
-      filter(word == wd) %>%
+      filter(word == pluralS) %>%
       slice(1) %>%
       pull(pro) %>%
       str_replace(pattern = "'", replacement = "ˈ")
 
     if(narrow == F){
       broadLex %>%
+        str_c("s") %>%
         return()
 
     } else if(narrow == T){
       broadLex %>%
         narrow_pt() %>%
-        return()
+        str_c("s")
+      return()
     }
+  } else
 
+    # Check if word is in PSL:
+    # If yes, pick pro column
+    if(wd %in% pt_lex$word){
 
-  } else {
+      broadLex = pt_lex %>%
+        filter(word == wd) %>%
+        slice(1) %>%
+        pull(pro) %>%
+        str_replace(pattern = "'", replacement = "ˈ")
 
-    # If not, run functions:
+      if(narrow == F){
+        broadLex %>%
+          return()
 
-    # Broad transcription:
-    wd = wd %>%
-      transcribe_pt() %>%
-      syllabify_pt()
+      } else if(narrow == T){
+        broadLex %>%
+          narrow_pt() %>%
+          return()
+      }
 
-    # Feed probabilistic patterns in lexicon (but only if word doesn't end in high V):
-    weight = getWeight_pt(wd)
-
-    if(weight %in% c("HLL", "LLL") & str_detect(wd, pattern = "[^iu]$")){
-      wd = wd %>%
-        apu_candidates() %>%
-        dact_pt()
-
-    } else if(weight %in% c("LLH", "LH", "HH", "LHH")){
-      wd =  wd %>%
-        pu_candidates() %>%
-        spond_pt()
-      # If stress is final and weight = (X)LH, e,o -> E,O
 
     } else {
+
+      # If not, run functions:
+
+      # Broad transcription:
       wd = wd %>%
-        stress_pt()
+        transcribe_pt() %>%
+        syllabify_pt()
+
+      # Feed probabilistic patterns in lexicon (but only if word doesn't end in high V):
+      weight = getWeight_pt(wd)
+
+      if(weight %in% c("HLL", "LLL") & str_detect(wd, pattern = "[^iu]$")){
+        wd = wd %>%
+          apu_candidates() %>%
+          dact_pt()
+
+      } else if(weight %in% c("LLH", "LH", "HH", "LHH")){
+        wd =  wd %>%
+          pu_candidates() %>%
+          spond_pt()
+        # If stress is final and weight = (X)LH, e,o -> E,O
+
+      } else {
+        wd = wd %>%
+          stress_pt()
+      }
+
+      # Check for narrow transcription:
+      if(narrow == T){
+        wd %>%
+          narrow_pt() %>%
+          return()
+      } else if (narrow == F){
+        wd %>%
+          return()
+      }
+
+
     }
-
-    # Check for narrow transcription:
-    if(narrow == T){
-      wd %>%
-        narrow_pt() %>%
-        return()
-    } else if (narrow == F){
-      wd %>%
-        return()
-    }
-
-
-  }
 
 }
