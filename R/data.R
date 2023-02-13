@@ -1,7 +1,8 @@
 #' Portuguese Stress Lexicon - simplified
 #'
 #' Comprehensive list of non-verbs in Portuguese and their phonemic transcription.
-#' This data set is used by different functions in Fonology.
+#' This data set is used by different functions in Fonology. Unlike the original PSL data base,
+#' `pt_lex` uses slightly different transcription conventions.
 #'
 #' @format ## `pt_lex`
 #' A data frame with 154,610 rows and 2 columns:

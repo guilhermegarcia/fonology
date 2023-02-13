@@ -20,6 +20,7 @@ pt_lex
 }
 \description{
 Comprehensive list of non-verbs in Portuguese and their phonemic transcription.
-This data set is used by different functions in Fonology.
+This data set is used by different functions in Fonology. Unlike the original PSL data base,
+`pt_lex` uses slightly different transcription conventions.
 }
 \keyword{datasets}
