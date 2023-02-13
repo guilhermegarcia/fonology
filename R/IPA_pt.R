@@ -17,10 +17,11 @@ ipa_pt = function(word = "", narrow = F){
 
   wd = str_to_lower(word)
 
+  potentialPl = str_detect(wd, "s$")
   sgWd = str_remove(string = wd, pattern = "s$")
 
   # If singular form exists:
-  if(sgWd %in% pt_lex$word){
+  if(potentialPl & sgWd %in% pt_lex$word){
     broadLex = pt_lex %>%
       filter(word == sgWd) %>%
       slice(1) %>%
