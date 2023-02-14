@@ -69,8 +69,12 @@ narrow_pt = function(word = ""){
                            replacement = "õ\\1")
 
   narrow = str_replace_all(narrow,
-                           pattern = "ẽj̃([nmɲ])",
-                           replacement = "õ\\1")
+                           pattern = "e([nmɲ])",
+                           replacement = "ẽj̃\\1")
+
+  narrow = str_replace_all(narrow,
+                           pattern = "u([nmɲ])",
+                           replacement = "ũ\\1")
 
   narrow = str_replace_all(narrow,
                            pattern = "i([nmɲ])",

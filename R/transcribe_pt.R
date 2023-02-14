@@ -278,6 +278,11 @@ transcribe_pt = function(word = ""){
                          pattern = "^r|rr",
                          replacement = "x")
 
+  # s.r + n.r
+  word = str_replace_all(word,
+                         pattern = "([nmsz])r",
+                         replacement = "\\1x")
+
   # Tap
   word = str_replace_all(word,
                          pattern = "r",
