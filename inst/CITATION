@@ -2,7 +2,7 @@ citHeader("To cite Fonology in publications, use:")
 
 bibentry(
   bibtype  = "manual",
-  title    = "Fonology: an R package for phonological analysis",
+  title    = "Fonology: an {R} package for phonological analysis",
   author   = "Guilherme D Garcia",
   note     = "R package version 0.1.0",
   year     = "2023",
