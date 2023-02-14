@@ -1,12 +1,10 @@
 Package: Fonology
 Type: Package
-Title: Functions for segmental phonology
+Title: Phonological analysis in R
 Version: 0.1.0
 Author: Guilherme Duarte Garcia
 Maintainer: Guilherme Duarte Garcia <guilherme.garcia@lli.ulaval.ca>
-Description: The package currently contains functions to determine minimal matrices 
-    of distinctive features and to plot vowel trapezoids given a specific language
-    using ggplot2 as well as the vowel package in LaTeX.
+Description: The package contains functions to help with phonological analysis and teaching
 License: MIT License
 Encoding: UTF-8
 LazyData: true

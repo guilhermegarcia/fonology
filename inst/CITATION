@@ -2,11 +2,12 @@ citHeader("To cite Fonology in publications, use:")
 
 citEntry(
   entry    = "manual",
-  title    = "Fonology: an R package for segmental phonology",
+  title    = "Fonology: an R package for phonological",
   author   = "Garcia, Guilherme D",
+  note     = "R package version 0.1.0"
   year     = 2023,
-  url      = "https://github.com/guilhermegarcia/fonology",
-  textVersion = paste("Garcia, Guilherme D. (2023). Fonology: an R package for segmental phonology. Available at https://github.com/guilhermegarcia/fonology"
+  url      = "https://gdgarcia.ca/fonology",
+  textVersion = paste("Garcia, Guilherme D. (2023). Fonology: an R package for phonological. R package version 0.1.0. Available at https://gdgarcia.ca/fonology"
 
   )
 )
