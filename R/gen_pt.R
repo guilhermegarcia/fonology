@@ -293,17 +293,7 @@ gen_pt = function(profile = "LLL", palatalization = F){
                          pattern = "uw",
                          replacement = "ow")
 
-  word = str_replace_all(word,
-                         pattern = "(n\\.ˈ?)m",
-                         replacement = "\\1t")
 
-  word = str_replace_all(word,
-                         pattern = "(m\\.ˈ?)n",
-                         replacement = "\\1p")
-
-  word = str_replace_all(word,
-                         pattern = "(s\\.ˈ?)s",
-                         replacement = "\\1t")
 
   # OCP for vowels:
   word = str_replace(string = word,
@@ -326,7 +316,41 @@ gen_pt = function(profile = "LLL", palatalization = F){
                      pattern = "(\\w+u\\w*\\.\\w+)u(\\w*\\.\\w+u\\w*)",
                      replacement = "\\1o\\2")
 
+  word = str_replace_all(word,
+                         pattern = "(s\\.ˈ?)s",
+                         replacement = "\\1t")
 
+
+  # OCP for coda-onsets:
+  # "s.l.ɾ.m.n"
+
+  word = str_replace_all(word,
+                         pattern = "(n\\.ˈ?)m",
+                         replacement = "\\1t")
+
+  word = str_replace_all(word,
+                         pattern = "(m\\.ˈ?)n",
+                         replacement = "\\1p")
+
+  word = str_replace_all(word,
+                         pattern = "(n\\.ˈ?)n",
+                         replacement = "\\1d")
+
+  word = str_replace_all(word,
+                         pattern = "(m\\.ˈ?)m",
+                         replacement = "\\1p")
+
+  word = str_replace_all(word,
+                         pattern = "(s\\.ˈ?)s",
+                         replacement = "\\1t")
+
+  word = str_replace_all(word,
+                         pattern = "(l\\.ˈ?)l",
+                         replacement = "\\1t")
+
+  word = str_replace_all(word,
+                         pattern = "(ɾ\\.ˈ?)ɾ",
+                         replacement = "\\1d")
 
   return(word)
 }
