@@ -184,7 +184,31 @@ gen_pt = function(profile = "LLL"){
 
   # Now we have (at most) on syllable with a complex onset in "syllables"
   word = syllables %>%
-    str_c(collapse = "") %>%
+    str_c(collapse = "")
+
+  double_C = function(s = ""){
+
+    doubleCs = "p{2,}|b{2,}|c{2,}|t{2,}|d{2,}|k{2,}|g{2,}|l{2,}|m{2,}|n{2,}|f{2,}|v{2,}"
+
+    single_C = str_extract(s,
+                           pattern = doubleCs) %>%
+      str_sub(start = 1, end = 1)
+
+    empty_s = str_replace_all(s,
+                              pattern = doubleCs,
+                              replacement = "#")
+
+    final_s = empty_s %>%
+      str_replace_all(pattern = "#",
+                      replacement = single_C)
+
+    return(final_s)
+
+
+  }
+
+  word = word %>%
+    double_C() %>%
     syllabify_pt() %>%
     stress_pt()
 
@@ -252,31 +276,9 @@ gen_pt = function(profile = "LLL"){
                          pattern = "m\\.n",
                          replacement = "m.p")
 
-
-    double_C = function(s = ""){
-
-    doubleCs = "p{2,}|b{2,}|c{2,}|t{2,}|d{2,}|k{2,}|g{2,}|l{2,}|m{2,}|n{2,}|f{2,}|v{2,}"
-
-    single_C = str_extract(s,
-                           pattern = doubleCs) %>%
-      str_sub(start = 1, end = 1)
-
-    empty_s = str_replace_all(s,
-                              pattern = doubleCs,
-                              replacement = "#")
-
-    final_s = empty_s %>%
-      str_replace_all(pattern = "#",
-                      replacement = single_C)
-
-    return(final_s)
-
-
-  }
-
-  word = word %>%
-    double_C()
-
+  word = str_replace_all(word,
+                         pattern = "s\\.s",
+                         replacement = "s.t")
 
   return(word)
 }
