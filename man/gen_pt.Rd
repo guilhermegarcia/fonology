@@ -4,10 +4,12 @@
 \alias{gen_pt}
 \title{Word generator for Portuguese}
 \usage{
-gen_pt(profile = "LLL")
+gen_pt(profile = "LLL", palatalization = F)
 }
 \arguments{
 \item{profile}{The weight profile of the desired string using Ls or Hs}
+
+\item{palatalization}{Whether t and d should palatalize before i (default is FALSE)}
 }
 \value{
 The IPA transcription of said string

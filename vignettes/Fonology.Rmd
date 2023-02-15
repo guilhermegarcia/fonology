@@ -84,7 +84,7 @@ The function `plotVowels()` creates a vowel trapezoid using `ggplot2` and also r
 
 ## Bigram probabilities
 
-The function `biGram_pt()`returns the log bigram probability for a possible `word` in Portuguese (`word` must be broadly transcribed). The string must use broad phonemic transcription, but no syllabification or stress. Diacritics allows: `~` for `a` and `w` in nasal diphthongs. The reference used calculate probabilities is the [Portuguese Stress Lexicon](https://gdgarcia.ca/psl.html).
+The function `biGram_pt()`returns the log bigram probability for a possible `word` in Portuguese (`word` must be broadly transcribed). The string must use broad phonemic transcription, but no syllabification or stress. The reference used calculate probabilities is the [Portuguese Stress Lexicon](https://gdgarcia.ca/psl.html).
 
 
 ## Word generator for Portuguese
@@ -95,9 +95,14 @@ The function `gen_pt()` generates a hypothetical word in Portuguese. Note that t
 library(Fonology)
 gen_pt(profile = "LHL")
 
+# Let's create a table with 5 nonce words and their bigram probability
+# To calculate bigrams, you must provide the phonemic transcription
+# without syllable boundaries and stress
+
 tibble(word = character(5)) %>%
   rowwise() %>%
-  mutate(word = gen_pt("LHL"))
+  mutate(word = gen_pt("LHL"),
+         bigram = word %>% str_remove_all("\\.|ˈ") %>% biGram_pt())
 ```
 
 ## References
