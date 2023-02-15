@@ -6,6 +6,7 @@
 #' @return The IPA transcription of said string
 #' @examples
 #' gen_pt(profile = "HLL")
+#' @export
 
 gen_pt = function(profile = "LLL"){
 

@@ -95,8 +95,8 @@ The function `gen_pt()` generates a hypothetical word in Portuguese. Note that t
 library(Fonology)
 # gen_pt(profile = "LHL")
 # 
-# tibble(word = character(5)) %>% 
-#   rowwise() %>% 
+# tibble(word = character(5)) %>%
+#   rowwise() %>%
 #   mutate(word = gen_pt("LHL"))
 ```
 

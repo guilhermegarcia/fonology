@@ -2,6 +2,7 @@
 
 export(biGram_pt)
 export(dePlu_pt)
+export(gen_pt)
 export(getFeat)
 export(getPhon)
 export(getStress)
