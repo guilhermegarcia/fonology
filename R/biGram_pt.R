@@ -38,5 +38,12 @@ biGram_pt = function(word = ""){
       sum(str_count(words, str_split(bigram, pattern = "")[[1]][1]))
   }
 
+  for(i in 1:length(probs)){
+    if(probs[i] == 0){
+      probs[i] = 0.0000001
+    }
+  }
+
+
   return(log(prod(probs)))
 }
