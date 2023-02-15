@@ -206,7 +206,7 @@ if(lg == "all"){
     geom_segment(aes(x = 0, y = 11, xend = 4, yend = 11), color = "gray40") +     # top left
     geom_segment(aes(x = 6, y = 11, xend = 10, yend = 11), color = "gray40") +    # top right
     geom_label(size = 10, color = "black", label.size = 0, fill = "white",
-               family = "Charis SIL",
+               # family = "Charis SIL",
                label.r = unit(1, "lines"),
                label.padding = unit(0.5, "lines")) +
     geom_segment(aes(x = 4, y = -1, xend = -1, yend = 11), color = "gray40") +    # left
@@ -255,7 +255,7 @@ if(lg == "all"){
     geom_segment(aes(x = 0, y = 11, xend = 4, yend = 11), color = "gray40") +     # top left
     geom_segment(aes(x = 6, y = 11, xend = 10, yend = 11), color = "gray40") +    # top right
     geom_label(size = 10, color = "black", label.size = 0, fill = "white",
-               family = "Charis SIL",
+               # family = "Charis SIL",
                label.r = unit(1, "lines"),
                label.padding = unit(0.5, "lines")) +
     geom_segment(aes(x = 4, y = -1, xend = -1, yend = 11), color = "gray40") +    # left
