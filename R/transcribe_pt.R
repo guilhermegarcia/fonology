@@ -91,6 +91,15 @@ transcribe_pt = function(word = ""){
                          replacement = "u")
 
 
+  # n+lab:
+  word = str_replace_all(word,
+                         pattern = "n([bp])",
+                         replacement = "m\\1")
+
+  word = str_replace_all(word,
+                         pattern = "m([tdszlr])",
+                         replacement = "n\\1")
+
   # Intervocalic S
   word = str_replace_all(word,
                          pattern = "([aeiouóéáêôã])s([aeiouóéáêôã])",
