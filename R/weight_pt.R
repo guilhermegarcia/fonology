@@ -1,10 +1,11 @@
 #' Syllable weight labeller
 #'
-#' Labels a given string in Portuguese according to its weight profile using Ls and Hs
+#' Labels a given string in Portuguese according to its weight profile using Ls and Hs.
+#' Note that, although simple plural -s is taken into account, the function assumes the string provided is monomorphemic.
 #' @param word The string of interest using IPA phonemic transcription, already syllabified and stressed
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 #' @examples
-#' weight_pt(word = "kom.pu.ta.'doɾ");
+#' weight_pt(word = "kom.pu.ta.ˈdoɾ");
 #' @export
 
 getWeight_pt = function(word = ""){
@@ -12,9 +13,17 @@ getWeight_pt = function(word = ""){
   if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
+  word = str_to_lower(word)
+
+  potentialPl = str_detect(word, "s$")
+  sgWd = str_remove_all(string = word, pattern = "s$")
+
+
+
+
   # Remove stress
   word = str_remove_all(string = word,
-                 pattern = "ˈ")
+                 pattern = "ˈ|'")
 
 
   # Light syllables
@@ -44,6 +53,15 @@ getWeight_pt = function(word = ""){
   # Pick only trisyllabic window
   word = str_sub(string = word,
                  start = -3L, end = -1L)
+
+  # H -> L if s] = plural
+  if(potentialPl & sgWd %in% pt_lex$pro){
+   word = str_replace(string = word,
+                      pattern = "H$",
+                      replacement = "L")
+  }
+
+
   return(word)
 
 }

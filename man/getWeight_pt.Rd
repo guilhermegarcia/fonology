@@ -13,8 +13,9 @@ getWeight_pt(word = "")
 The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 }
 \description{
-Labels a given string in Portuguese according to its weight profile using Ls and Hs
+Labels a given string in Portuguese according to its weight profile using Ls and Hs.
+Note that, although simple plural -s is taken into account, the function assumes the string provided is monomorphemic.
 }
 \examples{
-weight_pt(word = "kom.pu.ta.'doɾ");
+weight_pt(word = "kom.pu.ta.ˈdoɾ");
 }
