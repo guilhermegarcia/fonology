@@ -4,7 +4,7 @@
 \alias{getStress}
 \title{Stress labeller}
 \usage{
-getStress(word = "")
+getStress(word = "", stress = "ˈ")
 }
 \arguments{
 \item{word}{The string of interest using IPA phonemic transcription, already syllabified and stressed}
@@ -18,5 +18,5 @@ The primary stress position
 Labels a given stressed string as follows: Final, Penult, Antepenult
 }
 \examples{
-weight_pt(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ");
+getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ");
 }

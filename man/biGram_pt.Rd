@@ -16,5 +16,5 @@ The phonemic transcription for the string in question
 Given a phonemically transcribed string, the function returns its bigram probability in log using the lexicon in the Portuguese Stress Lexicon as reference
 }
 \examples{
-biGram(word = "paklode")
+biGram_pt(word = "paklode")
 }

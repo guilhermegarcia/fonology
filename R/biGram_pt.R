@@ -4,7 +4,7 @@
 #' @param word A possible string in Portuguese in its phonemic form without syllabification or stress. The only diacritic that should be used is the tilde for nasals, e.g., ã.
 #' @return The phonemic transcription for the string in question
 #' @examples
-#' biGram(word = "paklode")
+#' biGram_pt(word = "paklode")
 #' @export
 
 biGram_pt = function(word = ""){

@@ -5,7 +5,7 @@
 #' @param word The string of interest using IPA phonemic transcription, already syllabified and stressed
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 #' @examples
-#' weight_pt(word = "kom.pu.ta.ˈdoɾ");
+#' getWeight_pt(word = "kom.pu.ta.ˈdoɾ");
 #' @export
 
 getWeight_pt = function(word = ""){

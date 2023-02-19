@@ -5,7 +5,7 @@
 #' @param lg The language of interest: English, French, Portuguese, Spanish
 #' @return The phonemes given the features provided
 #' @examples
-#' getFeat(ft = c("+hi", "+tense"), lg = "english");
+#' getPhon(ft = c("+hi", "+tense"), lg = "english");
 #' @export
 
 getPhon = function(ft = c(), lg = "Portuguese"){

@@ -17,5 +17,5 @@ Labels a given string in Portuguese according to its weight profile using Ls and
 Note that, although simple plural -s is taken into account, the function assumes the string provided is monomorphemic.
 }
 \examples{
-weight_pt(word = "kom.pu.ta.ˈdoɾ");
+getWeight_pt(word = "kom.pu.ta.ˈdoɾ");
 }

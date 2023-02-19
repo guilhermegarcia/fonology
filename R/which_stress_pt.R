@@ -5,17 +5,17 @@
 #' @param stress The symbol used to mark stress
 #' @return The primary stress position
 #' @examples
-#' weight_pt(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ");
+#' getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ");
 #' @export
 
-getStress = function(word = ""){
+getStress = function(word = "", stress = "ˈ"){
   if (!require("pacman", quietly = T)) install.packages("pacman")
   pacman::p_load(tidyverse)
 
   word = str_split(string = word,
                    pattern = "\\.") %>%
     unlist() %>%
-    str_detect("ˈ")
+    str_detect(stress)
 
   if(word[length(word)] == TRUE){
     return("Final")

@@ -18,5 +18,5 @@ The phonemes given the features provided
 Returns a set of phonemes given different distinctive feature values.
 }
 \examples{
-getFeat(ft = c("+hi", "+tense"), lg = "english");
+getPhon(ft = c("+hi", "+tense"), lg = "english");
 }

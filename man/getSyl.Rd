@@ -20,6 +20,6 @@ The desired syllable if it exists
 Extracts a given syllable from a syllabified string
 }
 \examples{
-getSyl(word = "kom.pu.ta.doɾ", pos = 2);
-getSyl(word = "kom-pu-ta-doɾ", pos = 3, syl = "-");
+getSyl(word = "kom.pu.ta.dor", pos = 2);
+getSyl(word = "kom-pu-ta-dor", pos = 3, syl = "-");
 }

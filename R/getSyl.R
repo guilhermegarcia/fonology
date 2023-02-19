@@ -6,8 +6,8 @@
 #' @param syl The symbol used for syllable boundaries (a period is used as the default)
 #' @return The desired syllable if it exists
 #' @examples
-#' getSyl(word = "kom.pu.ta.doɾ", pos = 2);
-#' getSyl(word = "kom-pu-ta-doɾ", pos = 3, syl = "-");
+#' getSyl(word = "kom.pu.ta.dor", pos = 2);
+#' getSyl(word = "kom-pu-ta-dor", pos = 3, syl = "-");
 #' @export
 
 getSyl = function(word = "", pos = 1, syl = "\\."){
@@ -20,7 +20,7 @@ getSyl = function(word = "", pos = 1, syl = "\\."){
     rev() %>%
     str_remove_all(pattern = "['ˈˌ]")
 
-  if(syl > length(syllables)){
+  if(pos > length(syllables)){
     stop(paste("The word only has", length(syllables), "syllables."))
   }
 

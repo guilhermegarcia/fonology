@@ -5,6 +5,7 @@
 #' @return The IPA transcription of said string with surface-level adjustments
 #' @examples
 #' narrow_pt(word = "ˈpsi.ko");
+#' @export
 
 narrow_pt = function(word = ""){
   if (!require("pacman", quietly = T)){install.packages("pacman")}
