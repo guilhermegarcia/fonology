@@ -16,6 +16,9 @@ biGram_pt = function(word = ""){
     mutate(proB = str_remove_all(pro, "\\.|'")) %>%
     pull(proB)
 
+  if(str_detect(string = word, pattern = "\\.|'|ˈ")){
+    stop("Input can't be syllabified/stressed.")
+  }
   x1 = str_split(word, pattern = "")[[1]]
 
   bigrams = c()
@@ -39,6 +42,9 @@ biGram_pt = function(word = ""){
   }
 
   for(i in 1:length(probs)){
+    if(is.nan(probs[i])){
+      stop("You are probably using narrow transcription. Bigrams are only calculated based on the phonemic inventory of Portuguese.")
+    }
     if(probs[i] == 0){
       probs[i] = 0.0000001
     }
