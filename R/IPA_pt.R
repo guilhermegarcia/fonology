@@ -17,6 +17,12 @@ ipa_pt = function(word = "", narrow = F){
 
   wd = str_to_lower(word)
 
+  if(str_detect(wd, pattern = "-")){
+    message("Input must be monomorphemic. The function will remove any clitics it detects.")
+    wd = strip_clitic_pt(wd)
+  }
+
+
   potentialPl = str_detect(wd, "s$")
   sgWd = str_remove(string = wd, pattern = "s$")
 

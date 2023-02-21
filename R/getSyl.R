@@ -21,7 +21,7 @@ getSyl = function(word = "", pos = 1, syl = "\\."){
     str_remove_all(pattern = "['ˈˌ]")
 
   if(pos > length(syllables)){
-    stop(paste("The word only has", length(syllables), "syllables."))
+    return(NA)
   }
 
   return(syllables[pos])
