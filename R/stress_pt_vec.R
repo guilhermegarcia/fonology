@@ -16,7 +16,7 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   # Monosyllabic word:
   which_monos = str_detect(string = word, pattern = "\\.", negate = T)
   monos = str_replace_all(string = word[str_detect(word, pattern = "\\.", negate = T)],
-                          pattern = "^([:alpha:]*)$",
+                          pattern = "^(.*)$",
                           replacement = "'\\1")
   # Remove monos from initial vector:
   word = word[!which_monos]
@@ -51,4 +51,3 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   return(output)
 
 }
-
