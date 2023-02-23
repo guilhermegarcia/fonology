@@ -23,7 +23,7 @@ ipa_pt_test = function(){
                 "frinte",
                 "ful",
                 "catto",
-                "malli",
+                "dane",
                 "mylena",
                 "parangaricutirrimirruaro")
 
