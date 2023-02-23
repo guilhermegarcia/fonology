@@ -38,6 +38,15 @@ transcribe_pt = function(word = ""){
 
 
 
+  # Odd diacritics:
+  word = str_replace_all(word,
+                         pattern = "ü",
+                         replacement = "u")
+
+  word = str_replace_all(word,
+                         pattern = "ò",
+                         replacement = "ó")
+
 
   # W, Y:
   word = str_replace_all(word,

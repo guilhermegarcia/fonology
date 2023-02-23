@@ -16,6 +16,8 @@ ipa_pt_simple = function(word = c("palavra")){
   wd = str_to_lower(word) %>%
     str_remove_all(pattern = "[:punct:]")
 
+  wd[str_detect(wd, "\\d")] = NA
+
   # Real words:
   real = wd[wd %in% pt_lex$word]
 

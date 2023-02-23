@@ -17,6 +17,11 @@ ipa_pt = function(word = "", narrow = F){
 
   wd = str_to_lower(word)
 
+  if(str_detect(wd, pattern = "\\d")){
+    message("Input contains a number and will be ignored.")
+    return(NA)
+  }
+
   if(str_detect(wd, pattern = "-")){
     message("Input must be monomorphemic. The function will remove any clitics it detects.")
     wd = strip_clitic_pt(wd)
