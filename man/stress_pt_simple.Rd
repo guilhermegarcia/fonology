@@ -18,5 +18,5 @@ Stress is categorically defined, so the function is more simplistic than stress_
 and probabilistic distributions in certain cases for hypothetical words
 }
 \examples{
-stress_pt_simple(word = c("palado", "antedom"));
+stress_pt_simple(word = c("pa.la.do", "an.te.dom"));
 }

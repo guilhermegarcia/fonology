@@ -6,7 +6,7 @@
 #' @param word A vector with possible strings in Portuguese, which must be phonemically transcribed and syllabified
 #' @return The stressed strings
 #' @examples
-#' stress_pt_simple(word = c("palado", "antedom"));
+#' stress_pt_simple(word = c("pa.la.do", "an.te.dom"));
 #' @export
 
 stress_pt_simple = function(word = c("ka.va.lo")){
@@ -31,8 +31,8 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   word = word[!which_mid_lows]
 
   # Word with final stress:
-  which_heavy_finals = str_detect(string = word, pattern = "[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw]$")
-  heavy_finals = str_replace_all(string = word[str_detect(word, pattern = "[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw]$")],
+  which_heavy_finals = str_detect(string = word, pattern = "[pbtdkgszfvʃʒʎɲmnlɾwjiuãõww̃]$")
+  heavy_finals = str_replace_all(string = word[str_detect(word, pattern = "[pbtdkgszfvʃʒʎɲmnlɾwjiuãõww̃]$")],
                                  pattern = "([:alpha:]+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃])$",
                                  replacement = "'\\1")
 
@@ -51,3 +51,4 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   return(output)
 
 }
+
