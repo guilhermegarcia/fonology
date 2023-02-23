@@ -1,29 +1,23 @@
 #' Function to extract syllables from words
 #'
-#' Extracts a given syllable from a syllabified string
-#' @param word The string of interest must be syllabified
+#' Extracts a given syllable from syllabified strings in a vector
+#' @param word The strings of interest must be syllabified
 #' @param pos The target syllable counting from the right edge of the word
 #' @param syl The symbol used for syllable boundaries (a period is used as the default)
-#' @return The desired syllable if it exists
+#' @return The desired syllable if it exists. The function returns NA otherwise
 #' @examples
-#' getSyl(word = "kom.pu.ta.dor", pos = 2);
-#' getSyl(word = "kom-pu-ta-dor", pos = 3, syl = "-");
+#' getSyl(word = c("kom.pu.ta.dor", "pin.to.de"), pos = 2);
 #' @export
 
-getSyl = function(word = "", pos = 1, syl = "\\."){
+getSyl = function(word = c("pa.la.do"), pos = 1, syl = "\\."){
   if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
   syllables = word %>%
-    str_split(pattern = syl) %>%
-    unlist() %>%
-    rev() %>%
-    str_remove_all(pattern = "['ˈˌ]")
+    str_split(pattern = syl)
 
-  if(pos > length(syllables)){
-    return(NA)
-  }
+  output = lapply(syllables, function(x) rev(x)[pos]) %>%
+    unlist()
 
-  return(syllables[pos])
-
+  return(output)
 }

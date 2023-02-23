@@ -3,10 +3,10 @@
 #' Returns a list of words. No arguments needed.
 #' @return A list of words broadly and narrowly transcribed using ipa_pt
 #' @examples
-#' test_pt();
+#' ipa_pt_test();
 #' @export
 
-test_pt = function(){
+ipa_pt_test = function(){
   if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
@@ -38,7 +38,7 @@ test_pt = function(){
     ipa_pt(testWords[i], narrow = T) %>%
       print()
 
-    print("========================")
+    message("========================")
   }
 
 

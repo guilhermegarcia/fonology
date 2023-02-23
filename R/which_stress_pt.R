@@ -8,26 +8,20 @@
 #' getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ");
 #' @export
 
-getStress = function(word = "", stress = "ˈ"){
+getStress = function(word = c("kom.pu.ta.ˈdoɾ"), stress = "ˈ"){
   if (!require("pacman", quietly = T)) install.packages("pacman")
   pacman::p_load(tidyverse)
 
-  word = str_split(string = word,
-                   pattern = "\\.") %>%
-    unlist() %>%
-    str_detect(stress)
+  syl_list = word %>%
+    str_split("\\.")
 
-  if(word[length(word)] == TRUE){
-    return("Final")
-  } else if(word[length(word)-1] == TRUE){
-    return("Penult")
-  } else if(word[length(word)-2] == TRUE){
-    return("Antepenult")
-  } else if(word[length(word)-3] == TRUE){
-    return("Preantepenult")
-  } else {
-    return("Not a possible stress in Portuguese.")
-  }
+  indices = lapply(syl_list, function(x) which(str_detect(rev(x), pattern = stress))) %>% unlist()
 
+  indices = str_replace_all(indices, pattern = "1", replacement = "final")
+  indices = str_replace_all(indices, pattern = "2", replacement = "penult")
+  indices = str_replace_all(indices, pattern = "3", replacement = "antepenult")
+  indices = str_replace_all(indices, pattern = "4", replacement = "pre-antepenult")
+  indices = str_replace_all(indices, pattern = "[56789]", replacement = "ungrammatical")
+
+  return(indices)
 }
-

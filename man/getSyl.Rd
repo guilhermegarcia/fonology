@@ -4,22 +4,21 @@
 \alias{getSyl}
 \title{Function to extract syllables from words}
 \usage{
-getSyl(word = "", pos = 1, syl = "\\\\.")
+getSyl(word = c("pa.la.do"), pos = 1, syl = "\\\\.")
 }
 \arguments{
-\item{word}{The string of interest must be syllabified}
+\item{word}{The strings of interest must be syllabified}
 
 \item{pos}{The target syllable counting from the right edge of the word}
 
 \item{syl}{The symbol used for syllable boundaries (a period is used as the default)}
 }
 \value{
-The desired syllable if it exists
+The desired syllable if it exists. The function returns NA otherwise
 }
 \description{
-Extracts a given syllable from a syllabified string
+Extracts a given syllable from syllabified strings in a vector
 }
 \examples{
-getSyl(word = "kom.pu.ta.dor", pos = 2);
-getSyl(word = "kom-pu-ta-dor", pos = 3, syl = "-");
+getSyl(word = c("kom.pu.ta.dor", "pin.to.de"), pos = 2);
 }

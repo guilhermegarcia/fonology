@@ -4,7 +4,7 @@
 \alias{getStress}
 \title{Stress labeller}
 \usage{
-getStress(word = "", stress = "ˈ")
+getStress(word = c("kom.pu.ta.ˈdoɾ"), stress = "ˈ")
 }
 \arguments{
 \item{word}{The string of interest using IPA phonemic transcription, already syllabified and stressed}
