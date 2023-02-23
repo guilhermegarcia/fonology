@@ -48,6 +48,7 @@ transcribe_pt = function(word = ""){
                          pattern = "y",
                          replacement = "i")
 
+  # G:
   word = str_replace_all(word,
                          pattern = "(gu)([aeoéáóêô]n)",
                          replacement = "gw\\2")
@@ -56,7 +57,12 @@ transcribe_pt = function(word = ""){
                          pattern = "gu([ei])",
                          replacement = "g\\1")
 
+  word = str_replace_all(word,
+                         pattern = "g([ei])",
+                         replacement = "ʒ\\1")
 
+
+  # Q:
   word = str_replace_all(word,
                          pattern = "qu(en|a)",
                          replacement = "kw\\1")

@@ -16,6 +16,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+## More information
+
+For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonology).
+
 ## Distinctive features
 
 ### From phonemes to features
@@ -80,7 +84,7 @@ If you plan to tokenize texts and create a table with individual columns for str
 
 ## Plotting vowels
 
-The function `plotVowels()` creates a vowel trapezoid using `ggplot2` and also returns the LaTeX code to create the same trapezoid using the [`vowel` package](https://ctan.org/pkg/vowel?lang=en).
+The function `plotVowels()` creates a vowel trapezoid using `ggplot2` and also returns the LaTeX code to create the same trapezoid using the [`vowel` package](https://ctan.org/pkg/vowel?lang=en). Available languages: Arabic, French, English, Dutch, German, Hindi, Italian, Japanese, Korean, Mandarin, Portuguese, Spanish, Swahili, Russian, Talian, Thai, and Vietnamese
 
 ## Bigram probabilities
 
