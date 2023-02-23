@@ -13,8 +13,6 @@ narrow_pt = function(word = ""){
 
   narrow = word
 
-
-
   # Vowel neutralization (word-final):
   narrow = str_replace(narrow,
                        pattern = "(\\.[^ˈ]\\w*)o$",
@@ -80,6 +78,26 @@ narrow_pt = function(word = ""){
   narrow = str_replace_all(narrow,
                            pattern = "i([nmɲ])",
                            replacement = "ĩ\\1")
+
+  narrow = str_replace(narrow,
+                       pattern = "(ˈ\\w+)a(\\.[mnɲ])",
+                       replacement = "\\1ã\\2")
+
+  narrow = str_replace(narrow,
+                       pattern = "(ˈ\\w+)e(\\.[mnɲ])",
+                       replacement = "\\1ẽ\\2")
+
+  narrow = str_replace(narrow,
+                       pattern = "(ˈ\\w+)i(\\.[mnɲ])",
+                       replacement = "\\1ĩ\\2")
+
+  narrow = str_replace(narrow,
+                       pattern = "(ˈ\\w+)o(\\.[mnɲ])",
+                       replacement = "\\1õ\\2")
+
+  narrow = str_replace(narrow,
+                       pattern = "(ˈ\\w+)u(\\.[mnɲ])",
+                       replacement = "\\1ũ\\2")
 
   # l-vocalization:
   narrow = str_replace_all(narrow,

@@ -49,9 +49,16 @@ transcribe_pt = function(word = ""){
                          replacement = "u")
 
   word = str_replace_all(word,
+                         pattern = "ä",
+                         replacement = "a")
+
+  word = str_replace_all(word,
                          pattern = "ò",
                          replacement = "ó")
 
+  word = str_replace_all(word,
+                         pattern = "è",
+                         replacement = "é")
 
   # W, Y:
   word = str_replace_all(word,
@@ -88,13 +95,8 @@ transcribe_pt = function(word = ""){
 
   # Diacritics
   word = str_replace_all(word,
-                         pattern = "á",
+                         pattern = "á|â|à",
                          replacement = "a")
-
-
-  word = str_replace_all(word,
-                         pattern = "ê",
-                         replacement = "e")
 
   word = str_replace_all(word,
                          pattern = "ê",
