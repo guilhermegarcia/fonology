@@ -12,6 +12,8 @@ transcribe_pt = function(word = ""){
   if (!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
+  word = str_to_lower(word)
+
   double_C = function(s = ""){
 
     doubleCs = "p{2,}|b{2,}|c{2,}|t{2,}|d{2,}|k{2,}|g{2,}|l{2,}|m{2,}|n{2,}|f{2,}|v{2,}"
@@ -37,6 +39,9 @@ transcribe_pt = function(word = ""){
   word = double_C(word)
 
 
+  # Initial h
+  word = str_remove(word,
+                    pattern = "^h")
 
   # Odd diacritics:
   word = str_replace_all(word,

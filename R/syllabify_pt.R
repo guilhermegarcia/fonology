@@ -41,9 +41,15 @@ syllabify_pt = function(word = ""){
                          pattern = "\\.([sznm])([lr])",
                          replacement = "\\1.\\2")
 
+  # Remove h:
+  word = str_remove_all(string = word,
+                        pattern = "h")
+
+  # Overly complex onset clusters:
+  word = str_replace_all(string = word,
+                         pattern = "\\.s([tdpbkg][ɾl])",
+                         replacement = "s.\\1")
+
   return(word)
 
 }
-
-
-
