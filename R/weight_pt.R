@@ -68,35 +68,5 @@ getWeight_pt = function(word = "kom.pu.ta.ˈdoɾ"){
 }
 
 
-getWeight_pt_simple = function(word = c("kom.pu.ta.ˈdoɾ")){
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
-
-  syl_list = word %>%
-    str_split("\\.")
-
-  syl_list = lapply(syl_list, function(x) str_replace_all(x, pattern = "\\w+[jwlmnɾspbtdkgɾzfvʃʒʎɲ]",
-                                                          replacement = "H"))
-
-  syl_list = lapply(syl_list, function(x) str_replace_all(x, pattern = "[\\w*]{0,3}[ãõaeiouɛɔ]$",
-                                                          replacement = "L"))
-
-  syl_list = lapply(syl_list, function(x) str_replace_all(x, pattern = "H̃",
-                                                          replacement = "H"))
-
-  # Select only trisyllabic window:
-  profile = lapply(syl_list, function(x) rev(rev(x)[1:3]))
-
-  # Remove NAs:
-  profile = lapply(profile, function(x) x[!is.na(x)])
-
-  # Collapse weight:
-  profile = lapply(profile, function(x) str_c(x, collapse = "")) %>%
-    unlist()
-
-  profile[profile %in% ""] = NA
-
-  return(profile)
-}
 
 
