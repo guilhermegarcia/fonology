@@ -14,6 +14,7 @@ getSyl = function(word = c("pa.la.do"), pos = 1, syl = "\\."){
   pacman::p_load(tidyverse)
 
   syllables = word %>%
+    str_remove_all(pattern = "'|ˈ|ˌ") %>%
     str_split(pattern = syl)
 
   output = lapply(syllables, function(x) rev(x)[pos]) %>%

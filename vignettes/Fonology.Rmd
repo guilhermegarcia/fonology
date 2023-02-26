@@ -84,17 +84,17 @@ If you plan to tokenize texts and create a table with individual columns for str
 
 ## Sonority
 
-There are three functions in the package to analyze sonority. First, `demi(word = ..., d = ...)` extracts either the first (`d = 1`, the default) or second (`d = 2`) demisyllables of a given (syllabified) word (or vector of words. Second, `sonDisp(demi = ...)` calculates the sonority dispersion score of a given demisyllable, based on Clements (1990). Note that this metric does not differentiate sequences that respect the sonority sequencing principle (SSP) from those that don't, i.e., `pla` and `lpa` will have the same score. For that reason, a third function exists, `ssp(demi = ..., d = ...)`, which evaluates whether a given demisyllable respects (`1`) or doesn't repect (`0`) the SSP. In the example below, the dispersion score of the first demisyllable in the final syllable is calculated---`ssp()` isn't relevant here, since all words in Portuguese respect the SSP.
+There are three functions in the package to analyze sonority. First, `demi(word = ..., d = ...)` extracts either the first (`d = 1`, the default) or second (`d = 2`) demisyllables of a given (syllabified) word (or vector of words. Second, `sonDisp(demi = ...)` calculates the sonority dispersion score of a given demisyllable, based on Clements (1990). Note that this metric does not differentiate sequences that respect the sonority sequencing principle (SSP) from those that don't, i.e., `pla` and `lpa` will have the same score. For that reason, a third function exists, `ssp(demi = ..., d = ...)`, which evaluates whether a given demisyllable respects (`1`) or doesn't repect (`0`) the SSP. In the example below, the dispersion score of the first demisyllable in the penult syllable is calculated---`ssp()` isn't relevant here, since all words in Portuguese respect the SSP.
 
 ```{r, message=F}
 library(Fonology)
-example = tibble(word = c("partolo", "metriclpo", "vantridos"))
+example = tibble(word = c("partolo", "metrilpo", "vanplidos"))
 
 example = example %>% 
   rowwise() %>% 
   mutate(ipa = ipa_pt(word),
-         syl1 = getSyl(word = ipa, pos = 1),
-         demi1 = demi(word = syl1, d = 1),
+         syl2 = getSyl(word = ipa, pos = 2),
+         demi1 = demi(word = syl2, d = 1),
          disp = sonDisp(demi = demi1),
          SSP = ssp(demi = demi1, d = 1))
 
