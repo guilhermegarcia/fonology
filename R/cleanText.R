@@ -2,7 +2,7 @@
 #'
 #' Given a string, the function removes punctuation, empty tokens, numbers, and normalizes lower case.
 #' @param text A possible string or text
-#' @return A vector with all words in the input
+#' @return A vector with all words in the input, stripped of punctuation
 #' @examples
 #' cleanText(text = "Este é um texto em português? This is a text in English!");
 #' @export
@@ -28,4 +28,3 @@ cleanText = function(text = ""){
   return(output)
 
 }
-

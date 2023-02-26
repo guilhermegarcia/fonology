@@ -57,13 +57,13 @@ The function `ipa_pt()` takes a monomorphemic Portuguese `word` (real or not) in
 ```{r, message=F}
 library(Fonology)
 
-ipa_pt("atletico") # existing word
-ipa_pt("cantalo", narrow = T) # nonce word with nasalized vowel
+ipa_pt("atletico")
+ipa_pt("cantalo", narrow = T)
 ipa_pt("teatro")
-ipa_pt("antidepressivo", narrow = T) # secondary stress in narrow transcription
-ipa_pt("feris") # nonce word with potential penultimate stress despite final syllable
+ipa_pt("antidepressivo", narrow = T)
+ipa_pt("feris") 
 ipa_pt("tialo")
-ipa_pt("piato", narrow = T) # diphthongization expected in narrow transcription
+ipa_pt("piato", narrow = T)
 
 ```
 
@@ -80,6 +80,26 @@ Narrow transcription also includes (final) vowel reduction, voicing assimilation
 ### Helper functions
 
 If you plan to tokenize texts and create a table with individual columns for stress and syllables, you can use some simple additional helper functions. For example, `getWeight_pt()` will take a syllabified word in Portuguese and return its weight profile (e.g., `getWeight_pt("kon.to")` will return `HL`). The function `getStress()` will return the stress position of a given word (up to preantepenultimate stress)---the word must already be stressed, but the symbol used can be specified in the function (argument `stress`). Finally, `getSyl()` will extract a given syllable from a string. For example, `getSyl(word = "kom-pu-ta-doɾ", pos = 3, syl = "-")` will take the antepenultimate syllable of the string in question. The default symbol for syllabification is the period. Finally, `dePlu_pt()` will remove plural `s` from words that are listed in the Portuguese Stress Lexicon (to avoid treating morphemic `s` as a real coda word-finally)---note that `ipa_pt()` is not supposed to be used with polymorphemic strings. 
+
+
+## Sonority
+
+There are three functions in the package to analyze sonority. First, `demi(word = ..., d = ...)` extracts either the first (`d = 1`, the default) or second (`d = 2`) demisyllables of a given (syllabified) word (or vector of words. Second, `sonDisp(demi = ...)` calculates the sonority dispersion score of a given demisyllable, based on Clements (1990). Note that this metric does not differentiate sequences that respect the sonority sequencing principle (SSP) from those that don't, i.e., `pla` and `lpa` will have the same score. For that reason, a third function exists, `ssp(demi = ..., d = ...)`, which evaluates whether a given demisyllable respects (`1`) or doesn't repect (`0`) the SSP. In the example below, the dispersion score of the first demisyllable in the final syllable is calculated---`ssp()` isn't relevant here, since all words in Portuguese respect the SSP.
+
+```{r, message=F}
+library(Fonology)
+example = tibble(word = c("partolo", "metriclpo", "vantridos"))
+
+example = example %>% 
+  rowwise() %>% 
+  mutate(ipa = ipa_pt(word),
+         syl1 = getSyl(word = ipa, pos = 1),
+         demi1 = demi(word = syl1, d = 1),
+         disp = sonDisp(demi = demi1),
+         SSP = ssp(demi = demi1, d = 1))
+
+example
+```
 
 
 ## Plotting vowels
@@ -109,6 +129,8 @@ tibble(word = character(5)) %>%
 ```
 
 ## References
+
+- Clements, G. N. 1990. The role of the sonority cycle in core syllabiﬁcation. *In* John Kingston & Mary E. Beckman (eds.) *Papers in laboratory phonology I: Between the grammar and physics of speech*, 283--333. Cambridge: Cambridge University Press.
 
 - Garcia, G. D. (2014). Portuguese Stress Lexicon. Available at [gdgarcia.ca/psl.html](https://gdgarcia.ca/psl.html).
 

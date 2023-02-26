@@ -27,6 +27,8 @@ ipa_pt = function(word = "", narrow = F){
     wd = strip_clitic_pt(wd)
   }
 
+  wd = wd %>%
+    str_remove_all("[:punct:]")
 
   potentialPl = str_detect(wd, "s$")
   sgWd = str_remove(string = wd, pattern = "s$")

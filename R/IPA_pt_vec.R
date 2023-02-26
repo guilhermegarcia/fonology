@@ -38,3 +38,4 @@ ipa_pt_simple = function(word = c("palavra")){
 
   return(all)
 }
+

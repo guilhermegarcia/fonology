@@ -17,5 +17,5 @@ Given a string, the function tests if the string is LH and has penult stress,
 in which case the penultimate vowel height is checked and lowered if needed.
 }
 \examples{
-ipa_pt(word = "ˈpe.tel");
+spond_pt(word = "ˈpe.tel");
 }

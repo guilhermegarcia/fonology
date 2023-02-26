@@ -5,12 +5,12 @@
 #' @param word A possible string in Portuguese in its phonemic form
 #' @return The transcription with spondaic lowering if applicable
 #' @examples
-#' ipa_pt(word = "ˈpe.tel");
+#' spond_pt(word = "ˈpe.tel");
 #' @export
 
-
-
 spond_pt = function(word = ""){
+  if(!require("pacman", quietly = T)){install.packages("pacman")}
+  pacman::p_load(tidyverse)
 
   wordWeight = getWeight_pt(word)
   wordStress = getStress(word)
@@ -42,14 +42,3 @@ spond_pt = function(word = ""){
     return(word)
   }
 }
-
-
-dact_pt = function(word = ""){
-
-  word = str_replace(word,
-                     pattern = "(ˈ\\w*)e(\\.\\w+\\.\\w+$)",
-                     replacement = "\\1ɛ\\2")
-
-  return(word)
-}
-
