@@ -10,6 +10,7 @@ ipa_pt_test = function(){
   if(!require("pacman", quietly = T)){install.packages("pacman")}
   pacman::p_load(tidyverse)
 
+  message("Broad and narrow transcriptions listed below for...")
   require(tidyverse, quietly = T)
 
   testWords = c("strada",

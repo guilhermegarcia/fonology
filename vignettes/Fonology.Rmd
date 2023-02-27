@@ -75,7 +75,7 @@ Stress is assigned based on two scenarios. First, **real** words (non-verbs) hav
 
 There are several assumptions about surface-forms when `narrow = T`. Most of these assumptions can (and probably will) be adjusted as the package improves its accuracy and coverage. Diphthongization, for example, is sensitive to phonotactics. A word such as `CV.ˈV.CV` will be narrowly transcribed as `ˈCGV.CV` (except when the initial consonant is an affricate (allophonic), which *seems* to lower the probability of diphthongization based on my judgement). Diphthongization is not applied if the onset is complex. Needless to say, these assumptions are based on a particular dialect of Brazilian Portuguese, and I do not expect all of them to seamlessly apply to other dialects (although some assumptions are more easily generalizable than others).
 
-Narrow transcription also includes (final) vowel reduction, voicing assimilation, l-vocalization, vowel devoicing, palatalization, and epenthesis in `sC` clusters and other consonant sequences that are expected to be repaired on surface forms (e.g., *kt*, *gn*). Examples can be generated with the function `test_pt()`.
+Narrow transcription also includes (final) vowel reduction, voicing assimilation, l-vocalization, vowel devoicing, palatalization, and epenthesis in `sC` clusters and other consonant sequences that are expected to be repaired on surface forms (e.g., *kt*, *gn*). Examples can be generated with the function `ipa_pt_test()`.
 
 ### Helper functions
 
