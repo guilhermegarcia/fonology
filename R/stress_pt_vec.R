@@ -17,7 +17,7 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   which_monos = str_detect(string = word, pattern = "\\.", negate = T)
   monos = str_replace_all(string = word[str_detect(word, pattern = "\\.", negate = T)],
                           pattern = "^(.*)$",
-                          replacement = "'\\1")
+                          replacement = "ˈ\\1")
   # Remove monos from initial vector:
   word = word[!which_monos]
 
@@ -25,7 +25,7 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   which_mid_lows = str_detect(string = word, pattern = "[ɔɛ]")
   mid_lows = str_replace_all(string = word[str_detect(word, pattern = "[ɔɛ]")],
                              pattern = "([:alpha:]*[ɔɛ])",
-                             replacement = "'\\1")
+                             replacement = "ˈ\\1")
 
   # Now remove mid-lows from initial vector:
   word = word[!which_mid_lows]
@@ -34,7 +34,7 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   which_heavy_finals = str_detect(string = word, pattern = "[pbtdkgszfvʃʒʎɲmnlɾwjiuãõww̃]$")
   heavy_finals = str_replace_all(string = word[str_detect(word, pattern = "[pbtdkgszfvʃʒʎɲmnlɾwjiuãõww̃]$")],
                                  pattern = "([:alpha:]+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃])$",
-                                 replacement = "'\\1")
+                                 replacement = "ˈ\\1")
 
   # Remove them:
   word = word[!which_heavy_finals]
@@ -42,7 +42,7 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   # Else, penult stress:
   penults = str_replace_all(string = word,
                             pattern = "([:alpha:]+\\.)([:alpha:]+$)",
-                            replacement = "'\\1\\2")
+                            replacement = "ˈ\\1\\2")
 
 
   output = c(monos, mid_lows, heavy_finals, penults)
