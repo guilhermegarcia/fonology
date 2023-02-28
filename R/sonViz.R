@@ -61,6 +61,26 @@ plotSon = function(word = "", syl = F, save_plot = F){
                         rep(2, length(affricates)),
                         rep(1, length(stops))))
 
+  checkInput = word %>%
+    str_remove_all(pattern = "'|ˈ|ˌ|ː|ˑ|-|\\.") %>%
+    str_split("") %>%
+    unlist()
+
+  absent = c()
+
+  for(i in 1:length(checkInput)){
+    if(!checkInput[i] %in% full$phoneme){
+      absent[length(absent) + 1] = checkInput[i]
+    }
+  }
+
+  if(length(absent) > 0){
+    message("The following phonemes are not supported by the function:")
+    return(absent)
+  }
+
+
+
   if(syl){
 
     if(!str_detect(string = word, pattern = "\\.|-")){
@@ -70,6 +90,7 @@ plotSon = function(word = "", syl = F, save_plot = F){
       str_remove_all("'|ˈ|ˌ|ː|ˑ") %>%
       str_split("") %>%
       unlist()
+
 
     word_son = tibble(phoneme = word_simple) %>%
       left_join(full, by = "phoneme") %>%
