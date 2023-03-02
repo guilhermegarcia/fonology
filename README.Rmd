@@ -1,10 +1,21 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
 # Fonology
 
-The package `fonology` contains functions to help bridge the gap between
-written data and phonological analysis. `tidyverse` is required.
+The package `fonology` contains functions to help bridge the gap between written data and phonological analysis. `tidyverse` is required.
 
 ## Main functions and data
 
@@ -15,19 +26,19 @@ written data and phonological analysis. `tidyverse` is required.
 - `biGram_pt()` calculates bigram probabilities for a given word
 - `plotVowels()` generates vowel trapezoids
 - `plotSon()` plots the sonority profile of a given word
-- `psl` contains the [*Portuguese Stress
-  Lexicon*](https://gdgarcia.ca/psl.html)
-- `pt_lex` contains a simplified version of `psl`
+- `psl` contains the [*Portuguese Stress Lexicon*](https://gdgarcia.ca/psl.html) 
+- `pt_lex` contains a simplified version of `psl` 
 - `stopwords_pt` contains stopwords in Portuguese
 
 ## Future steps
 
 - implement `ipa_sp()` and `ipa_fr()` for Spanish and French
 
-Visit [my website](https://gdgarcia.ca/fonology) for more information
-and demos.
+Visit [my website](https://gdgarcia.ca/fonology) for more information and demos.
 
 ## Installation
 
-    library(devtools)
-    install_github("guilhermegarcia/fonology", build_vignettes = TRUE)
+```
+library(devtools)
+install_github("guilhermegarcia/fonology", build_vignettes = TRUE)
+```
