@@ -13,26 +13,26 @@ spond_pt = function(word = ""){
   wordWeight = getWeight_pt(word)
   wordStress = getStress(word)
 
-  if(wordStress == "Penult" &
+  if(stringr::str_to_lower(wordStress) == "penult" &
      stringr::str_detect(wordWeight, pattern = "LH$")){
     # Apply spondaic lowering
     # E
     word = stringr::str_replace(word,
-                       pattern = "(^ˈ\\w*)e(\\.\\w*$)",
-                       replacement = "\\1ɛ\\2")
+                                pattern = "(^ˈ\\w*)e(\\.\\w*$)",
+                                replacement = "\\1ɛ\\2")
 
     word = stringr::str_replace(word,
-                       pattern = "(\\.ˈ\\w*)e(\\.\\w*$)",
-                       replacement = "\\1ɛ\\2")
+                                pattern = "(\\.ˈ\\w*)e(\\.\\w*$)",
+                                replacement = "\\1ɛ\\2")
 
     # O
     word = stringr::str_replace(word,
-                       pattern = "(^ˈ\\w*)o(\\.\\w*$)",
-                       replacement = "\\1ɔ\\2")
+                                pattern = "(^ˈ\\w*)o(\\.\\w*$)",
+                                replacement = "\\1ɔ\\2")
 
     word = stringr::str_replace(word,
-                       pattern = "(\\.ˈ\\w*)o(\\.\\w*$)",
-                       replacement = "\\1ɔ\\2")
+                                pattern = "(\\.ˈ\\w*)o(\\.\\w*$)",
+                                replacement = "\\1ɔ\\2")
 
     return(word)
 
