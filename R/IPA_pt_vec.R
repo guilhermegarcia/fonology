@@ -7,23 +7,22 @@
 #' @return The phonemic transcription for the string in question
 #' @examples
 #' ipa_pt_simple(word = c("palado", "antedom"));
+#' @importFrom magrittr %>%
 #' @export
 
 ipa_pt_simple = function(word = c("palavra")){
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
 
-  wd = str_to_lower(word) %>%
-    str_remove_all(pattern = "[:punct:]")
+  wd = stringr::str_to_lower(word) %>%
+    stringr::str_remove_all(pattern = "[:punct:]")
 
-  wd[str_detect(wd, "\\d")] = NA
+  wd[stringr::str_detect(wd, "\\d")] = NA
 
   # Real words:
   real = wd[wd %in% pt_lex$word]
 
   real = pt_lex %>%
-    filter(word %in% real) %>%
-    pull(pro)
+    dplyr::filter(word %in% real) %>%
+    dplyr::pull(pro)
 
   # Potentially nonce words:
   nonce = wd[!wd %in% pt_lex$word]

@@ -6,46 +6,45 @@
 #' @return The sonority dispersion score
 #' @examples
 #' sonDisp(demi = "tra");
+#' @importFrom magrittr %>%
 #' @export
 
 sonDisp = function(demi = ""){
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
 
   # Define classes by sonority:
   vowels = "aeiouɛɔøɑəɪʊæœɛ̃œ̃ɔ̃" %>%
-    str_split("") %>% unlist()
+    stringr::str_split("") %>% unlist()
 
   glides = "jwʍɥ" %>%
-    str_split("") %>% unlist()
+    stringr::str_split("") %>% unlist()
 
   liquids = "lrɾɹʁʎ" %>%
-    str_split("") %>% unlist()
+    stringr::str_split("") %>% unlist()
 
   nasals = "mnŋɲ" %>%
-    str_split("") %>% unlist()
+    stringr::str_split("") %>% unlist()
 
   obs = "p.b.t.d.k.g.f.v.s.z.θ.ð.ʃ.ʝ.ʒ.t͡ʃ.d͡ʒ.h" %>%
-    str_split("\\.") %>% unlist()
+    stringr::str_split("\\.") %>% unlist()
 
 
   # Create tibble with all classes:
-  sonority = tibble(phoneme = c(vowels, glides, liquids, nasals, obs),
-                    class = c(rep("vowel", times = length(vowels)),
-                              rep("glide", times = length(glides)),
-                              rep("liquid", times = length(liquids)),
-                              rep("nasal", times = length(nasals)),
-                              rep("obstruent", times = length(obs))),
-                    score = case_when(class == "vowel" ~ 5,
-                                      class == "glide" ~ 4,
-                                      class == "liquid" ~ 3,
-                                      class == "nasal" ~ 2,
-                                      class == "obstruent" ~ 1))
+  sonority = tibble::tibble(phoneme = c(vowels, glides, liquids, nasals, obs),
+                            class = c(rep("vowel", times = length(vowels)),
+                                      rep("glide", times = length(glides)),
+                                      rep("liquid", times = length(liquids)),
+                                      rep("nasal", times = length(nasals)),
+                                      rep("obstruent", times = length(obs))),
+                            score = dplyr::case_when(class == "vowel" ~ 5,
+                                                     class == "glide" ~ 4,
+                                                     class == "liquid" ~ 3,
+                                                     class == "nasal" ~ 2,
+                                                     class == "obstruent" ~ 1))
 
-  d = demi %>% str_split("") %>% unlist()
-  d2 = tibble(phoneme = d) %>%
-    left_join(sonority, by = "phoneme")
-  score = d2 %>% pull(score)
+  d = demi %>% stringr::str_split("") %>% unlist()
+  d2 = tibble::tibble(phoneme = d) %>%
+    dplyr::left_join(sonority, by = "phoneme")
+  score = d2 %>% dplyr::pull(score)
   combs = combn(score, 2)
   diffs = combs[1,] - combs[2,]
   D = sum(1/diffs^2)

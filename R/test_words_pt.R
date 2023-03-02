@@ -4,14 +4,12 @@
 #' @return A list of words broadly and narrowly transcribed using ipa_pt
 #' @examples
 #' ipa_pt_test();
+#' @importFrom magrittr %>%
 #' @export
 
 ipa_pt_test = function(){
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
-
   message("Broad and narrow transcriptions listed below for...")
-  require(tidyverse, quietly = T)
+
 
   testWords = c("strada",
                 "cavalo",
@@ -31,7 +29,7 @@ ipa_pt_test = function(){
 
   for(i in 1:length(testWords)){
 
-    message(str_c(testWords[i], ":"))
+    message(stringr::str_c(testWords[i], ":"))
 
     ipa_pt(testWords[i]) %>%
       print()

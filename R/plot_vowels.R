@@ -7,12 +7,10 @@
 #' @examples
 #' plotVowels(lg = "portuguese");
 #' plotVowels(lg = "english");
+#' @importFrom magrittr %>%
 #' @export
 
 plotVowels = function(lg = "English", tex = F){
-
-  if (!require("pacman", quietly = T)) install.packages("pacman")
-  pacman::p_load(tidyverse)
 
   # Tex file:
   texOutput = "\\documentclass[12pt, letterpaper]{article}
@@ -57,114 +55,114 @@ plotVowels = function(lg = "English", tex = F){
 
 
 # Tex tibble:
-latex = tibble(lines = str_split(texOutput, "\\n")[[1]],
-               vowel = c(rep("pre", 7),
-                         c("i", "y", "e", "ø",
-                           "ɛ", "œ", "a", "ɶ",
-                           "ɑ", "ɒ", "ʌ", "ɔ",
-                           "ɤ", "o", "ɯ", "u",
-                           "ɨ", "ʉ", "ɘ", "ɵ",
-                           "ə", "ɜ", "ɞ", "ɪ",
-                           "ʏ", "ʊ", "ɐ", "æ"),
-                         rep("post", 4)))
+latex = tibble::tibble(lines = stringr::str_split(texOutput, "\\n")[[1]],
+                       vowel = c(rep("pre", 7),
+                                 c("i", "y", "e", "ø",
+                                   "ɛ", "œ", "a", "ɶ",
+                                   "ɑ", "ɒ", "ʌ", "ɔ",
+                                   "ɤ", "o", "ɯ", "u",
+                                   "ɨ", "ʉ", "ɘ", "ɵ",
+                                   "ə", "ɜ", "ɞ", "ɪ",
+                                   "ʏ", "ʊ", "ɐ", "æ"),
+                                 rep("post", 4)))
 
 # Tibble:
-V = tibble(vowel = character(), x = numeric(), y = numeric())
+V = tibble::tibble(vowel = character(), x = numeric(), y = numeric())
 
 V = V %>%
-  add_row(vowel = "a",
-          x = 3.4,
-          y = -0.9) %>%
-  add_row(vowel = "ɛ",
-          x = 1.7,
-          y = 3.1) %>%
-  add_row(vowel = "ɔ",
-          x = 11.7,
-          y = 3.1) %>%
-  add_row(vowel = "e",
-          x = 0,
-          y = 7.1) %>%
-  add_row(vowel = "o",
-          x = 11.7,
-          y = 7.1) %>%
-  add_row(vowel = "i",
-          x = -1.5,
-          y = 11.1) %>%
-  add_row(vowel = "u",
-          x = 11.7,
-          y = 11.1) %>%
+  tibble::add_row(vowel = "a",
+                  x = 3.4,
+                  y = -0.9) %>%
+  tibble::add_row(vowel = "ɛ",
+                  x = 1.7,
+                  y = 3.1) %>%
+  tibble::add_row(vowel = "ɔ",
+                  x = 11.7,
+                  y = 3.1) %>%
+  tibble::add_row(vowel = "e",
+                  x = 0,
+                  y = 7.1) %>%
+  tibble::add_row(vowel = "o",
+                  x = 11.7,
+                  y = 7.1) %>%
+  tibble::add_row(vowel = "i",
+                  x = -1.5,
+                  y = 11.1) %>%
+  tibble::add_row(vowel = "u",
+                  x = 11.7,
+                  y = 11.1) %>%
 
-  add_row(vowel = "ɶ",
-          x = 4.8,
-          y = -0.9) %>%
-  add_row(vowel = "ɑ",
-          x = 10.2,
-          y = -0.9) %>%
-  add_row(vowel = "ɒ",
-          x = 11.7,
-          y = -0.9) %>%
+  tibble::add_row(vowel = "ɶ",
+                  x = 4.8,
+                  y = -0.9) %>%
+  tibble::add_row(vowel = "ɑ",
+                  x = 10.2,
+                  y = -0.9) %>%
+  tibble::add_row(vowel = "ɒ",
+                  x = 11.7,
+                  y = -0.9) %>%
 
-  add_row(vowel = "æ",
-          x = 2.5,
-          y = 1) %>%
-  add_row(vowel = "ɐ",
-          x = 6.65,
-          y = 1.3) %>%
-  add_row(vowel = "œ",
-          x = 3.1,
-          y = 3.1) %>%
+  tibble::add_row(vowel = "æ",
+                  x = 2.5,
+                  y = 1) %>%
+  tibble::add_row(vowel = "ɐ",
+                  x = 6.65,
+                  y = 1.3) %>%
+  tibble::add_row(vowel = "œ",
+                  x = 3.1,
+                  y = 3.1) %>%
 
-  add_row(vowel = "ɜ",
-          x = 5.8,
-          y = 3.1) %>%
-  add_row(vowel = "ɞ",
-          x = 7,
-          y = 3.1) %>%
-  add_row(vowel = "ʌ",
-          x = 10.2,
-          y = 3.1) %>%
+  tibble::add_row(vowel = "ɜ",
+                  x = 5.8,
+                  y = 3.1) %>%
+  tibble::add_row(vowel = "ɞ",
+                  x = 7,
+                  y = 3.1) %>%
+  tibble::add_row(vowel = "ʌ",
+                  x = 10.2,
+                  y = 3.1) %>%
 
-  add_row(vowel = "ø",
-          x = 1.35,
-          y = 7.1) %>%
-  add_row(vowel = "ɘ",
-          x = 5,
-          y = 7.1) %>%
-  add_row(vowel = "ɵ",
-          x = 6.4,
-          y = 7.1) %>%
-  add_row(vowel = "ə",
-          x = 6,
-          y = 5.1) %>%
-  add_row(vowel = "ɤ",
-          x = 10.2,
-          y = 7.1) %>%
-  add_row(vowel = "ɪ",
-          x = 1.4,
-          y = 9.25) %>%
-  add_row(vowel = "ʏ",
-          x = 2.4,
-          y = 9.25) %>%
+  tibble::add_row(vowel = "ø",
+                  x = 1.35,
+                  y = 7.1) %>%
+  tibble::add_row(vowel = "ɘ",
+                  x = 5,
+                  y = 7.1) %>%
+  tibble::add_row(vowel = "ɵ",
+                  x = 6.4,
+                  y = 7.1) %>%
+  tibble::add_row(vowel = "ə",
+                  x = 6,
+                  y = 5.1) %>%
+  tibble::add_row(vowel = "ɤ",
+                  x = 10.2,
+                  y = 7.1) %>%
+  tibble::add_row(vowel = "ɪ",
+                  x = 1.4,
+                  y = 9.25) %>%
+  tibble::add_row(vowel = "ʏ",
+                  x = 2.4,
+                  y = 9.25) %>%
 
-  add_row(vowel = "y",
-          x = -0.28,
-          y = 11.1) %>%
-  add_row(vowel = "ɨ",
-          x = 4.3,
-          y = 11.1) %>%
-  add_row(vowel = "ʉ",
-          x = 5.8,
-          y = 11.1) %>%
+  tibble::add_row(vowel = "y",
+                  x = -0.28,
+                  y = 11.1) %>%
+  tibble::add_row(vowel = "ɨ",
+                  x = 4.3,
+                  y = 11.1) %>%
+  tibble::add_row(vowel = "ʉ",
+                  x = 5.8,
+                  y = 11.1) %>%
 
-  add_row(vowel = "ɯ",
-          x = 10.1,
-          y = 11.1) %>%
-  add_row(vowel = "ʊ",
-          x = 9,
-          y = 9.25)
+  tibble::add_row(vowel = "ɯ",
+                  x = 10.1,
+                  y = 11.1) %>%
+  tibble::add_row(vowel = "ʊ",
+                  x = 9,
+                  y = 9.25)
 
 V = V %>%
-  mutate(choice = row_number())
+  dplyr::mutate(choice = dplyr::row_number())
 
 # Language inventories:
 
@@ -190,96 +188,96 @@ vietnamese = c("a", "e", "i", "o", "u", "ɛ", "ɔ", "ɯ", "ɤ")
 
 if(lg == "all"){
 
-  fig = ggplot(data = V, aes(x = x, y = y, label = vowel)) +
-    labs(x = NULL,
-         y = NULL) +
-    theme_classic() +
-    theme(axis.ticks = element_blank(),
-          axis.text = element_blank(),
-          line = element_blank()) +
-    geom_segment(aes(x = 7, y = -1, xend = 5, yend = 11), color = "gray") +       # center vertical
-    geom_segment(aes(x = 3, y = 3, xend = 5.3, yend = 3), color = "gray")  +      # mid-low left
-    geom_segment(aes(x = 7, y = 3, xend = 10, yend = 3), color = "gray")  +       # mid-low right
-    geom_segment(aes(x = 1.35, y = 7, xend = 5, yend = 7), color = "gray") +      # mid-hi left
-    geom_segment(aes(x = 6.4, y = 7, xend = 10, yend = 7), color = "gray") +      # mid-hi right
-    geom_segment(aes(x = 4.7, y = -1, xend = 10, yend = -1), color = "gray40") +  # bottom
-    geom_segment(aes(x = 0, y = 11, xend = 4, yend = 11), color = "gray40") +     # top left
-    geom_segment(aes(x = 6, y = 11, xend = 10, yend = 11), color = "gray40") +    # top right
-    geom_label(size = 10, color = "black", label.size = 0, fill = "white",
-               # family = "Charis SIL",
-               label.r = unit(1, "lines"),
-               label.padding = unit(0.5, "lines")) +
-    geom_segment(aes(x = 4, y = -1, xend = -1, yend = 11), color = "gray40") +    # left
-    geom_segment(aes(x = 11, y = 11, xend = 11, yend = -1), color = "gray40") +   # right
-    geom_point(aes(x = 4, y = -1), size = 5, color = "gray40") +
-    geom_point(aes(x = 11, y = -1), size = 5, color = "gray40") +
-    geom_point(aes(x = 2.33, y = 3), size = 5, color = "gray40") +
-    geom_point(aes(x = 6.35, y = 3), size = 5, color = "gray40") +
-    geom_point(aes(x = 11, y = 3), size = 5, color = "gray40") +
-    geom_point(aes(x = 0.67, y = 7), size = 5, color = "gray40") +
-    geom_point(aes(x = 5.68, y = 7), size = 5, color = "gray40") +
-    geom_point(aes(x = 11, y = 7), size = 5, color = "gray40") +
-    geom_point(aes(x = -1, y = 11), size = 5, color = "gray40") +
-    geom_point(aes(x = 5, y = 11), size = 5, color = "gray40") +
-    geom_point(aes(x = 11, y = 11), size = 5, color = "gray40")
+  fig = ggplot2::ggplot(data = V, ggplot2::aes(x = x, y = y, label = vowel)) +
+    ggplot2::labs(x = NULL,
+                  y = NULL) +
+    ggplot2::theme_classic() +
+    ggplot2::theme(axis.ticks = ggplot2::element_blank(),
+                   axis.text = ggplot2::element_blank(),
+                   line = ggplot2::element_blank()) +
+    ggplot2::geom_segment(ggplot2::aes(x = 7, y = -1, xend = 5, yend = 11), color = "gray") +       # center vertical
+    ggplot2::geom_segment(ggplot2::aes(x = 3, y = 3, xend = 5.3, yend = 3), color = "gray")  +      # mid-low left
+    ggplot2::geom_segment(ggplot2::aes(x = 7, y = 3, xend = 10, yend = 3), color = "gray")  +       # mid-low right
+    ggplot2::geom_segment(ggplot2::aes(x = 1.35, y = 7, xend = 5, yend = 7), color = "gray") +      # mid-hi left
+    ggplot2::geom_segment(ggplot2::aes(x = 6.4, y = 7, xend = 10, yend = 7), color = "gray") +      # mid-hi right
+    ggplot2::geom_segment(ggplot2::aes(x = 4.7, y = -1, xend = 10, yend = -1), color = "gray40") +  # bottom
+    ggplot2::geom_segment(ggplot2::aes(x = 0, y = 11, xend = 4, yend = 11), color = "gray40") +     # top left
+    ggplot2::geom_segment(ggplot2::aes(x = 6, y = 11, xend = 10, yend = 11), color = "gray40") +    # top right
+    ggplot2::geom_label(size = 10, color = "black", label.size = 0, fill = "white",
+                        # family = "Charis SIL",
+                        label.r = ggplot2::unit(1, "lines"),
+                        label.padding = ggplot2::unit(0.5, "lines")) +
+    ggplot2::geom_segment(ggplot2::aes(x = 4, y = -1, xend = -1, yend = 11), color = "gray40") +    # left
+    ggplot2::geom_segment(ggplot2::aes(x = 11, y = 11, xend = 11, yend = -1), color = "gray40") +   # right
+    ggplot2::geom_point(ggplot2::aes(x = 4, y = -1), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 11, y = -1), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 2.33, y = 3), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 6.35, y = 3), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 11, y = 3), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 0.67, y = 7), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 5.68, y = 7), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 11, y = 7), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = -1, y = 11), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 5, y = 11), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 11, y = 11), size = 5, color = "gray40")
 
 
   texOutput = latex %>%
     # filter(vowel %in% c(targetLanguage, "pre", "post")) %>%
-    pull(lines) %>%
-    str_c(collapse = "\n")
+    dplyr::pull(lines) %>%
+    stringr::str_c(collapse = "\n")
 
-  print(str_c("LaTeX code: ", texOutput))
+  print(stringr::str_c("LaTeX code: ", texOutput))
 
   return(fig)
 
 } else {
 
-  targetLanguage = eval(parse(text = str_to_lower(lg)))
+  targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
 
-  fig = ggplot(data = V %>%
-                 filter(vowel %in% targetLanguage) %>%
-                 droplevels(), aes(x = x, y = y, label = vowel)) +
-    labs(x = NULL,
-         y = NULL) +
-    theme_classic() +
-    theme(axis.ticks = element_blank(),
-          axis.text = element_blank(),
-          line = element_blank()) +
-    geom_segment(aes(x = 7, y = -1, xend = 5, yend = 11), color = "gray") +       # center vertical
-    geom_segment(aes(x = 3, y = 3, xend = 5.3, yend = 3), color = "gray")  +      # mid-low left
-    geom_segment(aes(x = 7, y = 3, xend = 10, yend = 3), color = "gray")  +       # mid-low right
-    geom_segment(aes(x = 1.35, y = 7, xend = 5, yend = 7), color = "gray") +      # mid-hi left
-    geom_segment(aes(x = 6.4, y = 7, xend = 10, yend = 7), color = "gray") +      # mid-hi right
-    geom_segment(aes(x = 4.7, y = -1, xend = 10, yend = -1), color = "gray40") +  # bottom
-    geom_segment(aes(x = 0, y = 11, xend = 4, yend = 11), color = "gray40") +     # top left
-    geom_segment(aes(x = 6, y = 11, xend = 10, yend = 11), color = "gray40") +    # top right
-    geom_label(size = 10, color = "black", label.size = 0, fill = "white",
-               # family = "Charis SIL",
-               label.r = unit(1, "lines"),
-               label.padding = unit(0.5, "lines")) +
-    geom_segment(aes(x = 4, y = -1, xend = -1, yend = 11), color = "gray40") +    # left
-    geom_segment(aes(x = 11, y = 11, xend = 11, yend = -1), color = "gray40") +   # right
-    geom_point(aes(x = 4, y = -1), size = 5, color = "gray40") +
-    geom_point(aes(x = 11, y = -1), size = 5, color = "gray40") +
-    geom_point(aes(x = 2.33, y = 3), size = 5, color = "gray40") +
-    geom_point(aes(x = 6.35, y = 3), size = 5, color = "gray40") +
-    geom_point(aes(x = 11, y = 3), size = 5, color = "gray40") +
-    geom_point(aes(x = 0.67, y = 7), size = 5, color = "gray40") +
-    geom_point(aes(x = 5.68, y = 7), size = 5, color = "gray40") +
-    geom_point(aes(x = 11, y = 7), size = 5, color = "gray40") +
-    geom_point(aes(x = -1, y = 11), size = 5, color = "gray40") +
-    geom_point(aes(x = 5, y = 11), size = 5, color = "gray40") +
-    geom_point(aes(x = 11, y = 11), size = 5, color = "gray40")
+  fig = ggplot2::ggplot(data = V %>%
+                          dplyr::filter(vowel %in% targetLanguage) %>%
+                          droplevels(), ggplot2::aes(x = x, y = y, label = vowel)) +
+    ggplot2::labs(x = NULL,
+                  y = NULL) +
+    ggplot2::theme_classic() +
+    ggplot2::theme(axis.ticks = ggplot2::element_blank(),
+                   axis.text = ggplot2::element_blank(),
+                   line = ggplot2::element_blank()) +
+    ggplot2::geom_segment(ggplot2::aes(x = 7, y = -1, xend = 5, yend = 11), color = "gray") +       # center vertical
+    ggplot2::geom_segment(ggplot2::aes(x = 3, y = 3, xend = 5.3, yend = 3), color = "gray")  +      # mid-low left
+    ggplot2::geom_segment(ggplot2::aes(x = 7, y = 3, xend = 10, yend = 3), color = "gray")  +       # mid-low right
+    ggplot2::geom_segment(ggplot2::aes(x = 1.35, y = 7, xend = 5, yend = 7), color = "gray") +      # mid-hi left
+    ggplot2::geom_segment(ggplot2::aes(x = 6.4, y = 7, xend = 10, yend = 7), color = "gray") +      # mid-hi right
+    ggplot2::geom_segment(ggplot2::aes(x = 4.7, y = -1, xend = 10, yend = -1), color = "gray40") +  # bottom
+    ggplot2::geom_segment(ggplot2::aes(x = 0, y = 11, xend = 4, yend = 11), color = "gray40") +     # top left
+    ggplot2::geom_segment(ggplot2::aes(x = 6, y = 11, xend = 10, yend = 11), color = "gray40") +    # top right
+    ggplot2::geom_label(size = 10, color = "black", label.size = 0, fill = "white",
+                        # family = "Charis SIL",
+                        label.r = ggplot2::unit(1, "lines"),
+                        label.padding = ggplot2::unit(0.5, "lines")) +
+    ggplot2::geom_segment(ggplot2::aes(x = 4, y = -1, xend = -1, yend = 11), color = "gray40") +    # left
+    ggplot2::geom_segment(ggplot2::aes(x = 11, y = 11, xend = 11, yend = -1), color = "gray40") +   # right
+    ggplot2::geom_point(ggplot2::aes(x = 4, y = -1), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 11, y = -1), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 2.33, y = 3), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 6.35, y = 3), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 11, y = 3), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 0.67, y = 7), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 5.68, y = 7), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 11, y = 7), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = -1, y = 11), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 5, y = 11), size = 5, color = "gray40") +
+    ggplot2::geom_point(ggplot2::aes(x = 11, y = 11), size = 5, color = "gray40")
 
   # ADJUST TEX:
   texOutput = latex %>%
-    filter(vowel %in% c(targetLanguage, "pre", "post")) %>%
-    pull(lines) %>%
-    str_c(collapse = "\n")
+    dplyr::filter(vowel %in% c(targetLanguage, "pre", "post")) %>%
+    dplyr::pull(lines) %>%
+    stringr::str_c(collapse = "\n")
 
   if(tex == T){
-    write_lines(texOutput, file = "vowels.tex")
+    readr::write_lines(texOutput, file = "vowels.tex")
     print("'vowels.tex' exported to your current working directory.")
   }
   return(fig)

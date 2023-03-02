@@ -1,11 +1,11 @@
 Package: Fonology
 Type: Package
 Title: Phonological analysis in R
-Version: 0.1.0
+Version: 0.5.0
 Author: Guilherme Duarte Garcia
 Maintainer: Guilherme Duarte Garcia <guilherme.garcia@lli.ulaval.ca>
-Description: The package contains functions to help with phonological analysis and teaching
-License: MIT License
+Description: The package contains a range of functions to help with phonological analysis and teaching.
+License: MIT License + file LICENSE
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
@@ -13,3 +13,15 @@ Suggests: knitr, rmarkdown
 Depends: 
     R (>= 2.10)
 RoxygenNote: 7.2.3
+Imports: 
+    dplyr,
+    ggplot2,
+    graphics,
+    gtools,
+    magrittr,
+    readr,
+    stats,
+    stringr,
+    tibble,
+    tidyr,
+    utils

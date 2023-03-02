@@ -9,30 +9,28 @@
 #' @export
 
 spond_pt = function(word = ""){
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
 
   wordWeight = getWeight_pt(word)
   wordStress = getStress(word)
 
   if(wordStress == "Penult" &
-     str_detect(wordWeight, pattern = "LH$")){
+     stringr::str_detect(wordWeight, pattern = "LH$")){
     # Apply spondaic lowering
     # E
-    word = str_replace(word,
+    word = stringr::str_replace(word,
                        pattern = "(^ˈ\\w*)e(\\.\\w*$)",
                        replacement = "\\1ɛ\\2")
 
-    word = str_replace(word,
+    word = stringr::str_replace(word,
                        pattern = "(\\.ˈ\\w*)e(\\.\\w*$)",
                        replacement = "\\1ɛ\\2")
 
     # O
-    word = str_replace(word,
+    word = stringr::str_replace(word,
                        pattern = "(^ˈ\\w*)o(\\.\\w*$)",
                        replacement = "\\1ɔ\\2")
 
-    word = str_replace(word,
+    word = stringr::str_replace(word,
                        pattern = "(\\.ˈ\\w*)o(\\.\\w*$)",
                        replacement = "\\1ɔ\\2")
 

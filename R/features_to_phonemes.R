@@ -6,18 +6,16 @@
 #' @return The phonemes given the features provided
 #' @examples
 #' getPhon(ft = c("+hi", "+tense"), lg = "english");
+#' @importFrom magrittr %>%
 #' @export
 
 getPhon = function(ft = c(), lg = "Portuguese"){
 
-  if (!require("pacman", quietly = TRUE)) install.packages("pacman")
-  pacman::p_load(tidyverse, gtools)
-
   features = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg"
 
-  plusFt = str_split(features, pattern = "\\|") %>% unlist() %>% str_c("+", .)
-  minusFt = str_split(features, pattern = "\\|") %>% unlist() %>% str_c("-", .)
-  zeroFt = str_split(features, pattern = "\\|") %>% unlist() %>% str_c("0", .)
+  plusFt = stringr::str_split(features, pattern = "\\|") %>% unlist() %>% stringr::str_c("+", .)
+  minusFt = stringr::str_split(features, pattern = "\\|") %>% unlist() %>% stringr::str_c("-", .)
+  zeroFt = stringr::str_split(features, pattern = "\\|") %>% unlist() %>% stringr::str_c("0", .)
 
   ftCombs = c(plusFt, minusFt, zeroFt)
 
@@ -29,45 +27,45 @@ getPhon = function(ft = c(), lg = "Portuguese"){
 
   availableLg = c("portuguese", "french", "english", "spanish")
 
-  if(!str_to_lower(lg) %in% availableLg){
+  if(!stringr::str_to_lower(lg) %in% availableLg){
     stop("Language not supported (or misspelled).")
   }
 
   # Pick one language to work with:
   portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
-    str_split(pattern = "\\.") %>%
+    stringr::str_split(pattern = "\\.") %>%
     unlist()
 
   french = c("a.e.ø.ɑ.i.y.o.u.ɛ.ɔ.ə.œ.ɛ̃.œ̃.ɔ̃.ɑ̃.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.ʁ.m.ɱ.n.ɲ.ŋ.l.w.j.ɥ") %>%
-    str_split(pattern = "\\.") %>%
+    stringr::str_split(pattern = "\\.") %>%
     unlist()
 
   english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.k.g.v.t.d.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
-    str_split(pattern = "\\.") %>%
+    stringr::str_split(pattern = "\\.") %>%
     unlist()
 
   spanish = c("a.e.ɑ.i.o.u.p.b.f.v.t.d.k.g.s.z.t͡ʃ.θ.m.ɲ.w.j.l.r.ɾ.ʎ.x.ʝ") %>%
-    str_split(pattern = "\\.") %>%
+    stringr::str_split(pattern = "\\.") %>%
     unlist()
   # Select language:
-  targetLanguage = eval(parse(text = str_to_lower(lg)))
+  targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
 
   allFeatures = allFeatures %>%
-    filter(ipa %in% targetLanguage) %>%
+    dplyr::filter(ipa %in% targetLanguage) %>%
     droplevels()
 
   fNames = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg"
 
   # Extract features:
-  features = str_extract_all(string = ft, pattern = fNames) %>% unlist()
+  features = stringr::str_extract_all(string = ft, pattern = fNames) %>% unlist()
 
   # Extract values:
-  values = str_extract_all(string = ft, pattern = "^[\\+\\-0]") %>% unlist()
+  values = stringr::str_extract_all(string = ft, pattern = "^[\\+\\-0]") %>% unlist()
 
-  featuresIn = tibble(feature = features,
-                      values = values) %>%
-    pivot_wider(names_from = feature,
-                values_from = values)
+  featuresIn = tibble::tibble(feature = features,
+                              values = values) %>%
+    tidyr::pivot_wider(names_from = feature,
+                       values_from = values)
 
   # phonemes = allFeatures %>%
   #   right_join(featuresIn)

@@ -7,37 +7,36 @@
 #' @return Either 1, indicating that the sequence respects the SSP, or 0
 #' @examples
 #' ssp(demi = "tra", d = 1);
+#' @importFrom magrittr %>%
 #' @export
 
 ssp = function(demi = "", d = 1){
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
 
   # Define classes by sonority:
   vowels = "aeiouɛɔøɑəɪʊæœɛ̃œ̃ɔ̃" %>%
-    str_split("") %>% unlist()
+    stringr::str_split("") %>% unlist()
 
   glides = "jwʍɥ" %>%
-    str_split("") %>% unlist()
+    stringr::str_split("") %>% unlist()
 
   liquids = "lrɾɹʁʎ" %>%
-    str_split("") %>% unlist()
+    stringr::str_split("") %>% unlist()
 
   nasals = "mnŋɲ" %>%
-    str_split("") %>% unlist()
+    stringr::str_split("") %>% unlist()
 
   obs = "p.b.t.d.k.g.f.v.s.z.θ.ð.ʃ.ʝ.ʒ.t͡ʃ.d͡ʒ.h" %>%
-    str_split("\\.") %>% unlist()
+    stringr::str_split("\\.") %>% unlist()
 
 
   # Create tibble with all classes:
-  sonority = tibble(phoneme = c(vowels, glides, liquids, nasals, obs),
+  sonority = tibble::tibble(phoneme = c(vowels, glides, liquids, nasals, obs),
                     class = c(rep("vowel", times = length(vowels)),
                               rep("glide", times = length(glides)),
                               rep("liquid", times = length(liquids)),
                               rep("nasal", times = length(nasals)),
                               rep("obstruent", times = length(obs))),
-                    score = case_when(class == "vowel" ~ 5,
+                    score = dplyr::case_when(class == "vowel" ~ 5,
                                       class == "glide" ~ 4,
                                       class == "liquid" ~ 3,
                                       class == "nasal" ~ 2,
@@ -53,12 +52,12 @@ ssp = function(demi = "", d = 1){
   }
 
   demi_split = demi %>%
-    str_split("") %>%
+    stringr::str_split("") %>%
     unlist()
 
-  tib = tibble(phoneme = demi_split) %>%
-    left_join(sonority, by = "phoneme") %>%
-    pull(score)
+  tib = tibble::tibble(phoneme = demi_split) %>%
+    dplyr::left_join(sonority, by = "phoneme") %>%
+    dplyr::pull(score)
 
   if(any(is.na(tib))){
     message("One of the phonemes you entered is not valid.")

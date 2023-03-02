@@ -8,19 +8,18 @@
 #' @return The demisyllable of interest
 #' @examples
 #' demi(word = c("kram.pjo", "tlons.tri"), d = 1);
+#' @importFrom magrittr %>%
 #' @export
 
 demi = function(word = c(), d = 1){
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
 
   word = word %>%
-    str_split(pattern = "\\.") %>%
+    stringr::str_split(pattern = "\\.") %>%
     unlist() %>%
-    str_remove_all(pattern = "'|ˈ")
+    stringr::str_remove_all(pattern = "'|ˈ")
 
-  d1 = word %>% str_extract(pattern = "^\\w*[aeiouɛɔøɑəɪʊæœɛ̃œ̃ɔ̃]")
-  d2 = word %>% str_extract(pattern = "[aeiouɛɔøɑəɪʊæœɛ̃œ̃ɔ̃]\\w*$")
+  d1 = word %>% stringr::str_extract(pattern = "^\\w*[aeiouɛɔøɑəɪʊæœɛ̃œ̃ɔ̃]")
+  d2 = word %>% stringr::str_extract(pattern = "[aeiouɛɔøɑəɪʊæœɛ̃œ̃ɔ̃]\\w*$")
 
   if(d == 2){
     return(d2)

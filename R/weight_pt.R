@@ -7,57 +7,51 @@
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 #' @examples
 #' getWeight_pt(word = "kom.pu.ta.ˈdoɾ");
+#' @importFrom magrittr %>%
 #' @export
 
 getWeight_pt = function(word = "kom.pu.ta.ˈdoɾ"){
 
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
+  word = stringr::str_to_lower(word)
 
-  word = str_to_lower(word)
-
-  potentialPl = str_detect(word, "s$")
-  sgWd = str_remove_all(string = word, pattern = "s$")
-
-
-
+  potentialPl = stringr::str_detect(word, "s$")
+  sgWd = stringr::str_remove_all(string = word, pattern = "s$")
 
   # Remove stress
-  word = str_remove_all(string = word,
+  word = stringr::str_remove_all(string = word,
                         pattern = "ˈ|'")
 
-
   # Light syllables
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                          pattern = "[\\w*]{0,3}[ãõaeiouɛɔ]$",
                          replacement = "L")
 
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                          pattern = "[\\w*]{0,3}[ãõaeiouɛɔ]\\.",
                          replacement = "L.")
 
 
   # Heavy syllables
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                          pattern = "\\w+[jwlmnɾspbtdkgɾzfvʃʒʎɲ]",
                          replacement = "H")
 
   # Remove syllabification
-  word = str_remove_all(string = word,
+  word = stringr::str_remove_all(string = word,
                         pattern = "\\.")
 
   # Fix nasal diphthongs
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                          pattern = "H̃",
                          replacement = "H")
 
   # Pick only trisyllabic window
-  word = str_sub(string = word,
+  word = stringr::str_sub(string = word,
                  start = -3L, end = -1L)
 
   # H -> L if s] = plural
   if(potentialPl & sgWd %in% pt_lex$pro){
-    word = str_replace(string = word,
+    word = stringr::str_replace(string = word,
                        pattern = "H$",
                        replacement = "L")
   }
@@ -66,7 +60,3 @@ getWeight_pt = function(word = "kom.pu.ta.ˈdoɾ"){
   return(word)
 
 }
-
-
-
-

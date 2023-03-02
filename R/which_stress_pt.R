@@ -6,22 +6,21 @@
 #' @return The primary stress position
 #' @examples
 #' getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ");
+#' @importFrom magrittr %>%
 #' @export
 
 getStress = function(word = c("kom.pu.ta.ˈdoɾ"), stress = "ˈ"){
-  if (!require("pacman", quietly = T)) install.packages("pacman")
-  pacman::p_load(tidyverse)
 
   syl_list = word %>%
-    str_split("\\.")
+    stringr::str_split("\\.")
 
-  indices = lapply(syl_list, function(x) which(str_detect(rev(x), pattern = stress))) %>% unlist()
+  indices = lapply(syl_list, function(x) which(stringr::str_detect(rev(x), pattern = stress))) %>% unlist()
 
-  indices = str_replace_all(indices, pattern = "1", replacement = "final")
-  indices = str_replace_all(indices, pattern = "2", replacement = "penult")
-  indices = str_replace_all(indices, pattern = "3", replacement = "antepenult")
-  indices = str_replace_all(indices, pattern = "4", replacement = "pre-antepenult")
-  indices = str_replace_all(indices, pattern = "[56789]", replacement = "ungrammatical")
+  indices = stringr::str_replace_all(indices, pattern = "1", replacement = "final")
+  indices = stringr::str_replace_all(indices, pattern = "2", replacement = "penult")
+  indices = stringr::str_replace_all(indices, pattern = "3", replacement = "antepenult")
+  indices = stringr::str_replace_all(indices, pattern = "4", replacement = "pre-antepenult")
+  indices = stringr::str_replace_all(indices, pattern = "[56789]", replacement = "ungrammatical")
 
   return(indices)
 }

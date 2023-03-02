@@ -4,7 +4,7 @@
 \alias{plotSon}
 \title{Sonority plot}
 \usage{
-plotSon(word = "", syl = F, save_plot = F)
+plotSon(word = "", syl = FALSE, save_plot = FALSE)
 }
 \arguments{
 \item{word}{A phonemically transcribed word. Syllabification and stress are optional}
@@ -21,5 +21,5 @@ Given a string, the function plots the sonority profile of the string using
 the fine-grained sonority scale in Parker (2011)
 }
 \examples{
-plotSon(word = "tɾon.fo.ˈnil.to", syl = T, save_plot = F));
+plotSon(word = "tɾon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE);
 }

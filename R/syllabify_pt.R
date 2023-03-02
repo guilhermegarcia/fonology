@@ -5,48 +5,46 @@
 #' @return The syllabification for the string in question
 #' @examples
 #' syllabify_pt(word = "komputadoɾ");
+#' @importFrom magrittr %>%
 #' @export
 
 syllabify_pt = function(word = ""){
 
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
-
   # Start with CV:
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                       pattern = "([aeiouɛɔ])",
                       replacement = "\\1.")
 
   # Fix diphthongs:
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                       pattern = "([aeiouɛɔ])\\.([wj])",
                       replacement = "\\1\\2.")
 
   # Fix onset clusteres:
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                       pattern = "\\.([lmnɾskgpb])([pbtdkgsxzfvʃʒʎɲmn])",
                       replacement = "\\1.\\2")
 
 
   # Remove empty final syllables:
-  word = str_remove_all(string = word,
+  word = stringr::str_remove_all(string = word,
                      pattern = "\\.$")
 
   # Remove C-syllables word finally:
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                       pattern = "\\.([pbtdkgszfvʃʒʎlmnɾs])$",
                       replacement = "\\1")
 
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                          pattern = "\\.([sznm])([lr])",
                          replacement = "\\1.\\2")
 
   # Remove h:
-  word = str_remove_all(string = word,
+  word = stringr::str_remove_all(string = word,
                         pattern = "h")
 
   # Overly complex onset clusters:
-  word = str_replace_all(string = word,
+  word = stringr::str_replace_all(string = word,
                          pattern = "\\.s([tdpbkg][ɾl])",
                          replacement = "s.\\1")
 

@@ -69,4 +69,23 @@
 #' @source <https://gdgarcia.ca/psl>
 "psl"
 
+#' Stopwords in Portuguese
+#'
+#' Set of stopwords in Portuguese from the tm package.
+#'
+#' @format ## `stopwords_pt`
+#' A vector with stopwords in Portuguese
+#' @source <https://cran.r-project.org/web/packages/tm/index.html>
+"stopwords_pt"
+
+#' Distinctive features
+#'
+#' Comprehensive dataset with phonemes and their distinctive features.
+#' The list is based on PanPhon, by Mortensen et al (2016), whose GitHub can be found
+#' at https://github.com/dmort27/panphon
+#'
+#' @format ## `allFeatures`
+#' A data frame with with one IPA symbol per row and one feature per column
+#' @source <https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
+"allFeatures"
 

@@ -5,15 +5,12 @@
 #' @return A word without its hyphenated clitics
 #' @examples
 #' strip_clitic_pt(word = "dá-lhe");
+#' @importFrom magrittr %>%
 #' @export
 
 strip_clitic_pt = function(word = ""){
 
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
-
-
-  parts = str_split(string = word,
+  parts = stringr::str_split(string = word,
                     pattern = "-") %>%
     unlist()
 
@@ -22,8 +19,8 @@ strip_clitic_pt = function(word = ""){
                 "te", "lhe", "me", "ão")
 
 
-  enclitics = str_c("-", enclitics) %>%
-    str_c(collapse = "|")
+  enclitics = stringr::str_c("-", enclitics) %>%
+    stringr::str_c(collapse = "|")
 
 
   proclitics = c("pré", "mini", "anti", "ante",
@@ -33,12 +30,12 @@ strip_clitic_pt = function(word = ""){
                  "bem", "sem", "vice", "grão",
                  "grã", "soto")
 
-  proclitics = str_c(proclitics, "-") %>%
-    str_c(collapse = "|")
+  proclitics = stringr::str_c(proclitics, "-") %>%
+    stringr::str_c(collapse = "|")
 
-  clitics = str_c(enclitics, "|", proclitics)
+  clitics = stringr::str_c(enclitics, "|", proclitics)
 
-  mono = str_remove_all(string = word,
+  mono = stringr::str_remove_all(string = word,
                         pattern = clitics)
 
   return(mono)

@@ -8,57 +8,56 @@
 #' @return The phonemic transcription for the string in question
 #' @examples
 #' ipa_pt(word = "palado");
+#' @importFrom magrittr %>%
 #' @export
 
 ipa_pt = function(word = "", narrow = F){
+  # utils::globalVariables(names(pt_lex, psl, stopwords_pt))
 
-  if(!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
+  wd = stringr::str_to_lower(word)
 
-  wd = str_to_lower(word)
-
-  if(str_detect(wd, pattern = "\\d")){
+  if(stringr::str_detect(wd, pattern = "\\d")){
     message("Input contains a number and will be ignored.")
     return(NA)
   }
 
-  if(str_detect(wd, pattern = "-")){
+  if(stringr::str_detect(wd, pattern = "-")){
     message("Input must be monomorphemic. The function will remove any clitics it detects.")
     wd = strip_clitic_pt(wd)
   }
 
   wd = wd %>%
-    str_remove_all("[:punct:]")
+    stringr::str_remove_all("[:punct:]")
 
-  potentialPl = str_detect(wd, "s$")
-  sgWd = str_remove(string = wd, pattern = "s$")
+  potentialPl = stringr::str_detect(wd, "s$")
+  sgWd = stringr::str_remove(string = wd, pattern = "s$")
 
   # If singular form exists:
   if(potentialPl & sgWd %in% pt_lex$word){
     broadLex = pt_lex %>%
-      filter(word == sgWd) %>%
-      slice(1) %>%
-      pull(pro) %>%
-      str_replace(pattern = "'", replacement = "ˈ")
+      dplyr::filter(word == sgWd) %>%
+      dplyr::slice(1) %>%
+      dplyr::pull(pro) %>%
+      stringr::str_replace(pattern = "'", replacement = "ˈ")
 
     if(narrow == F){
       broadLex %>%
-        str_c("s") %>%
+        stringr::str_c("s") %>%
         return()
     } else if(narrow == T){
       broadLex %>%
         narrow_pt() %>%
-        str_c("s") %>%
+        stringr::str_c("s") %>%
         return()
     }
 
     # If word exists:
   } else if(wd %in% pt_lex$word){
     broadLex = pt_lex %>%
-      filter(word == wd) %>%
-      slice(1) %>%
-      pull(pro) %>%
-      str_replace(pattern = "'", replacement = "ˈ")
+      dplyr::filter(word == wd) %>%
+      dplyr::slice(1) %>%
+      dplyr::pull(pro) %>%
+      stringr::str_replace(pattern = "'", replacement = "ˈ")
 
     if(narrow == F){
       broadLex %>%
@@ -81,7 +80,7 @@ ipa_pt = function(word = "", narrow = F){
     # Feed probabilistic patterns in lexicon (but only if word doesn't end in high V):
     weight = getWeight_pt(wd)
 
-    if(weight %in% c("HLL", "LLL") & str_detect(wd, pattern = "[^iu]$")){
+    if(weight %in% c("HLL", "LLL") & stringr::str_detect(wd, pattern = "[^iu]$")){
       wd = wd %>%
         apu_candidates() %>%
         dact_pt()

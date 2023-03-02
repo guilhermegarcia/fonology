@@ -5,25 +5,24 @@
 #' @return A vector with all words in the input, stripped of punctuation
 #' @examples
 #' cleanText(text = "Este é um texto em português? This is a text in English!");
+#' @importFrom magrittr %>%
 #' @export
 
 cleanText = function(text = ""){
-  if (!require("pacman", quietly = T)){install.packages("pacman")}
-  pacman::p_load(tidyverse)
 
-  tokens = str_split(text, pattern = " ") %>% unlist()
+  tokens = stringr::str_split(text, pattern = " ") %>% unlist()
 
   # Empty cases:
   tokens = tokens[!tokens %in% ""]
 
   # Numbers:
-  tokens[str_detect(tokens, "\\d")] = NA
+  tokens[stringr::str_detect(tokens, "\\d")] = NA
 
   # Punctuation:
-  output = str_remove_all(tokens, "[:punct:]")
+  output = stringr::str_remove_all(tokens, "[:punct:]")
 
   # Case:
-  output = str_to_lower(output)
+  output = stringr::str_to_lower(output)
 
   return(output)
 
