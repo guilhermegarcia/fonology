@@ -6,6 +6,7 @@
 #' @importFrom dplyr rowwise
 #' @importFrom dplyr select
 #' @importFrom graphics lines
+#' @importFrom gtools combinations
 #' @importFrom readr write_lines
 #' @importFrom stats approx
 #' @importFrom stringr str_remove_all

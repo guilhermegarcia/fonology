@@ -14,7 +14,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(tidyverse)
+library(dplyr)
+library(stringr)
+library(tibble)
 ```
 
 ## More information
@@ -89,6 +91,7 @@ There are three functions in the package to analyze sonority. First, `demi(word 
 
 ```{r, message=F}
 library(Fonology)
+
 example = tibble(word = c("partolo", "metrilpo", "vanplidos"))
 
 example = example %>% 
