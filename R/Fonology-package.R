@@ -5,6 +5,7 @@
 #' @importFrom dplyr mutate
 #' @importFrom dplyr rowwise
 #' @importFrom dplyr select
+#' @importFrom dplyr where
 #' @importFrom graphics lines
 #' @importFrom gtools combinations
 #' @importFrom readr write_lines
