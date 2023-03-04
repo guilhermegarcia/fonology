@@ -15,32 +15,32 @@ stress_pt = function(word = ""){
                         pattern = "\\.") == 0){
     word = stringr::str_replace_all(string = word,
                                     pattern = "^(\\w*)$",
-                                    replacement = "ˈ\\1")
+                                    replacement = "\u02c8\\1")
     return(word)
   }
 
-  if(stringr::str_detect(string = word, pattern = "\\.\\w+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃]$")){
+  if(stringr::str_detect(string = word, pattern = "\\.\\w+[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303]$")){
     # Stress is final if word ends in consonant, diph OR high vowel (Tupi):
     word = stringr::str_replace_all(string = word,
-                                    pattern = "\\.(\\w+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃])$",
-                                    replacement = ".ˈ\\1")
+                                    pattern = "\\.(\\w+[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303])$",
+                                    replacement = ".\u02c8\\1")
 
 
     return(word)
 
-  } else if(stringr::str_detect(string = word, pattern = "\\w*[ɔɛ]\\w*\\.\\w*\\.\\w*$")) {
+  } else if(stringr::str_detect(string = word, pattern = "\\w*[\u0254\u025b]\\w*\\.\\w*\\.\\w*$")) {
 
     # Stress is antepenultimate if vowel is open:
     word = stringr::str_replace_all(string = word,
-                                    pattern = "(\\w*[ɔɛ]\\w*)(\\.\\w*\\.\\w*$)",
-                                    replacement = "ˈ\\1\\2")
+                                    pattern = "(\\w*[\u0254\u025b]\\w*)(\\.\\w*\\.\\w*$)",
+                                    replacement = "\u02c8\\1\\2")
     return(word)
   } else {
 
     # Else, penultimate stress:
     word = stringr::str_replace_all(string = word,
                                     pattern = "(\\w+)(\\.\\w+)$",
-                                    replacement = "ˈ\\1\\2")
+                                    replacement = "\u02c8\\1\\2")
 
     return(word)
 
@@ -57,7 +57,7 @@ sec_stress_pt = function(word = ""){
     # stress_pt() %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist() %>%
-    stringr::str_detect("ˈ") %>%
+    stringr::str_detect("\u02c8") %>%
     rev() %>%
     which(isTRUE(.))
 
@@ -74,7 +74,7 @@ sec_stress_pt = function(word = ""){
 
     for(i in seq(from = 1, to = nSyl)){
       if(i %in% seq(from = 3, to = nSyl, by = 2)){
-        stressed_word[length(stressed_word) + 1] = stringr::str_c("ˌ", split_word[i])
+        stressed_word[length(stressed_word) + 1] = stringr::str_c("\u02cc", split_word[i])
       } else {
         stressed_word[length(stressed_word) + 1] = split_word[i]
       }
@@ -95,7 +95,7 @@ sec_stress_pt = function(word = ""){
 
       for(i in seq(from = 1, to = nSyl)){
         if(i %in% seq(from = 4, to = nSyl, by = 2)){
-          stressed_word[length(stressed_word) + 1] = stringr::str_c("ˌ", split_word[i])
+          stressed_word[length(stressed_word) + 1] = stringr::str_c("\u02cc", split_word[i])
         } else {
           stressed_word[length(stressed_word) + 1] = split_word[i]
         }
@@ -116,7 +116,7 @@ sec_stress_pt = function(word = ""){
 
         for(i in seq(from = 1, to = nSyl)){
           if(i %in% seq(from = 5, to = nSyl, by = 2)){
-            stressed_word[length(stressed_word) + 1] = stringr::str_c("ˌ", split_word[i])
+            stressed_word[length(stressed_word) + 1] = stringr::str_c("\u02cc", split_word[i])
           } else {
             stressed_word[length(stressed_word) + 1] = split_word[i]
           }
@@ -137,11 +137,11 @@ pu_candidates = function(word = ""){
 
   c1 = stringr::str_replace(string = word,
                             pattern = "(\\w+\\.\\w+$)",
-                            replacement = "ˈ\\1")
+                            replacement = "\u02c8\\1")
 
   c2 = stringr::str_replace(string = word,
                             pattern = "(\\w+\\.)(\\w+$)",
-                            replacement = "\\1ˈ\\2")
+                            replacement = "\\1\u02c8\\2")
 
   candidates = c(c1, c2)
 
@@ -162,11 +162,11 @@ apu_candidates = function(word = ""){
 
   c1 = stringr::str_replace(string = word,
                             pattern = "(\\w+\\.\\w+\\.\\w+$)",
-                            replacement = "ˈ\\1")
+                            replacement = "\u02c8\\1")
 
   c2 = stringr::str_replace(string = word,
                             pattern = "(\\w+\\.)(\\w+\\.\\w+$)",
-                            replacement = "\\1ˈ\\2")
+                            replacement = "\\1\u02c8\\2")
 
   candidates = c(c1, c2)
   winner = sample(candidates, size = 1, prob = c(0.2, 0.8))

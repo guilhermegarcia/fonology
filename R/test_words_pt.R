@@ -18,7 +18,7 @@ ipa_pt_test = function(){
                 "frantidolanildo",
                 "wagmo",
                 "lispico",
-                "fadistão",
+                "fadist\u00e3o",
                 "frinte",
                 "ful",
                 "catto",

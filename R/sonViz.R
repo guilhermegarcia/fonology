@@ -14,28 +14,28 @@
 
 plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
 
-  lo_v = "a.ɶ.ɑ.ɒ.æ.ɐ" %>% stringr::str_split("\\.") %>% unlist()
-  mid_per_v = "ɛ.œ.ʌ.ɔ.e.ø.ɤ.o" %>% stringr::str_split("\\.") %>% unlist()
-  hi_per_v = "i.y.ɯ.u" %>% stringr::str_split("\\.") %>% unlist()
-  mid_int_v = "ɘ.ɵ.ə.ɜ.ɞ" %>% stringr::str_split("\\.") %>% unlist()
-  hi_int_v = "ɨ.ʉ" %>% stringr::str_split("\\.") %>% unlist()
+  lo_v = "a.\u0276.\u0251.\u0252.\u00e6.\u0250" %>% stringr::str_split("\\.") %>% unlist()
+  mid_per_v = "\u025b.\u0153.\u028c.\u0254.e.\u00f8.\u0264.o" %>% stringr::str_split("\\.") %>% unlist()
+  hi_per_v = "i.y.\u026f.u" %>% stringr::str_split("\\.") %>% unlist()
+  mid_int_v = "\u0258.\u0275.\u0259.\u025c.\u025e" %>% stringr::str_split("\\.") %>% unlist()
+  hi_int_v = "\u0268.\u0289" %>% stringr::str_split("\\.") %>% unlist()
 
-  glides = "j.w.ɥ" %>% stringr::str_split("\\.") %>% unlist()
+  glides = "j.w.\u0265" %>% stringr::str_split("\\.") %>% unlist()
 
-  rhotic_approx = "ɻ.ʀ.ɹ" %>% stringr::str_split("\\.") %>% unlist()
-  flaps = "ɾ.ɽ.ⱱ." %>% stringr::str_split("\\.") %>% unlist()
+  rhotic_approx = "\u027b.\u0280.\u0279" %>% stringr::str_split("\\.") %>% unlist()
+  flaps = "\u027e.\u027d.\u2c71." %>% stringr::str_split("\\.") %>% unlist()
 
-  laterals = "l.ɬ.ɮ.ʎ" %>% stringr::str_split("\\.") %>% unlist()
-  trills = "r.ʙ" %>% stringr::str_split("\\.") %>% unlist()
+  laterals = "l.\u026c.\u026e.\u028e" %>% stringr::str_split("\\.") %>% unlist()
+  trills = "r.\u0299" %>% stringr::str_split("\\.") %>% unlist()
 
-  nasals = "m.n.ɱ.ɳ.ɲ.ŋ.ɴ" %>% stringr::str_split("\\.") %>% unlist()
+  nasals = "m.n.\u0271.\u0273.\u0272.\u014b.\u0274" %>% stringr::str_split("\\.") %>% unlist()
 
-  fricatives_vce = "β.v.ð.z.ʒ.ʐ.ʝ.ɣ.ʁ.ʕ.ɦ" %>% stringr::str_split("\\.") %>% unlist()
-  affricates_vce = "t͡s.d͡z.t͡ʃ.d͡ʒ" %>% stringr::str_split("\\.") %>% unlist()
-  stops_vce = "b.d.g.β.ɖ.ɢ" %>% stringr::str_split("\\.") %>% unlist()
-  fricatives = "ɸ.f.θ.s.ʃ.ʂ.ç.x.χ.ħ.h" %>% stringr::str_split("\\.") %>% unlist()
-  affricates = "t͡s.t͡ʃ" %>% stringr::str_split("\\.") %>% unlist()
-  stops = "p.t.k.ʈ.c.q.ʔ" %>% stringr::str_split("\\.") %>% unlist()
+  fricatives_vce = "\u03b2.v.\u00f0.z.\u0292.\u0290.\u029d.\u0263.\u0281.\u0295.\u0266" %>% stringr::str_split("\\.") %>% unlist()
+  affricates_vce = "t\u0361s.d\u0361z.t\u0361\u0283.d\u0361\u0292" %>% stringr::str_split("\\.") %>% unlist()
+  stops_vce = "b.d.g.\u03b2.\u0256.\u0262" %>% stringr::str_split("\\.") %>% unlist()
+  fricatives = "\u0278.f.\u03b8.s.\u0283.\u0282.\u00e7.x.\u03c7.\u0127.h" %>% stringr::str_split("\\.") %>% unlist()
+  affricates = "t\u0361s.t\u0361\u0283" %>% stringr::str_split("\\.") %>% unlist()
+  stops = "p.t.k.\u0288.c.q.\u0294" %>% stringr::str_split("\\.") %>% unlist()
 
   # Complete
   full = tibble::tibble(phoneme = c(lo_v, mid_per_v, hi_per_v, mid_int_v, hi_int_v,
@@ -61,7 +61,7 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
                                 rep(1, length(stops))))
 
   checkInput = word %>%
-    stringr::str_remove_all(pattern = "'|ˈ|ˌ|ː|ˑ|-|\\.") %>%
+    stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc|\u02d0|\u02d1|-|\\.") %>%
     stringr::str_split("") %>%
     unlist()
 
@@ -86,7 +86,7 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
       stop("Input must be syllabified.")
     }
     word_simple = word %>%
-      stringr::str_remove_all("'|ˈ|ˌ|ː|ˑ") %>%
+      stringr::str_remove_all("\'|\u02c8|\u02cc|\u02d0|\u02d1") %>%
       stringr::str_split("") %>%
       unlist()
 
@@ -140,7 +140,7 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
   }
 
   word_simple = word %>%
-    stringr::str_remove_all("'|ˈ|ˌ|ː|ˑ|\\.|-") %>%
+    stringr::str_remove_all("\'|\u02c8|\u02cc|\u02d0|\u02d1|\\.|-") %>%
     stringr::str_split("") %>%
     unlist()
 

@@ -16,19 +16,19 @@ strip_clitic_pt = function(word = ""){
 
   enclitics = c("o", "a", "os", "as",
                 "lo", "la", "los", "las",
-                "te", "lhe", "me", "ão")
+                "te", "lhe", "me", "\u00e3o")
 
 
   enclitics = stringr::str_c("-", enclitics) %>%
     stringr::str_c(collapse = "|")
 
 
-  proclitics = c("pré", "mini", "anti", "ante",
-                 "super", "hiper", "pós", "ultra",
+  proclitics = c("pr\u00e9", "mini", "anti", "ante",
+                 "super", "hiper", "p\u00f3s", "ultra",
                  "mega", "master", "sub", "ex",
-                 "pró", "recém", "além", "aquém",
-                 "bem", "sem", "vice", "grão",
-                 "grã", "soto")
+                 "pr\u00f3", "rec\u00e9m", "al\u00e9m", "aqu\u00e9m",
+                 "bem", "sem", "vice", "gr\u00e3o",
+                 "gr\u00e3", "soto")
 
   proclitics = stringr::str_c(proclitics, "-") %>%
     stringr::str_c(collapse = "|")

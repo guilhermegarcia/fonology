@@ -43,20 +43,20 @@ transcribe_pt = function(word = ""){
 
   # Odd diacritics:
   word = stringr::str_replace_all(word,
-                                  pattern = "ü",
+                                  pattern = "\u00fc",
                                   replacement = "u")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ä",
+                                  pattern = "\u00e4",
                                   replacement = "a")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ò",
-                                  replacement = "ó")
+                                  pattern = "\u00f2",
+                                  replacement = "\u00f3")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "è",
-                                  replacement = "é")
+                                  pattern = "\u00e8",
+                                  replacement = "\u00e9")
 
   # W, Y:
   word = stringr::str_replace_all(word,
@@ -69,7 +69,7 @@ transcribe_pt = function(word = ""){
 
   # G:
   word = stringr::str_replace_all(word,
-                                  pattern = "(gu)([aeoéáóêô]n)",
+                                  pattern = "(gu)([aeo\u00e9\u00e1\u00f3\u00ea\u00f4]n)",
                                   replacement = "gw\\2")
 
   word = stringr::str_replace_all(word,
@@ -78,7 +78,7 @@ transcribe_pt = function(word = ""){
 
   word = stringr::str_replace_all(word,
                                   pattern = "g([ei])",
-                                  replacement = "ʒ\\1")
+                                  replacement = "\u0292\\1")
 
 
   # Q:
@@ -87,29 +87,29 @@ transcribe_pt = function(word = ""){
                                   replacement = "kw\\1")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "qu([ieoéóôê])",
+                                  pattern = "qu([ieo\u00e9\u00f3\u00f4\u00ea])",
                                   replacement = "k\\1")
 
 
   # Diacritics
   word = stringr::str_replace_all(word,
-                                  pattern = "á|â|à",
+                                  pattern = "\u00e1|\u00e2|\u00e0",
                                   replacement = "a")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ê",
+                                  pattern = "\u00ea",
                                   replacement = "e")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "í",
+                                  pattern = "\u00ed",
                                   replacement = "i")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ô",
+                                  pattern = "\u00f4",
                                   replacement = "o")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ú",
+                                  pattern = "\u00fa",
                                   replacement = "u")
 
 
@@ -124,26 +124,26 @@ transcribe_pt = function(word = ""){
 
   # Intervocalic S
   word = stringr::str_replace_all(word,
-                                  pattern = "([aeiouóéáêôã])s([aeiouóéáêôã])",
+                                  pattern = "([aeiou\u00f3\u00e9\u00e1\u00ea\u00f4\u00e3])s([aeiou\u00f3\u00e9\u00e1\u00ea\u00f4\u00e3])",
                                   replacement = "\\1z\\2")
 
   # SS, XC, etc.
   word = stringr::str_replace_all(word,
-                                  pattern = "ss|ç|sç",
+                                  pattern = "ss|\u00e7|s\u00e7",
                                   replacement = "s")
 
   # C before e,i
   word = stringr::str_replace_all(word,
-                                  pattern = "sc([eiéíê])",
+                                  pattern = "sc([ei\u00e9\u00ed\u00ea])",
                                   replacement = "s\\1")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "c([eiéíê])",
+                                  pattern = "c([ei\u00e9\u00ed\u00ea])",
                                   replacement = "s\\1")
 
   # C before a,o,u
   word = stringr::str_replace_all(word,
-                                  pattern = "c([aáãoóõôuú])",
+                                  pattern = "c([a\u00e1\u00e3o\u00f3\u00f5\u00f4u\u00fa])",
                                   replacement = "k\\1")
 
   # C before e,i
@@ -153,23 +153,23 @@ transcribe_pt = function(word = ""){
 
   # C before other consonant
   word = stringr::str_replace_all(word,
-                                  pattern = "c([pbtdkgszfvʃʒʎɲmnlr])",
+                                  pattern = "c([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr])",
                                   replacement = "k\\1")
 
   # Low-mids:
   word = stringr::str_replace_all(word,
-                                  pattern = "é",
-                                  replacement = "ɛ")
+                                  pattern = "\u00e9",
+                                  replacement = "\u025b")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ó",
-                                  replacement = "ɔ")
+                                  pattern = "\u00f3",
+                                  replacement = "\u0254")
 
 
   # Subjunctive (future; 2nd group; irregulars)
   word = stringr::str_replace_all(word,
                                   pattern = "(kiz|fiz|soub|tiv|troux|koub|detiv)er",
-                                  replacement = "\\1ɛr")
+                                  replacement = "\\1\u025br")
 
   # X
 
@@ -179,44 +179,44 @@ transcribe_pt = function(word = ""){
 
   word = stringr::str_replace_all(word,
                                   pattern = "^x",
-                                  replacement = "ʃ")
+                                  replacement = "\u0283")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "([pbtdkgszfvʃʒʎɲmnlr][a])x([a])",
-                                  replacement = "\\1ʃ\\2")
+                                  pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][a])x([a])",
+                                  replacement = "\\1\u0283\\2")
 
   word = stringr::str_replace_all(word,
                                   pattern = "(^[a])x([a])",
-                                  replacement = "\\1ʃ\\2")
+                                  replacement = "\\1\u0283\\2")
 
 
   word = stringr::str_replace_all(word,
-                                  pattern = "([pbtdkgszfvʃʒʎɲmnlr][i])x([o])",
-                                  replacement = "\\1ʃ\\2")
+                                  pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][i])x([o])",
+                                  replacement = "\\1\u0283\\2")
 
   word = stringr::str_replace_all(word,
                                   pattern = "(^[i])x([o])",
-                                  replacement = "\\1ʃ\\2")
+                                  replacement = "\\1\u0283\\2")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "([pbtdkgszfvʃʒʎɲmnlr][o])x([u])",
-                                  replacement = "\\1ʃ\\2")
+                                  pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][o])x([u])",
+                                  replacement = "\\1\u0283\\2")
 
   word = stringr::str_replace_all(word,
                                   pattern = "(^[o])x([u])",
-                                  replacement = "\\1ʃ\\2")
+                                  replacement = "\\1\u0283\\2")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "([pbtdkgszfvʃʒʎɲmnlr][u])x([a]])",
-                                  replacement = "\\1ʃ\\2")
+                                  pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][u])x([a]])",
+                                  replacement = "\\1\u0283\\2")
 
   word = stringr::str_replace_all(word,
                                   pattern = "(^[u])x([a]])",
-                                  replacement = "\\1ʃ\\2")
+                                  replacement = "\\1\u0283\\2")
 
 
   word = stringr::str_replace_all(word,
-                                  pattern = "([pbtdkgszfvʃʒʎɲmnlr][aeiou])x([aeiou])",
+                                  pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][aeiou])x([aeiou])",
                                   replacement = "\\1z\\2")
 
   word = stringr::str_replace_all(word,
@@ -234,75 +234,75 @@ transcribe_pt = function(word = ""){
 
   # Remove diacritics
   word = stringr::str_replace_all(word,
-                                  pattern = "ô",
+                                  pattern = "\u00f4",
                                   replacement = "o")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ê",
+                                  pattern = "\u00ea",
                                   replacement = "e")
 
   # lh + nh
 
   word = stringr::str_replace_all(word,
                                   pattern = "lia",
-                                  replacement = "ʎa")
+                                  replacement = "\u028ea")
 
   word = stringr::str_replace_all(word,
                                   pattern = "lhe",
-                                  replacement = "ʎɛ")
+                                  replacement = "\u028e\u025b")
 
   word = stringr::str_replace_all(word,
                                   pattern = "lh",
-                                  replacement = "ʎ")
+                                  replacement = "\u028e")
 
   word = stringr::str_replace_all(word,
                                   pattern = "nh",
-                                  replacement = "ɲ")
+                                  replacement = "\u0272")
 
   # Palatal fricatives
   word = stringr::str_replace_all(word,
                                   pattern = "ch",
-                                  replacement = "ʃ")
+                                  replacement = "\u0283")
 
   word = stringr::str_replace_all(word,
                                   pattern = "j([aeiou])",
-                                  replacement = "ʒ\\1")
+                                  replacement = "\u0292\\1")
 
 
   # Diphthongs
   word = stringr::str_replace_all(word,
-                                  pattern = "([aeiouɔɛ])i",
+                                  pattern = "([aeiou\u0254\u025b])i",
                                   replacement = "\\1j")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "([aeiouɔɛ])u",
+                                  pattern = "([aeiou\u0254\u025b])u",
                                   replacement = "\\1w")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ão$",
-                                  replacement = "ãw̃")
+                                  pattern = "\u00e3o$",
+                                  replacement = "\u00e3w\u0303")
 
   word = stringr::str_replace_all(word,
                                   pattern = "am$",
-                                  replacement = "ãw̃")
+                                  replacement = "\u00e3w\u0303")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "õe",
-                                  replacement = "õj̃")
+                                  pattern = "\u00f5e",
+                                  replacement = "\u00f5j\u0303")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "ãe",
-                                  replacement = "ãj̃")
+                                  pattern = "\u00e3e",
+                                  replacement = "\u00e3j\u0303")
 
   # Adjust x in diphthongs:
   word = stringr::str_replace_all(word,
                                   pattern = "([aeiou])([wj])x",
-                                  replacement = "\\1\\2ʃ")
+                                  replacement = "\\1\\2\u0283")
 
   # Adjust x after n:
   word = stringr::str_replace_all(word,
                                   pattern = "([aeiou])([n])x",
-                                  replacement = "\\1\\2ʃ")
+                                  replacement = "\\1\\2\u0283")
 
   # [R
   word = stringr::str_replace_all(word,
@@ -317,7 +317,7 @@ transcribe_pt = function(word = ""){
   # Tap
   word = stringr::str_replace_all(word,
                                   pattern = "r",
-                                  replacement = "ɾ")
+                                  replacement = "\u027e")
 
 
   return(word)

@@ -10,18 +10,18 @@
 #' @importFrom magrittr %>%
 #' @export
 
-getWeight_pt_simple = function(word = c("kom.pu.ta.ˈdoɾ")){
+getWeight_pt_simple = function(word = c("kom.pu.ta.\u02c8do\u027e")){
 
   syl_list = word %>%
     stringr::str_split("\\.")
 
-  syl_list = lapply(syl_list, function(x) stringr::str_replace_all(x, pattern = "\\w+[jwlmnɾspbtdkgɾzfvʃʒʎɲ]",
+  syl_list = lapply(syl_list, function(x) stringr::str_replace_all(x, pattern = "\\w+[jwlmn\u027espbtdkg\u027ezfv\u0283\u0292\u028e\u0272]",
                                                           replacement = "H"))
 
-  syl_list = lapply(syl_list, function(x) stringr::str_replace_all(x, pattern = "[\\w*]{0,3}[ãõaeiouɛɔ]$",
+  syl_list = lapply(syl_list, function(x) stringr::str_replace_all(x, pattern = "[\\w*]{0,3}[\u00e3\u00f5aeiou\u025b\u0254]$",
                                                           replacement = "L"))
 
-  syl_list = lapply(syl_list, function(x) stringr::str_replace_all(x, pattern = "H̃",
+  syl_list = lapply(syl_list, function(x) stringr::str_replace_all(x, pattern = "H\u0303",
                                                           replacement = "H"))
 
   # Select only trisyllabic window:

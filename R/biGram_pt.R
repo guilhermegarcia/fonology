@@ -11,11 +11,11 @@
 biGram_pt = function(word = ""){
 
   words = pt_lex %>%
-    dplyr::mutate(proB = stringr::str_remove_all(pro, "\\.|'")) %>%
+    dplyr::mutate(proB = stringr::str_remove_all(pro, "\\.|\'")) %>%
     dplyr::pull(proB)
 
-  if(stringr::str_detect(string = word, pattern = "\\.|'|ˈ")){
-    stop("Input can't be syllabified/stressed.")
+  if(stringr::str_detect(string = word, pattern = "\\.|\'|\u02c8")){
+    stop("Input can\'t be syllabified/stressed.")
   }
   x1 = stringr::str_split(word, pattern = "")[[1]]
 

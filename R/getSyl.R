@@ -13,7 +13,7 @@
 getSyl = function(word = c("pa.la.do"), pos = 1, syl = "\\."){
 
   syllables = word %>%
-    stringr::str_remove_all(pattern = "'|ˈ|ˌ") %>%
+    stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc") %>%
     stringr::str_split(pattern = syl)
 
   output = lapply(syllables, function(x) rev(x)[pos]) %>%

@@ -57,13 +57,13 @@ plotVowels = function(lg = "English", tex = F){
 # Tex tibble:
 latex = tibble::tibble(lines = stringr::str_split(texOutput, "\\n")[[1]],
                        vowel = c(rep("pre", 7),
-                                 c("i", "y", "e", "ø",
-                                   "ɛ", "œ", "a", "ɶ",
-                                   "ɑ", "ɒ", "ʌ", "ɔ",
-                                   "ɤ", "o", "ɯ", "u",
-                                   "ɨ", "ʉ", "ɘ", "ɵ",
-                                   "ə", "ɜ", "ɞ", "ɪ",
-                                   "ʏ", "ʊ", "ɐ", "æ"),
+                                 c("i", "y", "e", "\u00f8",
+                                   "\u025b", "\u0153", "a", "\u0276",
+                                   "\u0251", "\u0252", "\u028c", "\u0254",
+                                   "\u0264", "o", "\u026f", "u",
+                                   "\u0268", "\u0289", "\u0258", "\u0275",
+                                   "\u0259", "\u025c", "\u025e", "\u026a",
+                                   "\u028f", "\u028a", "\u0250", "\u00e6"),
                                  rep("post", 4)))
 
 # Tibble:
@@ -73,10 +73,10 @@ V = V %>%
   tibble::add_row(vowel = "a",
                   x = 3.4,
                   y = -0.9) %>%
-  tibble::add_row(vowel = "ɛ",
+  tibble::add_row(vowel = "\u025b",
                   x = 1.7,
                   y = 3.1) %>%
-  tibble::add_row(vowel = "ɔ",
+  tibble::add_row(vowel = "\u0254",
                   x = 11.7,
                   y = 3.1) %>%
   tibble::add_row(vowel = "e",
@@ -92,72 +92,72 @@ V = V %>%
                   x = 11.7,
                   y = 11.1) %>%
 
-  tibble::add_row(vowel = "ɶ",
+  tibble::add_row(vowel = "\u0276",
                   x = 4.8,
                   y = -0.9) %>%
-  tibble::add_row(vowel = "ɑ",
+  tibble::add_row(vowel = "\u0251",
                   x = 10.2,
                   y = -0.9) %>%
-  tibble::add_row(vowel = "ɒ",
+  tibble::add_row(vowel = "\u0252",
                   x = 11.7,
                   y = -0.9) %>%
 
-  tibble::add_row(vowel = "æ",
+  tibble::add_row(vowel = "\u00e6",
                   x = 2.5,
                   y = 1) %>%
-  tibble::add_row(vowel = "ɐ",
+  tibble::add_row(vowel = "\u0250",
                   x = 6.65,
                   y = 1.3) %>%
-  tibble::add_row(vowel = "œ",
+  tibble::add_row(vowel = "\u0153",
                   x = 3.1,
                   y = 3.1) %>%
 
-  tibble::add_row(vowel = "ɜ",
+  tibble::add_row(vowel = "\u025c",
                   x = 5.8,
                   y = 3.1) %>%
-  tibble::add_row(vowel = "ɞ",
+  tibble::add_row(vowel = "\u025e",
                   x = 7,
                   y = 3.1) %>%
-  tibble::add_row(vowel = "ʌ",
+  tibble::add_row(vowel = "\u028c",
                   x = 10.2,
                   y = 3.1) %>%
 
-  tibble::add_row(vowel = "ø",
+  tibble::add_row(vowel = "\u00f8",
                   x = 1.35,
                   y = 7.1) %>%
-  tibble::add_row(vowel = "ɘ",
+  tibble::add_row(vowel = "\u0258",
                   x = 5,
                   y = 7.1) %>%
-  tibble::add_row(vowel = "ɵ",
+  tibble::add_row(vowel = "\u0275",
                   x = 6.4,
                   y = 7.1) %>%
-  tibble::add_row(vowel = "ə",
+  tibble::add_row(vowel = "\u0259",
                   x = 6,
                   y = 5.1) %>%
-  tibble::add_row(vowel = "ɤ",
+  tibble::add_row(vowel = "\u0264",
                   x = 10.2,
                   y = 7.1) %>%
-  tibble::add_row(vowel = "ɪ",
+  tibble::add_row(vowel = "\u026a",
                   x = 1.4,
                   y = 9.25) %>%
-  tibble::add_row(vowel = "ʏ",
+  tibble::add_row(vowel = "\u028f",
                   x = 2.4,
                   y = 9.25) %>%
 
   tibble::add_row(vowel = "y",
                   x = -0.28,
                   y = 11.1) %>%
-  tibble::add_row(vowel = "ɨ",
+  tibble::add_row(vowel = "\u0268",
                   x = 4.3,
                   y = 11.1) %>%
-  tibble::add_row(vowel = "ʉ",
+  tibble::add_row(vowel = "\u0289",
                   x = 5.8,
                   y = 11.1) %>%
 
-  tibble::add_row(vowel = "ɯ",
+  tibble::add_row(vowel = "\u026f",
                   x = 10.1,
                   y = 11.1) %>%
-  tibble::add_row(vowel = "ʊ",
+  tibble::add_row(vowel = "\u028a",
                   x = 9,
                   y = 9.25)
 
@@ -167,22 +167,22 @@ V = V %>%
 # Language inventories:
 
 arabic = c("a", "i", "u")
-french = c("a", "e", "ø", "ɑ", "i", "y", "o", "u", "ɛ", "ɔ", "ə", "œ")
-english = c("a", "e", "ɑ", "i", "o", "u", "ɛ", "ɔ", "ə", "ɪ", "ʊ", "æ", "ʌ")
-dutch = c("a", "e", "i", "o", "u", "ɛ", "ɔ", "ə", "ɪ", "ʏ", "ɐ", "y", "ø")
-german = c("a", "e", "œ", "i", "o", "u", "ɛ", "ɔ", "ə", "ɪ", "ʊ", "ʏ", "ɐ", "y", "ø")
-hindi = c("ɑ", "e", "i", "o", "u", "ɛ", "ɔ", "ɪ", "ʊ", "ə")
-italian = c("a", "e", "i", "o", "u", "ɛ", "ɔ")
-japanese = c("a", "e", "i", "o", "ɯ")
-korean = c("ɐ", "e", "i", "o", "ɯ", "u", "ʌ")
-mandarin = c("i", "y", "u", "ɤ", "a", "ə")
-portuguese = c("a", "e", "i", "o", "u", "ɛ", "ɔ")
+french = c("a", "e", "\u00f8", "\u0251", "i", "y", "o", "u", "\u025b", "\u0254", "\u0259", "\u0153")
+english = c("a", "e", "\u0251", "i", "o", "u", "\u025b", "\u0254", "\u0259", "\u026a", "\u028a", "\u00e6", "\u028c")
+dutch = c("a", "e", "i", "o", "u", "\u025b", "\u0254", "\u0259", "\u026a", "\u028f", "\u0250", "y", "\u00f8")
+german = c("a", "e", "\u0153", "i", "o", "u", "\u025b", "\u0254", "\u0259", "\u026a", "\u028a", "\u028f", "\u0250", "y", "\u00f8")
+hindi = c("\u0251", "e", "i", "o", "u", "\u025b", "\u0254", "\u026a", "\u028a", "\u0259")
+italian = c("a", "e", "i", "o", "u", "\u025b", "\u0254")
+japanese = c("a", "e", "i", "o", "\u026f")
+korean = c("\u0250", "e", "i", "o", "\u026f", "u", "\u028c")
+mandarin = c("i", "y", "u", "\u0264", "a", "\u0259")
+portuguese = c("a", "e", "i", "o", "u", "\u025b", "\u0254")
 spanish = c("a", "e", "i", "o", "u")
-swahili = c("a", "i", "u", "ɛ", "ɔ")
-russian = c("a", "e", "i", "o", "u", "ɨ")
-talian = c("a", "e", "i", "o", "u", "ɛ", "ɔ")
-thai = c("a", "e", "i", "o", "u", "ɛ", "ɔ", "ɯ", "ɤ")
-vietnamese = c("a", "e", "i", "o", "u", "ɛ", "ɔ", "ɯ", "ɤ")
+swahili = c("a", "i", "u", "\u025b", "\u0254")
+russian = c("a", "e", "i", "o", "u", "\u0268")
+talian = c("a", "e", "i", "o", "u", "\u025b", "\u0254")
+thai = c("a", "e", "i", "o", "u", "\u025b", "\u0254", "\u026f", "\u0264")
+vietnamese = c("a", "e", "i", "o", "u", "\u025b", "\u0254", "\u026f", "\u0264")
 
 
 
@@ -278,7 +278,7 @@ if(lg == "all"){
 
   if(tex == T){
     readr::write_lines(texOutput, file = "vowels.tex")
-    print("'vowels.tex' exported to your current working directory.")
+    print("\'vowels.tex\' exported to your current working directory.")
   }
   return(fig)
 

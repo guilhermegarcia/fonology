@@ -18,13 +18,13 @@ gen_pt = function(profile = "LLL", palatalization = F){
   semivowels = "j.w" %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
-  liquids = "l.x.ɾ.ʎ" %>%
+  liquids = "l.x.\u027e.\u028e" %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
-  nasals = "m.n.ɲ" %>%
+  nasals = "m.n.\u0272" %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
-  fricatives = "f.v.s.z.ʃ.ʒ.x" %>%
+  fricatives = "f.v.s.z.\u0283.\u0292.x" %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
   plosives = "p.b.t.d.k.g" %>%
@@ -39,10 +39,10 @@ gen_pt = function(profile = "LLL", palatalization = F){
 
   # Phonotactics:
   nucleus = vowels
-  onsets = "p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.x.m.n.l.x" %>% stringr::str_split(pattern = "\\.") %>% unlist()
-  codas = "s.l.ɾ.m.n" %>% stringr::str_split(pattern = "\\.") %>% unlist()
+  onsets = "p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.x.m.n.l.x" %>% stringr::str_split(pattern = "\\.") %>% unlist()
+  codas = "s.l.\u027e.m.n" %>% stringr::str_split(pattern = "\\.") %>% unlist()
 
-  clusters = "pɾ.bɾ.tɾ.dɾ.kɾ.gɾ.pl.bl.kl.gl"
+  clusters = "p\u027e.b\u027e.t\u027e.d\u027e.k\u027e.g\u027e.pl.bl.kl.gl"
 
   # Syllables:
   syllables = c()
@@ -75,7 +75,7 @@ gen_pt = function(profile = "LLL", palatalization = F){
           currentOnset = stringr::str_extract(string = candidate, pattern = "^\\w{1}")
         }
 
-        while(previousOnset %in% c("s", "z", "ʃ", "ʒ") & currentOnset %in% c("s", "z", "ʃ", "ʒ")){
+        while(previousOnset %in% c("s", "z", "\u0283", "\u0292") & currentOnset %in% c("s", "z", "\u0283", "\u0292")){
           candidate = stringr::str_c(sample(onsets, size = 1),
                             sample(nucleus, size = 1),
                             collapse = "")
@@ -123,7 +123,7 @@ gen_pt = function(profile = "LLL", palatalization = F){
           currentOnset = stringr::str_extract(string = candidate, pattern = "^\\w{1}")
         }
 
-        while(previousOnset %in% c("s", "z", "ʃ", "ʒ") & currentOnset %in% c("s", "z", "ʃ", "ʒ")){
+        while(previousOnset %in% c("s", "z", "\u0283", "\u0292") & currentOnset %in% c("s", "z", "\u0283", "\u0292")){
           candidate = stringr::str_c(sample(onsets, size = 1),
                             sample(nucleus, size = 1),
                             sample(codas, size = 1),
@@ -171,7 +171,7 @@ gen_pt = function(profile = "LLL", palatalization = F){
   # Create a version where all candidates have complex onsets:
   clusterSyl = syllables %>%
     stringr::str_replace(pattern = "([pbtdkgfv])([aeiou])",
-                replacement = "\\1ɾ\\2")
+                replacement = "\\1\u027e\\2")
 
   randomOrder = sample(x = seq(1, nSyl), size = nSyl, replace = F)
 
@@ -236,12 +236,12 @@ gen_pt = function(profile = "LLL", palatalization = F){
 
   if(toLower == 1){
     word = stringr::str_replace(word,
-                       pattern = "(ˈ\\w{1,2})[e]",
-                       replacement = "\\1ɛ")
+                       pattern = "(\u02c8\\w{1,2})[e]",
+                       replacement = "\\1\u025b")
 
     word = stringr::str_replace(word,
-                       pattern = "(ˈ\\w{1,2})[o]",
-                       replacement = "\\1ɔ")
+                       pattern = "(\u02c8\\w{1,2})[o]",
+                       replacement = "\\1\u0254")
 
   }
 
@@ -251,11 +251,11 @@ gen_pt = function(profile = "LLL", palatalization = F){
 
   word = stringr::str_replace_all(word,
                          pattern = "t([i])",
-                         replacement = "t͡ʃ\\1")
+                         replacement = "t\u0361\u0283\\1")
 
   word = stringr::str_replace_all(word,
                          pattern = "d([i])",
-                         replacement = "d͡ʒ\\1")
+                         replacement = "d\u0361\u0292\\1")
 
   }
 
@@ -268,23 +268,23 @@ gen_pt = function(profile = "LLL", palatalization = F){
                          replacement = "m")
 
   word = stringr::str_replace_all(word,
-                         pattern = "s\\.ˈ?[ʒʃ]",
+                         pattern = "s\\.\u02c8?[\u0292\u0283]",
                          replacement = "s.t")
 
   word = stringr::str_replace_all(word,
-                         pattern = "ɔ([mn])",
+                         pattern = "\u0254([mn])",
                          replacement = "o\\1")
 
   word = stringr::str_replace_all(word,
-                         pattern = "ɛ([mn])",
+                         pattern = "\u025b([mn])",
                          replacement = "e\\1")
 
   word = stringr::str_replace_all(word,
-                         pattern = "m\\.(ˈ?[fvsztdkgʒʃx])",
+                         pattern = "m\\.(\u02c8?[fvsztdkg\u0292\u0283x])",
                          replacement = "n.\\1")
 
   word = stringr::str_replace_all(word,
-                         pattern = "n\\.(ˈ?[pb])",
+                         pattern = "n\\.(\u02c8?[pb])",
                          replacement = "m.\\1")
 
   word = stringr::str_replace_all(word,
@@ -315,39 +315,39 @@ gen_pt = function(profile = "LLL", palatalization = F){
                      replacement = "\\1o\\2")
 
   word = stringr::str_replace_all(word,
-                         pattern = "(s\\.ˈ?)s",
+                         pattern = "(s\\.\u02c8?)s",
                          replacement = "\\1t")
 
 
   # OCP for coda-onsets:
-  # "s.l.ɾ.m.n"
+  # "s.l.\u027e.m.n"
 
   word = stringr::str_replace_all(word,
-                         pattern = "(n\\.ˈ?)m",
+                         pattern = "(n\\.\u02c8?)m",
                          replacement = "\\1t")
 
   word = stringr::str_replace_all(word,
-                         pattern = "(m\\.ˈ?)n",
+                         pattern = "(m\\.\u02c8?)n",
                          replacement = "\\1p")
 
   word = stringr::str_replace_all(word,
-                         pattern = "(n\\.ˈ?)n",
+                         pattern = "(n\\.\u02c8?)n",
                          replacement = "\\1d")
 
   word = stringr::str_replace_all(word,
-                         pattern = "(m\\.ˈ?)m",
+                         pattern = "(m\\.\u02c8?)m",
                          replacement = "\\1p")
 
   word = stringr::str_replace_all(word,
-                         pattern = "(s\\.ˈ?)s",
+                         pattern = "(s\\.\u02c8?)s",
                          replacement = "\\1t")
 
   word = stringr::str_replace_all(word,
-                         pattern = "(l\\.ˈ?)l",
+                         pattern = "(l\\.\u02c8?)l",
                          replacement = "\\1t")
 
   word = stringr::str_replace_all(word,
-                         pattern = "(ɾ\\.ˈ?)ɾ",
+                         pattern = "(\u027e\\.\u02c8?)\u027e",
                          replacement = "\\1d")
 
   return(word)

@@ -14,30 +14,30 @@ narrow_pt = function(word = ""){
 
   # Vowel neutralization (word-final):
   narrow = stringr::str_replace(narrow,
-                       pattern = "(\\.[^ˈ]\\w*)o$",
-                       replacement = "\\1ʊ")
+                       pattern = "(\\.[^\u02c8]\\w*)o$",
+                       replacement = "\\1\u028a")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "(\\.[^ˈ]\\w*)e$",
-                       replacement = "\\1ɪ")
+                       pattern = "(\\.[^\u02c8]\\w*)e$",
+                       replacement = "\\1\u026a")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "(\\.[^ˈ]\\w*)a$",
-                       replacement = "\\1ɐ")
+                       pattern = "(\\.[^\u02c8]\\w*)a$",
+                       replacement = "\\1\u0250")
 
   # Palatalization:
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "t([iɪ])",
-                           replacement = "t͡ʃ\\1")
+                           pattern = "t([i\u026a])",
+                           replacement = "t\u0361\u0283\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "d([iɪ])",
-                           replacement = "d͡ʒ\\1")
+                           pattern = "d([i\u026a])",
+                           replacement = "d\u0361\u0292\\1")
 
   # Vowel devoicing word-finally after voiceless affricate:
   narrow = stringr::str_replace(narrow,
-                       pattern = "(t͡ʃ)ɪ$",
-                       replacement = "\\1ɪ̥")
+                       pattern = "(t\u0361\u0283)\u026a$",
+                       replacement = "\\1\u026a\u0325")
 
   # Clusters and epentheses:
   narrow = stringr::str_replace(narrow,
@@ -45,58 +45,58 @@ narrow_pt = function(word = ""){
                        replacement = "pi.s")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "k\\.(ˈ*t)",
-                       replacement = ".ki̥.\\1")
+                       pattern = "k\\.(\u02c8*t)",
+                       replacement = ".ki\u0325.\\1")
 
   narrow = stringr::str_replace(narrow,
                        pattern = "^sk",
                        replacement = "is.k")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "p\\.(ˈ*t)",
-                       replacement = ".pi̥.\\1")
+                       pattern = "p\\.(\u02c8*t)",
+                       replacement = ".pi\u0325.\\1")
 
 
   # Nasalization:
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "a([nmɲ])",
-                           replacement = "ã\\1")
+                           pattern = "a([nm\u0272])",
+                           replacement = "\u00e3\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "o([nmɲ])",
-                           replacement = "õ\\1")
+                           pattern = "o([nm\u0272])",
+                           replacement = "\u00f5\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "e([nmɲ])",
-                           replacement = "ẽj̃\\1")
+                           pattern = "e([nm\u0272])",
+                           replacement = "e\u0303j\u0303\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "u([nmɲ])",
-                           replacement = "ũ\\1")
+                           pattern = "u([nm\u0272])",
+                           replacement = "u\u0303\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "i([nmɲ])",
-                           replacement = "ĩ\\1")
+                           pattern = "i([nm\u0272])",
+                           replacement = "i\u0303\\1")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "(ˈ\\w+)a(\\.[mnɲ])",
-                       replacement = "\\1ã\\2")
+                       pattern = "(\u02c8\\w+)a(\\.[mn\u0272])",
+                       replacement = "\\1\u00e3\\2")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "(ˈ\\w+)e(\\.[mnɲ])",
-                       replacement = "\\1ẽ\\2")
+                       pattern = "(\u02c8\\w+)e(\\.[mn\u0272])",
+                       replacement = "\\1e\u0303\\2")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "(ˈ\\w+)i(\\.[mnɲ])",
-                       replacement = "\\1ĩ\\2")
+                       pattern = "(\u02c8\\w+)i(\\.[mn\u0272])",
+                       replacement = "\\1i\u0303\\2")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "(ˈ\\w+)o(\\.[mnɲ])",
-                       replacement = "\\1õ\\2")
+                       pattern = "(\u02c8\\w+)o(\\.[mn\u0272])",
+                       replacement = "\\1\u00f5\\2")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "(ˈ\\w+)u(\\.[mnɲ])",
-                       replacement = "\\1ũ\\2")
+                       pattern = "(\u02c8\\w+)u(\\.[mn\u0272])",
+                       replacement = "\\1u\u0303\\2")
 
   # l-vocalization:
   narrow = stringr::str_replace_all(narrow,
@@ -115,13 +115,13 @@ narrow_pt = function(word = ""){
   # When V.'V:
   # First, word-initial:
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "(^\\w?)i\\.ˈa",
-                           replacement = "ˈ\\1ja")
+                           pattern = "(^\\w?)i\\.\u02c8a",
+                           replacement = "\u02c8\\1ja")
 
   # Word-internal:
   narrow = stringr::str_replace_all(narrow,
-                           pattern = "(\\.\\w?)i\\.ˈa",
-                           replacement = "ˈ\\1ja")
+                           pattern = "(\\.\\w?)i\\.\u02c8a",
+                           replacement = "\u02c8\\1ja")
 
   # When V.V:
   # First, word-initial:
@@ -148,16 +148,16 @@ narrow_pt = function(word = ""){
                        replacement = ".\\1i.\\2")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "^ˈs([ptkf])",
-                       replacement = "is.ˈ\\1")
+                       pattern = "^\u02c8s([ptkf])",
+                       replacement = "is.\u02c8\\1")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "^ˈs([bdgmnvlr])",
-                       replacement = "iz.ˈ\\1")
+                       pattern = "^\u02c8s([bdgmnvlr])",
+                       replacement = "iz.\u02c8\\1")
 
   narrow = stringr::str_replace(narrow,
-                       pattern = "([pbtdkg])\\.ˈ([nmpbtdkg])",
-                       replacement = ".\\1i.ˈ\\2")
+                       pattern = "([pbtdkg])\\.\u02c8([nmpbtdkg])",
+                       replacement = ".\\1i.\u02c8\\2")
 
   narrow %>%
     sec_stress_pt() %>%

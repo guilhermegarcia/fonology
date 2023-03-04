@@ -11,7 +11,7 @@
 
 getFeat = function(ph = c(), lg = "Portuguese"){
 
-  phonemes = "i.y.ɨ.ʉ.ɯ.u.ɪ.ʏ.ʊ.e.ø.ɘ.ɵ.ɤ.o.ɛ.œ.ə.ɜ.ɞ.ʌ.ɔ.ɐ.æ.ɶ.a.ɑ.ɒ.ɛ̃.œ̃.ɔ.j.ɥ.w.p.b.t.d.ʈ.ɖ.c.ɟ.k.ɡ.q.ɢ.ʔ.m.ɱ.n.ɳ.ɲ.ŋ.ɴ.ʙ.r.ʀ.ⱱ.ɾ.ɽ.ɸ.β.f.v.θ.ð.s.z.ʃ.ʒ.ʂ.ʐ.ç.ʝ.x.ɣ.χ.ʁ.ħ.ʕ.h.ɦ.ɬ.ɮ.ʋ.ɹ.ɻ.j.ɰ.l.ɭ.ʎ.ʟ.d͡z.t͡s.t͡ʃ.d͡ʒ"
+  phonemes = "i.y.\u0268.\u0289.\u026f.u.\u026a.\u028f.\u028a.e.\u00f8.\u0258.\u0275.\u0264.o.\u025b.\u0153.\u0259.\u025c.\u025e.\u028c.\u0254.\u0250.\u00e6.\u0276.a.\u0251.\u0252.\u025b\u0303.\u0153\u0303.\u0254.j.\u0265.w.p.b.t.d.\u0288.\u0256.c.\u025f.k.\u0261.q.\u0262.\u0294.m.\u0271.n.\u0273.\u0272.\u014b.\u0274.\u0299.r.\u0280.\u2c71.\u027e.\u027d.\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266.\u026c.\u026e.\u028b.\u0279.\u027b.j.\u0270.l.\u026d.\u028e.\u029f.d\u0361z.t\u0361s.t\u0361\u0283.d\u0361\u0292"
 
   phonemes = phonemes %>%
     stringr::str_split(pattern = "\\.") %>%
@@ -19,10 +19,10 @@ getFeat = function(ph = c(), lg = "Portuguese"){
 
   vowels = phonemes[1:31]
   semivowels = phonemes[31:33]
-  liquids = c("l.r.ɾ.ɽ.l.ɭ.ʎ.ʟ.ɹ.ɻ.ʁ.ʀ") %>% stringr::str_split(pattern = "\\.") %>% unlist()
-  nasals = "m.ɱ.n.ɳ.ɲ.ŋ.ɴ" %>% stringr::str_split(pattern = "\\.") %>% unlist()
-  fricatives = "ɸ.β.f.v.θ.ð.s.z.ʃ.ʒ.ʂ.ʐ.ç.ʝ.x.ɣ.χ.ʁ.ħ.ʕ.h.ɦ" %>% stringr::str_split(pattern = "\\.") %>% unlist()
-  affricates = "d͡z.t͡s.t͡ʃ.d͡ʒ" %>% stringr::str_split(pattern = "\\.") %>% unlist()
+  liquids = c("l.r.\u027e.\u027d.l.\u026d.\u028e.\u029f.\u0279.\u027b.\u0281.\u0280") %>% stringr::str_split(pattern = "\\.") %>% unlist()
+  nasals = "m.\u0271.n.\u0273.\u0272.\u014b.\u0274" %>% stringr::str_split(pattern = "\\.") %>% unlist()
+  fricatives = "\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266" %>% stringr::str_split(pattern = "\\.") %>% unlist()
+  affricates = "d\u0361z.t\u0361s.t\u0361\u0283.d\u0361\u0292" %>% stringr::str_split(pattern = "\\.") %>% unlist()
 
   allFeatures = allFeatures %>%
     dplyr::filter(ipa %in% phonemes) %>%
@@ -31,19 +31,19 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     dplyr::select(ipa, syl, cons, son, approx, cont:hireg)
 
   # Pick one language to work with:
-  portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
+  portuguese = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.m.n.\u0272.l.r.\u027e.\u028e" %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
-  french = c("a.e.ø.ɑ.i.y.o.u.ɛ.ɔ.ə.œ.ɛ̃.œ̃.ɔ̃.ɑ̃.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.ʁ.m.ɱ.n.ɲ.ŋ.l.w.j.ɥ") %>%
+  french = c("a.e.\u00f8.\u0251.i.y.o.u.\u025b.\u0254.\u0259.\u0153.\u025b\u0303.\u0153\u0303.\u0254\u0303.\u0251\u0303.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.\u0281.m.\u0271.n.\u0272.\u014b.l.w.j.\u0265") %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
-  english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.k.g.v.t.d.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
+  english = c("a.e.\u0251.i.o.u.\u025b.\u0254.\u0259.\u026a.\u028a.\u00e6.\u028c.p.b.f.k.g.v.t.d.s.z.\u0283.\u0292.t\u0361\u0283.d\u0361\u0292.\u03b8.\u00f0.m.n.\u014b.h.w.j.\u0279.l") %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
-  spanish = c("a.e.ɑ.i.o.u.p.b.f.v.t.d.k.g.s.z.t͡ʃ.θ.m.ɲ.w.j.l.r.ɾ.ʎ.x.ʝ") %>%
+  spanish = c("a.e.\u0251.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
@@ -79,17 +79,17 @@ getFeat = function(ph = c(), lg = "Portuguese"){
   chosenPh = ph
 
   for(phoneme in 1:length(chosenPh)){
-    if(chosenPh[phoneme] == "tʃ"){
-      chosenPh[phoneme] = "t͡ʃ"
-    } else if(chosenPh[phoneme] == "dʒ"){
-      chosenPh[phoneme] = "d͡ʒ"
+    if(chosenPh[phoneme] == "t\u0283"){
+      chosenPh[phoneme] = "t\u0361\u0283"
+    } else if(chosenPh[phoneme] == "d\u0292"){
+      chosenPh[phoneme] = "d\u0361\u0292"
     } else {
       chosenPh[phoneme] = chosenPh[phoneme]
     }
   }
 
   if(!all(chosenPh %in% targetLanguage)){
-    stop("Input doesn't match phonemic inventory in language.")
+    stop("Input doesn\'t match phonemic inventory in language.")
   }
 
   chosenPhF = targetF %>%

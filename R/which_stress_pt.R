@@ -9,7 +9,7 @@
 #' @importFrom magrittr %>%
 #' @export
 
-getStress = function(word = c("kom.pu.ta.ˈdoɾ"), stress = "ˈ"){
+getStress = function(word = c("kom.pu.ta.\u02c8do\u027e"), stress = "\u02c8"){
 
   syl_list = word %>%
     stringr::str_split("\\.")

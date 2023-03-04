@@ -8,6 +8,7 @@ Description: The package contains a range of functions to help with phonological
 License: MIT License + file LICENSE
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: gzip
 VignetteBuilder: knitr
 Suggests: knitr, rmarkdown
 Depends: 

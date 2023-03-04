@@ -32,19 +32,19 @@ getPhon = function(ft = c(), lg = "Portuguese"){
   }
 
   # Pick one language to work with:
-  portuguese = "a.e.i.o.u.ɛ.ɔ.j.w.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ" %>%
+  portuguese = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.m.n.\u0272.l.r.\u027e.\u028e" %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
-  french = c("a.e.ø.ɑ.i.y.o.u.ɛ.ɔ.ə.œ.ɛ̃.œ̃.ɔ̃.ɑ̃.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.ʁ.m.ɱ.n.ɲ.ŋ.l.w.j.ɥ") %>%
+  french = c("a.e.\u00f8.\u0251.i.y.o.u.\u025b.\u0254.\u0259.\u0153.\u025b\u0303.\u0153\u0303.\u0254\u0303.\u0251\u0303.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.\u0281.m.\u0271.n.\u0272.\u014b.l.w.j.\u0265") %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
-  english = c("a.e.ɑ.i.o.u.ɛ.ɔ.ə.ɪ.ʊ.æ.ʌ.p.b.f.k.g.v.t.d.s.z.ʃ.ʒ.t͡ʃ.d͡ʒ.θ.ð.m.n.ŋ.h.w.j.ɹ.l") %>%
+  english = c("a.e.\u0251.i.o.u.\u025b.\u0254.\u0259.\u026a.\u028a.\u00e6.\u028c.p.b.f.k.g.v.t.d.s.z.\u0283.\u0292.t\u0361\u0283.d\u0361\u0292.\u03b8.\u00f0.m.n.\u014b.h.w.j.\u0279.l") %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
-  spanish = c("a.e.ɑ.i.o.u.p.b.f.v.t.d.k.g.s.z.t͡ʃ.θ.m.ɲ.w.j.l.r.ɾ.ʎ.x.ʝ") %>%
+  spanish = c("a.e.\u0251.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
   # Select language:

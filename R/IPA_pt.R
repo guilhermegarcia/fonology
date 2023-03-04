@@ -38,7 +38,7 @@ ipa_pt = function(word = "", narrow = F){
       dplyr::filter(word == sgWd) %>%
       dplyr::slice(1) %>%
       dplyr::pull(pro) %>%
-      stringr::str_replace(pattern = "'", replacement = "ˈ")
+      stringr::str_replace(pattern = "\'", replacement = "\u02c8")
 
     if(narrow == F){
       broadLex %>%
@@ -57,7 +57,7 @@ ipa_pt = function(word = "", narrow = F){
       dplyr::filter(word == wd) %>%
       dplyr::slice(1) %>%
       dplyr::pull(pro) %>%
-      stringr::str_replace(pattern = "'", replacement = "ˈ")
+      stringr::str_replace(pattern = "\'", replacement = "\u02c8")
 
     if(narrow == F){
       broadLex %>%

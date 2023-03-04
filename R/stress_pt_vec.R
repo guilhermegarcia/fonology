@@ -16,24 +16,24 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   which_monos = stringr::str_detect(string = word, pattern = "\\.", negate = T)
   monos = stringr::str_replace_all(string = word[stringr::str_detect(word, pattern = "\\.", negate = T)],
                           pattern = "^(.*)$",
-                          replacement = "ˈ\\1")
+                          replacement = "\u02c8\\1")
   # Remove monos from initial vector:
   word = word[!which_monos]
 
   # Word with mid-low V:
-  which_mid_lows = stringr::str_detect(string = word, pattern = "[ɔɛ]")
-  mid_lows = stringr::str_replace_all(string = word[stringr::str_detect(word, pattern = "[ɔɛ]")],
-                             pattern = "([:alpha:]*[ɔɛ])",
-                             replacement = "ˈ\\1")
+  which_mid_lows = stringr::str_detect(string = word, pattern = "[\u0254\u025b]")
+  mid_lows = stringr::str_replace_all(string = word[stringr::str_detect(word, pattern = "[\u0254\u025b]")],
+                             pattern = "([:alpha:]*[\u0254\u025b])",
+                             replacement = "\u02c8\\1")
 
   # Now remove mid-lows from initial vector:
   word = word[!which_mid_lows]
 
   # Word with final stress:
-  which_heavy_finals = stringr::str_detect(string = word, pattern = "[pbtdkgszfvʃʒʎɲmnlɾwjiuãõww̃]$")
-  heavy_finals = stringr::str_replace_all(string = word[stringr::str_detect(word, pattern = "[pbtdkgszfvʃʒʎɲmnlɾwjiuãõww̃]$")],
-                                 pattern = "([:alpha:]+[pbtdkgszfvʃʒʎɲmnlɾwjiuãõw̃])$",
-                                 replacement = "ˈ\\1")
+  which_heavy_finals = stringr::str_detect(string = word, pattern = "[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5ww\u0303]$")
+  heavy_finals = stringr::str_replace_all(string = word[stringr::str_detect(word, pattern = "[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5ww\u0303]$")],
+                                 pattern = "([:alpha:]+[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303])$",
+                                 replacement = "\u02c8\\1")
 
   # Remove them:
   word = word[!which_heavy_finals]
@@ -41,7 +41,7 @@ stress_pt_simple = function(word = c("ka.va.lo")){
   # Else, penult stress:
   penults = stringr::str_replace_all(string = word,
                             pattern = "([:alpha:]+\\.)([:alpha:]+$)",
-                            replacement = "ˈ\\1\\2")
+                            replacement = "\u02c8\\1\\2")
 
 
   output = c(monos, mid_lows, heavy_finals, penults)

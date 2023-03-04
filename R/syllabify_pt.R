@@ -12,17 +12,17 @@ syllabify_pt = function(word = ""){
 
   # Start with CV:
   word = stringr::str_replace_all(string = word,
-                      pattern = "([aeiouɛɔ])",
+                      pattern = "([aeiou\u025b\u0254])",
                       replacement = "\\1.")
 
   # Fix diphthongs:
   word = stringr::str_replace_all(string = word,
-                      pattern = "([aeiouɛɔ])\\.([wj])",
+                      pattern = "([aeiou\u025b\u0254])\\.([wj])",
                       replacement = "\\1\\2.")
 
   # Fix onset clusteres:
   word = stringr::str_replace_all(string = word,
-                      pattern = "\\.([lmnɾskgpb])([pbtdkgsxzfvʃʒʎɲmn])",
+                      pattern = "\\.([lmn\u027eskgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mn])",
                       replacement = "\\1.\\2")
 
 
@@ -32,7 +32,7 @@ syllabify_pt = function(word = ""){
 
   # Remove C-syllables word finally:
   word = stringr::str_replace_all(string = word,
-                      pattern = "\\.([pbtdkgszfvʃʒʎlmnɾs])$",
+                      pattern = "\\.([pbtdkgszfv\u0283\u0292\u028elmn\u027es])$",
                       replacement = "\\1")
 
   word = stringr::str_replace_all(string = word,
@@ -45,7 +45,7 @@ syllabify_pt = function(word = ""){
 
   # Overly complex onset clusters:
   word = stringr::str_replace_all(string = word,
-                         pattern = "\\.s([tdpbkg][ɾl])",
+                         pattern = "\\.s([tdpbkg][\u027el])",
                          replacement = "s.\\1")
 
   return(word)
