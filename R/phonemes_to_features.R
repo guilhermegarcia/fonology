@@ -2,7 +2,7 @@
 #'
 #' Generates a feature matrix for a given set of phonemes in a given language
 #' @param ph The phonemes of interest
-#' @param lg The language of interest: English, French, Portuguese, Spanish
+#' @param lg The language of interest: English, French, Italian, Portuguese, Spanish
 #' @return The minimal matrix of features given ph and lg
 #' @examples
 #' getFeat(ph = c("i", "u"), lg = "english");
@@ -43,6 +43,10 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
+  italian = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.t\u0361\u0283.d\u0361\u0292.t\u0361s.d\u0361z.f.v.s.z.\u0283.m.n.\u0272.l.r.\u028e" %>%
+    stringr::str_split(pattern = "\\.") %>%
+    unlist()
+
   spanish = c("a.e.\u0251.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
@@ -51,7 +55,7 @@ getFeat = function(ph = c(), lg = "Portuguese"){
   targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
 
 
-  availableLg = c("portuguese", "french", "english", "spanish")
+  availableLg = c("portuguese", "french", "italian", "english", "spanish")
 
   if(!stringr::str_to_lower(lg) %in% availableLg){
     stop("Language not supported (or misspelled).")

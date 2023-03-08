@@ -41,7 +41,7 @@ For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonolo
 
 ### From phonemes to features
 
-The function `getFeat()` requires a set of phonemes `ph` and a language `lg`. It outputs the minimal matrix of distinctive features for `ph` given the phonemic inventory of `lg`. Four languages are supported: English, French, Portuguese, and Spanish. Here are some examples.
+The function `getFeat()` requires a set of phonemes `ph` and a language `lg`. It outputs the minimal matrix of distinctive features for `ph` given the phonemic inventory of `lg`. Five languages are supported: English, French, Italian, Portuguese, and Spanish. Here are some examples.
 
 ```{r, message=F}
 library(Fonology)

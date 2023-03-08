@@ -9,7 +9,7 @@ getFeat(ph = c(), lg = "Portuguese")
 \arguments{
 \item{ph}{The phonemes of interest}
 
-\item{lg}{The language of interest: English, French, Portuguese, Spanish}
+\item{lg}{The language of interest: English, French, Italian, Portuguese, Spanish}
 }
 \value{
 The minimal matrix of features given ph and lg

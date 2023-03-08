@@ -2,7 +2,7 @@
 #'
 #' Returns a set of phonemes given different distinctive feature values.
 #' @param ft The abbreviated features of interest: syl, son, cons, cont, DR, lat, nas, strid, vce, sg, cg, ant, cor, distr, lab, hi, lo, back, round, vel, tense, long, hitone, hireg
-#' @param lg The language of interest: English, French, Portuguese, Spanish
+#' @param lg The language of interest: English, French, Italian, Portuguese, Spanish
 #' @return The phonemes given the features provided
 #' @examples
 #' getPhon(ft = c("+hi", "+tense"), lg = "english");
@@ -25,7 +25,7 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     stop("Incorrect feature. Type ?getPhon to see which features are allowed. All features must be immediately preceded by +, -, or 0.")
   }
 
-  availableLg = c("portuguese", "french", "english", "spanish")
+  availableLg = c("portuguese", "french", "english", "italian", "spanish")
 
   if(!stringr::str_to_lower(lg) %in% availableLg){
     stop("Language not supported (or misspelled).")
@@ -44,9 +44,14 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     stringr::str_split(pattern = "\\.") %>%
     unlist()
 
+  italian = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.t\u0361\u0283.d\u0361\u0292.t\u0361s.d\u0361z.f.v.s.z.\u0283.m.n.\u0272.l.r.\u028e" %>%
+    stringr::str_split(pattern = "\\.") %>%
+    unlist()
+
   spanish = c("a.e.\u0251.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") %>%
     stringr::str_split(pattern = "\\.") %>%
     unlist()
+
   # Select language:
   targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
 
