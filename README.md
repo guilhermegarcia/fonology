@@ -30,8 +30,9 @@ website](https://gdgarcia.ca/fonology).
 
 The function `getFeat()` requires a set of phonemes `ph` and a language
 `lg`. It outputs the minimal matrix of distinctive features for `ph`
-given the phonemic inventory of `lg`. Four languages are supported:
-English, French, Portuguese, and Spanish. Here are some examples.
+given the phonemic inventory of `lg`. Five languages are supported:
+English, French, Italian, Portuguese, and Spanish. Here are some
+examples.
 
 ``` r
 library(Fonology)
@@ -44,6 +45,8 @@ getFeat(ph = c("i", "y", "u"), lg = "French")
 #> [1] "+syl" "+hi"
 getFeat(ph = c("p", "b"), lg = "Portuguese")
 #> [1] "-son"  "-cont" "+lab"
+getFeat(ph = c("k", "g"), lg = "Italian")
+#> [1] "+cons" "+back"
 ```
 
 ### From features to phonemes
@@ -75,9 +78,9 @@ transcription can be generated adding `narrow = T` to the function.
 library(Fonology)
 
 ipa_pt("atletico")
-#> [1] "a.ˈtlɛ.ti.ko"
+#> [1] "a.tle.ˈti.ko"
 ipa_pt("cantalo", narrow = T)
-#> [1] "ˈkãn.ta.lʊ"
+#> [1] "kãn.ˈta.lʊ"
 ipa_pt("teatro")
 #> [1] "te.ˈa.tɾo"
 ipa_pt("antidepressivo", narrow = T)
@@ -180,7 +183,7 @@ example
 #> # Rowwise: 
 #>   word      ipa          syl2  demi1  disp   SSP
 #>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
-#> 1 partolo   paɾ.ˈto.lo   to    to     0.06     1
+#> 1 partolo   ˈpaɾ.to.lo   to    to     0.06     1
 #> 2 metrilpo  me.ˈtɾil.po  tɾil  tɾi    0.56     1
 #> 3 vanplidos vam.pli.ˈdos pli   pli    0.56     1
 ```

@@ -50,6 +50,7 @@ getFeat(ph = c("i", "u"), lg = "English")
 getFeat(ph = c("i", "u"), lg = "French")
 getFeat(ph = c("i", "y", "u"), lg = "French")
 getFeat(ph = c("p", "b"), lg = "Portuguese")
+getFeat(ph = c("k", "g"), lg = "Italian")
 
 ```
 
