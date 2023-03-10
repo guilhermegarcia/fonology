@@ -3,6 +3,8 @@
 
 ## Fonology
 
+<img style="float: right;" src="https://gdgarcia.ca/figures/fonology.png" width="150">
+
 > An R package for phonological analysis
 
 For a more comprehensive vignette, visit [my
@@ -80,7 +82,7 @@ library(Fonology)
 ipa_pt("atletico")
 #> [1] "a.tle.ˈti.ko"
 ipa_pt("cantalo", narrow = T)
-#> [1] "kãn.ˈta.lʊ"
+#> [1] "ˈkãn.ta.lʊ"
 ipa_pt("teatro")
 #> [1] "te.ˈa.tɾo"
 ipa_pt("antidepressivo", narrow = T)
