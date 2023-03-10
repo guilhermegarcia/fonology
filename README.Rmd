@@ -18,8 +18,6 @@ library(tibble)
 
 ## Fonology
 
-<img style="float: right;" src="https://gdgarcia.ca/figures/fonology.png" width="150">
-
 > An R package for phonological analysis
 
 For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonology). 
