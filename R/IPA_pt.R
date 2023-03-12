@@ -12,7 +12,6 @@
 #' @export
 
 ipa_pt = function(word = "", narrow = F){
-  # utils::globalVariables(names(pt_lex, psl, stopwords_pt))
 
   wd = stringr::str_to_lower(word)
 
@@ -28,6 +27,21 @@ ipa_pt = function(word = "", narrow = F){
 
   wd = wd %>%
     stringr::str_remove_all("[:punct:]")
+
+  # If there's a stress diacritic:
+  if(!is.na(diacritic_pt(wd))){
+    position = diacritic_pt(wd)
+    stressRegEx = stringr::str_c("((\\w+\\.){", position, "})$")
+    output_with_diacritic = wd %>%
+      transcribe_pt() %>%
+      syllabify_pt() %>%
+      stringr::str_c(".") %>%
+      stringr::str_replace(pattern = stressRegEx,
+                           replacement = "\u02c8\\1") %>%
+      stringr::str_remove(pattern = "\\.$")
+
+    return(output_with_diacritic)
+  }
 
   potentialPl = stringr::str_detect(wd, "s$")
   sgWd = stringr::str_remove(string = wd, pattern = "s$")
@@ -103,6 +117,10 @@ ipa_pt = function(word = "", narrow = F){
         return()
     } else if (narrow == F){
       wd %>%
+        stringr::str_replace(pattern = "(\u02c8\\w*)ol$",
+                             replacement = "\\1\u0254l") %>%
+        stringr::str_replace(pattern = "(\u02c8\\w*)el$",
+                             replacement = "\\1\u025bl") %>%
         return()
     }
 
