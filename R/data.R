@@ -89,3 +89,13 @@
 #' @source <https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
 "allFeatures"
 
+#' Hypothetical vowel formants
+#'
+#' Formant values (F1 and F2) for a 5-vowel system
+#'
+#' @format ## `vowels`
+#' A hypothetical dataset with vowel formants
+#' @source <https://gdgarcia.ca/vowels.html>
+"vowels"
+
+
