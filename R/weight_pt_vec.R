@@ -6,11 +6,11 @@
 #' @param word The vector with strings of interest using IPA phonemic transcription, already syllabified and stressed
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 #' @examples
-#' getWeight_pt_simple(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"));
+#' getWeight_pt_vec(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"));
 #' @importFrom magrittr %>%
 #' @export
 
-getWeight_pt_simple = function(word = c("kom.pu.ta.\u02c8do\u027e")){
+getWeight_pt_vec = function(word = c("kom.pu.ta.\u02c8do\u027e")){
 
   syl_list = word %>%
     stringr::str_split("\\.")
