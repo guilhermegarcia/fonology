@@ -30,13 +30,13 @@ meanSonDisp = function(word = c(), phonemic = F){
   }
 
   d1 = word %>%
-    ipa_pt_simple() %>%
+    ipa_pt_vec() %>%
     demi() %>%
     lapply(sonDisp) %>%
     unlist()
 
   d2 = word %>%
-    ipa_pt_simple() %>%
+    ipa_pt_vec() %>%
     demi(d = 2) %>%
     lapply(sonDisp) %>%
     unlist()

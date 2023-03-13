@@ -8,13 +8,14 @@
 #' @export
 
 ipa_pt_test = function(){
-  message("Broad and narrow transcriptions listed below for...")
+  message("Broad and narrow transcriptions using ipa_pt():")
 
 
   testWords = c("strada",
                 "cavalo",
+                "cam\u00f3tipo",
                 "paitrado",
-                "metilo",
+                "m\u00eatilo",
                 "frantidolanildo",
                 "wagmo",
                 "lispico",
@@ -40,5 +41,7 @@ ipa_pt_test = function(){
     message("========================")
   }
 
+  message("Vectorized version using ipa_pt_vec():")
+  return(ipa_pt_vec(testWords))
 
 }

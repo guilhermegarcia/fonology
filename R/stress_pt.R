@@ -10,6 +10,36 @@
 
 stress_pt = function(word = ""){
 
+  # If word has a diacritic:
+  if(stringr::str_detect(string = word, pattern = "[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]")){
+
+    word = word %>%
+      stringr::str_replace_all(pattern = "(\\w*[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]\\w*)",
+                               replacement = "\u02c8\\1") %>%
+      stringr::str_replace(pattern = "[\u00e1\u00e0]",
+                           replacement = "a") %>%
+      stringr::str_replace(pattern = "[\u00e9\u00e8]",
+                           replacement = "\u025b") %>%
+      stringr::str_replace(pattern = "[\u00ed\u00ec]",
+                           replacement = "i") %>%
+      stringr::str_replace(pattern = "[\u00f3\u00f2]",
+                           replacement = "\u0254") %>%
+      stringr::str_replace(pattern = "[\u00fa\u00f9]",
+                           replacement = "u") %>%
+      stringr::str_replace(pattern = "\u00ea",
+                           replacement = "e") %>%
+      stringr::str_replace(pattern = "\u00f4",
+                           replacement = "o") %>%
+      stringr::str_replace(pattern = "\u00e2",
+                           replacement = "a") %>%
+      stringr::str_replace(pattern = "\u00f4",
+                           replacement = "o") %>%
+      stringr::str_replace(pattern = "\u00ea",
+                           replacement = "e")
+
+    return(word)
+  }
+
   # If word is monosyllabic:
   if(stringr::str_count(string = word,
                         pattern = "\\.") == 0){
@@ -24,6 +54,11 @@ stress_pt = function(word = ""){
     word = stringr::str_replace_all(string = word,
                                     pattern = "\\.(\\w+[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303])$",
                                     replacement = ".\u02c8\\1")
+
+    # But change stress to penult if word ends in am:
+    word = word %>%
+      stringr::str_replace(pattern = "(\\w+\\.)\u02c8(\\w*am$)",
+                           replacement = "\u02c8\\1\\2")
 
 
     return(word)
@@ -153,6 +188,11 @@ pu_candidates = function(word = ""){
   } else {
     winner = sample(candidates, size = 1, prob = c(0.02, 0.98))
   }
+
+  # But change stress to penult if word ends in am:
+  winner = winner %>%
+    stringr::str_replace(pattern = "(\\w+\\.)\u02c8(\\w*am$)",
+                         replacement = "\u02c8\\1\\2")
 
   return(winner)
 

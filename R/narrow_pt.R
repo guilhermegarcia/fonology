@@ -12,6 +12,10 @@ narrow_pt = function(word = ""){
 
   narrow = word
 
+  narrow = stringr::str_replace(narrow,
+                                pattern = "am$",
+                                replacement = "\u00e3w\u0303")
+
   # Vowel neutralization (word-final):
   narrow = stringr::str_replace(narrow,
                                 pattern = "(\\.[^\u02c8]\\w*)o$",

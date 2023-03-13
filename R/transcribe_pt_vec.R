@@ -1,14 +1,14 @@
-#' IPA transcriber for Portuguese
+#' Vectorized IPA transcriber for Portuguese
 #'
-#' Returns IPA phonemic transcription for a given string
-#' @param word The string of interest
+#' Returns IPA phonemic transcription for a given group of strings
+#' @param word The strings of interest
 #' @return The IPA transcription of said string without syllabification or stress
 #' @examples
-#' transcribe_pt(word = "computador");
+#' transcribe_pt_vec(word = c("pa.la.do", "an.te.dom"));
 #' @importFrom magrittr %>%
 #' @export
 
-transcribe_pt = function(word = ""){
+transcribe_pt_vec = function(word = ""){
 
   word = stringr::str_to_lower(word)
 
@@ -60,6 +60,14 @@ transcribe_pt = function(word = ""){
                                   replacement = "\u00f3")
 
   word = stringr::str_replace_all(word,
+                                  pattern = "\u00e0",
+                                  replacement = "\u00e1")
+
+  word = stringr::str_replace_all(word,
+                                  pattern = "\u00ec",
+                                  replacement = "\u00ed")
+
+  word = stringr::str_replace_all(word,
                                   pattern = "\u00e8",
                                   replacement = "\u00e9")
 
@@ -86,9 +94,17 @@ transcribe_pt = function(word = ""){
                                   replacement = "\u0292\\1")
 
 
+  # Q:
+  word = stringr::str_replace_all(word,
+                                  pattern = "qu(en|a)",
+                                  replacement = "kw\\1")
+
+  word = stringr::str_replace_all(word,
+                                  pattern = "qu([ieo\u00e9\u00f3\u00f4\u00ea])",
+                                  replacement = "k\\1")
 
 
-  # Diacritics
+  # Diacritics: keep diacritics
   # word = stringr::str_replace_all(word,
   #                                 pattern = "\u00e2",
   #                                 replacement = "a")
@@ -109,14 +125,6 @@ transcribe_pt = function(word = ""){
   #                                 pattern = "\u00fa",
   #                                 replacement = "u")
 
-  # Q:
-  word = stringr::str_replace_all(word,
-                                  pattern = "qu(en|a|\u00e3)",
-                                  replacement = "kw\\1")
-
-  word = stringr::str_replace_all(word,
-                                  pattern = "qu([i\u00edeo\u00e9\u00f3\u00f4\u00ea])",
-                                  replacement = "k\\1")
 
   # n+lab:
   word = stringr::str_replace_all(word,
@@ -299,7 +307,6 @@ transcribe_pt = function(word = ""){
                                   pattern = "\u00e3e",
                                   replacement = "\u00e3j\u0303")
 
-
   # Fix diphthongs in case of diacritics:
   word = stringr::str_replace_all(word,
                                   pattern = "\u00e1i",
@@ -364,7 +371,6 @@ transcribe_pt = function(word = ""){
   word = stringr::str_replace_all(word,
                                   pattern = "\u00eai",
                                   replacement = "\u00eaj")
-
 
   # Adjust x in diphthongs:
   word = stringr::str_replace_all(word,

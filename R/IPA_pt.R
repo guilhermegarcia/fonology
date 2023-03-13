@@ -28,21 +28,6 @@ ipa_pt = function(word = "", narrow = F){
   wd = wd %>%
     stringr::str_remove_all("[:punct:]")
 
-  # If there's a stress diacritic:
-  if(!is.na(diacritic_pt(wd))){
-    position = diacritic_pt(wd)
-    stressRegEx = stringr::str_c("((\\w+\\.){", position, "})$")
-    output_with_diacritic = wd %>%
-      transcribe_pt() %>%
-      syllabify_pt() %>%
-      stringr::str_c(".") %>%
-      stringr::str_replace(pattern = stressRegEx,
-                           replacement = "\u02c8\\1") %>%
-      stringr::str_remove(pattern = "\\.$")
-
-    return(output_with_diacritic)
-  }
-
   potentialPl = stringr::str_detect(wd, "s$")
   sgWd = stringr::str_remove(string = wd, pattern = "s$")
 
@@ -84,9 +69,35 @@ ipa_pt = function(word = "", narrow = F){
     }
 
     # If word is novel:
-  } else {
 
     # Broad transcription:
+  } else {
+
+    # if word has a diacritic and narrow is T:
+    if(stringr::str_detect(string = wd,
+                           pattern = "[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00e2\u00ea\u00f4]") & narrow == T){
+
+      wd = wd %>%
+        transcribe_pt() %>%
+        syllabify_pt() %>%
+        stress_pt() %>%
+        narrow_pt()
+
+      return(wd)
+    } else if(stringr::str_detect(string = wd,
+                                  pattern = "[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00e2\u00ea\u00f4]") & narrow == F){
+
+      wd = wd %>%
+        transcribe_pt() %>%
+        syllabify_pt() %>%
+        stress_pt()
+
+      return(wd)
+    }
+
+
+
+    # If not:
     wd = wd %>%
       transcribe_pt() %>%
       syllabify_pt()

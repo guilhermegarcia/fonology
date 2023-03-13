@@ -1,19 +1,19 @@
-#' Syllabifier for Portuguese
+#' Vectorized syllabifier for Portuguese
 #'
 #' Returns syllabification for a given string
-#' @param word The string of interest using IPA phonemic transcription
-#' @return The syllabification for the string in question
+#' @param word The strings of interest using IPA phonemic transcription
+#' @return The syllabification for the strings in question
 #' @examples
-#' syllabify_pt(word = "komputadoɾ");
+#' syllabify_pt_vec(word = c("pa.la.do", "an.te.dom"));
 #' @importFrom magrittr %>%
 #' @export
 
-syllabify_pt = function(word = ""){
+syllabify_pt_vec = function(word = ""){
 
   # Start with CV:
   word = stringr::str_replace_all(string = word,
-                                  pattern = "([aeiou\u025b\u0254\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea])",
-                                  replacement = "\\1.")
+                      pattern = "([aeiou\u025b\u0254\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea])",
+                      replacement = "\\1.")
 
   # Fix diphthongs:
   word = stringr::str_replace_all(string = word,
