@@ -28,7 +28,8 @@ ipa_pt_vec = function(word = c("palavra")){
   wd = wd %>%
     transcribe_pt_vec() %>%
     syllabify_pt_vec() %>%
-    stress_pt_vec()
+    stress_pt_vec() %>%
+    stringr::str_remove_all(pattern = "\\.$")
 
   # Both sets:
   # all = c(real, nonce)

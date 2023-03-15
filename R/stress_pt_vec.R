@@ -72,10 +72,10 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   word = word[!which_mid_lows]
 
   # Word with final stress:
-  which_heavy_finals = stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|ens|l|w|j|i|u|\u00e3|\u00f5|w\u0303]$")
+  which_heavy_finals = stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|i|\u027e|u|\u00e3|\u00f5|w\u0303|j\u0303]$|\\.\\w+w\u0303s$|\\.\\w+j\u0303s$|\\.\\w+ns$")
   heavy_finals = stringr::str_replace_all(string = word[which_heavy_finals],
-                                          pattern = "([:alpha:]+[pbtdkgzfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303|ns])$",
-                                          replacement = "\u02c8\\1")
+                                          pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|\u027e|w|j|i|u|\u00e3|\u00f5|w\u0303|j\u0303|w\u0303s|j\u0303s])$",
+                                          replacement = ".\u02c8\\1")
 
   # Keep names for order:
   names(heavy_finals) = names(word[which_heavy_finals])
@@ -84,9 +84,9 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   word = word[!which_heavy_finals]
 
   # Word with final stress (US IS or diph + S):
-  which_heavy_finals2 = stringr::str_detect(string = word, pattern = "\\.\\w+us|\\.\\w+is|\\w+js|\\w+ws$")
+  which_heavy_finals2 = stringr::str_detect(string = word, pattern = "\\.\\w+us$|\\.\\w+is$|\\w+js$|\\w+ws$|ens$")
   heavy_finals2 = stringr::str_replace_all(string = word[which_heavy_finals2],
-                                          pattern = "([:alpha:]+us|[:alpha:]+is|[:alpha:]+js|[:alpha:]+ws)$",
+                                          pattern = "([:alpha:]+us$|[:alpha:]+is$|[:alpha:]+js$|[:alpha:]+ws|[:alpha:]ens$)$",
                                           replacement = "\u02c8\\1")
 
   # Keep names for order:
@@ -109,7 +109,7 @@ stress_pt_vec = function(word = c("ka.va.lo")){
 
   # Else, penult stress:
   penults = stringr::str_replace_all(string = word,
-                                     pattern = "([:alpha:]+\\.)([:alpha:]+$)",
+                                     pattern = "(\\w+\\.)(\\w+$)",
                                      replacement = "\u02c8\\1\\2")
   # Keep names for order:
   names(penults) = names(word)
@@ -150,6 +150,16 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   output = output %>%
     stringr::str_replace(pattern = "z$",
                          replacement = "s")
+
+  # Replace potential cases of multiple stresses:
+  output = output %>%
+    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
+    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
+    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
+    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
+    stringr::str_replace(pattern = "\u028ee\u027e$", replacement = "\u028e\u025b\u027e") %>%
+    stringr::str_replace(pattern = "a.o$", replacement = "aw") %>%
+    stringr::str_replace(pattern = "a.os$", replacement = "aws")
 
   return(output)
 

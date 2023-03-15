@@ -57,6 +57,16 @@ syllabify_pt_vec = function(word = ""){
                          pattern = "\\.s([tdpbkg][\u027el])",
                          replacement = "s.\\1")
 
+  # Remove word-final syllable boundary:
+  word = stringr::str_remove_all(string = word,
+                                 pattern = "\\.$")
+
+  # Adjust complex nasal diphthongs (especially when followed by clitics)
+  word = word %>%
+    stringr::str_replace(pattern = "(j\u0303)([pbtdgkfvl\u028emnsz\u027e\u0283\u0292x])",
+                         replacement = "\\1.\\2")
+
+
   return(word)
 
 }

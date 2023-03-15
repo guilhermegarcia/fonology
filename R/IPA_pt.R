@@ -37,7 +37,10 @@ ipa_pt = function(word = "", narrow = F){
 
     if(narrow == F){
       broadLex %>%
-        return()
+        # Fix v height in lher]:
+        stringr::str_replace(pattern = "\u028ee\u027e$",
+                             replacement = "\u028e\u025b\u027e") %>%
+      return()
 
     } else if(narrow == T){
       broadLex %>%

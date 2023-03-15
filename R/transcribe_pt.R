@@ -78,12 +78,13 @@ transcribe_pt = function(word = ""){
                                   replacement = "gw\\2")
 
   word = stringr::str_replace_all(word,
+                                  pattern = "g([ei])",
+                                  replacement = "\u0292\\1")
+
+  word = stringr::str_replace_all(word,
                                   pattern = "gu([ei])",
                                   replacement = "g\\1")
 
-  word = stringr::str_replace_all(word,
-                                  pattern = "g([ei])",
-                                  replacement = "\u0292\\1")
 
 
 
@@ -254,7 +255,7 @@ transcribe_pt = function(word = ""){
 
   word = stringr::str_replace_all(word,
                                   pattern = "lhe",
-                                  replacement = "\u028e\u025b")
+                                  replacement = "\u028ee")
 
   word = stringr::str_replace_all(word,
                                   pattern = "lh",

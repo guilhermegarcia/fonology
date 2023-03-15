@@ -37,9 +37,16 @@ stress_pt = function(word = ""){
       stringr::str_replace(pattern = "\u00ea",
                            replacement = "e")
 
+    # Replace potential cases of multiple stresses:
     word = word %>%
       stringr::str_replace(pattern = "z$",
                            replacement = "s")
+
+    word = word %>%
+      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
+      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
+      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
+      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "")
 
     return(word)
   }
@@ -57,14 +64,14 @@ stress_pt = function(word = ""){
     return(word)
   }
 
-  if(stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|i|u|\u00e3|\u00f5|w\u0303]$") |
+  if(stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|\u027e|w|j|i|u|\u00e3|\u00f5|w\u0303]$") |
      stringr::str_detect(string = word, pattern = "\\.\\w+is$|\\.\\w+us$|\\.\\w+ws$|\\.\\w+js$") |
      stringr::str_detect(string = word, pattern = "[nlr]s$") |
      stringr::str_detect(string = word, pattern = "[wj]\u0303s$")){
 
     # Stress is final if word ends in consonant other than s, diph, high vowel (Tupi), or high vowel + s
     word = stringr::str_replace_all(string = word,
-                                    pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|ws|j|js|i|u|is|us|\u00e3|\u00f5|w\u0303|o\u0303j\u0303s|a\u0303|w\u0303s]$)",
+                                    pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|\u027e|w|ws|j|js|i|u|is|us|\u00e3|\u00f5|w\u0303|o\u0303j\u0303s|a\u0303|w\u0303s]$)",
                                     replacement = ".\u02c8\\1")
 
     # Syllables such as ns], ls], rs] are heavy despite having an s]:
@@ -95,6 +102,12 @@ stress_pt = function(word = ""){
       stringr::str_replace(pattern = "z$",
                            replacement = "s")
 
+    # Fix v height in lher]:
+    word = word %>%
+      stringr::str_replace(pattern = "\u028ee\u027e$",
+                           replacement = "\u028e\u025b\u027e")
+
+
     return(word)
 
   } else if(stringr::str_detect(string = word, pattern = "\\w*[\u0254\u025b]\\w*\\.\\w*\\.\\w*$")) {
@@ -111,9 +124,19 @@ stress_pt = function(word = ""){
                                     pattern = "(\\w+)(\\.\\w+)$",
                                     replacement = "\u02c8\\1\\2")
 
+    # Add adjustments to paroxytones:
     word = word %>%
       stringr::str_replace(pattern = "z$",
                            replacement = "s")
+
+    word = word %>%
+      stringr::str_replace(pattern = "a.o$",
+                           replacement = "aw")
+
+    word = word %>%
+      stringr::str_replace(pattern = "a.os$",
+                           replacement = "aws")
+
     return(word)
 
   }
