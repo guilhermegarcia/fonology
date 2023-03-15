@@ -57,8 +57,8 @@ stress_pt = function(word = ""){
     return(word)
   }
 
-  if(stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|js|ws|i|u|\u00e3|\u00f5|w\u0303]$") |
-     stringr::str_detect(string = word, pattern = "\\.\\w+is$|\\.\\w+us")){
+  if(stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|i|u|\u00e3|\u00f5|w\u0303]$") |
+     stringr::str_detect(string = word, pattern = "\\.\\w+is$|\\.\\w+us|\\.\\w+ws|\\.\\w+js")){
 
     # Stress is final if word ends in consonant other than s, diph, high vowel (Tupi), or high vowel + s
     word = stringr::str_replace_all(string = word,

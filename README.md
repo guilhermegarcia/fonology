@@ -88,9 +88,9 @@ ipa_pt("antidepressivo", narrow = T)
 ipa_pt("feris") 
 #> [1] "fe.ˈɾis"
 ipa_pt("tialo")
-#> [1] "ˈti.a.lo"
+#> [1] "ti.ˈa.lo"
 ipa_pt("piato", narrow = T)
-#> [1] "ˈpi.a.tʊ"
+#> [1] "ˈpja.tʊ"
 ```
 
 ### A note on stress
@@ -183,7 +183,7 @@ example
 #> # Rowwise: 
 #>   word      ipa          syl2  demi1  disp   SSP
 #>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
-#> 1 partolo   ˈpaɾ.to.lo   to    to     0.06     1
+#> 1 partolo   paɾ.ˈto.lo   to    to     0.06     1
 #> 2 metrilpo  me.ˈtɾil.po  tɾil  tɾi    0.56     1
 #> 3 vanplidos vam.pli.ˈdos pli   pli    0.56     1
 ```
