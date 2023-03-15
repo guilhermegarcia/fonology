@@ -58,16 +58,37 @@ stress_pt = function(word = ""){
   }
 
   if(stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|i|u|\u00e3|\u00f5|w\u0303]$") |
-     stringr::str_detect(string = word, pattern = "\\.\\w+is$|\\.\\w+us|\\.\\w+ws|\\.\\w+js")){
+     stringr::str_detect(string = word, pattern = "\\.\\w+is$|\\.\\w+us$|\\.\\w+ws$|\\.\\w+js$") |
+     stringr::str_detect(string = word, pattern = "[nlr]s$") |
+     stringr::str_detect(string = word, pattern = "[wj]\u0303s$")){
 
     # Stress is final if word ends in consonant other than s, diph, high vowel (Tupi), or high vowel + s
     word = stringr::str_replace_all(string = word,
-                                    pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|ws|j|js|i|u|is|us|\u00e3|\u00f5|w\u0303]$)",
+                                    pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|ws|j|js|i|u|is|us|\u00e3|\u00f5|w\u0303|o\u0303j\u0303s|a\u0303|w\u0303s]$)",
                                     replacement = ".\u02c8\\1")
+
+    # Syllables such as ns], ls], rs] are heavy despite having an s]:
+    # word = stringr::str_replace_all(string = word,
+    #                                 pattern = "\\.([nlr]s$)",
+    #                                 replacement = ".\u02c8\\1")
+
+    # Move stress to final syllable where a nasal diphthong is present:
+    # word = stringr::str_replace_all(string = word,
+    #                                 pattern = "\\.(\\w+[wj]\u0303s$)",
+    #                                 replacement = ".\u02c8\\1")
 
     # But change stress to penult if word ends in am:
     word = word %>%
       stringr::str_replace(pattern = "(\\w+\\.)\u02c8(\\w*am$)",
+                           replacement = "\u02c8\\1\\2")
+
+    # Also move stress to penult if word ends in gens:
+    word = word %>%
+      stringr::str_replace(pattern = "([:alpha:]+\\.)\u02c8(\u0292ens)$",
+                           replacement = "\u02c8\\1\\2")
+
+    word = word %>%
+      stringr::str_replace(pattern = "([:alpha:]+\\.)\u02c8(\u0292em)$",
                            replacement = "\u02c8\\1\\2")
 
     word = word %>%

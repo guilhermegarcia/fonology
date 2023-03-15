@@ -72,9 +72,9 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   word = word[!which_mid_lows]
 
   # Word with final stress:
-  which_heavy_finals = stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|i|u|\u00e3|\u00f5|w\u0303]$")
+  which_heavy_finals = stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|ens|l|w|j|i|u|\u00e3|\u00f5|w\u0303]$")
   heavy_finals = stringr::str_replace_all(string = word[which_heavy_finals],
-                                          pattern = "([:alpha:]+[pbtdkgzfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303])$",
+                                          pattern = "([:alpha:]+[pbtdkgzfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303|ns])$",
                                           replacement = "\u02c8\\1")
 
   # Keep names for order:
@@ -95,6 +95,17 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   # Remove them:
   word = word[!which_heavy_finals2]
 
+  # Word with final stress (nasal diphthong + s):
+  which_heavy_finals3 = stringr::str_detect(string = word, pattern = "[nlr]s$|[wj]\u0303s$")
+  heavy_finals3 = stringr::str_replace_all(string = word[which_heavy_finals3],
+                                           pattern = "([:alpha:]*[wj]\u0303[s])$",
+                                           replacement = "\u02c8\\1")
+
+  # Keep names for order:
+  names(heavy_finals3) = names(word[which_heavy_finals3])
+
+  # Remove them:
+  word = word[!which_heavy_finals3]
 
   # Else, penult stress:
   penults = stringr::str_replace_all(string = word,
@@ -105,7 +116,7 @@ stress_pt_vec = function(word = c("ka.va.lo")){
 
 
   # Gather all words:
-  output = c(monos, mid_lows, heavy_finals, heavy_finals2, penults, diacritics)
+  output = c(monos, mid_lows, heavy_finals, heavy_finals2, heavy_finals3, penults, diacritics)
   # names(output) = c(names(monos), names(mid_lows), names(heavy_finals), names(penults), names(diacritics))
 
   # Revert to original order:
@@ -117,6 +128,13 @@ stress_pt_vec = function(word = c("ka.va.lo")){
                          replacement = "\\1\u0254l") %>%
     stringr::str_replace(pattern = "(\u02c8\\w*)el$",
                          replacement = "\\1\u025bl")
+
+  # Fix words ending in -gem or -gens
+  output = output %>%
+    stringr::str_replace(pattern = "([:alpha:]+)\\.\u02c8(\u0292em)$$",
+                         replacement = "\u02c8\\1.\\2") %>%
+    stringr::str_replace(pattern = "([:alpha:]+)\\.\u02c8(\u0292ens)$$",
+                         replacement = "\u02c8\\1.\\2")
 
   # Change stress to penult if word ends in am:
   output = output %>%

@@ -15,38 +15,52 @@ syllabify_pt = function(word = ""){
                                   pattern = "([aeiou\u025b\u0254\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea])",
                                   replacement = "\\1.")
 
+  # Fix nasalization over syllable boundary:
+  word = stringr::str_replace(string = word,
+                              pattern = "a.\u0303",
+                              replacement = "\u00e3")
+
+  word = stringr::str_replace(string = word,
+                              pattern = "o.\u0303",
+                              replacement = "\u00f5")
+
   # Fix diphthongs:
   word = stringr::str_replace_all(string = word,
-                      pattern = "([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u025b\u0254\u00e2\u00f4\u00ea])\\.([wj])",
-                      replacement = "\\1\\2.")
+                                  pattern = "([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u025b\u0254\u00e2\u00f4\u00ea])\\.([wj])",
+                                  replacement = "\\1\\2.")
+
+  # Fix nasal diphthongs:
+  word = stringr::str_replace_all(string = word,
+                                  pattern = "([\u00e3\u00f5])\\.([w\u0303j\u0303])",
+                                  replacement = "\\1\\2.")
 
   # Fix onset clusteres:
   word = stringr::str_replace_all(string = word,
-                      pattern = "\\.([lmn\u027eskgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mn])",
-                      replacement = "\\1.\\2")
+                                  pattern = "\\.([lmn\u027eskgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mn])",
+                                  replacement = "\\1.\\2")
 
 
   # Remove empty final syllables:
   word = stringr::str_remove_all(string = word,
-                     pattern = "\\.$")
+                                 pattern = "\\.$")
 
   # Remove C-syllables word finally:
   word = stringr::str_replace_all(string = word,
-                      pattern = "\\.([pbtdkgszfv\u0283\u0292\u028elmn\u027es])$",
-                      replacement = "\\1")
+                                  pattern = "\\.([pbtdkgszfv\u0283\u0292\u028elmn\u027es])$",
+                                  replacement = "\\1")
 
   word = stringr::str_replace_all(string = word,
-                         pattern = "\\.([sznm])([lr])",
-                         replacement = "\\1.\\2")
+                                  pattern = "\\.([sznm])([lr])",
+                                  replacement = "\\1.\\2")
 
   # Remove h:
   word = stringr::str_remove_all(string = word,
-                        pattern = "h")
+                                 pattern = "h")
 
   # Overly complex onset clusters:
   word = stringr::str_replace_all(string = word,
-                         pattern = "\\.s([tdpbkg][\u027el])",
-                         replacement = "s.\\1")
+                                  pattern = "\\.s([tdpbkg][\u027el])",
+                                  replacement = "s.\\1")
 
   return(word)
 

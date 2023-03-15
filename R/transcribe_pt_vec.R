@@ -307,6 +307,15 @@ transcribe_pt_vec = function(word = ""){
                                   pattern = "\u00e3e",
                                   replacement = "\u00e3j\u0303")
 
+  # Nasal diphthongs + plural:
+  word = stringr::str_replace_all(word,
+                                  pattern = "\u00e3os",
+                                  replacement = "a\u0303w\u0303s")
+
+  word = stringr::str_replace_all(word,
+                                  pattern = "\u00f5es",
+                                  replacement = "o\u0303j\u0303s")
+
   # Fix diphthongs in case of diacritics:
   word = stringr::str_replace_all(word,
                                   pattern = "\u00e1i",

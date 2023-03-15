@@ -15,6 +15,15 @@ syllabify_pt_vec = function(word = ""){
                       pattern = "([aeiou\u025b\u0254\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea])",
                       replacement = "\\1.")
 
+  # Fix nasalization over syllable boundary:
+  word = stringr::str_replace(string = word,
+                              pattern = "a.\u0303",
+                              replacement = "\u00e3")
+
+  word = stringr::str_replace(string = word,
+                              pattern = "o.\u0303",
+                              replacement = "\u00f5")
+
   # Fix diphthongs:
   word = stringr::str_replace_all(string = word,
                       pattern = "([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u025b\u0254\u00e2\u00f4\u00ea])\\.([wj])",
