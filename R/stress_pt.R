@@ -37,6 +37,10 @@ stress_pt = function(word = ""){
       stringr::str_replace(pattern = "\u00ea",
                            replacement = "e")
 
+    word = word %>%
+      stringr::str_replace(pattern = "z$",
+                           replacement = "s")
+
     return(word)
   }
 
@@ -46,13 +50,19 @@ stress_pt = function(word = ""){
     word = stringr::str_replace_all(string = word,
                                     pattern = "^(\\w*)$",
                                     replacement = "\u02c8\\1")
+
+    word = word %>%
+      stringr::str_replace(pattern = "z$",
+                           replacement = "s")
     return(word)
   }
 
-  if(stringr::str_detect(string = word, pattern = "\\.\\w+[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303]$")){
-    # Stress is final if word ends in consonant, diph OR high vowel (Tupi):
+  if(stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|js|ws|i|u|\u00e3|\u00f5|w\u0303]$") |
+     stringr::str_detect(string = word, pattern = "\\.\\w+is$|\\.\\w+us")){
+
+    # Stress is final if word ends in consonant other than s, diph, high vowel (Tupi), or high vowel + s
     word = stringr::str_replace_all(string = word,
-                                    pattern = "\\.(\\w+[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303])$",
+                                    pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|ws|j|js|i|u|is|us|\u00e3|\u00f5|w\u0303]$)",
                                     replacement = ".\u02c8\\1")
 
     # But change stress to penult if word ends in am:
@@ -60,6 +70,9 @@ stress_pt = function(word = ""){
       stringr::str_replace(pattern = "(\\w+\\.)\u02c8(\\w*am$)",
                            replacement = "\u02c8\\1\\2")
 
+    word = word %>%
+      stringr::str_replace(pattern = "z$",
+                           replacement = "s")
 
     return(word)
 
@@ -77,6 +90,9 @@ stress_pt = function(word = ""){
                                     pattern = "(\\w+)(\\.\\w+)$",
                                     replacement = "\u02c8\\1\\2")
 
+    word = word %>%
+      stringr::str_replace(pattern = "z$",
+                           replacement = "s")
     return(word)
 
   }

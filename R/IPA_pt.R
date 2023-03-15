@@ -28,30 +28,7 @@ ipa_pt = function(word = "", narrow = F){
   wd = wd %>%
     stringr::str_remove_all("[:punct:]")
 
-  potentialPl = stringr::str_detect(wd, "s$")
-  sgWd = stringr::str_remove(string = wd, pattern = "s$")
-
-  # If singular form exists:
-  if(potentialPl & sgWd %in% pt_lex$word){
-    broadLex = pt_lex %>%
-      dplyr::filter(word == sgWd) %>%
-      dplyr::slice(1) %>%
-      dplyr::pull(pro) %>%
-      stringr::str_replace(pattern = "\'", replacement = "\u02c8")
-
-    if(narrow == F){
-      broadLex %>%
-        stringr::str_c("s") %>%
-        return()
-    } else if(narrow == T){
-      broadLex %>%
-        narrow_pt() %>%
-        stringr::str_c("s") %>%
-        return()
-    }
-
-    # If word exists:
-  } else if(wd %in% pt_lex$word){
+  if(wd %in% pt_lex$word){
     broadLex = pt_lex %>%
       dplyr::filter(word == wd) %>%
       dplyr::slice(1) %>%
@@ -105,20 +82,24 @@ ipa_pt = function(word = "", narrow = F){
     # Feed probabilistic patterns in lexicon (but only if word doesn't end in high V):
     weight = getWeight_pt(wd)
 
-    if(weight %in% c("HLL", "LLL") & stringr::str_detect(wd, pattern = "[^iu]$")){
+    if(weight %in% c("HLL", "LLL") & stringr::str_detect(wd, pattern = "[^ius]$")){
       wd = wd %>%
         apu_candidates() %>%
         dact_pt()
 
-    } else if(weight %in% c("LLH", "LH", "HH", "LHH")){
+    } else if(weight %in% c("LLH", "LH", "HH", "LHH") & stringr::str_detect(wd, pattern = "[^ius]$")){
       wd =  wd %>%
         pu_candidates() %>%
-        spond_pt()
+        spond_pt() %>%
+        stringr::str_replace(pattern = "z$",
+                             replacement = "s")
       # If stress is final and weight = (X)LH, e,o -> E,O
 
     } else {
       wd = wd %>%
-        stress_pt()
+        stress_pt() %>%
+        stringr::str_replace(pattern = "z$",
+                             replacement = "s")
     }
 
     # Check for narrow transcription:

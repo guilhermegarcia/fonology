@@ -12,7 +12,6 @@ ipa_pt_test = function(){
 
 
   testWords = c("strada",
-                "cavalo",
                 "cam\u00f3tipo",
                 "paitrado",
                 "m\u00eatilo",
@@ -21,9 +20,11 @@ ipa_pt_test = function(){
                 "lispico",
                 "fadist\u00e3o",
                 "frinte",
-                "ful",
                 "catto",
                 "dane",
+                "mendes",
+                "mendez",
+                "merpis",
                 "mylena",
                 "parangaricutirrimirruaro")
 

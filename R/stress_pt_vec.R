@@ -72,9 +72,9 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   word = word[!which_mid_lows]
 
   # Word with final stress:
-  which_heavy_finals = stringr::str_detect(string = word, pattern = "[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5ww\u0303]$")
-  heavy_finals = stringr::str_replace_all(string = word[stringr::str_detect(word, pattern = "[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5ww\u0303]$")],
-                                          pattern = "([:alpha:]+[pbtdkgszfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303])$",
+  which_heavy_finals = stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|i|u|\u00e3|\u00f5|w\u0303]$")
+  heavy_finals = stringr::str_replace_all(string = word[which_heavy_finals],
+                                          pattern = "([:alpha:]+[pbtdkgzfv\u0283\u0292\u028e\u0272mnl\u027ewjiu\u00e3\u00f5w\u0303])$",
                                           replacement = "\u02c8\\1")
 
   # Keep names for order:
@@ -82,6 +82,19 @@ stress_pt_vec = function(word = c("ka.va.lo")){
 
   # Remove them:
   word = word[!which_heavy_finals]
+
+  # Word with final stress (US IS or diph + S):
+  which_heavy_finals2 = stringr::str_detect(string = word, pattern = "\\.\\w+us|\\.\\w+is|\\w+js|\\w+ws$")
+  heavy_finals2 = stringr::str_replace_all(string = word[which_heavy_finals2],
+                                          pattern = "([:alpha:]+us|[:alpha:]+is|[:alpha:]+js|[:alpha:]+ws)$",
+                                          replacement = "\u02c8\\1")
+
+  # Keep names for order:
+  names(heavy_finals2) = names(word[which_heavy_finals2])
+
+  # Remove them:
+  word = word[!which_heavy_finals2]
+
 
   # Else, penult stress:
   penults = stringr::str_replace_all(string = word,
@@ -92,11 +105,11 @@ stress_pt_vec = function(word = c("ka.va.lo")){
 
 
   # Gather all words:
-  output = c(monos, mid_lows, heavy_finals, penults, diacritics)
+  output = c(monos, mid_lows, heavy_finals, heavy_finals2, penults, diacritics)
   # names(output) = c(names(monos), names(mid_lows), names(heavy_finals), names(penults), names(diacritics))
 
   # Revert to original order:
-  output = output[order(names(output))]
+  output = output[as.character(sort(as.numeric(names(output))))]
 
   # Fix vowel height in Vl] sequences:
   output = output %>%
@@ -114,6 +127,11 @@ stress_pt_vec = function(word = c("ka.va.lo")){
     stringr::str_replace(pattern = "am$",
                          replacement = "\u00e3w\u0303")
 
+  # Now replace z] with s]
+
+  output = output %>%
+    stringr::str_replace(pattern = "z$",
+                         replacement = "s")
 
   return(output)
 
