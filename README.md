@@ -78,7 +78,7 @@ transcription can be generated adding `narrow = T` to the function.
 library(Fonology)
 
 ipa_pt("atletico")
-#> [1] "a.tle.ˈti.ko"
+#> [1] "a.ˈtlɛ.ti.ko"
 ipa_pt("cantalo", narrow = T)
 #> [1] "kãn.ˈta.lʊ"
 ipa_pt("teatro")
@@ -183,9 +183,9 @@ example
 #> # Rowwise: 
 #>   word      ipa          syl2  demi1  disp   SSP
 #>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
-#> 1 partolo   paɾ.ˈto.lo   to    to     0.06     1
+#> 1 partolo   ˈpaɾ.to.lo   to    to     0.06     1
 #> 2 metrilpo  me.ˈtɾil.po  tɾil  tɾi    0.56     1
-#> 3 vanplidos vam.pli.ˈdos pli   pli    0.56     1
+#> 3 vanplidos vam.ˈpli.dos pli   pli    0.56     1
 ```
 
 You may also want to calculate the average sonority dispersion for whole
