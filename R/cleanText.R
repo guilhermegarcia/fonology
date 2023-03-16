@@ -24,6 +24,9 @@ cleanText = function(text = ""){
   # Case:
   output = stringr::str_to_lower(output)
 
+  # Remove NAs:
+  output = output[!is.na(output)]
+
   return(output)
 
 }
