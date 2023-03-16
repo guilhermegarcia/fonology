@@ -66,6 +66,11 @@ syllabify_pt_vec = function(word = ""){
     stringr::str_replace(pattern = "(j\u0303)([pbtdgkfvl\u028emnsz\u027e\u0283\u0292x])",
                          replacement = "\\1.\\2")
 
+  # Adjust complex nasal diphthongs word-finally:
+  word = word %>%
+    stringr::str_replace(pattern = "(w\u0303|j\u0303)\\.(s$)",
+                         replacement = "\\1\\2")
+
 
   return(word)
 
