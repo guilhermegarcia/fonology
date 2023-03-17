@@ -18,5 +18,5 @@ The IPA transcription of said string
 Returns IPA phonemic transcription for a nonce word given a specific weight profile
 }
 \examples{
-gen_pt(profile = "HLL")
+wug_pt(profile = "HLL")
 }

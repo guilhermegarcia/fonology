@@ -29,7 +29,7 @@ cleanText = function(text = ""){
 
   # Strip clitics:
   output = output %>%
-    strip_clitic_pt(output)
+    strip_clitic_pt()
 
   return(output)
 

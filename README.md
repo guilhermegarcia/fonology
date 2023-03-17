@@ -1,0 +1,280 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+## Fonology
+
+> An R package for phonological analysis
+
+For a more comprehensive vignette, visit [my
+website](https://gdgarcia.ca/fonology).
+
+## Main functions and data
+
+- `getFeat()` and `getPhon()` to work with distinctive features
+- `ipa_pt()` phonemically transcribes Portuguese words (real or not)
+- `sonDisp()` calculates the sonority dispersion of a given
+  demisyllable. `meanSonDisp()` calculates the average dispersion for a
+  given word (or vector of words)
+- `wug_pt()` generates hypothetical words in Portuguese
+- `biGram_pt()` calculates bigram probabilities for a given word
+- `plotVowels()` generates vowel trapezoids
+- `plotSon()` plots the sonority profile of a given word
+- `psl` contains the [*Portuguese Stress
+  Lexicon*](https://gdgarcia.ca/psl.html)
+- `pt_lex` contains a simplified version of `psl`
+- `stopwords_pt` contains stopwords in Portuguese
+
+## Distinctive features
+
+### From phonemes to features
+
+The function `getFeat()` requires a set of phonemes `ph` and a language
+`lg`. It outputs the minimal matrix of distinctive features for `ph`
+given the phonemic inventory of `lg`. Five languages are supported:
+English, French, Italian, Portuguese, and Spanish. Here are some
+examples.
+
+``` r
+library(Fonology)
+
+getFeat(ph = c("i", "u"), lg = "English")
+#> [1] "+hi"    "+tense"
+getFeat(ph = c("i", "u"), lg = "French")
+#> [1] "Not a natural class in this language."
+getFeat(ph = c("i", "y", "u"), lg = "French")
+#> [1] "+syl" "+hi"
+getFeat(ph = c("p", "b"), lg = "Portuguese")
+#> [1] "-son"  "-cont" "+lab"
+getFeat(ph = c("k", "g"), lg = "Italian")
+#> [1] "+cons" "+back"
+```
+
+### From features to phonemes
+
+The function `getPhon()` requires a feature matrix `ft` and a language
+`lg`. It outputs the set of phonemes represented by `ft` given the
+phonemic inventory of `lg`. The languages supported are the same as
+those supported by `getFeat()`.
+
+``` r
+library(Fonology)
+
+getPhon(ft = c("+syl", "+hi"), lg = "French")
+#> [1] "u" "i" "y"
+getPhon(ft = c("-DR", "-cont", "-son"), lg = "English")
+#> [1] "t" "d" "b" "k" "g" "p"
+getPhon(ft = c("-son", "+vce"), lg = "Spanish")
+#> [1] "z" "d" "b" "ʝ" "g" "v"
+```
+
+## IPA transcription for Portuguese
+
+The function `ipa_pt()` takes a monomorphemic Portuguese `word` (real or
+not) in its orthographic form and returns its phonemic (i.e., broad)
+transcription based on **Brazilian Portuguese**. The narrow
+transcription can be generated adding `narrow = T` to the function.
+
+``` r
+library(Fonology)
+
+ipa_pt("atletico")
+#> [1] "a.ˈtlɛ.ti.ko"
+ipa_pt("cantalo", narrow = T)
+#> [1] "kãn.ˈta.lʊ"
+ipa_pt("teatro")
+#> [1] "te.ˈa.tɾo"
+ipa_pt("antidepressivo", narrow = T)
+#> [1] "ˌãn.t͡ʃi.ˌde.pɾe.ˈsi.vʊ"
+ipa_pt("feris") 
+#> [1] "fe.ˈɾis"
+ipa_pt("tialo")
+#> [1] "ˈti.a.lo"
+ipa_pt("piato", narrow = T)
+#> [1] "ˈpja.tʊ"
+```
+
+### A note on stress
+
+Stress is assigned based on two scenarios. First, **real** words
+(non-verbs) have their stress assignment derived from the [Portuguese
+Stress Lexicon](https://gdgarcia.ca/psl.html) (if the word is listed
+there). Second, **nonce** words follow the general patterns of
+Portuguese stress *as well as* probabilistic tendencies shown in my work
+(Garcia, [2017a](https://gdgarcia.ca/thesis.html),
+[2017b](https://gdgarcia.ca/garcia_phon_2017.html),
+[2019](https://gdgarcia.ca/garcia_lg_2019.html)). As a result, a nonce
+word *may* have antepenultimate stress under the right conditions based
+on lexical statistics in the language. Likewise, words with other
+so-called exceptional stress patterns are also generated
+probabilistically (e.g., `LH]` words with penultimate stress). Stress
+and weight are also used to apply both spondaic and dactylic lowering to
+narrow transcriptions, following work such as Wetzels (2007). Secondary
+stress is provided when `narrow = T`.
+
+### A note on key assumptions
+
+There are several assumptions about surface-forms when `narrow = T`.
+Most of these assumptions can (and probably will) be adjusted as the
+package improves its accuracy and coverage. Diphthongization, for
+example, is sensitive to phonotactics. A word such as `CV.ˈV.CV` will be
+narrowly transcribed as `ˈCGV.CV` (except when the initial consonant is
+an affricate (allophonic), which *seems* to lower the probability of
+diphthongization based on my judgement). Diphthongization is not applied
+if the onset is complex. Needless to say, these assumptions are based on
+a particular dialect of Brazilian Portuguese, and I do not expect all of
+them to seamlessly apply to other dialects (although some assumptions
+are more easily generalizable than others).
+
+Narrow transcription also includes (final) vowel reduction, voicing
+assimilation, l-vocalization, vowel devoicing, palatalization, and
+epenthesis in `sC` clusters and other consonant sequences that are
+expected to be repaired on surface forms (e.g., *kt*, *gn*). Examples
+can be generated with the function `ipa_pt_test()`.
+
+### Helper functions
+
+If you plan to tokenize texts and create a table with individual columns
+for stress and syllables, you can use some simple additional helper
+functions. For example, `getWeight_pt()` will take a syllabified word in
+Portuguese and return its weight profile (e.g., `getWeight_pt("kon.to")`
+will return `HL`). The function `getStress()` will return the stress
+position of a given word (up to preantepenultimate stress)—the word must
+already be stressed, but the symbol used can be specified in the
+function (argument `stress`). Finally, `getSyl()` will extract a given
+syllable from a string. For example,
+`getSyl(word = "kom-pu-ta-doɾ", pos = 3, syl = "-")` will take the
+antepenultimate syllable of the string in question. The default symbol
+for syllabification is the period. Finally, `dePlu_pt()` will remove
+plural `s` from words that are listed in the Portuguese Stress Lexicon
+(to avoid treating morphemic `s` as a real coda word-finally)—note that
+`ipa_pt()` is not supposed to be used with polymorphemic strings.
+
+## Sonority
+
+There are three functions in the package to analyze sonority. First,
+`demi(word = ..., d = ...)` extracts either the first (`d = 1`, the
+default) or second (`d = 2`) demisyllables of a given (syllabified) word
+(or vector of words. Second, `sonDisp(demi = ...)` calculates the
+sonority dispersion score of a given demisyllable, based on Clements
+(1990). Note that this metric does not differentiate sequences that
+respect the sonority sequencing principle (SSP) from those that don’t,
+i.e., `pla` and `lpa` will have the same score. For that reason, a third
+function exists, `ssp(demi = ..., d = ...)`, which evaluates whether a
+given demisyllable respects (`1`) or doesn’t repect (`0`) the SSP. In
+the example below, the dispersion score of the first demisyllable in the
+penult syllable is calculated—`ssp()` isn’t relevant here, since all
+words in Portuguese respect the SSP.
+
+``` r
+library(Fonology)
+
+example = tibble(word = c("partolo", "metrilpo", "vanplidos"))
+
+example = example %>% 
+  rowwise() %>% 
+  mutate(ipa = ipa_pt(word),
+         syl2 = getSyl(word = ipa, pos = 2),
+         demi1 = demi(word = syl2, d = 1),
+         disp = sonDisp(demi = demi1),
+         SSP = ssp(demi = demi1, d = 1))
+
+example
+#> # A tibble: 3 × 6
+#> # Rowwise: 
+#>   word      ipa          syl2  demi1  disp   SSP
+#>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
+#> 1 partolo   paɾ.ˈto.lo   to    to     0.06     1
+#> 2 metrilpo  me.ˈtɾil.po  tɾil  tɾi    0.56     1
+#> 3 vanplidos vam.ˈpli.dos pli   pli    0.56     1
+```
+
+You may also want to calculate the average sonority dispersion for whole
+words with the function `meanSonDisp()`. If your words of interest are
+possible or real Portuguese words, they can be entered in their
+ortographic form. Otherwise, they need to be phonemically transcribed
+and syllabified. In this scenario, use `phonemic = T`.
+
+``` r
+meanSonDisp(word = c("partolo", "metrilpo", "vanplidos"))
+#> [1] 1.53
+```
+
+## Plotting vowels
+
+The function `plotVowels()` creates a vowel trapezoid using `ggplot2`
+and also returns the LaTeX code to create the same trapezoid using the
+[`vowel` package](https://ctan.org/pkg/vowel?lang=en). Available
+languages: Arabic, French, English, Dutch, German, Hindi, Italian,
+Japanese, Korean, Mandarin, Portuguese, Spanish, Swahili, Russian,
+Talian, Thai, and Vietnamese
+
+## Bigram probabilities
+
+The function `biGram_pt()`returns the log bigram probability for a
+possible `word` in Portuguese (`word` must be broadly transcribed). The
+string must use broad phonemic transcription, but no syllabification or
+stress. The reference used calculate probabilities is the [Portuguese
+Stress Lexicon](https://gdgarcia.ca/psl.html).
+
+## Word generator for Portuguese
+
+The function `wug_pt()` generates a hypothetical word in Portuguese.
+Note that this function is meant to be used to get you started with
+nonce words. You will most likely want to make adjustments based on
+phonotactic preferences. The function already takes care of *some* OCP
+effects and it also prohibits more than one onset cluster per word,
+since that’s relatively rare in Portuguese. Still, there will certainly
+be other sequences that sound less natural. The function is not too
+strict because you may have a wide range of variables in mind as you
+create novel words. Finally, if you wish to include palatalization, set
+`palatalization = T`—if you do that, bear in mind that `biGram()` won’t
+work as it requires phonemic transcription without syllabification or
+stress.
+
+``` r
+library(Fonology)
+set.seed(1)
+wug_pt(profile = "LHL")
+#> [1] "dɾa.ˈbuɾ.me"
+
+# Let's create a table with 5 nonce words and their bigram probability
+set.seed(1)
+tibble(word = character(5)) %>%
+  rowwise() %>%
+  mutate(word = wug_pt("LHL"),
+         bigram = word %>% str_remove_all("\\.|ˈ") %>% biGram_pt())
+#> # A tibble: 5 × 2
+#> # Rowwise: 
+#>   word        bigram
+#>   <chr>        <dbl>
+#> 1 dɾa.ˈbuɾ.me  -22.7
+#> 2 ze.ˈfɾan.ka  -24.8
+#> 3 be.ˈʒan.tɾe  -23.0
+#> 4 ʒa.ˈgɾan.fe  -24.3
+#> 5 me.ˈxes.vɾo  -36.8
+```
+
+## References
+
+- Clements, G. N. 1990. The role of the sonority cycle in core
+  syllabiﬁcation. *In* John Kingston & Mary E. Beckman (eds.) *Papers in
+  laboratory phonology I: Between the grammar and physics of speech*,
+  283–333. Cambridge: Cambridge University Press.
+
+- Garcia, G. D. (2014). Portuguese Stress Lexicon. Available at
+  [gdgarcia.ca/psl.html](https://gdgarcia.ca/psl.html).
+
+- Garcia, G. D. (2017). Weight effects on stress: Lexicon and grammar
+  \[PhD thesis, McGill University\].
+  <https://doi.org/10.31219/osf.io/bt8hk>
+
+- Garcia, G. D. (2017). Weight gradience and stress in Portuguese.
+  Phonology, 34(1), 41–79. <https://doi.org/10.1017/S0952675717000033>
+
+- Garcia, G. D. (2019). When lexical statistics and the grammar
+  conflict: Learning and repairing weight effects on stress. Language,
+  95(4), 612–641. <https://doi.org/10.1353/lan.2019.0068>
+
+- Wetzels, L., (2007) “Primary Word Stress in Brazilian Portuguese and
+  the Weight Parameter”, Journal of Portuguese Linguistics 6(1), 9-58.
+  doi: <https://doi.org/10.5334/jpl.144>

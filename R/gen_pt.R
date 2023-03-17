@@ -6,7 +6,7 @@
 #' @param palatalization Whether t and d should palatalize before i (default is FALSE)
 #' @return The IPA transcription of said string
 #' @examples
-#' gen_pt(profile = "HLL")
+#' wug_pt(profile = "HLL")
 #' @importFrom magrittr %>%
 #' @export
 
