@@ -27,6 +27,10 @@ cleanText = function(text = ""){
   # Remove NAs:
   output = output[!is.na(output)]
 
+  # Strip clitics:
+  output = output %>%
+    strip_clitic_pt(output)
+
   return(output)
 
 }

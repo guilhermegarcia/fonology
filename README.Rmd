@@ -31,7 +31,7 @@ For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonolo
 - `getFeat()` and `getPhon()` to work with distinctive features
 - `ipa_pt()` phonemically transcribes Portuguese words (real or not)
 - `sonDisp()` calculates the sonority dispersion of a given demisyllable. `meanSonDisp()` calculates the average dispersion for a given word (or vector of words)
-- `gen_pt()` generates hypothetical words in Portuguese
+- `wug_pt()` generates hypothetical words in Portuguese
 - `biGram_pt()` calculates bigram probabilities for a given word
 - `plotVowels()` generates vowel trapezoids
 - `plotSon()` plots the sonority profile of a given word
@@ -141,18 +141,18 @@ The function `biGram_pt()`returns the log bigram probability for a possible `wor
 
 ## Word generator for Portuguese
 
-The function `gen_pt()` generates a hypothetical word in Portuguese. Note that this function is meant to be used to get you started with nonce words. You will most likely want to make adjustments based on phonotactic preferences. The function already takes care of *some* OCP effects and it also prohibits more than one onset cluster per word, since that's relatively rare in Portuguese. Still, there will certainly be other sequences that sound less natural. The function is not too strict because you may have a wide range of variables in mind as you create novel words. Finally, if you wish to include palatalization, set `palatalization = T`---if you do that, bear in mind that `biGram()` won't work as it requires phonemic transcription without syllabification or stress.
+The function `wug_pt()` generates a hypothetical word in Portuguese. Note that this function is meant to be used to get you started with nonce words. You will most likely want to make adjustments based on phonotactic preferences. The function already takes care of *some* OCP effects and it also prohibits more than one onset cluster per word, since that's relatively rare in Portuguese. Still, there will certainly be other sequences that sound less natural. The function is not too strict because you may have a wide range of variables in mind as you create novel words. Finally, if you wish to include palatalization, set `palatalization = T`---if you do that, bear in mind that `biGram()` won't work as it requires phonemic transcription without syllabification or stress.
 
 ```{r, message=FALSE}
 library(Fonology)
 set.seed(1)
-gen_pt(profile = "LHL")
+wug_pt(profile = "LHL")
 
 # Let's create a table with 5 nonce words and their bigram probability
 set.seed(1)
 tibble(word = character(5)) %>%
   rowwise() %>%
-  mutate(word = gen_pt("LHL"),
+  mutate(word = wug_pt("LHL"),
          bigram = word %>% str_remove_all("\\.|ˈ") %>% biGram_pt())
 ```
 

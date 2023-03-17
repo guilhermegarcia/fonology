@@ -10,7 +10,7 @@
 #' @importFrom magrittr %>%
 #' @export
 
-gen_pt = function(profile = "LLL", palatalization = F){
+wug_pt = function(profile = "LLL", palatalization = F){
 
   vowels = "a.e.i.o.u" %>%
     stringr::str_split(pattern = "\\.") %>%
