@@ -3,4 +3,6 @@ utils::globalVariables(c("pt_lex", ".", "pro",
                          "cons", "son", "cont",
                          "hireg", "ipa", "feature",
                          "phoneme", "item", "x",
-                         "y", "vowel", "score"))
+                         "y", "vowel", "score",
+                         "bigrams_pt", "freq",
+                         "ngrams", "prop", "prob"))

@@ -98,4 +98,12 @@
 #' @source <https://gdgarcia.ca/vowels.html>
 "vowels"
 
+#' Bigrams in Portuguese
+#'
+#' Set of bigrams extracted from the Portuguese Stress Lexicon using the ngram package.
+#'
+#' @format ## `bigrams_pt`
+#' A tibble with bigrams, frequency, and proportions
+#' @source <https://gdgarcia.ca/psl>
+"bigrams_pt"
 
