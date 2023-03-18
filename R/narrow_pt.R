@@ -18,16 +18,16 @@ narrow_pt = function(word = ""){
 
   # Vowel neutralization (word-final):
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)o$",
-                                replacement = "\\1\u028a")
+                                pattern = "(\\.[^\u02c8]\\w*)o([s])$",
+                                replacement = "\\1\u028a\\2")
 
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)e$",
-                                replacement = "\\1\u026a")
+                                pattern = "(\\.[^\u02c8]\\w*)e([s])$",
+                                replacement = "\\1\u026a\\2")
 
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)a$",
-                                replacement = "\\1\u0250")
+                                pattern = "(\\.[^\u02c8]\\w*)a([s])$",
+                                replacement = "\\1\u0250\\2")
 
   # Palatalization:
   narrow = stringr::str_replace_all(narrow,
