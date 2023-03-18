@@ -144,7 +144,13 @@ stress_pt = function(word = ""){
 
 }
 
-# Secondary stress function
+# 'Binary secondary stress function
+#'
+#' Assigns secondary stress to a given string.
+#' @param word The string of interest using IPA phonemic transcription and already syllabified
+#' @return The stressed version of the string in question
+#' @noRd
+#' @importFrom magrittr %>%
 sec_stress_pt = function(word = ""){
 
   # Tokenize input and get stress position:
@@ -228,6 +234,13 @@ sec_stress_pt = function(word = ""){
 
 }
 
+# 'Paroxytone candidates for Portuguese
+#'
+#' Assigns penultimate or antepenultimate stress to certain words
+#' @param word The string of interest using IPA phonemic transcription and already syllabified
+#' @return The stressed version of the string in question
+#' @noRd
+#' @importFrom magrittr %>%
 pu_candidates = function(word = ""){
 
   c1 = stringr::str_replace(string = word,
@@ -258,6 +271,13 @@ pu_candidates = function(word = ""){
 
 }
 
+# 'Proparoxytone candidates for Portuguese
+#'
+#' Assigns penultimate or antepenultimate stress to certain words
+#' @param word The string of interest using IPA phonemic transcription and already syllabified
+#' @return The stressed version of the string in question
+#' @noRd
+#' @importFrom magrittr %>%
 apu_candidates = function(word = ""){
 
   c1 = stringr::str_replace(string = word,
