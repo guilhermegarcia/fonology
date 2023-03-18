@@ -1,16 +1,14 @@
-#' Vectorized syllable weight labeller
+#' Syllable weight labeller
 #'
 #' Labels a given string in Portuguese according to its weight profile using Ls and Hs.
-#' Note that, although simple plural -s is taken into account, the function assumes the string provided is monomorphemic.
-#' For a simplified but vectorized version of the function, use getWeight_pt_simple().
 #' @param word The vector with strings of interest using IPA phonemic transcription, already syllabified and stressed
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 #' @examples
-#' getWeight_pt_vec(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"));
+#' getWeight_pt(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"));
 #' @importFrom magrittr %>%
 #' @export
 
-getWeight_pt_vec = function(word = c("kom.pu.ta.\u02c8do\u027e")){
+getWeight_pt = function(word = c("kom.pu.ta.\u02c8do\u027e")){
 
   syl_list = word %>%
     stringr::str_split("\\.")

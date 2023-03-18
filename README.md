@@ -144,10 +144,7 @@ function (argument `stress`). Finally, `getSyl()` will extract a given
 syllable from a string. For example,
 `getSyl(word = "kom-pu-ta-doɾ", pos = 3, syl = "-")` will take the
 antepenultimate syllable of the string in question. The default symbol
-for syllabification is the period. Finally, `dePlu_pt()` will remove
-plural `s` from words that are listed in the Portuguese Stress Lexicon
-(to avoid treating morphemic `s` as a real coda word-finally)—note that
-`ipa_pt()` is not supposed to be used with polymorphemic strings.
+for syllabification is the period.
 
 ## Sonority
 
