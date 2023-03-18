@@ -11,7 +11,8 @@
 ipa_pt_vec = function(word = c("palavra")){
 
   wd = stringr::str_to_lower(word) %>%
-    stringr::str_remove_all(pattern = "[:punct:]")
+    stringr::str_remove_all(pattern = "[:punct:]") %>%
+    strip_clitic_pt()
 
   wd[stringr::str_detect(wd, "\\d")] = NA
 
