@@ -183,7 +183,7 @@ example
 #> # Rowwise: 
 #>   word      ipa          syl2  demi1  disp   SSP
 #>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
-#> 1 partolo   paɾ.ˈto.lo   to    to     0.06     1
+#> 1 partolo   ˈpaɾ.to.lo   to    to     0.06     1
 #> 2 metrilpo  me.ˈtɾil.po  tɾil  tɾi    0.56     1
 #> 3 vanplidos vam.ˈpli.dos pli   pli    0.56     1
 ```
@@ -261,20 +261,20 @@ tibble(word = character(5)) %>%
   laboratory phonology I: Between the grammar and physics of speech*,
   283–333. Cambridge: Cambridge University Press.
 
-- Garcia, G. D. (2014). Portuguese Stress Lexicon. Available at
+- Garcia, G. D. (2014). *Portuguese Stress Lexicon*. Available at
   [gdgarcia.ca/psl.html](https://gdgarcia.ca/psl.html).
 
-- Garcia, G. D. (2017). Weight effects on stress: Lexicon and grammar
+- Garcia, G. D. (2017). *Weight effects on stress: Lexicon and grammar*
   \[PhD thesis, McGill University\].
   <https://doi.org/10.31219/osf.io/bt8hk>
 
 - Garcia, G. D. (2017). Weight gradience and stress in Portuguese.
-  Phonology, 34(1), 41–79. <https://doi.org/10.1017/S0952675717000033>
+  *Phonology*, 34(1), 41–79. <https://doi.org/10.1017/S0952675717000033>
 
 - Garcia, G. D. (2019). When lexical statistics and the grammar
-  conflict: Learning and repairing weight effects on stress. Language,
+  conflict: Learning and repairing weight effects on stress. *Language*,
   95(4), 612–641. <https://doi.org/10.1353/lan.2019.0068>
 
 - Wetzels, L., (2007) “Primary Word Stress in Brazilian Portuguese and
-  the Weight Parameter”, Journal of Portuguese Linguistics 6(1), 9-58.
+  the Weight Parameter”, *Journal of Portuguese Linguistics* 6(1), 9-58.
   doi: <https://doi.org/10.5334/jpl.144>
