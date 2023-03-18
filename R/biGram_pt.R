@@ -10,7 +10,15 @@
 #' @export
 
 
-biGram_pt = function(word = ""){
+biGram_pt = function(word = c("")){
+  word = word %>%
+    stringr::str_replace_all(string = "d\u0361\u0292",
+                             replacement = "d")
+
+  word = word %>%
+    stringr::str_replace_all(string = "t\u0361\u0283",
+                             replacement = "t")
+
 
   purrr::map(word, ~biGram_pt_helper(word = .)) %>%
     unlist() %>%
