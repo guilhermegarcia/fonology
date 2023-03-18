@@ -350,4 +350,43 @@ gen_pt = function(profile = "LLL", palatalization = F){
   return(word)
 }
 
+#' Bigram probability for Portuguese - helper function
+#'
+#' Given a phonemically transcribed string, the function returns its bigram probability in log using the lexicon in the Portuguese Stress Lexicon as reference
+#'
+#' @param word A possible string in Portuguese in its phonemic form without syllabification or stress. The only diacritic that should be used is the tilde for nasals, e.g., ã.
+#' @return The phonemic transcription for the string in question
+#' @noRd
+#' @importFrom magrittr %>%
+
+biGram_pt_helper = function(word = ""){
+
+  if(stringr::str_detect(string = word, pattern = "[chqyw]")){
+    message("Input most be phonemic, not orthographic.")
+    return(NA)
+  }
+  word = word %>%
+    stringr::str_remove_all("\\.|\u02c8") %>%
+    stringr::str_c("^", ., "$") %>%
+    stringr::str_split("") %>%
+    unlist() %>%
+    stringr::str_c(collapse = " ")
+
+  bigramProb = ngram::ngram(str = word, n = 2) %>%
+    ngram::get.phrasetable() %>%
+    tibble::as_tibble() %>%
+    tidyr::uncount(freq) %>%
+    dplyr::mutate(ngrams = str_remove_all(ngrams, pattern = "\\s")) %>%
+    dplyr::select(-c(prop)) %>%
+    dplyr::left_join(bigrams_pt, by = "ngrams") %>%
+    dplyr::filter(!ngrams %in% c("^^", "$$", "^$", "$^"))
+
+  bigramProb[is.na(bigramProb$prop),]$prop = 1e-10
+
+  bigramProb %>%
+    dplyr::summarize(prob = log(prod(prop))) %>%
+    dplyr::pull(prob) %>%
+    return()
+
+}
 

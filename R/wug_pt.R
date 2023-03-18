@@ -17,5 +17,3 @@ wug_pt = function(profile = "LLL", n = 1, palatalization = F){
     unlist() %>%
     return()
 }
-
-
