@@ -80,7 +80,7 @@ library(Fonology)
 ipa_pt("atletico")
 #> [1] "a.tle.ˈti.ko"
 ipa_pt("cantalo", narrow = T)
-#> [1] "kãn.ˈta.lʊ"
+#> [1] "ˈkãn.ta.lʊ"
 ipa_pt("teatro")
 #> [1] "te.ˈa.tɾo"
 ipa_pt("antidepressivo", narrow = T)
@@ -183,7 +183,7 @@ example
 #> # Rowwise: 
 #>   word      ipa          syl2  demi1  disp   SSP
 #>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
-#> 1 partolo   ˈpaɾ.to.lo   to    to     0.06     1
+#> 1 partolo   paɾ.ˈto.lo   to    to     0.06     1
 #> 2 metrilpo  me.ˈtɾil.po  tɾil  tɾi    0.56     1
 #> 3 vanplidos vam.ˈpli.dos pli   pli    0.56     1
 ```
@@ -240,11 +240,9 @@ wug_pt(profile = "LHL")
 # Let's create a table with 5 nonce words and their bigram probability
 set.seed(1)
 tibble(word = character(5)) %>%
-  rowwise() %>%
-  mutate(word = wug_pt("LHL"),
+  mutate(word = wug_pt("LHL", n = 5),
          bigram = word %>% biGram_pt())
 #> # A tibble: 5 × 2
-#> # Rowwise: 
 #>   word        bigram
 #>   <chr>        <dbl>
 #> 1 dɾa.ˈbuɾ.me  -49.2

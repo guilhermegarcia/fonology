@@ -151,8 +151,7 @@ wug_pt(profile = "LHL")
 # Let's create a table with 5 nonce words and their bigram probability
 set.seed(1)
 tibble(word = character(5)) %>%
-  rowwise() %>%
-  mutate(word = wug_pt("LHL"),
+  mutate(word = wug_pt("LHL", n = 5),
          bigram = word %>% biGram_pt())
 ```
 
