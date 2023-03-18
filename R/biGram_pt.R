@@ -57,12 +57,12 @@
 # Updated, faster function:
 biGram_pt = function(word = ""){
 
-  if(str_detect(string = word, pattern = "[chqyw]")){
+  if(stringr::str_detect(string = word, pattern = "[chqyw]")){
     message("Input most be phonemic, not orthographic.")
     return(NA)
   }
   word = word %>%
-    stringr::str_remove_all("\\.|ˈ") %>%
+    stringr::str_remove_all("\\.|\u02c8") %>%
     stringr::str_c("^", ., "$") %>%
     stringr::str_split("") %>%
     unlist() %>%

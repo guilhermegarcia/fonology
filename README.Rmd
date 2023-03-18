@@ -153,7 +153,7 @@ set.seed(1)
 tibble(word = character(5)) %>%
   rowwise() %>%
   mutate(word = wug_pt("LHL"),
-         bigram = word %>% str_remove_all("\\.|ˈ") %>% biGram_pt())
+         bigram = word %>% biGram_pt())
 ```
 
 ## References
