@@ -86,6 +86,11 @@ transcribe_pt_vec = function(word = ""){
                                   replacement = "gw\\2")
 
   word = stringr::str_replace_all(word,
+                                  pattern = "(gu)([e\u00ea])",
+                                  replacement = "g\\2")
+
+
+  word = stringr::str_replace_all(word,
                                   pattern = "g([ei])",
                                   replacement = "\u0292\\1")
 
@@ -405,6 +410,7 @@ transcribe_pt_vec = function(word = ""){
   word = stringr::str_replace_all(word,
                                   pattern = "r",
                                   replacement = "\u027e")
+
 
 
   return(word)
