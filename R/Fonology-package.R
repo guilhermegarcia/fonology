@@ -11,6 +11,7 @@
 #' @importFrom gtools combinations
 #' @importFrom ngram get.phrasetable
 #' @importFrom ngram ngram
+#' @importFrom purrr map
 #' @importFrom readr write_lines
 #' @importFrom stats approx
 #' @importFrom stringr str_remove_all
