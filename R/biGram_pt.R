@@ -11,12 +11,13 @@
 
 
 biGram_pt = function(word = c("")){
+
   word = word %>%
-    stringr::str_replace_all(string = "d\u0361\u0292",
+    stringr::str_replace_all(pattern = "d\u0361\u0292",
                              replacement = "d")
 
   word = word %>%
-    stringr::str_replace_all(string = "t\u0361\u0283",
+    stringr::str_replace_all(pattern = "t\u0361\u0283",
                              replacement = "t")
 
 
