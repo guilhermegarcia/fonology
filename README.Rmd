@@ -24,7 +24,7 @@ For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonolo
 
 ## Main functions and data
 
-<img align="right" height="150" style="float:right; margin:0px 50px" src="https://gdgarcia.ca/figures/fonology.png">
+<a href = "https://gdgarcia.ca/fonology"><img align="right" height="150" style="float:right; margin:0px 50px" src="https://gdgarcia.ca/figures/fonology.png"></a>
 
 - `getFeat()` and `getPhon()` to work with distinctive features
 - `ipa_pt()` and `ipa_pt_vec()` phonemically transcribe Portuguese words (real or not)

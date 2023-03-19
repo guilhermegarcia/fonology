@@ -10,7 +10,7 @@ website](https://gdgarcia.ca/fonology).
 
 ## Main functions and data
 
-<img align="right" height="150" style="float:right; margin:0px 50px" src="https://gdgarcia.ca/figures/fonology.png">
+<a href = "https://gdgarcia.ca/fonology"><img align="right" height="150" style="float:right; margin:0px 50px" src="https://gdgarcia.ca/figures/fonology.png"></a>
 
 - `getFeat()` and `getPhon()` to work with distinctive features
 - `ipa_pt()` and `ipa_pt_vec()` phonemically transcribe Portuguese words
@@ -85,7 +85,7 @@ library(Fonology)
 ipa_pt("atletico")
 #> [1] "a.tle.ˈti.ko"
 ipa_pt("cantalo", narrow = T)
-#> [1] "ˈkãn.ta.lo"
+#> [1] "kãn.ˈta.lo"
 ipa_pt("teatro")
 #> [1] "te.ˈa.tɾo"
 ipa_pt("antidepressivo", narrow = T)
@@ -93,7 +93,7 @@ ipa_pt("antidepressivo", narrow = T)
 ipa_pt("feris") 
 #> [1] "fe.ˈɾis"
 ipa_pt("tialo")
-#> [1] "ˈti.a.lo"
+#> [1] "ti.ˈa.lo"
 ipa_pt("piato", narrow = T)
 #> [1] "ˈpja.to"
 ```
@@ -186,7 +186,7 @@ example
 #> # Rowwise: 
 #>   word      ipa          syl2  demi1  disp   SSP
 #>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
-#> 1 partolo   ˈpaɾ.to.lo   to    to     0.06     1
+#> 1 partolo   paɾ.ˈto.lo   to    to     0.06     1
 #> 2 metrilpo  me.ˈtɾil.po  tɾil  tɾi    0.56     1
 #> 3 vanplidos vam.ˈpli.dos pli   pli    0.56     1
 ```
