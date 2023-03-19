@@ -2,11 +2,9 @@
 #'
 #' Given a string, the function removes its hyphenated clitics.
 #' @param word A possible string in Portuguese in its orthographic form
+#' @noRd
 #' @return A word without its hyphenated clitics
-#' @examples
-#' strip_clitic_pt(word = "dá-lhe");
 #' @importFrom magrittr %>%
-#' @export
 
 strip_clitic_pt = function(word = ""){
 

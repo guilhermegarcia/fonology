@@ -4,10 +4,12 @@
 \alias{ipa_pt_vec}
 \title{Vectorized IPA transcriber for Portuguese}
 \usage{
-ipa_pt_vec(word = c("palavra"))
+ipa_pt_vec(word = c("palavra"), narrow = FALSE)
 }
 \arguments{
 \item{word}{A possible string in Portuguese in its orthographic form}
+
+\item{narrow}{Boolean. Whether a narrow transcription is desired (default is FALSE).}
 }
 \value{
 The phonemic transcription for the string in question

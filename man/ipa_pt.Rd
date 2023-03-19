@@ -4,12 +4,12 @@
 \alias{ipa_pt}
 \title{IPA transcriber for Portuguese}
 \usage{
-ipa_pt(word = "", narrow = F)
+ipa_pt(word = "palavra", narrow = FALSE)
 }
 \arguments{
 \item{word}{A possible string in Portuguese in its orthographic form}
 
-\item{narrow}{Boolean. Whether a narrow trasncription is desired (default is FALSE).}
+\item{narrow}{Boolean. Whether a narrow transcription is desired (default is FALSE).}
 }
 \value{
 The phonemic transcription for the string in question

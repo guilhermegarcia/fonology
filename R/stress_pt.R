@@ -148,9 +148,10 @@ stress_pt = function(word = ""){
 #'
 #' Assigns secondary stress to a given string.
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
-#' @return The stressed version of the string in question
 #' @noRd
+#' @return The stressed version of the string in question
 #' @importFrom magrittr %>%
+
 sec_stress_pt = function(word = ""){
 
   # Tokenize input and get stress position:
@@ -234,12 +235,100 @@ sec_stress_pt = function(word = ""){
 
 }
 
+# 'Vectorized binary secondary stress function
+#'
+#' Assigns secondary stress to a given string.
+#' @param word The string of interest using IPA phonemic transcription and already syllabified
+#' @noRd
+#' @return The stressed version of the string in question
+#' @importFrom magrittr %>%
+
+sec_stress_pt_vec = function(word = c("pa.\u02c8la.v\u027ea")){
+
+  # Part 1: adjacent foot
+  unstressedFoot1 = "((\\.|^)(?!\u02c8)\\w+\\.(?!\u02c8)(\\w+\\.\u02c8))" # FIRST STAGE: ADJACENT LEFT FOOT
+
+  word = word %>%
+    stringr::str_replace_all(pattern = unstressedFoot1,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\\.",
+                             replacement = ".\u02cc")
+
+  # Part 2: other feet
+  unstressedFoot2 = "(\\w+\\.\\w+\\.\u02cc)"
+
+  word = word %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc") %>%
+    stringr::str_replace_all(pattern = unstressedFoot2,
+                             replacement = "\u02cc\\1") %>%
+    stringr::str_replace_all(pattern = "\u02cc\u02cc",
+                             replacement = "\u02cc")
+
+  return(word)
+
+}
+
 # 'Paroxytone candidates for Portuguese
 #'
 #' Assigns penultimate or antepenultimate stress to certain words
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
-#' @return The stressed version of the string in question
 #' @noRd
+#' @return The stressed version of the string in question
 #' @importFrom magrittr %>%
 pu_candidates = function(word = ""){
 
@@ -275,8 +364,8 @@ pu_candidates = function(word = ""){
 #'
 #' Assigns penultimate or antepenultimate stress to certain words
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
-#' @return The stressed version of the string in question
 #' @noRd
+#' @return The stressed version of the string in question
 #' @importFrom magrittr %>%
 apu_candidates = function(word = ""){
 

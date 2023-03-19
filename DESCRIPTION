@@ -1,7 +1,7 @@
 Package: Fonology
 Type: Package
 Title: Phonological analysis in R
-Version: 0.5.1
+Version: 0.8.5
 Author: Guilherme Duarte Garcia
 Maintainer: Guilherme Duarte Garcia <guilherme.garcia@lli.ulaval.ca>
 Description: The package contains a range of functions to help with phonological analysis and teaching.
