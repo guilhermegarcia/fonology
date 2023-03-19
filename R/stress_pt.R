@@ -48,6 +48,15 @@ stress_pt = function(word = ""){
       stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
       stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "")
 
+    # Adjustments to vowel quality when coda is nasal (diacritics):
+    word = word %>%
+      stringr::str_replace(pattern = "\u025b([mn])",
+                           replacement = "e\\1")
+
+    word = word %>%
+      stringr::str_replace(pattern = "\u0254([mn])",
+                           replacement = "o\\1")
+
     return(word)
   }
 
@@ -136,6 +145,9 @@ stress_pt = function(word = ""){
     word = word %>%
       stringr::str_replace(pattern = "a.os$",
                            replacement = "aws")
+
+
+
 
     return(word)
 

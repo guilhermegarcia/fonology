@@ -78,7 +78,7 @@ narrow_pt = function(word = ""){
 
   narrow = stringr::str_replace_all(narrow,
                                     pattern = "e([nm\u0272])",
-                                    replacement = "e\u0303j\u0303\\1")
+                                    replacement = "e\u0303j\u0303\u0272")
 
   narrow = stringr::str_replace_all(narrow,
                                     pattern = "u([nm\u0272])",
@@ -265,8 +265,8 @@ narrow_pt_vec = function(word = ""){
                                     replacement = "\u00f5\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "e([nm\u0272])",
-                                    replacement = "e\u0303j\u0303\\1")
+                                    pattern = "e([nm\u014b\u0272])",
+                                    replacement = "e\u0303j\u0303\u0272")
 
   narrow = stringr::str_replace_all(narrow,
                                     pattern = "u([nm\u0272])",

@@ -86,8 +86,8 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   # Word with final stress (US IS or diph + S):
   which_heavy_finals2 = stringr::str_detect(string = word, pattern = "\\.\\w+us$|\\.\\w+is$|\\w+js$|\\w+ws$|ens$")
   heavy_finals2 = stringr::str_replace_all(string = word[which_heavy_finals2],
-                                          pattern = "([:alpha:]+us$|[:alpha:]+is$|[:alpha:]+js$|[:alpha:]+ws|[:alpha:]ens$)$",
-                                          replacement = "\u02c8\\1")
+                                           pattern = "([:alpha:]+us$|[:alpha:]+is$|[:alpha:]+js$|[:alpha:]+ws|[:alpha:]ens$)$",
+                                           replacement = "\u02c8\\1")
 
   # Keep names for order:
   names(heavy_finals2) = names(word[which_heavy_finals2])
@@ -160,6 +160,15 @@ stress_pt_vec = function(word = c("ka.va.lo")){
     stringr::str_replace(pattern = "\u028ee\u027e$", replacement = "\u028e\u025b\u027e") %>%
     stringr::str_replace(pattern = "a.o$", replacement = "aw") %>%
     stringr::str_replace(pattern = "a.os$", replacement = "aws")
+
+  # Adjustments to vowel quality when coda is nasal (diacritics):
+  output = output %>%
+    stringr::str_replace(pattern = "\u025b([mn])",
+                         replacement = "e\\1")
+
+  output = output %>%
+    stringr::str_replace(pattern = "\u0254([mn])",
+                         replacement = "o\\1")
 
   return(output)
 
