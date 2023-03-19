@@ -88,7 +88,7 @@ ipa_pt("piato", narrow = T)
 
 ### A note on stress
 
-For `ipa_pt()`, stress is assigned based on two scenarios. First, **real** words (non-verbs) have their stress assignment derived from the [Portuguese Stress Lexicon](psl.html) [@garcia2014_corpus_new]---if the word is listed there. Second, **nonce** words follow the general patterns of Portuguese stress *as well as* probabilistic tendencies shown in my work [@garcia_2017_thesis; @garcia_2017_phonology; @garcia_2019_lg]. As a result, a nonce word *may* have antepenultimate stress under the right conditions based on lexical statistics in the language. Likewise, words with other so-called exceptional stress patterns are also generated probabilistically (e.g., `LH]` words with penultimate stress). Stress and weight are also used to apply both spondaic and dactylic lowering to narrow transcriptions, following work such as @wetzels2007. Secondary stress is provided when `narrow = T`. For `ipa_pt_vec()`, stress is *not* probabilistic (and therefore not variable): it merely follows the orthography as well as the typical stress rules in Portuguese.
+For `ipa_pt()`, stress is assigned based on two scenarios. First, **real** words (non-verbs) have their stress assignment derived from the [Portuguese Stress Lexicon](psl.html) (Garcia 2014)---if the word is listed there. Second, **nonce** words follow the general patterns of Portuguese stress *as well as* probabilistic tendencies shown in my work (Garcia, 2017a, 2017b, 2019). As a result, a nonce word *may* have antepenultimate stress under the right conditions based on lexical statistics in the language. Likewise, words with other so-called exceptional stress patterns are also generated probabilistically (e.g., `LH]` words with penultimate stress). Stress and weight are also used to apply both spondaic and dactylic lowering to narrow transcriptions, following work such as Wetzels (2007). Secondary stress is provided when `narrow = T`. For `ipa_pt_vec()`, stress is *not* probabilistic (and therefore not variable): it merely follows the orthography as well as the typical stress rules in Portuguese.
 
 
 ### A note on key assumptions
@@ -104,7 +104,7 @@ If you plan to tokenize texts and create a table with individual columns for str
 
 ## Sonority
 
-There are three functions in the package to analyze sonority. First, `demi(word = ..., d = ...)` extracts either the first (`d = 1`, the default) or second (`d = 2`) demisyllables of a given (syllabified) word (or vector of words. Second, `sonDisp(demi = ...)` calculates the sonority dispersion score of a given demisyllable, based on Clements (1990). Note that this metric does not differentiate sequences that respect the sonority sequencing principle (SSP) from those that don't, i.e., `pla` and `lpa` will have the same score. For that reason, a third function exists, `ssp(demi = ..., d = ...)`, which evaluates whether a given demisyllable respects (`1`) or doesn't repect (`0`) the SSP. In the example below, the dispersion score of the first demisyllable in the penult syllable is calculated---`ssp()` isn't relevant here, since all words in Portuguese respect the SSP.
+There are three functions in the package to analyze sonority. First, `demi(word = ..., d = ...)` extracts either the first (`d = 1`, the default) or second (`d = 2`) demisyllables of a given (syllabified) word (or vector of words. Second, `sonDisp(demi = ...)` calculates the sonority dispersion score of a given demisyllable, based on Clements (1990)---see also Parker (2011). Note that this metric does not differentiate sequences that respect the sonority sequencing principle (SSP) from those that don't, i.e., `pla` and `lpa` will have the same score. For that reason, a third function exists, `ssp(demi = ..., d = ...)`, which evaluates whether a given demisyllable respects (`1`) or doesn't repect (`0`) the SSP. In the example below, the dispersion score of the first demisyllable in the penult syllable is calculated---`ssp()` isn't relevant here, since all words in Portuguese respect the SSP.
 
 ```{r, message=F}
 library(Fonology)
@@ -142,6 +142,7 @@ The function `biGram_pt()`returns the log bigram probability for a possible `wor
 
 The function `wug_pt()` generates a hypothetical word in Portuguese. Note that this function is meant to be used to get you started with nonce words. You will most likely want to make adjustments based on phonotactic preferences. The function already takes care of *some* OCP effects and it also prohibits more than one onset cluster per word, since that's relatively rare in Portuguese. Still, there will certainly be other sequences that sound less natural. The function is not too strict because you may have a wide range of variables in mind as you create novel words. Finally, if you wish to include palatalization, set `palatalization = T`---if you do that, bear in mind that `biGram()` won't work as it requires phonemic transcription without syllabification or stress.
 
+
 ```{r, message=FALSE}
 library(Fonology)
 set.seed(1)
@@ -165,6 +166,8 @@ tibble(word = character(5)) %>%
 - Garcia, G. D. (2017). Weight gradience and stress in Portuguese. *Phonology*, 34(1), 41–79. https://doi.org/10.1017/S0952675717000033
 
 - Garcia, G. D. (2019). When lexical statistics and the grammar conflict: Learning and repairing weight effects on stress. *Language*, 95(4), 612–641. https://doi.org/10.1353/lan.2019.0068
+
+- Parker, S. (2011). Sonority. In M. van Oostendorp, C. J. Ewen, E. Hume, & K. Rice (Eds.), *The Blackwell companion to phonology* (pp. 1160–1184). Wiley Online Library. https://doi.org/10.1002/9781444335262.wbctp0049
 
 - Wetzels, L., (2007) “Primary Word Stress in Brazilian Portuguese and the Weight Parameter”, *Journal of Portuguese Linguistics* 6(1), 9-58. doi: https://doi.org/10.5334/jpl.144
 
