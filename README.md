@@ -83,7 +83,7 @@ for a demo.
 library(Fonology)
 
 ipa_pt("atletico")
-#> [1] "a.tle.ˈti.ko"
+#> [1] "a.ˈtlɛ.ti.ko"
 ipa_pt("cantalo", narrow = T)
 #> [1] "kãn.ˈta.lo"
 ipa_pt("teatro")
@@ -93,9 +93,9 @@ ipa_pt("antidepressivo", narrow = T)
 ipa_pt("feris") 
 #> [1] "fe.ˈɾis"
 ipa_pt("tialo")
-#> [1] "ti.ˈa.lo"
+#> [1] "ˈti.a.lo"
 ipa_pt("piato", narrow = T)
-#> [1] "ˈpja.to"
+#> [1] "ˈpi.a.to"
 ```
 
 ### A note on stress
@@ -218,6 +218,11 @@ possible `word` in Portuguese (`word` must be broadly transcribed). The
 string must use broad phonemic transcription, but no syllabification or
 stress. The reference used calculate probabilities is the [Portuguese
 Stress Lexicon](https://gdgarcia.ca/psl.html).
+
+Two additional functions can be used to explore bigrams: `biGram_tbl()`
+generates a tibble with phonotactic bigrams from a given text, and
+`plot_biGrams()` creates a plot for inputs generated with
+`biGram_tbl()`.
 
 ## Word generator for Portuguese
 

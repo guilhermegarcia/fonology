@@ -96,7 +96,7 @@ plot_biGrams = function(bigrams, type = "lollipop"){
     ggplot2::geom_point(size = 4) +
     ggplot2::geom_segment(ggplot2::aes(x = nGrams, xend = nGrams, y = 0, yend = prop),
                           color = "gray") +
-    ggplot2::geom_label(fill = "cornsilk") +
+    ggplot2::geom_label(fill = "#CCE8FF") +
     ggplot2::coord_flip() +
     ggplot2::theme_classic() +
     ggplot2::theme(axis.ticks.y = ggplot2::element_blank(),
