@@ -79,7 +79,7 @@ plot_biGrams = function(bigrams, type = "lollipop"){
     return(NA)
   }
 
-  bigrams = bigrams %>%
+  bigrams_lolli = bigrams %>%
     # dplyr::mutate(n1 = stringr::str_replace_all(string = n1,
     #                                             pattern = "\\^",
     #                                             replacement = "#"),
@@ -88,7 +88,8 @@ plot_biGrams = function(bigrams, type = "lollipop"){
     #                                             replacement = "#")) %>%
     dplyr::slice(1:10)
 
-  lollipop = ggplot2::ggplot(data = bigrams,
+
+  lollipop = ggplot2::ggplot(data = bigrams_lolli,
                              ggplot2::aes(x = forcats::fct_reorder(nGrams, prop, .desc = F),
                                           y = prop,
                                           label = stringr::str_remove(string = nGrams, pattern = "-"))) +
@@ -115,7 +116,7 @@ plot_biGrams = function(bigrams, type = "lollipop"){
     ggplot2::theme(legend.position = "none") +
     ggplot2::scale_fill_gradient(low = "#81BADA",
                                  high = "#08306B") +
-    ggplot2::labs(x = NULL, y = NULL) +
+    ggplot2::labs(x = "Bigram 2", y = "Bigram 1") +
     ggplot2::scale_x_discrete(position = "top") +
     ggplot2::coord_fixed()
 
