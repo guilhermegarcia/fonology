@@ -67,29 +67,23 @@ biGram_tbl = function(text = ""){
 #' @importFrom magrittr %>%
 #' @export
 
-plot_biGrams = function(bigrams, type = "lollipop"){
+plot_biGrams = function(bigrams, type = "lollipop", n = 5){
 
   if(!sum(names(bigrams) == c("nGrams", "n1", "n2", "freq", "prop")) == 5){
     message("Your input is invalid. You must first run biGram_tbl() to create an appropriate input.")
     return(NA)
   }
 
-  if(nrow(bigrams) < 10){
-    message("Text has too few bigrams for plotting.")
+  if(nrow(bigrams) < n){
+    message("Text has fewer bigrams than the desired n.")
     return(NA)
   }
 
-  bigrams_lolli = bigrams %>%
-    # dplyr::mutate(n1 = stringr::str_replace_all(string = n1,
-    #                                             pattern = "\\^",
-    #                                             replacement = "#"),
-    #               n2 = stringr::str_replace_all(string = n2,
-    #                                             pattern = "\\$",
-    #                                             replacement = "#")) %>%
-    dplyr::slice(1:10)
+  bigrams = bigrams %>%
+    dplyr::slice(1:n)
 
 
-  lollipop = ggplot2::ggplot(data = bigrams_lolli,
+  lollipop = ggplot2::ggplot(data = bigrams,
                              ggplot2::aes(x = forcats::fct_reorder(nGrams, prop, .desc = F),
                                           y = prop,
                                           label = stringr::str_remove(string = nGrams, pattern = "-"))) +
