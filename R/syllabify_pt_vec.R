@@ -76,6 +76,11 @@ syllabify_pt_vec = function(word = ""){
   #   stringr::str_replace(pattern = "(gu)")
   #
 
+  # Onset maximization for [jw].[aeiou]
+  word = word %>%
+    stringr::str_replace_all(pattern = "([jw])\\.([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea])",
+                             replacement = ".\\1\\2")
+
   return(word)
 
 }

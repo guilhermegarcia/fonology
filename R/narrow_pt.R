@@ -16,16 +16,29 @@ narrow_pt = function(word = ""){
 
   # Vowel neutralization (word-final):
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)o([s])$",
-                                replacement = "\\1\u028a\\2")
+                                pattern = "(\\.[^\u02c8]\\w*)os$",
+                                replacement = "\\1\u028as")
 
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)e([s])$",
-                                replacement = "\\1\u026a\\2")
+                                pattern = "(\\.[^\u02c8]\\w*)es$",
+                                replacement = "\\1\u026as")
 
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)a([s])$",
-                                replacement = "\\1\u0250\\2")
+                                pattern = "(\\.[^\u02c8]\\w*)as$",
+                                replacement = "\\1\u0250s")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "(\\.[^\u02c8]\\w*)o$",
+                                replacement = "\\1\u028a")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "(\\.[^\u02c8]\\w*)e$",
+                                replacement = "\\1\u026a")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "(\\.[^\u02c8]\\w*)a$",
+                                replacement = "\\1\u0250")
+
 
   # Palatalization:
   narrow = stringr::str_replace_all(narrow,
@@ -204,16 +217,28 @@ narrow_pt_vec = function(word = ""){
 
   # Vowel neutralization (word-final):
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)o([s])$",
-                                replacement = "\\1\u028a\\2")
+                                pattern = "(\\.[^\u02c8]\\w*)os$",
+                                replacement = "\\1\u028as")
 
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)e([s])$",
-                                replacement = "\\1\u026a\\2")
+                                pattern = "(\\.[^\u02c8]\\w*)es$",
+                                replacement = "\\1\u026as")
 
   narrow = stringr::str_replace(narrow,
-                                pattern = "(\\.[^\u02c8]\\w*)a([s])$",
-                                replacement = "\\1\u0250\\2")
+                                pattern = "(\\.[^\u02c8]\\w*)as$",
+                                replacement = "\\1\u0250s")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "(\\.[^\u02c8]\\w*)o$",
+                                replacement = "\\1\u028a")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "(\\.[^\u02c8]\\w*)e$",
+                                replacement = "\\1\u026a")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "(\\.[^\u02c8]\\w*)a$",
+                                replacement = "\\1\u0250")
 
   # Palatalization:
   narrow = stringr::str_replace_all(narrow,

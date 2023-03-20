@@ -42,7 +42,10 @@ ipa_pt_test = function(){
     message("========================")
   }
 
-  message("Vectorized version using ipa_pt_vec():")
-  return(ipa_pt_vec(testWords))
+  message("Vectorized version using ipa_pt_vec(..., narrow = F):")
+  print(ipa_pt_vec(testWords))
+
+  message("Vectorized version using ipa_pt_vec(..., narrow = T):")
+  print(ipa_pt_vec(testWords, narrow = T))
 
 }
