@@ -109,14 +109,14 @@ plot_biGrams = function(bigrams, type = "lollipop"){
 
   heat = ggplot2::ggplot(data = bigrams,
                          ggplot2::aes(x = n2, y = n1, fill = prop)) +
-    ggplot2::geom_tile(color = "white", lwd = 1.5) +
-    ggplot2::geom_text(ggplot2::aes(label = round(prop, 2)),
-                       color = "white", size = 4) +
+    ggplot2::geom_tile(color = "white", lwd = .5) +
+    # ggplot2::geom_text(ggplot2::aes(label = round(prop, 2)),
+    #                    color = "white", size = 4) +
     ggplot2::theme_classic() +
     ggplot2::theme(legend.position = "none") +
-    ggplot2::scale_fill_gradient(low = "#81BADA",
+    ggplot2::scale_fill_gradient(low = "#CCE8FF",
                                  high = "#08306B") +
-    ggplot2::labs(x = "Bigram 2", y = "Bigram 1") +
+    ggplot2::labs(x = "2", y = "1") +
     ggplot2::scale_x_discrete(position = "top") +
     ggplot2::coord_fixed()
 

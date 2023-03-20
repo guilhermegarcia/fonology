@@ -112,11 +112,11 @@ transcribe_pt = function(word = ""){
 
   # Q:
   word = stringr::str_replace_all(word,
-                                  pattern = "qu(en|a|\u00e3)",
+                                  pattern = "qu(en|a|\u00e1|\u00e3)",
                                   replacement = "kw\\1")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "qu([i\u00edeo\u00e9\u00f3\u00f4\u00ea])",
+                                  pattern = "qu([ieo\u00e9\u00f3\u00f4\u00ea\u00ed])",
                                   replacement = "k\\1")
 
   # n+lab:
