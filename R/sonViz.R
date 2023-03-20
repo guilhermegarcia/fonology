@@ -131,7 +131,7 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
       ggplot2::scale_fill_brewer(palette = "Pastel1")
 
     if(save_plot){
-      ggplot2::ggsave(sonPlot, filename = "~/Desktop/sonPlot.jpeg", dpi = 1000, height = 5, width = nrow(word_son))
+      ggplot2::ggsave(sonPlot, filename = "sonPlot.jpeg", dpi = 1000, height = 5, width = nrow(word_son))
       message("The plot has been saved in your current working directory.")
     }
 
@@ -149,7 +149,7 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
     dplyr::mutate(item = stringr::str_c("item", dplyr::row_number(), sep = "_"))
 
   sonPlot = ggplot2::ggplot(data = word_son, ggplot2::aes(x = item, y = son)) +
-    ggplot2::geom_line(ggplot2::aes(group = 1), linetype = "dotdash") +
+    ggplot2::geom_line(ggplot2::aes(group = 1), linetype = "twodash", color = "gray") +
     ggplot2::geom_point(ggplot2::aes(group = 1)) +
     ggplot2::coord_cartesian(ylim = c(0, 20)) +
     ggplot2::scale_x_discrete(labels = word_son$phoneme,
