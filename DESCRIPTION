@@ -16,6 +16,7 @@ Depends:
 RoxygenNote: 7.2.3
 Imports: 
     dplyr,
+    forcats,
     ggplot2,
     graphics,
     gtools,
@@ -23,6 +24,7 @@ Imports:
     ngram,
     purrr,
     readr,
+    scales,
     stats,
     stringr,
     tibble,

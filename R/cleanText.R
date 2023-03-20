@@ -15,6 +15,10 @@ cleanText = function(text = ""){
   # Empty cases:
   tokens = tokens[!tokens %in% ""]
 
+  # Remove stress:
+  tokens = tokens %>%
+    stringr::str_remove_all(pattern = "[\u02c8\u02cc]")
+
   # Numbers:
   tokens[stringr::str_detect(tokens, "\\d")] = NA
 
