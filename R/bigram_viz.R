@@ -19,8 +19,9 @@ biGram_tbl = function(text = ""){
   }
 
   textClean = text |>
-    cleanText() |>
-    stringr::str_c("^", ., "$")
+    cleanText()
+
+  textClean = stringr::str_c("^", textClean, "$")
 
   textClean = textClean |>
     stringr::str_c(collapse = " ") |>
