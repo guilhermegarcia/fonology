@@ -81,23 +81,23 @@ narrow_pt = function(word = ""){
 
   # Nasalization:
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "a([nm\u0272])",
+                                    pattern = "a([nm\u0272\u014b])",
                                     replacement = "\u00e3\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "o([nm\u0272])",
+                                    pattern = "o([nm\u0272\u014b])",
                                     replacement = "\u00f5\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "e([nm\u0272])",
+                                    pattern = "e([nm\u0272\u014b])",
                                     replacement = "e\u0303j\u0303\u0272")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "u([nm\u0272])",
+                                    pattern = "u([nm\u0272\u014b])",
                                     replacement = "u\u0303\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "i([nm\u0272])",
+                                    pattern = "i([nm\u0272\u014b])",
                                     replacement = "i\u0303\\1")
 
   narrow = stringr::str_replace(narrow,
@@ -281,23 +281,23 @@ narrow_pt_vec = function(word = ""){
 
   # Nasalization:
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "a([nm\u0272])",
+                                    pattern = "a([nm\u0272\u014b])",
                                     replacement = "\u00e3\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "o([nm\u0272])",
+                                    pattern = "o([nm\u0272\u014b])",
                                     replacement = "\u00f5\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "e([nm\u014b\u0272])",
+                                    pattern = "e([nm\u0272\u014b])",
                                     replacement = "e\u0303j\u0303\u0272")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "u([nm\u0272])",
+                                    pattern = "u([nm\u0272\u014b])",
                                     replacement = "u\u0303\\1")
 
   narrow = stringr::str_replace_all(narrow,
-                                    pattern = "i([nm\u0272])",
+                                    pattern = "i([nm\u0272\u014b])",
                                     replacement = "i\u0303\\1")
 
   narrow = stringr::str_replace(narrow,
