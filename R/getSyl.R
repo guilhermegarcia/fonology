@@ -7,16 +7,15 @@
 #' @return The desired syllable if it exists. The function returns NA otherwise
 #' @examples
 #' getSyl(word = c("kom.pu.ta.dor", "pin.to.de"), pos = 2);
-#' @importFrom magrittr %>%
 #' @export
 
 getSyl = function(word = c("pa.la.do"), pos = 1, syl = "\\."){
 
-  syllables = word %>%
-    stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc") %>%
+  syllables = word |>
+    stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc") |>
     stringr::str_split(pattern = syl)
 
-  output = lapply(syllables, function(x) rev(x)[pos]) %>%
+  output = lapply(syllables, function(x) rev(x)[pos]) |>
     unlist()
 
   return(output)

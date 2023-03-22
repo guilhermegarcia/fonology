@@ -4,7 +4,6 @@
 #' @return A list of words broadly and narrowly transcribed using ipa_pt
 #' @examples
 #' ipa_pt_test();
-#' @importFrom magrittr %>%
 #' @export
 
 ipa_pt_test = function(){
@@ -33,10 +32,10 @@ ipa_pt_test = function(){
 
     message(stringr::str_c(testWords[i], ":"))
 
-    ipa_pt(testWords[i]) %>%
+    ipa_pt(testWords[i]) |>
       print()
 
-    ipa_pt(testWords[i], narrow = T) %>%
+    ipa_pt(testWords[i], narrow = T) |>
       print()
 
     message("========================")

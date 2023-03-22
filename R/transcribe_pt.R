@@ -5,7 +5,6 @@
 #' @return The IPA transcription of said string without syllabification or stress
 #' @examples
 #' transcribe_pt(word = "computador");
-#' @importFrom magrittr %>%
 #' @export
 
 transcribe_pt = function(word = ""){
@@ -15,21 +14,21 @@ transcribe_pt = function(word = ""){
   double_C = function(s = ""){
 
     Cs = c("bcdfghjklmnpqtvxywz")
-    doubleCs = Cs %>%
-      stringr::str_split("") %>%
-      unlist() %>%
-      stringr::str_c("{2,}") %>%
+    doubleCs = Cs |>
+      stringr::str_split("") |>
+      unlist() |>
+      stringr::str_c("{2,}") |>
       stringr::str_c(collapse = "|")
 
     single_C = stringr::str_extract(s,
-                                    pattern = doubleCs) %>%
+                                    pattern = doubleCs) |>
       stringr::str_sub(start = 1, end = 1)
 
     empty_s = stringr::str_replace_all(s,
                                        pattern = doubleCs,
                                        replacement = "#")
 
-    final_s = empty_s %>%
+    final_s = empty_s |>
       stringr::str_replace_all(pattern = "#",
                                replacement = single_C)
 

@@ -4,12 +4,14 @@
 \alias{plot_biGrams}
 \title{Visualizing bigrams}
 \usage{
-plot_biGrams(bigrams, type = "lollipop")
+plot_biGrams(bigrams, type = "lollipop", n = 5)
 }
 \arguments{
 \item{bigrams}{A tibble in the exact format used in biGram_tbl()}
 
 \item{type}{The type of plot desired: heatmap or lollipop (default)}
+
+\item{n}{The number of bigrams to plot}
 }
 \value{
 A ggplot2 plot with the most common bigrams

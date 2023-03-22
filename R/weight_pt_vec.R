@@ -5,12 +5,11 @@
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
 #' @examples
 #' getWeight_pt(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"));
-#' @importFrom magrittr %>%
 #' @export
 
 getWeight_pt = function(word = c("kom.pu.ta.\u02c8do\u027e")){
 
-  syl_list = word %>%
+  syl_list = word |>
     stringr::str_split("\\.")
 
   syl_list = lapply(syl_list, function(x) stringr::str_replace_all(x, pattern = "\\w+[jwlmn\u027espbtdkg\u027ezfv\u0283\u0292\u028e\u0272]",
@@ -29,7 +28,7 @@ getWeight_pt = function(word = c("kom.pu.ta.\u02c8do\u027e")){
   profile = lapply(profile, function(x) x[!is.na(x)])
 
   # Collapse weight:
-  profile = lapply(profile, function(x) stringr::str_c(x, collapse = "")) %>%
+  profile = lapply(profile, function(x) stringr::str_c(x, collapse = "")) |>
     unlist()
 
   profile[profile %in% ""] = NA

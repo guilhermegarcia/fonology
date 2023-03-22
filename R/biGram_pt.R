@@ -6,22 +6,21 @@
 #' @return The phonemic transcription for the string in question
 #' @examples
 #' biGram_pt(word = "paklode")
-#' @importFrom magrittr %>%
 #' @export
 
 
 biGram_pt = function(word = c("")){
 
-  word = word %>%
+  word = word |>
     stringr::str_replace_all(pattern = "d\u0361\u0292",
                              replacement = "d")
 
-  word = word %>%
+  word = word |>
     stringr::str_replace_all(pattern = "t\u0361\u0283",
                              replacement = "t")
 
+  output = lapply(word, biGram_pt_helper) |> unlist()
 
-  purrr::map(word, ~biGram_pt_helper(word = .)) %>%
-    unlist() %>%
-    return()
+  return(output)
 }
+

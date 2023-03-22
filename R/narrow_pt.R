@@ -4,7 +4,6 @@
 #' @param word The string of interest is an output of ipa_pt()
 #' @noRd
 #' @return The IPA transcription of said string with surface-level adjustments
-#' @importFrom magrittr %>%
 
 narrow_pt = function(word = ""){
 
@@ -124,9 +123,9 @@ narrow_pt = function(word = ""){
 
 
   # Lowering word-finally (before l-vocalization):
-  narrow = narrow %>%
+  narrow = narrow |>
     stringr::str_replace(pattern = "(\u02c8\\w*)ol$",
-                         replacement = "\\1\u0254l") %>%
+                         replacement = "\\1\u0254l") |>
     stringr::str_replace(pattern = "(\u02c8\\w*)el$",
                          replacement = "\\1\u025bl")
 
@@ -192,9 +191,10 @@ narrow_pt = function(word = ""){
                                 pattern = "([pbtdkg])\\.\u02c8([nmpbtdkg])",
                                 replacement = ".\\1i.\u02c8\\2")
 
-  narrow %>%
-    sec_stress_pt() %>%
-    return()
+  narrow = narrow |>
+    sec_stress_pt()
+
+  return(narrow)
 
 }
 
@@ -205,7 +205,6 @@ narrow_pt = function(word = ""){
 #' @param word The string of interest is an output of ipa_pt()
 #' @noRd
 #' @return The IPA transcription of said string with surface-level adjustments
-#' @importFrom magrittr %>%
 
 narrow_pt_vec = function(word = ""){
 
@@ -324,9 +323,9 @@ narrow_pt_vec = function(word = ""){
 
 
   # Lowering word-finally (before l-vocalization):
-  narrow = narrow %>%
+  narrow = narrow |>
     stringr::str_replace(pattern = "(\u02c8\\w*)ol$",
-                         replacement = "\\1\u0254l") %>%
+                         replacement = "\\1\u0254l") |>
     stringr::str_replace(pattern = "(\u02c8\\w*)el$",
                          replacement = "\\1\u025bl")
 
@@ -392,8 +391,9 @@ narrow_pt_vec = function(word = ""){
                                 pattern = "([pbtdkg])\\.\u02c8([nmpbtdkg])",
                                 replacement = ".\\1i.\u02c8\\2")
 
-  narrow %>%
-    sec_stress_pt_vec() %>%
-    return()
+  narrow = narrow |>
+    sec_stress_pt_vec()
+
+  return(narrow)
 
 }

@@ -7,7 +7,6 @@
 #' @examples
 #' plotVowels(lg = "portuguese");
 #' plotVowels(lg = "english");
-#' @importFrom magrittr %>%
 #' @export
 
 plotVowels = function(lg = "English", tex = F){
@@ -69,99 +68,99 @@ latex = tibble::tibble(lines = stringr::str_split(texOutput, "\\n")[[1]],
 # Tibble:
 V = tibble::tibble(vowel = character(), x = numeric(), y = numeric())
 
-V = V %>%
+V = V |>
   tibble::add_row(vowel = "a",
                   x = 3.4,
-                  y = -0.9) %>%
+                  y = -0.9) |>
   tibble::add_row(vowel = "\u025b",
                   x = 1.7,
-                  y = 3.1) %>%
+                  y = 3.1) |>
   tibble::add_row(vowel = "\u0254",
                   x = 11.7,
-                  y = 3.1) %>%
+                  y = 3.1) |>
   tibble::add_row(vowel = "e",
                   x = 0,
-                  y = 7.1) %>%
+                  y = 7.1) |>
   tibble::add_row(vowel = "o",
                   x = 11.7,
-                  y = 7.1) %>%
+                  y = 7.1) |>
   tibble::add_row(vowel = "i",
                   x = -1.5,
-                  y = 11.1) %>%
+                  y = 11.1) |>
   tibble::add_row(vowel = "u",
                   x = 11.7,
-                  y = 11.1) %>%
+                  y = 11.1) |>
 
   tibble::add_row(vowel = "\u0276",
                   x = 4.8,
-                  y = -0.9) %>%
+                  y = -0.9) |>
   tibble::add_row(vowel = "\u0251",
                   x = 10.2,
-                  y = -0.9) %>%
+                  y = -0.9) |>
   tibble::add_row(vowel = "\u0252",
                   x = 11.7,
-                  y = -0.9) %>%
+                  y = -0.9) |>
 
   tibble::add_row(vowel = "\u00e6",
                   x = 2.5,
-                  y = 1) %>%
+                  y = 1) |>
   tibble::add_row(vowel = "\u0250",
                   x = 6.65,
-                  y = 1.3) %>%
+                  y = 1.3) |>
   tibble::add_row(vowel = "\u0153",
                   x = 3.1,
-                  y = 3.1) %>%
+                  y = 3.1) |>
 
   tibble::add_row(vowel = "\u025c",
                   x = 5.8,
-                  y = 3.1) %>%
+                  y = 3.1) |>
   tibble::add_row(vowel = "\u025e",
                   x = 7,
-                  y = 3.1) %>%
+                  y = 3.1) |>
   tibble::add_row(vowel = "\u028c",
                   x = 10.2,
-                  y = 3.1) %>%
+                  y = 3.1) |>
 
   tibble::add_row(vowel = "\u00f8",
                   x = 1.35,
-                  y = 7.1) %>%
+                  y = 7.1) |>
   tibble::add_row(vowel = "\u0258",
                   x = 5,
-                  y = 7.1) %>%
+                  y = 7.1) |>
   tibble::add_row(vowel = "\u0275",
                   x = 6.4,
-                  y = 7.1) %>%
+                  y = 7.1) |>
   tibble::add_row(vowel = "\u0259",
                   x = 6,
-                  y = 5.1) %>%
+                  y = 5.1) |>
   tibble::add_row(vowel = "\u0264",
                   x = 10.2,
-                  y = 7.1) %>%
+                  y = 7.1) |>
   tibble::add_row(vowel = "\u026a",
                   x = 1.4,
-                  y = 9.25) %>%
+                  y = 9.25) |>
   tibble::add_row(vowel = "\u028f",
                   x = 2.4,
-                  y = 9.25) %>%
+                  y = 9.25) |>
 
   tibble::add_row(vowel = "y",
                   x = -0.28,
-                  y = 11.1) %>%
+                  y = 11.1) |>
   tibble::add_row(vowel = "\u0268",
                   x = 4.3,
-                  y = 11.1) %>%
+                  y = 11.1) |>
   tibble::add_row(vowel = "\u0289",
                   x = 5.8,
-                  y = 11.1) %>%
+                  y = 11.1) |>
 
   tibble::add_row(vowel = "\u026f",
                   x = 10.1,
-                  y = 11.1) %>%
+                  y = 11.1) |>
   tibble::add_row(vowel = "\u028a",
                   x = 9,
                   y = 9.25)
 
-V = V %>%
+V = V |>
   dplyr::mutate(choice = dplyr::row_number())
 
 # Language inventories:
@@ -222,9 +221,9 @@ if(lg == "all"){
     ggplot2::geom_point(ggplot2::aes(x = 11, y = 11), size = 5, color = "gray40")
 
 
-  texOutput = latex %>%
-    # filter(vowel %in% c(targetLanguage, "pre", "post")) %>%
-    dplyr::pull(lines) %>%
+  texOutput = latex |>
+    # filter(vowel %in% c(targetLanguage, "pre", "post")) |>
+    dplyr::pull(lines) |>
     stringr::str_c(collapse = "\n")
 
   print(stringr::str_c("LaTeX code: ", texOutput))
@@ -235,8 +234,8 @@ if(lg == "all"){
 
   targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
 
-  fig = ggplot2::ggplot(data = V %>%
-                          dplyr::filter(vowel %in% targetLanguage) %>%
+  fig = ggplot2::ggplot(data = V |>
+                          dplyr::filter(vowel %in% targetLanguage) |>
                           droplevels(), ggplot2::aes(x = x, y = y, label = vowel)) +
     ggplot2::labs(x = NULL,
                   y = NULL) +
@@ -271,9 +270,9 @@ if(lg == "all"){
     ggplot2::geom_point(ggplot2::aes(x = 11, y = 11), size = 5, color = "gray40")
 
   # ADJUST TEX:
-  texOutput = latex %>%
-    dplyr::filter(vowel %in% c(targetLanguage, "pre", "post")) %>%
-    dplyr::pull(lines) %>%
+  texOutput = latex |>
+    dplyr::filter(vowel %in% c(targetLanguage, "pre", "post")) |>
+    dplyr::pull(lines) |>
     stringr::str_c(collapse = "\n")
 
   if(tex == T){

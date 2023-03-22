@@ -5,39 +5,38 @@
 #' @param palatalization Whether t and d should palatalize before i (default is FALSE)
 #' @noRd
 #' @return The IPA transcription of said string
-#' @importFrom magrittr %>%
 
 gen_pt = function(profile = "LLL", palatalization = F){
 
-  vowels = "a.e.i.o.u" %>%
-    stringr::str_split(pattern = "\\.") %>%
+  vowels = "a.e.i.o.u" |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
-  semivowels = "j.w" %>%
-    stringr::str_split(pattern = "\\.") %>%
+  semivowels = "j.w" |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
-  liquids = "l.x.\u027e.\u028e" %>%
-    stringr::str_split(pattern = "\\.") %>%
+  liquids = "l.x.\u027e.\u028e" |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
-  nasals = "m.n.\u0272" %>%
-    stringr::str_split(pattern = "\\.") %>%
+  nasals = "m.n.\u0272" |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
-  fricatives = "f.v.s.z.\u0283.\u0292.x" %>%
-    stringr::str_split(pattern = "\\.") %>%
+  fricatives = "f.v.s.z.\u0283.\u0292.x" |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
-  plosives = "p.b.t.d.k.g" %>%
-    stringr::str_split(pattern = "\\.") %>%
+  plosives = "p.b.t.d.k.g" |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
 
 
   # Desired profile:
   weight = profile # For stress candidates later on
-  profile = profile %>%
-    stringr::str_split("") %>% unlist()
+  profile = profile |>
+    stringr::str_split("") |> unlist()
 
   # Phonotactics:
   nucleus = vowels
-  onsets = "p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.x.m.n.l.x" %>% stringr::str_split(pattern = "\\.") %>% unlist()
-  codas = "s.l.\u027e.m.n" %>% stringr::str_split(pattern = "\\.") %>% unlist()
+  onsets = "p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.x.m.n.l.x" |> stringr::str_split(pattern = "\\.") |> unlist()
+  codas = "s.l.\u027e.m.n" |> stringr::str_split(pattern = "\\.") |> unlist()
 
   clusters = "p\u027e.b\u027e.t\u027e.d\u027e.k\u027e.g\u027e.pl.bl.kl.gl"
 
@@ -163,10 +162,10 @@ gen_pt = function(profile = "LLL", palatalization = F){
   # Now add clusters and low-mid vowels:
 
   # Clusters: at most 1/word
-  nSyl = syllables %>% length()
+  nSyl = syllables |> length()
 
   # Create a version where all candidates have complex onsets:
-  clusterSyl = syllables %>%
+  clusterSyl = syllables |>
     stringr::str_replace(pattern = "([pbtdkgfv])([aeiou])",
                 replacement = "\\1\u027e\\2")
 
@@ -182,7 +181,7 @@ gen_pt = function(profile = "LLL", palatalization = F){
   }
 
   # Now we have (at most) on syllable with a complex onset in "syllables"
-  word = syllables %>%
+  word = syllables |>
     stringr::str_c(collapse = "")
 
   # double_C = function(s = ""){
@@ -190,14 +189,14 @@ gen_pt = function(profile = "LLL", palatalization = F){
   #   doubleCs = "p{2,}|b{2,}|c{2,}|t{2,}|d{2,}|k{2,}|g{2,}|l{2,}|m{2,}|n{2,}|f{2,}|v{2,}"
   #
   #   single_C = stringr::str_extract(s,
-  #                          pattern = doubleCs) %>%
+  #                          pattern = doubleCs) |>
   #     stringr::str_sub(start = 1, end = 1)
   #
   #   empty_s = stringr::str_replace_all(s,
   #                             pattern = doubleCs,
   #                             replacement = "#")
   #
-  #   final_s = empty_s %>%
+  #   final_s = empty_s |>
   #     stringr::str_replace_all(pattern = "#",
   #                     replacement = single_C)
   #
@@ -208,22 +207,22 @@ gen_pt = function(profile = "LLL", palatalization = F){
 
 
   # assign stress probabilistically:
-  word = word %>%
-    # double_C() %>%
+  word = word |>
+    # double_C() |>
     syllabify_pt()
 
   if(weight %in% c("HLL", "LLL")){
-    word = word %>%
-      apu_candidates() %>%
+    word = word |>
+      apu_candidates() |>
       dact_pt()
   }
 
   else if(weight %in% c("LLH", "LH", "HH", "LHH")){
-    word = word %>%
-      pu_candidates() %>%
+    word = word |>
+      pu_candidates() |>
       spond_pt()
   } else {
-    word = word %>%
+    word = word |>
       stress_pt()
   }
 
@@ -357,36 +356,37 @@ gen_pt = function(profile = "LLL", palatalization = F){
 #' @param word A possible string in Portuguese in its phonemic form without syllabification or stress. The only diacritic that should be used is the tilde for nasals, e.g., ã.
 #' @return The phonemic transcription for the string in question
 #' @noRd
-#' @importFrom magrittr %>%
 
 biGram_pt_helper = function(word = ""){
 
-  if(stringr::str_detect(string = word, pattern = "[chqyw]")){
+  if(sum(stringr::str_detect(string = word, pattern = "[chqyw]")) > 0){
     message("Input most be phonemic, not orthographic.")
     return(NA)
   }
-  word = word %>%
-    stringr::str_remove_all("\\.|\u02c8") %>%
-    stringr::str_c("^", ., "$") %>%
-    stringr::str_split("") %>%
-    unlist() %>%
+  word = word |>
+    stringr::str_remove_all("\\.|\u02c8")
+
+  word = stringr::str_c("^", word, "$") |>
+    stringr::str_split("") |>
+    unlist() |>
     stringr::str_c(collapse = " ")
 
-  bigramProb = ngram::ngram(str = word, n = 2) %>%
-    ngram::get.phrasetable() %>%
-    tibble::as_tibble() %>%
-    tidyr::uncount(freq) %>%
-    dplyr::mutate(ngrams = str_remove_all(ngrams, pattern = "\\s")) %>%
-    dplyr::select(-c(prop)) %>%
-    dplyr::left_join(bigrams_pt, by = "ngrams") %>%
+  bigramProb = ngram::ngram(str = word, n = 2) |>
+    ngram::get.phrasetable() |>
+    tibble::as_tibble() |>
+    tidyr::uncount(freq) |>
+    dplyr::mutate(ngrams = str_remove_all(ngrams, pattern = "\\s")) |>
+    dplyr::select(-c(prop)) |>
+    dplyr::left_join(bigrams_pt, by = "ngrams") |>
     dplyr::filter(!ngrams %in% c("^^", "$$", "^$", "$^"))
 
   bigramProb[is.na(bigramProb$prop),]$prop = 1e-10
 
-  bigramProb %>%
-    dplyr::summarize(prob = log(prod(prop))) %>%
-    dplyr::pull(prob) %>%
-    return()
+  bigramProb = bigramProb |>
+    dplyr::summarize(prob = log(prod(prop))) |>
+    dplyr::pull(prob)
+
+  return(bigramProb)
 
 }
 

@@ -5,18 +5,17 @@
 #' @return A vector with all words in the input, stripped of punctuation
 #' @examples
 #' cleanText(text = "Este é um texto em português? This is a text in English!");
-#' @importFrom magrittr %>%
 #' @export
 
 cleanText = function(text = ""){
 
-  tokens = stringr::str_split(text, pattern = " ") %>% unlist()
+  tokens = stringr::str_split(text, pattern = " ") |> unlist()
 
   # Empty cases:
   tokens = tokens[!tokens %in% ""]
 
   # Remove stress:
-  tokens = tokens %>%
+  tokens = tokens |>
     stringr::str_remove_all(pattern = "[\u02c8\u02cc]")
 
   # Numbers:
@@ -32,7 +31,7 @@ cleanText = function(text = ""){
   output = output[!is.na(output)]
 
   # Strip clitics:
-  output = output %>%
+  output = output |>
     strip_clitic_pt()
 
   return(output)

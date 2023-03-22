@@ -6,15 +6,14 @@
 #' @return The primary stress position
 #' @examples
 #' getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ");
-#' @importFrom magrittr %>%
 #' @export
 
 getStress = function(word = c("kom.pu.ta.\u02c8do\u027e"), stress = "\u02c8"){
 
-  syl_list = word %>%
+  syl_list = word |>
     stringr::str_split("\\.")
 
-  indices = lapply(syl_list, function(x) which(stringr::str_detect(rev(x), pattern = stress))) %>% unlist()
+  indices = lapply(syl_list, function(x) which(stringr::str_detect(rev(x), pattern = stress))) |> unlist()
 
   indices = stringr::str_replace_all(indices, pattern = "1", replacement = "final")
   indices = stringr::str_replace_all(indices, pattern = "2", replacement = "penult")

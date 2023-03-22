@@ -6,49 +6,48 @@
 #' @return The minimal matrix of features given ph and lg
 #' @examples
 #' getFeat(ph = c("i", "u"), lg = "english");
-#' @importFrom magrittr %>%
 #' @export
 
 getFeat = function(ph = c(), lg = "Portuguese"){
 
   phonemes = "i.y.\u0268.\u0289.\u026f.u.\u026a.\u028f.\u028a.e.\u00f8.\u0258.\u0275.\u0264.o.\u025b.\u0153.\u0259.\u025c.\u025e.\u028c.\u0254.\u0250.\u00e6.\u0276.a.\u0251.\u0252.\u025b\u0303.\u0153\u0303.\u0254.j.\u0265.w.p.b.t.d.\u0288.\u0256.c.\u025f.k.\u0261.q.\u0262.\u0294.m.\u0271.n.\u0273.\u0272.\u014b.\u0274.\u0299.r.\u0280.\u2c71.\u027e.\u027d.\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266.\u026c.\u026e.\u028b.\u0279.\u027b.j.\u0270.l.\u026d.\u028e.\u029f.d\u0361z.t\u0361s.t\u0361\u0283.d\u0361\u0292"
 
-  phonemes = phonemes %>%
-    stringr::str_split(pattern = "\\.") %>%
+  phonemes = phonemes |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
 
   vowels = phonemes[1:31]
   semivowels = phonemes[31:33]
-  liquids = c("l.r.\u027e.\u027d.l.\u026d.\u028e.\u029f.\u0279.\u027b.\u0281.\u0280") %>% stringr::str_split(pattern = "\\.") %>% unlist()
-  nasals = "m.\u0271.n.\u0273.\u0272.\u014b.\u0274" %>% stringr::str_split(pattern = "\\.") %>% unlist()
-  fricatives = "\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266" %>% stringr::str_split(pattern = "\\.") %>% unlist()
-  affricates = "d\u0361z.t\u0361s.t\u0361\u0283.d\u0361\u0292" %>% stringr::str_split(pattern = "\\.") %>% unlist()
+  liquids = c("l.r.\u027e.\u027d.l.\u026d.\u028e.\u029f.\u0279.\u027b.\u0281.\u0280") |> stringr::str_split(pattern = "\\.") |> unlist()
+  nasals = "m.\u0271.n.\u0273.\u0272.\u014b.\u0274" |> stringr::str_split(pattern = "\\.") |> unlist()
+  fricatives = "\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266" |> stringr::str_split(pattern = "\\.") |> unlist()
+  affricates = "d\u0361z.t\u0361s.t\u0361\u0283.d\u0361\u0292" |> stringr::str_split(pattern = "\\.") |> unlist()
 
-  allFeatures = allFeatures %>%
-    dplyr::filter(ipa %in% phonemes) %>%
-    droplevels() %>%
-    dplyr::mutate(approx = ifelse(ipa %in% c(vowels, semivowels, liquids), "+", "-")) %>%
+  allFeatures = allFeatures |>
+    dplyr::filter(ipa %in% phonemes) |>
+    droplevels() |>
+    dplyr::mutate(approx = ifelse(ipa %in% c(vowels, semivowels, liquids), "+", "-")) |>
     dplyr::select(ipa, syl, cons, son, approx, cont:hireg)
 
   # Pick one language to work with:
-  portuguese = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.m.n.\u0272.l.r.\u027e.\u028e" %>%
-    stringr::str_split(pattern = "\\.") %>%
+  portuguese = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.m.n.\u0272.l.r.\u027e.\u028e" |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  french = c("a.e.\u00f8.\u0251.i.y.o.u.\u025b.\u0254.\u0259.\u0153.\u025b\u0303.\u0153\u0303.\u0254\u0303.\u0251\u0303.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.\u0281.m.\u0271.n.\u0272.\u014b.l.w.j.\u0265") %>%
-    stringr::str_split(pattern = "\\.") %>%
+  french = c("a.e.\u00f8.\u0251.i.y.o.u.\u025b.\u0254.\u0259.\u0153.\u025b\u0303.\u0153\u0303.\u0254\u0303.\u0251\u0303.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.\u0281.m.\u0271.n.\u0272.\u014b.l.w.j.\u0265") |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  english = c("a.e.\u0251.i.o.u.\u025b.\u0254.\u0259.\u026a.\u028a.\u00e6.\u028c.p.b.f.k.g.v.t.d.s.z.\u0283.\u0292.t\u0361\u0283.d\u0361\u0292.\u03b8.\u00f0.m.n.\u014b.h.w.j.\u0279.l") %>%
-    stringr::str_split(pattern = "\\.") %>%
+  english = c("a.e.\u0251.i.o.u.\u025b.\u0254.\u0259.\u026a.\u028a.\u00e6.\u028c.p.b.f.k.g.v.t.d.s.z.\u0283.\u0292.t\u0361\u0283.d\u0361\u0292.\u03b8.\u00f0.m.n.\u014b.h.w.j.\u0279.l") |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  italian = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.t\u0361\u0283.d\u0361\u0292.t\u0361s.d\u0361z.f.v.s.z.\u0283.m.n.\u0272.l.r.\u028e" %>%
-    stringr::str_split(pattern = "\\.") %>%
+  italian = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.t\u0361\u0283.d\u0361\u0292.t\u0361s.d\u0361z.f.v.s.z.\u0283.m.n.\u0272.l.r.\u028e" |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  spanish = c("a.e.\u0251.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") %>%
-    stringr::str_split(pattern = "\\.") %>%
+  spanish = c("a.e.\u0251.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") |>
+    stringr::str_split(pattern = "\\.") |>
     unlist()
 
   # Select language:
@@ -62,13 +61,13 @@ getFeat = function(ph = c(), lg = "Portuguese"){
   }
 
   # Select features for phonemes:
-  targetF = allFeatures %>%
-    dplyr::filter(ipa %in% targetLanguage) %>%
+  targetF = allFeatures |>
+    dplyr::filter(ipa %in% targetLanguage) |>
     droplevels()
 
 
   # Reduce number of features (remove all that are useless):
-  targetF = targetF %>%
+  targetF = targetF |>
     dplyr::select(dplyr::where(~dplyr::n_distinct(.) > 1))
 
   # Function to test if all elements are the same:
@@ -96,20 +95,20 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     stop("Input doesn\'t match phonemic inventory in language.")
   }
 
-  chosenPhF = targetF %>%
-    dplyr::filter(ipa %in% chosenPh) %>%
+  chosenPhF = targetF |>
+    dplyr::filter(ipa %in% chosenPh) |>
     droplevels()
 
   # Pick intersection:
 
   all_cols = names(chosenPhF)[-1]
 
-  uniqueF = chosenPhF %>%
-    dplyr::select(-ipa) %>%
-    dplyr::summarize(dplyr::across(.cols = dplyr::all_of(all_cols), .fns = same)) %>%
+  uniqueF = chosenPhF |>
+    dplyr::select(-ipa) |>
+    dplyr::summarize(dplyr::across(.cols = dplyr::all_of(all_cols), .fns = same)) |>
     dplyr::select(dplyr::where(~sum(!is.na(.x)) > 0))
 
-  # combinedFeatures = targetF %>% right_join(uniqueF)
+  # combinedFeatures = targetF |> right_join(uniqueF)
 
   combinedFeatures = merge(targetF, uniqueF, all.y = TRUE)
 
@@ -126,17 +125,17 @@ getFeat = function(ph = c(), lg = "Portuguese"){
 
       x1 = gtools::combinations(totalLength, i)
 
-      x2 = as.data.frame(x1) %>%
+      x2 = as.data.frame(x1) |>
         dplyr::as_tibble()
 
       for(j in seq_along(1:nrow(x2))){
 
-        x3 = x2 %>%
-          dplyr::slice(j) %>%
+        x3 = x2 |>
+          dplyr::slice(j) |>
           unlist()
 
-        x4 = uniqueF %>% dplyr::select(dplyr::all_of(as.vector(x3)))
-        # x5 = targetF %>% right_join(x4)
+        x4 = uniqueF |> dplyr::select(dplyr::all_of(as.vector(x3)))
+        # x5 = targetF |> right_join(x4)
         x5 = merge(targetF, x4, all.y = TRUE)
 
         if(nrow(x5) == nrow(chosenPhF)){

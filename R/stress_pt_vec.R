@@ -6,7 +6,6 @@
 #' @return The stressed strings
 #' @examples
 #' stress_pt_vec(word = c("pa.la.do", "an.te.dom"));
-#' @importFrom magrittr %>%
 #' @export
 
 stress_pt_vec = function(word = c("ka.va.lo")){
@@ -18,25 +17,25 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   which_diacritics = stringr::str_detect(string = word, pattern = "[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]", negate = F)
   diacritics = stringr::str_replace_all(string = word[which_diacritics],
                                         pattern = "(\\w*[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]\\w*)",
-                                        replacement = "\u02c8\\1") %>%
+                                        replacement = "\u02c8\\1") |>
     stringr::str_replace(pattern = "[\u00e1\u00e0]",
-                         replacement = "a") %>%
+                         replacement = "a") |>
     stringr::str_replace(pattern = "[\u00e9\u00e8]",
-                         replacement = "\u025b") %>%
+                         replacement = "\u025b") |>
     stringr::str_replace(pattern = "[\u00ed\u00ec]",
-                         replacement = "i") %>%
+                         replacement = "i") |>
     stringr::str_replace(pattern = "[\u00f3\u00f2]",
-                         replacement = "\u0254") %>%
+                         replacement = "\u0254") |>
     stringr::str_replace(pattern = "[\u00fa\u00f9]",
-                         replacement = "u") %>%
+                         replacement = "u") |>
     stringr::str_replace(pattern = "\u00ea",
-                         replacement = "e") %>%
+                         replacement = "e") |>
     stringr::str_replace(pattern = "\u00f4",
-                         replacement = "o") %>%
+                         replacement = "o") |>
     stringr::str_replace(pattern = "\u00e2",
-                         replacement = "a") %>%
+                         replacement = "a") |>
     stringr::str_replace(pattern = "\u00f4",
-                         replacement = "o") %>%
+                         replacement = "o") |>
     stringr::str_replace(pattern = "\u00ea",
                          replacement = "e")
 
@@ -123,50 +122,50 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   output = output[as.character(sort(as.numeric(names(output))))]
 
   # Fix vowel height in Vl] sequences:
-  output = output %>%
+  output = output |>
     stringr::str_replace(pattern = "(\u02c8\\w*)ol$",
-                         replacement = "\\1\u0254l") %>%
+                         replacement = "\\1\u0254l") |>
     stringr::str_replace(pattern = "(\u02c8\\w*)el$",
                          replacement = "\\1\u025bl")
 
   # Fix words ending in -gem or -gens
-  output = output %>%
+  output = output |>
     stringr::str_replace(pattern = "([:alpha:]+)\\.\u02c8(\u0292em)$$",
-                         replacement = "\u02c8\\1.\\2") %>%
+                         replacement = "\u02c8\\1.\\2") |>
     stringr::str_replace(pattern = "([:alpha:]+)\\.\u02c8(\u0292ens)$$",
                          replacement = "\u02c8\\1.\\2")
 
   # Change stress to penult if word ends in am:
-  output = output %>%
+  output = output |>
     stringr::str_replace(pattern = "(\\w+\\.)\u02c8(\\w*am$)",
                          replacement = "\u02c8\\1\\2")
 
-  output = output %>%
+  output = output |>
     stringr::str_replace(pattern = "am$",
                          replacement = "\u00e3w\u0303")
 
   # Now replace z] with s]
 
-  output = output %>%
+  output = output |>
     stringr::str_replace(pattern = "z$",
                          replacement = "s")
 
   # Replace potential cases of multiple stresses:
-  output = output %>%
-    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
-    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
-    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
-    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
-    stringr::str_replace(pattern = "\u028ee\u027e$", replacement = "\u028e\u025b\u027e") %>%
-    stringr::str_replace(pattern = "a.o$", replacement = "aw") %>%
+  output = output |>
+    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
+    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
+    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
+    stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
+    stringr::str_replace(pattern = "\u028ee\u027e$", replacement = "\u028e\u025b\u027e") |>
+    stringr::str_replace(pattern = "a.o$", replacement = "aw") |>
     stringr::str_replace(pattern = "a.os$", replacement = "aws")
 
   # Adjustments to vowel quality when coda is nasal (diacritics):
-  output = output %>%
+  output = output |>
     stringr::str_replace(pattern = "\u025b([mn])",
                          replacement = "e\\1")
 
-  output = output %>%
+  output = output |>
     stringr::str_replace(pattern = "\u0254([mn])",
                          replacement = "o\\1")
 

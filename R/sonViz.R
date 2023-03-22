@@ -9,33 +9,32 @@
 #' @return A ggplot figure with the sonority profile of the word
 #' @examples
 #' plotSon(word = "tɾon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE);
-#' @importFrom magrittr %>%
 #' @export
 
 plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
 
-  lo_v = "a.\u0276.\u0251.\u0252.\u00e6.\u0250" %>% stringr::str_split("\\.") %>% unlist()
-  mid_per_v = "\u025b.\u0153.\u028c.\u0254.e.\u00f8.\u0264.o" %>% stringr::str_split("\\.") %>% unlist()
-  hi_per_v = "i.y.\u026f.u" %>% stringr::str_split("\\.") %>% unlist()
-  mid_int_v = "\u0258.\u0275.\u0259.\u025c.\u025e" %>% stringr::str_split("\\.") %>% unlist()
-  hi_int_v = "\u0268.\u0289" %>% stringr::str_split("\\.") %>% unlist()
+  lo_v = "a.\u0276.\u0251.\u0252.\u00e6.\u0250" |> stringr::str_split("\\.") |> unlist()
+  mid_per_v = "\u025b.\u0153.\u028c.\u0254.e.\u00f8.\u0264.o" |> stringr::str_split("\\.") |> unlist()
+  hi_per_v = "i.y.\u026f.u" |> stringr::str_split("\\.") |> unlist()
+  mid_int_v = "\u0258.\u0275.\u0259.\u025c.\u025e" |> stringr::str_split("\\.") |> unlist()
+  hi_int_v = "\u0268.\u0289" |> stringr::str_split("\\.") |> unlist()
 
-  glides = "j.w.\u0265" %>% stringr::str_split("\\.") %>% unlist()
+  glides = "j.w.\u0265" |> stringr::str_split("\\.") |> unlist()
 
-  rhotic_approx = "\u027b.\u0280.\u0279" %>% stringr::str_split("\\.") %>% unlist()
-  flaps = "\u027e.\u027d.\u2c71." %>% stringr::str_split("\\.") %>% unlist()
+  rhotic_approx = "\u027b.\u0280.\u0279" |> stringr::str_split("\\.") |> unlist()
+  flaps = "\u027e.\u027d.\u2c71." |> stringr::str_split("\\.") |> unlist()
 
-  laterals = "l.\u026c.\u026e.\u028e" %>% stringr::str_split("\\.") %>% unlist()
-  trills = "r.\u0299" %>% stringr::str_split("\\.") %>% unlist()
+  laterals = "l.\u026c.\u026e.\u028e" |> stringr::str_split("\\.") |> unlist()
+  trills = "r.\u0299" |> stringr::str_split("\\.") |> unlist()
 
-  nasals = "m.n.\u0271.\u0273.\u0272.\u014b.\u0274" %>% stringr::str_split("\\.") %>% unlist()
+  nasals = "m.n.\u0271.\u0273.\u0272.\u014b.\u0274" |> stringr::str_split("\\.") |> unlist()
 
-  fricatives_vce = "\u03b2.v.\u00f0.z.\u0292.\u0290.\u029d.\u0263.\u0281.\u0295.\u0266" %>% stringr::str_split("\\.") %>% unlist()
-  affricates_vce = "t\u0361s.d\u0361z.t\u0361\u0283.d\u0361\u0292" %>% stringr::str_split("\\.") %>% unlist()
-  stops_vce = "b.d.g.\u03b2.\u0256.\u0262" %>% stringr::str_split("\\.") %>% unlist()
-  fricatives = "\u0278.f.\u03b8.s.\u0283.\u0282.\u00e7.x.\u03c7.\u0127.h" %>% stringr::str_split("\\.") %>% unlist()
-  affricates = "t\u0361s.t\u0361\u0283" %>% stringr::str_split("\\.") %>% unlist()
-  stops = "p.t.k.\u0288.c.q.\u0294" %>% stringr::str_split("\\.") %>% unlist()
+  fricatives_vce = "\u03b2.v.\u00f0.z.\u0292.\u0290.\u029d.\u0263.\u0281.\u0295.\u0266" |> stringr::str_split("\\.") |> unlist()
+  affricates_vce = "t\u0361s.d\u0361z.t\u0361\u0283.d\u0361\u0292" |> stringr::str_split("\\.") |> unlist()
+  stops_vce = "b.d.g.\u03b2.\u0256.\u0262" |> stringr::str_split("\\.") |> unlist()
+  fricatives = "\u0278.f.\u03b8.s.\u0283.\u0282.\u00e7.x.\u03c7.\u0127.h" |> stringr::str_split("\\.") |> unlist()
+  affricates = "t\u0361s.t\u0361\u0283" |> stringr::str_split("\\.") |> unlist()
+  stops = "p.t.k.\u0288.c.q.\u0294" |> stringr::str_split("\\.") |> unlist()
 
   # Complete
   full = tibble::tibble(phoneme = c(lo_v, mid_per_v, hi_per_v, mid_int_v, hi_int_v,
@@ -60,9 +59,9 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
                                 rep(2, length(affricates)),
                                 rep(1, length(stops))))
 
-  checkInput = word %>%
-    stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc|\u02d0|\u02d1|-|\\.") %>%
-    stringr::str_split("") %>%
+  checkInput = word |>
+    stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc|\u02d0|\u02d1|-|\\.") |>
+    stringr::str_split("") |>
     unlist()
 
   absent = c()
@@ -85,14 +84,14 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
     if(!stringr::str_detect(string = word, pattern = "\\.|-")){
       stop("Input must be syllabified.")
     }
-    word_simple = word %>%
-      stringr::str_remove_all("\'|\u02c8|\u02cc|\u02d0|\u02d1") %>%
-      stringr::str_split("") %>%
+    word_simple = word |>
+      stringr::str_remove_all("\'|\u02c8|\u02cc|\u02d0|\u02d1") |>
+      stringr::str_split("") |>
       unlist()
 
 
-    word_son = tibble::tibble(phoneme = word_simple) %>%
-      dplyr::left_join(full, by = "phoneme") %>%
+    word_son = tibble::tibble(phoneme = word_simple) |>
+      dplyr::left_join(full, by = "phoneme") |>
       dplyr::mutate(item = stringr::str_c("item", dplyr::row_number(), sep = "_"),
                     syl = NA)
 
@@ -107,8 +106,8 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
       }
     }
 
-    word_son = word_son %>%
-      dplyr::mutate(syl = as.factor(syl)) %>%
+    word_son = word_son |>
+      dplyr::mutate(syl = as.factor(syl)) |>
       dplyr::filter(!phoneme %in% c(".", "-"))
 
     sonPlot = ggplot2::ggplot(data = word_son, ggplot2::aes(x = item, y = son)) +
@@ -139,13 +138,13 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
     return(sonPlot)
   }
 
-  word_simple = word %>%
-    stringr::str_remove_all("\'|\u02c8|\u02cc|\u02d0|\u02d1|\\.|-") %>%
-    stringr::str_split("") %>%
+  word_simple = word |>
+    stringr::str_remove_all("\'|\u02c8|\u02cc|\u02d0|\u02d1|\\.|-") |>
+    stringr::str_split("") |>
     unlist()
 
-  word_son = tibble::tibble(phoneme = word_simple) %>%
-    dplyr::left_join(full, by = "phoneme") %>%
+  word_son = tibble::tibble(phoneme = word_simple) |>
+    dplyr::left_join(full, by = "phoneme") |>
     dplyr::mutate(item = stringr::str_c("item", dplyr::row_number(), sep = "_"))
 
   sonPlot = ggplot2::ggplot(data = word_son, ggplot2::aes(x = item, y = son)) +

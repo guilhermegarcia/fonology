@@ -9,36 +9,35 @@
 #' @return The mean sonority dispersion score
 #' @examples
 #' meanSonDisp(word = c("combrade", "prondo", "clauspricos"));
-#' @importFrom magrittr %>%
 #' @export
 
 meanSonDisp = function(word = c(), phonemic = F){
 
   if(phonemic){
-    d1 = word %>%
-      demi() %>%
-      lapply(sonDisp) %>%
+    d1 = word |>
+      demi() |>
+      lapply(sonDisp) |>
       unlist()
 
-    d2 = word %>%
-      demi(d = 2) %>%
-      lapply(sonDisp) %>%
+    d2 = word |>
+      demi(d = 2) |>
+      lapply(sonDisp) |>
       unlist()
 
     meanD = mean(c(d1, d2))
     return(round(meanD, 2))
   }
 
-  d1 = word %>%
-    ipa_pt_vec() %>%
-    demi() %>%
-    lapply(sonDisp) %>%
+  d1 = word |>
+    ipa_pt_vec() |>
+    demi() |>
+    lapply(sonDisp) |>
     unlist()
 
-  d2 = word %>%
-    ipa_pt_vec() %>%
-    demi(d = 2) %>%
-    lapply(sonDisp) %>%
+  d2 = word |>
+    ipa_pt_vec() |>
+    demi(d = 2) |>
+    lapply(sonDisp) |>
     unlist()
 
   meanD = mean(c(d1, d2))

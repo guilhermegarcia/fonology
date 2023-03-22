@@ -9,7 +9,6 @@
 #' @return A tibble with phonotactic bigrams
 #' @examples
 #' biGram_tbl(text = "")
-#' @importFrom magrittr %>%
 #' @export
 
 
@@ -19,34 +18,34 @@ biGram_tbl = function(text = ""){
     return(NA)
   }
 
-  textClean = text %>%
-    cleanText() %>%
+  textClean = text |>
+    cleanText() |>
     stringr::str_c("^", ., "$")
 
-  textClean = textClean %>%
-    stringr::str_c(collapse = " ") %>%
-    stringr::str_split("") %>%
-    unlist() %>%
+  textClean = textClean |>
+    stringr::str_c(collapse = " ") |>
+    stringr::str_split("") |>
+    unlist() |>
     stringr::str_c(collapse = " ", sep  = " ")
 
   ng = ngram::ngram(str = textClean, n = 2)
 
-  ng_tbl = ng %>%
-    ngram::get.phrasetable() %>%
-    tibble::as_tibble() %>%
-    dplyr::rename(nGrams = ngrams) %>%
-    dplyr::mutate(nGrams = stringr::str_remove_all(nGrams, "\\s$")) %>%
-    tidyr::separate_wider_delim(cols = nGrams, delim = " ", names = c("n1", "n2")) %>%
-    dplyr::mutate(nGrams = stringr::str_c(n1, n2)) %>%
-    dplyr::select(nGrams, n1, n2, freq, prop) %>%
-    dplyr::filter(!nGrams %in% c("^^", "$$", "^$", "$^")) %>%
-    dplyr::arrange(dplyr::desc(prop)) %>%
+  ng_tbl = ng |>
+    ngram::get.phrasetable() |>
+    tibble::as_tibble() |>
+    dplyr::rename(nGrams = ngrams) |>
+    dplyr::mutate(nGrams = stringr::str_remove_all(nGrams, "\\s$")) |>
+    tidyr::separate_wider_delim(cols = nGrams, delim = " ", names = c("n1", "n2")) |>
+    dplyr::mutate(nGrams = stringr::str_c(n1, n2)) |>
+    dplyr::select(nGrams, n1, n2, freq, prop) |>
+    dplyr::filter(!nGrams %in% c("^^", "$$", "^$", "$^")) |>
+    dplyr::arrange(dplyr::desc(prop)) |>
     dplyr::mutate(n1 = stringr::str_replace_all(string = n1,
                                                 pattern = "[\\^\\$]",
                                                 replacement = "#"),
                   n2 = stringr::str_replace_all(string = n2,
                                                 pattern = "[\\$\\^]",
-                                                replacement = "#")) %>%
+                                                replacement = "#")) |>
     dplyr::mutate(nGrams = stringr::str_replace_all(string = nGrams,
                                                     pattern = "[\\^\\$]",
                                                     replacement = "#"))
@@ -61,10 +60,10 @@ biGram_tbl = function(text = ""){
 #'
 #' @param bigrams A tibble in the exact format used in biGram_tbl()
 #' @param type The type of plot desired: heatmap or lollipop (default)
+#' @param n The number of bigrams to plot
 #' @return A ggplot2 plot with the most common bigrams
 #' @examples
 #' plot_biGrams(bigrams = "")
-#' @importFrom magrittr %>%
 #' @export
 
 plot_biGrams = function(bigrams, type = "lollipop", n = 5){
@@ -79,7 +78,7 @@ plot_biGrams = function(bigrams, type = "lollipop", n = 5){
     return(NA)
   }
 
-  bigrams = bigrams %>%
+  bigrams = bigrams |>
     dplyr::slice(1:n)
 
 

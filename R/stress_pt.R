@@ -5,7 +5,6 @@
 #' @return The stressed version of the string in question
 #' @examples
 #' stress_pt(word = "kom.pu.ta.doɾ");
-#' @importFrom magrittr %>%
 #' @export
 
 stress_pt = function(word = ""){
@@ -13,47 +12,47 @@ stress_pt = function(word = ""){
   # If word has a diacritic:
   if(stringr::str_detect(string = word, pattern = "[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]")){
 
-    word = word %>%
+    word = word |>
       stringr::str_replace_all(pattern = "(\\w*[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]\\w*)",
-                               replacement = "\u02c8\\1") %>%
+                               replacement = "\u02c8\\1") |>
       stringr::str_replace(pattern = "[\u00e1\u00e0]",
-                           replacement = "a") %>%
+                           replacement = "a") |>
       stringr::str_replace(pattern = "[\u00e9\u00e8]",
-                           replacement = "\u025b") %>%
+                           replacement = "\u025b") |>
       stringr::str_replace(pattern = "[\u00ed\u00ec]",
-                           replacement = "i") %>%
+                           replacement = "i") |>
       stringr::str_replace(pattern = "[\u00f3\u00f2]",
-                           replacement = "\u0254") %>%
+                           replacement = "\u0254") |>
       stringr::str_replace(pattern = "[\u00fa\u00f9]",
-                           replacement = "u") %>%
+                           replacement = "u") |>
       stringr::str_replace(pattern = "\u00ea",
-                           replacement = "e") %>%
+                           replacement = "e") |>
       stringr::str_replace(pattern = "\u00f4",
-                           replacement = "o") %>%
+                           replacement = "o") |>
       stringr::str_replace(pattern = "\u00e2",
-                           replacement = "a") %>%
+                           replacement = "a") |>
       stringr::str_replace(pattern = "\u00f4",
-                           replacement = "o") %>%
+                           replacement = "o") |>
       stringr::str_replace(pattern = "\u00ea",
                            replacement = "e")
 
     # Replace potential cases of multiple stresses:
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "z$",
                            replacement = "s")
 
-    word = word %>%
-      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
-      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
-      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") %>%
+    word = word |>
+      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
+      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
+      stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
       stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "")
 
     # Adjustments to vowel quality when coda is nasal (diacritics):
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "\u025b([mn])",
                            replacement = "e\\1")
 
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "\u0254([mn])",
                            replacement = "o\\1")
 
@@ -67,7 +66,7 @@ stress_pt = function(word = ""){
                                     pattern = "^(\\w*)$",
                                     replacement = "\u02c8\\1")
 
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "z$",
                            replacement = "s")
     return(word)
@@ -94,25 +93,25 @@ stress_pt = function(word = ""){
     #                                 replacement = ".\u02c8\\1")
 
     # But change stress to penult if word ends in am:
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "(\\w+\\.)\u02c8(\\w*am$)",
                            replacement = "\u02c8\\1\\2")
 
     # Also move stress to penult if word ends in gens:
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "([:alpha:]+\\.)\u02c8(\u0292ens)$",
                            replacement = "\u02c8\\1\\2")
 
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "([:alpha:]+\\.)\u02c8(\u0292em)$",
                            replacement = "\u02c8\\1\\2")
 
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "z$",
                            replacement = "s")
 
     # Fix v height in lher]:
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "\u028ee\u027e$",
                            replacement = "\u028e\u025b\u027e")
 
@@ -134,15 +133,15 @@ stress_pt = function(word = ""){
                                     replacement = "\u02c8\\1\\2")
 
     # Add adjustments to paroxytones:
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "z$",
                            replacement = "s")
 
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "a.o$",
                            replacement = "aw")
 
-    word = word %>%
+    word = word |>
       stringr::str_replace(pattern = "a.os$",
                            replacement = "aws")
 
@@ -162,27 +161,27 @@ stress_pt = function(word = ""){
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
 #' @noRd
 #' @return The stressed version of the string in question
-#' @importFrom magrittr %>%
 
 sec_stress_pt = function(word = ""){
 
   # Tokenize input and get stress position:
-  mainStressPosition = word %>%
-    # stress_pt() %>%
-    stringr::str_split(pattern = "\\.") %>%
-    unlist() %>%
-    stringr::str_detect("\u02c8") %>%
-    rev() %>%
-    which(isTRUE(.))
+  mainStressPosition = word |>
+    # stress_pt() |>
+    stringr::str_split(pattern = "\\.") |>
+    unlist() |>
+    stringr::str_detect("\u02c8") |>
+    rev()
+
+  mainStressPosition = which(mainStressPosition == TRUE)
 
   # Number of syllables:
-  nSyl = word %>%
+  nSyl = word |>
     stringr::str_count(pattern = "\\.") + 1
 
   # Final stress if odd number of syllables:
   if(mainStressPosition == 1 & nSyl > 2){
     # Assign secondary stress to every other syllable starting at 3rd syllable R-L
-    split_word = stringr::str_split(word, "\\.") %>% unlist() %>% rev()
+    split_word = stringr::str_split(word, "\\.") |> unlist() |> rev()
 
     stressed_word = c()
 
@@ -194,16 +193,18 @@ sec_stress_pt = function(word = ""){
       }
     }
 
-    stressed_word %>%
-      rev() %>%
-      stringr::str_c(collapse = ".") %>%
-      return()
+    stressed_word = stressed_word |>
+      rev() |>
+      stringr::str_c(collapse = ".")
+
+    return(stressed_word)
+
   } else
 
     # Penultimate stress
     if(mainStressPosition == 2 & nSyl > 3){
       # Assign secondary stress to every other syllable starting at 3rd syllable R-L
-      split_word = stringr::str_split(word, "\\.") %>% unlist() %>% rev()
+      split_word = stringr::str_split(word, "\\.") |> unlist() |> rev()
 
       stressed_word = c()
 
@@ -215,16 +216,18 @@ sec_stress_pt = function(word = ""){
         }
       }
 
-      stressed_word %>%
-        rev() %>%
-        stringr::str_c(collapse = ".") %>%
-        return()
+      stressed_word = stressed_word |>
+        rev() |>
+        stringr::str_c(collapse = ".")
+
+      return(stressed_word)
+
     } else
 
       # Antepenultimate stress
       if(mainStressPosition == 3 & nSyl > 4){
         # Assign secondary stress to every other syllable starting at 3rd syllable R-L
-        split_word = stringr::str_split(word, "\\.") %>% unlist() %>% rev()
+        split_word = stringr::str_split(word, "\\.") |> unlist() |> rev()
 
         stressed_word = c()
 
@@ -236,10 +239,12 @@ sec_stress_pt = function(word = ""){
           }
         }
 
-        stressed_word %>%
-          rev() %>%
-          stringr::str_c(collapse = ".") %>%
-          return()
+        stressed_word = stressed_word |>
+          rev() |>
+          stringr::str_c(collapse = ".")
+
+        return(stressed_word)
+
       } else {
         return(word)
       }
@@ -253,81 +258,81 @@ sec_stress_pt = function(word = ""){
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
 #' @noRd
 #' @return The stressed version of the string in question
-#' @importFrom magrittr %>%
+
 
 sec_stress_pt_vec = function(word = c("pa.\u02c8la.v\u027ea")){
 
   # Part 1: adjacent foot
   unstressedFoot1 = "((\\.|^)(?!\u02c8)\\w+\\.(?!\u02c8)(\\w+\\.\u02c8))" # FIRST STAGE: ADJACENT LEFT FOOT
 
-  word = word %>%
+  word = word |>
     stringr::str_replace_all(pattern = unstressedFoot1,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\\.",
                              replacement = ".\u02cc")
 
   # Part 2: other feet
   unstressedFoot2 = "(\\w+\\.\\w+\\.\u02cc)"
 
-  word = word %>%
+  word = word |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
-                             replacement = "\u02cc") %>%
+                             replacement = "\u02cc") |>
     stringr::str_replace_all(pattern = unstressedFoot2,
-                             replacement = "\u02cc\\1") %>%
+                             replacement = "\u02cc\\1") |>
     stringr::str_replace_all(pattern = "\u02cc\u02cc",
                              replacement = "\u02cc")
 
@@ -341,7 +346,7 @@ sec_stress_pt_vec = function(word = c("pa.\u02c8la.v\u027ea")){
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
 #' @noRd
 #' @return The stressed version of the string in question
-#' @importFrom magrittr %>%
+
 pu_candidates = function(word = ""){
 
   c1 = stringr::str_replace(string = word,
@@ -364,7 +369,7 @@ pu_candidates = function(word = ""){
   }
 
   # But change stress to penult if word ends in am:
-  winner = winner %>%
+  winner = winner |>
     stringr::str_replace(pattern = "(\\w+\\.)\u02c8(\\w*am$)",
                          replacement = "\u02c8\\1\\2")
 
@@ -378,7 +383,7 @@ pu_candidates = function(word = ""){
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
 #' @noRd
 #' @return The stressed version of the string in question
-#' @importFrom magrittr %>%
+
 apu_candidates = function(word = ""){
 
   c1 = stringr::str_replace(string = word,

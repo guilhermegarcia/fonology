@@ -6,7 +6,6 @@
 #' @return The transcription with dactylic lowering if applicable
 #' @examples
 #' dact_pt(word = "ˈpe.te.le");
-#' @importFrom magrittr %>%
 #' @export
 
 dact_pt = function(word = ""){

@@ -4,12 +4,11 @@
 #' @param word A possible string in Portuguese in its orthographic form
 #' @noRd
 #' @return A word without its hyphenated clitics
-#' @importFrom magrittr %>%
 
 strip_clitic_pt = function(word = ""){
 
   parts = stringr::str_split(string = word,
-                    pattern = "-") %>%
+                    pattern = "-") |>
     unlist()
 
   enclitics = c("o", "a", "os", "as",
@@ -17,7 +16,7 @@ strip_clitic_pt = function(word = ""){
                 "te", "lhe", "me", "\u00e3o")
 
 
-  enclitics = stringr::str_c("-", enclitics) %>%
+  enclitics = stringr::str_c("-", enclitics) |>
     stringr::str_c(collapse = "|")
 
 
@@ -28,7 +27,7 @@ strip_clitic_pt = function(word = ""){
                  "bem", "sem", "vice", "gr\u00e3o",
                  "gr\u00e3", "soto")
 
-  proclitics = stringr::str_c(proclitics, "-") %>%
+  proclitics = stringr::str_c(proclitics, "-") |>
     stringr::str_c(collapse = "|")
 
   clitics = stringr::str_c(enclitics, "|", proclitics)
