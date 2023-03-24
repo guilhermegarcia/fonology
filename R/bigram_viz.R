@@ -8,11 +8,11 @@
 #' @param text A possible string in its phonemic form without syllabification or stress. The only diacritic that should be used is the tilde for nasals, e.g., ã.
 #' @return A tibble with phonotactic bigrams
 #' @examples
-#' biGram_tbl(text = "")
+#' biGramTbl(text = "")
 #' @export
 
 
-biGram_tbl = function(text = ""){
+biGramTbl = function(text = ""){
 
   if(stringr::str_c(text, collapse = " ") %in% c("", NA)){
     return(NA)
@@ -64,10 +64,10 @@ biGram_tbl = function(text = ""){
 #' @param n The number of bigrams to plot
 #' @return A ggplot2 plot with the most common bigrams
 #' @examples
-#' plot_biGrams(bigrams = "")
+#' plotBiGrams(bigrams = "")
 #' @export
 
-plot_biGrams = function(bigrams, type = "lollipop", n = 5){
+plotBiGrams = function(bigrams, type = "lollipop", n = 5){
 
   if(!sum(names(bigrams) == c("nGrams", "n1", "n2", "freq", "prop")) == 5){
     message("Your input is invalid. You must first run biGram_tbl() to create an appropriate input.")

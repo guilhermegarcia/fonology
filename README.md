@@ -180,7 +180,7 @@ example
 #> # Rowwise: 
 #>   word      ipa          syl2  demi1  disp   SSP
 #>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
-#> 1 partolo   ˈpaɾ.to.lo   to    to     0.06     1
+#> 1 partolo   paɾ.ˈto.lo   to    to     0.06     1
 #> 2 metrilpo  me.ˈtɾil.po  tɾil  tɾi    0.56     1
 #> 3 vanplidos vam.ˈpli.dos pli   pli    0.56     1
 ```
@@ -213,10 +213,9 @@ string must use broad phonemic transcription, but no syllabification or
 stress. The reference used calculate probabilities is the [Portuguese
 Stress Lexicon](https://gdgarcia.ca/psl.html).
 
-Two additional functions can be used to explore bigrams: `biGram_tbl()`
+Two additional functions can be used to explore bigrams: `biGramTbl()`
 generates a tibble with phonotactic bigrams from a given text, and
-`plot_biGrams()` creates a plot for inputs generated with
-`biGram_tbl()`.
+`plotBiGrams()` creates a plot for inputs generated with `biGramTbl()`.
 
 ## Word generator for Portuguese
 
