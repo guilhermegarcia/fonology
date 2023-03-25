@@ -70,7 +70,7 @@ getPhon(ft = c("-son", "+vce"), lg = "Spanish")
 #> [1] "z" "d" "b" "ʝ" "g" "v"
 ```
 
-## IPA transcription for Portuguese
+## IPA transcription
 
 The function `ipa()` takes a `word` (or a vector with multiple words,
 real or not) in Portuguese or Spanish in its orthographic form and
