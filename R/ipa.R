@@ -2,8 +2,8 @@
 #'
 #' Given a string, the function returns its IPA transcription with stress and syllabification.
 #' @param word A possible string in its orthographic form
-#' @param narrow Boolean. Whether a narrow transcription is desired (default is FALSE).
-#' Narrow transcription is only available for Portuguese inputs
+#' @param narrow Boolean. Whether a narrow transcription is desired (default is FALSE)
+#' Narrow transcription is only available for Portuguese inputs and will be ignored for other languages
 #' @param lg Language. Currently, only Portuguese is supported
 #' @return The phonemic transcription for the string in question
 #' @examples
@@ -18,8 +18,15 @@ ipa = function(word, lg = "Portuguese", narrow = FALSE){
 
     return(output)
   }
+
+  else if(stringr::str_to_lower(lg) %in% c("sp", "spanish")){
+    output = ipa_sp(word)
+
+    return(output)
+  }
+
   else {
-    message("Only Portuguese is currently supported.")
+    message("Only Portuguese and Spanish are currently supported.")
     return(NA)
   }
 }

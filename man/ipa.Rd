@@ -11,8 +11,8 @@ ipa(word, lg = "Portuguese", narrow = FALSE)
 
 \item{lg}{Language. Currently, only Portuguese is supported}
 
-\item{narrow}{Boolean. Whether a narrow transcription is desired (default is FALSE).
-Narrow transcription is only available for Portuguese inputs}
+\item{narrow}{Boolean. Whether a narrow transcription is desired (default is FALSE)
+Narrow transcription is only available for Portuguese inputs and will be ignored for other languages}
 }
 \value{
 The phonemic transcription for the string in question
