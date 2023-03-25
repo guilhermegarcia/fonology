@@ -11,6 +11,12 @@ transcribe_pt_vec = function(word = ""){
 
   word = stringr::str_to_lower(word)
 
+
+  # CC:
+  word = stringr::str_replace_all(word,
+                                  pattern = "cc",
+                                  replacement = "ks")
+
   double_C = function(s = ""){
 
     Cs = c("bcdfghjklmnpqtvxywz")
@@ -93,7 +99,7 @@ transcribe_pt_vec = function(word = ""){
                                   pattern = "g([ei])",
                                   replacement = "\u0292\\1")
 
-    word = stringr::str_replace_all(word,
+  word = stringr::str_replace_all(word,
                                   pattern = "gu([ei])",
                                   replacement = "g\\1")
 

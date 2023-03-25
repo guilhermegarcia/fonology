@@ -11,7 +11,13 @@ transcribe_pt = function(word = ""){
 
   word = stringr::str_to_lower(word)
 
+  # CC:
+  word = stringr::str_replace_all(word,
+                                  pattern = "cc",
+                                  replacement = "ks")
+
   double_C = function(s = ""){
+
 
     Cs = c("bcdfghjklmnpqtvxywz")
     doubleCs = Cs |>
