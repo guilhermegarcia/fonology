@@ -11,9 +11,35 @@
 
 transcribe_sp = function(word) {
 
+  double_C = function(s = ""){
+
+    doubleCs = "p{2,}|b{2,}|c{2,}|t{2,}|d{2,}|k{2,}|g{2,}|l{2,}|m{2,}|n{2,}|f{2,}|v{2,}"
+
+    single_C = stringr::str_extract(s,
+                                    pattern = doubleCs) |>
+      stringr::str_sub(start = 1, end = 1)
+
+    empty_s = stringr::str_replace_all(s,
+                                       pattern = doubleCs,
+                                       replacement = "#")
+
+    final_s = empty_s |>
+      stringr::str_replace_all(pattern = "#",
+                               replacement = single_C)
+
+    return(final_s)
+
+
+  }
+
+  # Clean word of double Cs:
+  word = double_C(word)
+
   word = stringr::str_replace_all(word, "ch", "t\u0283")
   word = stringr::str_replace_all(word, "ll", "\u028e")
   word = stringr::str_replace_all(word, "x", "ks")
+  word = stringr::str_replace_all(word, "sc([ei])", "s\\1")
+  word = stringr::str_replace_all(word, "ss", "s")
   word = stringr::str_replace_all(word, "(e)j([aou])", "\\1\u029d\\2")
   word = stringr::str_replace_all(word, "j", "x")
   word = stringr::str_replace_all(word, "([^r])r([^r])", "\\1\u027e\\2")

@@ -78,6 +78,16 @@
 #' @source <https://cran.r-project.org/web/packages/tm/index.html>
 "stopwords_pt"
 
+
+#' Stopwords in Spanish
+#'
+#' Set of stopwords in Portuguese from the tm package.
+#'
+#' @format ## `stopwords_sp`
+#' A vector with stopwords in Spanish
+#' @source <https://cran.r-project.org/web/packages/tm/index.html>
+"stopwords_sp"
+
 #' Distinctive features
 #'
 #' Comprehensive dataset with phonemes and their distinctive features.

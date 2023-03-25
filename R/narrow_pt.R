@@ -394,6 +394,14 @@ narrow_pt_vec = function(word = ""){
   narrow = narrow |>
     sec_stress_pt_vec()
 
+  # Adjust secondary stress:
+
+  # "seMI" to "SEmi" prefix:
+  narrow = narrow |>
+    stringr::str_replace_all(pattern = "^se\\.\u02ccmi",
+                             replacement = "\u02ccse.mi")
+
+
   return(narrow)
 
 }
