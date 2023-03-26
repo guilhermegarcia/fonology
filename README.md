@@ -217,9 +217,9 @@ string must use broad phonemic transcription, but no syllabification or
 stress. The reference used calculate probabilities is the [Portuguese
 Stress Lexicon](https://gdgarcia.ca/psl.html).
 
-Two additional functions can be used to explore bigrams: `biGramTbl()`
+Two additional functions can be used to explore bigrams: `nGramTbl()`
 generates a tibble with phonotactic bigrams from a given text, and
-`plotBiGrams()` creates a plot for inputs generated with `biGramTbl()`.
+`plotnGrams()` creates a plot for inputs generated with `nGramTbl()`.
 
 ## Word generator for Portuguese
 
@@ -232,9 +232,9 @@ since that’s relatively rare in Portuguese. Still, there will certainly
 be other sequences that sound less natural. The function is not too
 strict because you may have a wide range of variables in mind as you
 create novel words. Finally, if you wish to include palatalization, set
-`palatalization = T`—if you do that, bear in mind that `biGram()` won’t
-work as it requires phonemic transcription without syllabification or
-stress.
+`palatalization = T`—if you do that, bear in mind that `biGram_pt()`
+won’t work as it requires phonemic transcription without syllabification
+or stress.
 
 ``` r
 set.seed(1)
