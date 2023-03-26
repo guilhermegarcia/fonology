@@ -59,6 +59,13 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
                                 rep(2, length(affricates)),
                                 rep(1, length(stops))))
 
+  stressPosition = ""
+
+  if(getStress(word) == "pre-antepenult"){stressPosition <- "4"}
+  if(getStress(word) == "antepenult"){stressPosition <- "3"}
+  if(getStress(word) == "penult"){stressPosition <- "2"}
+  if(getStress(word) == "final"){stressPosition <- "1"}
+
   checkInput = word |>
     stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc|\u02d0|\u02d1|-|\\.") |>
     stringr::str_split("") |>
@@ -95,20 +102,22 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
       dplyr::mutate(item = stringr::str_c("item", dplyr::row_number(), sep = "_"),
                     syl = NA)
 
-    syl_counter = 1
+    nSyl = stringr::str_count(word, pattern = "\\.") + 1
+    syl_counter = nSyl
 
     for(i in 1:nrow(word_son)){
       if(!word_son$phoneme[i] %in% c(".", "-")){
         word_son$syl[i] = syl_counter
       } else if(word_son$phoneme[i] %in% c(".", "-")){
         word_son$syl[i] = NA
-        syl_counter = syl_counter + 1
+        syl_counter = syl_counter - 1
       }
     }
 
     word_son = word_son |>
       dplyr::mutate(syl = as.factor(syl)) |>
-      dplyr::filter(!phoneme %in% c(".", "-"))
+      dplyr::filter(!phoneme %in% c(".", "-")) |>
+      dplyr::mutate(stress = dplyr::if_else(syl == stressPosition, 1, 0))
 
     sonPlot = ggplot2::ggplot(data = word_son, ggplot2::aes(x = item, y = son)) +
       ggplot2::geom_line(ggplot2::aes(group = 1), linetype = "twodash", color = "gray") +
@@ -122,10 +131,22 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
                      panel.background = ggplot2::element_blank(),
                      legend.position = "none") +
       ggplot2::labs(y = NULL, x = NULL) +
-      ggplot2::geom_label(ggplot2::aes(label = phoneme, group = item,
-                              fill = syl),
+
+      # Unstressed syllables:
+      ggplot2::geom_label(data = word_son |> dplyr::filter(stress == 0),
+                          ggplot2::aes(label = phoneme, group = item,
+                                       fill = syl),
                           size = 8, fontface = "bold",
                           label.r = ggplot2::unit(0, "lines"),
+                          label.padding = ggplot2::unit(0.75, "lines")) +
+
+      # Stressed syllable:
+      ggplot2::geom_label(data = word_son |> dplyr::filter(stress == 1),
+                          ggplot2::aes(label = phoneme, group = item,
+                                       fill = syl),
+                          size = 8, fontface = "bold",
+                          label.r = ggplot2::unit(0, "lines"),
+                          label.size = 1.5,
                           label.padding = ggplot2::unit(0.75, "lines")) +
       ggplot2::scale_fill_brewer(palette = "Pastel1")
 

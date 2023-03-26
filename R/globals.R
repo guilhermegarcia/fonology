@@ -6,4 +6,5 @@ utils::globalVariables(c("pt_lex", ".", "pro",
                          "y", "vowel", "score",
                          "bigrams_pt", "freq",
                          "ngrams", "prop", "prob",
-                         "nGrams", "n1", "n2"))
+                         "nGrams", "n1", "n2",
+                         "stress"))
