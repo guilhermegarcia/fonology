@@ -22,13 +22,13 @@ nGramTbl = function(text = "", n = 2){
   symbols = c("$", "^")
   combs2 = gtools::permutations(n = 2, r = 2, v = symbols, repeats.allowed = T) |>
     as.matrix() |>
-    tibble::as_tibble() |>
+    tibble::as_tibble(.name_repair = "minimal") |>
     dplyr::mutate(V3 = stringr::str_c(V1, V2)) |>
     dplyr::pull(V3)
 
   combs3 = gtools::permutations(n = 2, r = 3, v = symbols, repeats.allowed = T) |>
     as.matrix() |>
-    tibble::as_tibble() |>
+    tibble::as_tibble(.name_repair = "minimal") |>
     dplyr::mutate(V4 = stringr::str_c(V1, V2, V3)) |>
     dplyr::pull(V4)
 
@@ -51,7 +51,7 @@ nGramTbl = function(text = "", n = 2){
 
     ng_tbl = ng |>
       ngram::get.phrasetable() |>
-      tibble::as_tibble() |>
+      tibble::as_tibble(.name_repair = "minimal") |>
       dplyr::rename(nGrams = ngrams) |>
       dplyr::mutate(nGrams = stringr::str_remove_all(nGrams, "\\s$")) |>
       tidyr::separate_wider_delim(cols = nGrams, delim = " ", names = c("n1")) |>
@@ -77,7 +77,7 @@ nGramTbl = function(text = "", n = 2){
 
     ng_tbl = ng |>
       ngram::get.phrasetable() |>
-      tibble::as_tibble() |>
+      tibble::as_tibble(.name_repair = "minimal") |>
       dplyr::rename(nGrams = ngrams) |>
       dplyr::mutate(nGrams = stringr::str_remove_all(nGrams, "\\s$")) |>
       tidyr::separate_wider_delim(cols = nGrams, delim = " ", names = c("n1", "n2")) |>
@@ -108,7 +108,7 @@ nGramTbl = function(text = "", n = 2){
 
     ng_tbl = ng |>
       ngram::get.phrasetable() |>
-      tibble::as_tibble() |>
+      tibble::as_tibble(.name_repair = "minimal") |>
       dplyr::rename(nGrams = ngrams) |>
       dplyr::mutate(nGrams = stringr::str_remove_all(nGrams, "\\s$")) |>
       tidyr::separate_wider_delim(cols = nGrams, delim = " ", names = c("n1", "n2", "n3")) |>

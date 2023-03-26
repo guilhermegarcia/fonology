@@ -373,7 +373,7 @@ biGram_pt_helper = function(word = ""){
 
   bigramProb = ngram::ngram(str = word, n = 2) |>
     ngram::get.phrasetable() |>
-    tibble::as_tibble() |>
+    tibble::as_tibble(.name_repair = "minimal") |>
     tidyr::uncount(freq) |>
     dplyr::mutate(ngrams = str_remove_all(ngrams, pattern = "\\s")) |>
     dplyr::select(-c(prop)) |>

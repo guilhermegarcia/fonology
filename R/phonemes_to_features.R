@@ -126,7 +126,7 @@ getFeat = function(ph = c(), lg = "Portuguese"){
       x1 = gtools::combinations(totalLength, i)
 
       x2 = as.data.frame(x1) |>
-        dplyr::as_tibble()
+        dplyr::as_tibble(.name_repair = "minimal")
 
       for(j in seq_along(1:nrow(x2))){
 
