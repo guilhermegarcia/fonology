@@ -194,6 +194,26 @@ narrow_pt = function(word = ""){
   narrow = narrow |>
     sec_stress_pt()
 
+
+  # Paragoge
+  narrow = stringr::str_replace(narrow,
+                                pattern = "t$",
+                                replacement = ".t\u0361\u0283\u026a")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "d$",
+                                replacement = ".d\u0361\u0292\u026a")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "([pbkgfv])$",
+                                replacement = ".\\1\u026a")
+
+  # Vowel devoicing word-finally after voiceless affricate:
+  narrow = stringr::str_replace(narrow,
+                                pattern = "(t\u0361\u0283)\u026a$",
+                                replacement = "\\1\u026a\u0325")
+
+
   return(narrow)
 
 }
@@ -393,6 +413,25 @@ narrow_pt_vec = function(word = ""){
 
   narrow = narrow |>
     sec_stress_pt_vec()
+
+  # Paragoge
+  narrow = stringr::str_replace(narrow,
+                                pattern = "t$",
+                                replacement = ".t\u0361\u0283\u026a")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "d$",
+                                replacement = ".d\u0361\u0292\u026a")
+
+  narrow = stringr::str_replace(narrow,
+                                pattern = "([pbkgfv])$",
+                                replacement = ".\\1\u026a")
+
+  # Vowel devoicing word-finally after voiceless affricate:
+  narrow = stringr::str_replace(narrow,
+                                pattern = "(t\u0361\u0283)\u026a$",
+                                replacement = "\\1\u026a\u0325")
+
 
   # Adjust secondary stress:
 

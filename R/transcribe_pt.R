@@ -154,7 +154,7 @@ transcribe_pt = function(word = ""){
 
   # C before a,o,u
   word = stringr::str_replace_all(word,
-                                  pattern = "c([a\u00e1\u00e3o\u00f3\u00f5\u00f4u\u00fa])",
+                                  pattern = "c([a\u00e2\u00e1\u00e3o\u00f3\u00f5\u00f4u\u00fa])",
                                   replacement = "k\\1")
 
   # C before e,i
@@ -272,8 +272,15 @@ transcribe_pt = function(word = ""){
 
   # Palatal fricatives
   word = stringr::str_replace_all(word,
-                                  pattern = "ch",
+                                  pattern = "schw",
+                                  replacement = "\u0283v")
+
+  # Palatal fricatives
+  word = stringr::str_replace_all(word,
+                                  pattern = "ch|sch",
                                   replacement = "\u0283")
+
+
 
   word = stringr::str_replace_all(word,
                                   pattern = "j([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9])",

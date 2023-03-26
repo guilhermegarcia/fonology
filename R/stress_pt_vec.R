@@ -13,30 +13,30 @@ stress_pt_vec = function(word = c("ka.va.lo")){
   # Assign names:
   names(word) = seq(1:length(word))
 
-  # Diacritics: replace with stress and get ride of accented vowels
+  # Diacritics: replace with stress and get rid of accented vowels
   which_diacritics = stringr::str_detect(string = word, pattern = "[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]", negate = F)
   diacritics = stringr::str_replace_all(string = word[which_diacritics],
                                         pattern = "(\\w*[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]\\w*)",
                                         replacement = "\u02c8\\1") |>
-    stringr::str_replace(pattern = "[\u00e1\u00e0]",
+    stringr::str_replace_all(pattern = "[\u00e1\u00e0]",
                          replacement = "a") |>
-    stringr::str_replace(pattern = "[\u00e9\u00e8]",
+    stringr::str_replace_all(pattern = "[\u00e9\u00e8]",
                          replacement = "\u025b") |>
-    stringr::str_replace(pattern = "[\u00ed\u00ec]",
+    stringr::str_replace_all(pattern = "[\u00ed\u00ec]",
                          replacement = "i") |>
-    stringr::str_replace(pattern = "[\u00f3\u00f2]",
+    stringr::str_replace_all(pattern = "[\u00f3\u00f2]",
                          replacement = "\u0254") |>
-    stringr::str_replace(pattern = "[\u00fa\u00f9]",
+    stringr::str_replace_all(pattern = "[\u00fa\u00f9]",
                          replacement = "u") |>
-    stringr::str_replace(pattern = "\u00ea",
+    stringr::str_replace_all(pattern = "\u00ea",
                          replacement = "e") |>
-    stringr::str_replace(pattern = "\u00f4",
+    stringr::str_replace_all(pattern = "\u00f4",
                          replacement = "o") |>
-    stringr::str_replace(pattern = "\u00e2",
+    stringr::str_replace_all(pattern = "\u00e2",
                          replacement = "a") |>
-    stringr::str_replace(pattern = "\u00f4",
+    stringr::str_replace_all(pattern = "\u00f4",
                          replacement = "o") |>
-    stringr::str_replace(pattern = "\u00ea",
+    stringr::str_replace_all(pattern = "\u00ea",
                          replacement = "e")
 
 
