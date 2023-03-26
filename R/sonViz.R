@@ -146,7 +146,7 @@ plotSon = function(word = "", syl = FALSE, save_plot = FALSE){
                                        fill = syl),
                           size = 8, fontface = "bold",
                           label.r = ggplot2::unit(0, "lines"),
-                          label.size = 1.5,
+                          label.size = 1.25,
                           label.padding = ggplot2::unit(0.75, "lines")) +
       ggplot2::scale_fill_brewer(palette = "Pastel1")
 
