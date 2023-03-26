@@ -19,18 +19,9 @@ nGramTbl = function(text = "", n = 2){
     return(NA)
   }
 
-  symbols = c("$", "^")
-  combs2 = gtools::permutations(n = 2, r = 2, v = symbols, repeats.allowed = T) |>
-    as.matrix() |>
-    tibble::as_tibble(.name_repair = "minimal") |>
-    dplyr::mutate(V3 = stringr::str_c(V1, V2)) |>
-    dplyr::pull(V3)
+  combs2 = c("^^", "^$", "$^", "$$")
 
-  combs3 = gtools::permutations(n = 2, r = 3, v = symbols, repeats.allowed = T) |>
-    as.matrix() |>
-    tibble::as_tibble(.name_repair = "minimal") |>
-    dplyr::mutate(V4 = stringr::str_c(V1, V2, V3)) |>
-    dplyr::pull(V4)
+  combs3 = c("^^^", "^^$", "^$^", "^$$", "$^^", "$^$", "$$^", "$$$")
 
   textClean = text |>
     cleanText()
