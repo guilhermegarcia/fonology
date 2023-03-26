@@ -53,7 +53,7 @@ transcribe_sp = function(word) {
   word = stringr::str_replace_all(word, "c(?![ei])", "k")
 
   # Word-initial h:
-  word = stringr::str_replace_all(word, "^h", "")
+  word = stringr::str_replace_all(word, "h", "")
 
   # Conjunction y:
   word = stringr::str_replace_all(word, "^y$", "i")
