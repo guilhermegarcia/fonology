@@ -7,7 +7,7 @@
 #' @export
 
 ipa_sp_test = function(){
-  message("Transcriptions using ipa_sp():")
+  message("Transcriptions using ipa():")
 
 
   testWords = c("la",           "algunos",      "comunicarnos",
