@@ -40,7 +40,7 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  french = c("a.e.\u00f8.\u0251.i.y.o.u.\u025b.\u0254.\u0259.\u0153.\u025b\u0303.\u0153\u0303.\u0254\u0303.\u0251\u0303.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.\u0281.m.\u0271.n.\u0272.\u014b.l.w.j.\u0265") |>
+  french = c("a.e.\u00f8.\u0251.i.y.o.u.\u025b.\u0254.\u0259.\u0153.\u025b\u0303.\u0153\u0303.\u0254\u0303.\u0251\u0303.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.\u0281.m.n.\u0272.\u014b.l.w.j.\u0265") |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
