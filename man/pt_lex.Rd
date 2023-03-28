@@ -6,23 +6,23 @@
 \title{Portuguese Stress Lexicon - simplified}
 \format{
 A data frame with 154,610 rows and 2 columns:
+\describe{
+  \item{\code{word}}{A word in its orthographic form}
+  \item{\code{pro}}{The phonemic transcription of a word}
+}
 }
 \source{
 <https://gdgarcia.ca/psl>
 }
 \usage{
-pt_lex
+data(pt_lex)
 }
 \description{
 Comprehensive list of non-verbs in Portuguese and their phonemic transcription.
 This data set is used by different functions in Fonology. Unlike the original PSL data base,
-`pt_lex` uses slightly different transcription conventions.
+\code{pt_lex} uses slightly different transcription conventions.
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})
-\describe{
-  \item{\code{word}}{A word in its orthographic form}
-  \item{\code{pro}}{The phonemic transcription of a word}
-}
 }
 \keyword{datasets}
