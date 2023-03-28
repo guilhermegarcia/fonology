@@ -5,7 +5,6 @@
 \alias{bigrams_pt}
 \title{Bigrams in Portuguese}
 \format{
-## `bigrams_pt`
 A tibble with bigrams, frequency, and proportions
 }
 \source{
@@ -16,5 +15,8 @@ bigrams_pt
 }
 \description{
 Set of bigrams extracted from the Portuguese Stress Lexicon using the ngram package.
+}
+\author{
+Guilherme D. Garcia (\url{https://gdgarcia.ca})
 }
 \keyword{datasets}

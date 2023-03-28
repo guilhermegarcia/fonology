@@ -5,7 +5,6 @@
 \alias{allFeatures}
 \title{Distinctive features}
 \format{
-## `allFeatures`
 A data frame with with one IPA symbol per row and one feature per column
 }
 \source{
@@ -18,5 +17,8 @@ allFeatures
 Comprehensive dataset with phonemes and their distinctive features.
 The list is based on PanPhon, by Mortensen et al (2016), whose GitHub can be found
 at https://github.com/dmort27/panphon
+}
+\author{
+Guilherme D. Garcia (\url{https://gdgarcia.ca})
 }
 \keyword{datasets}

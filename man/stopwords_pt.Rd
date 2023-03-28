@@ -17,4 +17,7 @@ stopwords_pt
 \description{
 Set of stopwords in Portuguese from the tm package.
 }
+\author{
+Guilherme D. Garcia (\url{https://gdgarcia.ca})
+}
 \keyword{datasets}

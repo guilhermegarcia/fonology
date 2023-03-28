@@ -46,7 +46,7 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  spanish = c("a.e.\u0251.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") |>
+  spanish = c("a.e.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
 

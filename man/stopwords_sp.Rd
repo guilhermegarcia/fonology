@@ -15,6 +15,9 @@ A vector with stopwords in Spanish
 stopwords_sp
 }
 \description{
-Set of stopwords in Portuguese from the tm package.
+Set of stopwords in Spanish from the tm package.
+}
+\author{
+Guilherme D. Garcia (\url{https://gdgarcia.ca})
 }
 \keyword{datasets}

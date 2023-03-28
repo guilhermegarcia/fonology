@@ -5,62 +5,84 @@
 \alias{psl}
 \title{Portuguese Stress Lexicon}
 \format{
-## `psl`
 A data frame with 154,610 rows and 62 columns:
 \describe{
-  \item{word}{A word in its orthographic form}
-  \item{pro}{The phonemic transcription of a word. This uses slightly different conventions than those in Fonology transcriptions}
-  \item{nSyl}{Number of syllables in a word}
-  \item{stressSylNum}{The position of the stressed syllable starting from the right edge of the word}
-  \item{nSylPre}{Number of pre-tonic syllables}
-  \item{nOnset.xxx}{Number of onset segments in position xxx}
-  \item{nucleus.xxx}{Number of nuclear segments in position xxx}
-  \item{nCoda.xxx}{Number of coda segments in position xxx}
-  \item{onset.xxx}{Onset segments in position xxx}
-  \item{vowel.xxx}{Vowel segments in position xxx}
-  \item{coda.xxx}{Coda segments in position xxx}
-  \item{onset.xxx}{Number of syllables in a word}
-  \item{nOnset.stress}{Number of onsets in stressed position}
-  \item{nucleus.stress}{Number of nuclear segments in stressed position}
-  \item{nCoda.stress}{Number of codas in stressed position}
-  \item{onset.stress}{Onsets in stressed position}
-  \item{vowel.stress}{Vowels in stressed position}
-  \item{coda.stress}{Codas in stressed position}
-  \item{nOnset.alt}{Number of onsets in alternative position}
-  \item{nucleus.alt}{Number of nuclear segments in alternative position}
-  \item{nCoda.alt}{Number of codas in alternative position}
-  \item{onset.alt}{Onsets in alternative position}
-  \item{vowel.alt}{Vowels in alternative position}
-  \item{coda.alt}{Codas in alternative position}
-  \item{POS}{Part of speech. The lexicon only has nouns and adjectives}
-  \item{intx}{Number of segments in V-to-V interval x based Steriade (2012). Pre-vocalic consonants are extrametrical in antepenultimate position}
-  \item{INTx}{Number of segments in V-to-V interval x based Steriade (2012). Pre-vocalic consonants are NOT extrametrical in antepenultimate position}
-  \item{rhyme.xxx}{Whether the rhyme in position x is light or heavy}
-  \item{weightProfile}{Weight profile of a word using Ls and Hs}
-  \item{wordProfile}{Word profile in Cs and Vs}
-  \item{finalWordProfile}{wordProfile for trisyllabic window}
-  \item{proU}{Phonemic transcription excluding syllabification and stress}
-  \item{stemPro}{proU excluding final phoneme}
-  \item{xxxSyl}{Syllable in xxx position}
-  \item{stress}{Stress position (numeric), where 1 = final stress and 3 = antepenultimate stress}
-  \item{stressLoc}{Stress position}
-  \item{ID}{Unique ID column for each row}
-  \item{bigramProb}{Bigram probability (log)}
-  \item{bigramProbStd}{Standardized bigram probability}
-  \item{nDensity}{Neighbourhood density}
-  \item{nDensityStd}{Standardized neighbourhood density}
-  \item{POU}{Point of uniqueness: the sound, from beginning to end of the word, where it diverges from all other morphologically unrelated words}
-  \item{POUstd}{Standardized point of uniqueness}
+  \item{\code{word}}{A word in its orthographic form}
+  \item{\code{pro}}{The phonemic transcription of a word. This uses slightly different conventions than those in Fonology transcriptions}
+  \item{\code{nSyl}}{Number of syllables in a word}
+  \item{\code{stressSylNum}}{The position of the stressed syllable starting from the right edge of the word}
+  \item{\code{nSylPre}}{Number of pre-tonic syllables}
+  \item{\code{nOnset.ant}}{Number of onset segments in antepenultimate position}
+  \item{\code{nOnset.pen}}{Number of onset segments in penultimate position}
+  \item{\code{nOnset.fin}}{Number of onset segments in final position}
+  \item{\code{nucleus.ant}}{Number of nuclear segments in antepenultimate position}
+  \item{\code{nucleus.pen}}{Number of nuclear segments in penultimate position}
+  \item{\code{nucleus.fin}}{Number of nuclear segments in final position}
+  \item{\code{nCoda.ant}}{Number of coda segments in antepenultimate position}
+  \item{\code{nCoda.pen}}{Number of coda segments in penultimate position}
+  \item{\code{nCoda.fin}}{Number of coda segments in final position}
+  \item{\code{onset.ant}}{Onset segments in antepenultimate position}
+  \item{\code{onset.pen}}{Onset segments in penultimate position}
+  \item{\code{onset.fin}}{Onset segments in final position}
+  \item{\code{vowel.ant}}{Vowel segments in antepenultimate position}
+  \item{\code{vowel.pen}}{Vowel segments in penultimate position}
+  \item{\code{vowel.fin}}{Vowel segments in final position}
+  \item{\code{coda.ant}}{Coda segments in antepenultimate position}
+  \item{\code{coda.pen}}{Coda segments in penultimate position}
+  \item{\code{coda.fin}}{Coda segments in final position}
+  \item{\code{nOnset.stress}}{Number of onsets in stressed position}
+  \item{\code{nucleus.stress}}{Number of nuclear segments in stressed position}
+  \item{\code{nCoda.stress}}{Number of codas in stressed position}
+  \item{\code{onset.stress}}{Onsets in stressed position}
+  \item{\code{vowel.stress}}{Vowels in stressed position}
+  \item{\code{coda.stress}}{Codas in stressed position}
+  \item{\code{nOnset.alt}}{Number of onsets in alternative position}
+  \item{\code{nucleus.alt}}{Number of nuclear segments in alternative position}
+  \item{\code{nCoda.alt}}{Number of codas in alternative position}
+  \item{\code{onset.alt}}{Onsets in alternative position}
+  \item{\code{vowel.alt}}{Vowels in alternative position}
+  \item{\code{coda.alt}}{Codas in alternative position}
+  \item{\code{POS}}{Part of speech. The lexicon only has nouns and adjectives}
+  \item{\code{int1}}{Number of segments in V-to-V interval 1 based Steriade (2012). Pre-vocalic consonants are extrametrical in antepenultimate position}
+  \item{\code{int2}}{Number of segments in V-to-V interval 2 based Steriade (2012). Pre-vocalic consonants are extrametrical in antepenultimate position}
+  \item{\code{int3}}{Number of segments in V-to-V interval 3 based Steriade (2012). Pre-vocalic consonants are extrametrical in antepenultimate position}
+  \item{\code{INT1}}{Number of segments in V-to-V interval 1 based Steriade (2012). Pre-vocalic consonants are NOT extrametrical in antepenultimate position}
+  \item{\code{INT2}}{Number of segments in V-to-V interval 2 based Steriade (2012). Pre-vocalic consonants are NOT extrametrical in antepenultimate position}
+  \item{\code{INT3}}{Number of segments in V-to-V interval 3 based Steriade (2012). Pre-vocalic consonants are NOT extrametrical in antepenultimate position}
+  \item{\code{rhyme.ant}}{Whether the rhyme in antepenultimate position is light or heavy}
+  \item{\code{rhyme.pen}}{Whether the rhyme in penultimate position is light or heavy}
+  \item{\code{rhyme.fin}}{Whether the rhyme in final position is light or heavy}
+  \item{\code{weightProfile}}{Weight profile of a word using Ls and Hs}
+  \item{\code{wordProfile}}{Word profile in Cs and Vs}
+  \item{\code{finalWordProfile}}{wordProfile for trisyllabic window}
+  \item{\code{proU}}{Phonemic transcription excluding syllabification and stress}
+  \item{\code{stemPro}}{proU excluding final phoneme}
+  \item{\code{antSyl}}{Syllable in antepenultimate position}
+  \item{\code{penSyl}}{Syllable in penultimate position}
+  \item{\code{finSyl}}{Syllable in final position}
+  \item{\code{stress}}{Stress position (numeric), where 1 = final stress and 3 = antepenultimate stress}
+  \item{\code{stressLoc}}{Stress position}
+  \item{\code{ID}}{Unique ID column for each row}
+  \item{\code{bigramProb}}{Bigram probability (log)}
+  \item{\code{bigramProbStd}}{Standardized bigram probability}
+  \item{\code{nDensity}}{Neighbourhood density}
+  \item{\code{nDensityStd}}{Standardized neighbourhood density}
+  \item{\code{POU}}{Point of uniqueness: the sound, from beginning to end of the word, where it diverges from all other morphologically unrelated words}
+  \item{\code{POUstd}}{Standardized point of uniqueness}
 }
 }
 \source{
 <https://gdgarcia.ca/psl>
 }
 \usage{
-psl
+data(psl)
 }
 \description{
+The Portuguese Stress Lexicon (PSL; Garcia (2014)) contains non-verbs in the Portuguese language (excluding monosyllables). The lexicon is largely based on the list of words in the Houaiss Dictionary (Houaiss et al. 2001), which is the most comprehensive dictionary in Portuguese. PSL contains 154,610 entries and 62 columns, which provide a comprehensive set of variables (including pronunciation, syllabification, stress position, syllabic constituents, intervals, CV profiles and weight profiles).
 Comprehensive list of non-verbs in Portuguese.
 The lexicon is coded for a number of phonological variables.
+}
+\author{
+Guilherme D. Garcia (\url{https://gdgarcia.ca})
 }
 \keyword{datasets}
