@@ -5,14 +5,13 @@
 \alias{stopwords_sp}
 \title{Stopwords in Spanish}
 \format{
-## `stopwords_sp`
 A vector with stopwords in Spanish
 }
 \source{
 <https://cran.r-project.org/web/packages/tm/index.html>
 }
 \usage{
-stopwords_sp
+data(stopwords_sp)
 }
 \description{
 Set of stopwords in Spanish from the tm package.

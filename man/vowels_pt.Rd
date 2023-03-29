@@ -8,7 +8,7 @@
 A vector containing the consonants and glides in Portuguese
 }
 \usage{
-vowels_pt
+data(vowels_pt)
 }
 \description{
 The inventory of vowels in Portuguese

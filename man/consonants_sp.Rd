@@ -8,7 +8,7 @@
 A vector containing the consonants and glides in Spanish
 }
 \usage{
-consonants_sp
+data(consonants_sp)
 }
 \description{
 The inventory of consonants and glides in Spanish

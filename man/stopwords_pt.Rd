@@ -5,14 +5,13 @@
 \alias{stopwords_pt}
 \title{Stopwords in Portuguese}
 \format{
-## `stopwords_pt`
 A vector with stopwords in Portuguese
 }
 \source{
 <https://cran.r-project.org/web/packages/tm/index.html>
 }
 \usage{
-stopwords_pt
+data(stopwords_pt)
 }
 \description{
 Set of stopwords in Portuguese from the tm package.

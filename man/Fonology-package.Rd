@@ -4,10 +4,14 @@
 \name{Fonology-package}
 \alias{Fonology}
 \alias{Fonology-package}
-\title{Fonology: Phonological analysis in R}
+\title{Fonology: Phonological Analysis in R}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-The package contains a range of functions to help with phonological analysis and teaching.
+A collection of tools to help with phonological analysis. Functions include grapheme to phoneme conversion, sonority dispersion calculation, minimal matrices for natural classes given a set of features, and others.
+}
+\author{
+\strong{Maintainer}: Guilherme D. Garcia \email{guilherme.garcia@lli.ulaval.ca} (\href{https://orcid.org/0000-0003-1412-3856}{ORCID}) [copyright holder]
+
 }
 \keyword{internal}

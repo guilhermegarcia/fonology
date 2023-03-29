@@ -8,7 +8,7 @@
 A vector containing the consonants and glides in French
 }
 \usage{
-vowels_fr
+data(vowels_fr)
 }
 \description{
 The inventory of vowels in French

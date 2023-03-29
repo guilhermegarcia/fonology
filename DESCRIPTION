@@ -1,10 +1,14 @@
 Package: Fonology
 Type: Package
-Title: Phonological analysis in R
+Title: Phonological Analysis in R
 Version: 0.8.5
-Author: Guilherme Duarte Garcia
-Maintainer: Guilherme Duarte Garcia <guilherme.garcia@lli.ulaval.ca>
-Description: The package contains a range of functions to help with phonological analysis and teaching.
+Authors@R: person(given = c("Guilherme", "D."), family = "Garcia",
+                  role = c("aut", "cre", "cph"),
+                  email = "guilherme.garcia@lli.ulaval.ca",
+                  comment = c(
+                              ORCID = "0000-0003-1412-3856")) 
+Maintainer: Guilherme D. Garcia <guilherme.garcia@lli.ulaval.ca>
+Description: A collection of tools to help with phonological analysis. Functions include grapheme to phoneme conversion, sonority dispersion calculation, minimal matrices for natural classes given a set of features, and others.
 License: MIT License + file LICENSE
 Encoding: UTF-8
 LazyData: true

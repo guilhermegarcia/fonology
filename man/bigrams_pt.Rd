@@ -11,7 +11,7 @@ A tibble with bigrams, frequency, and proportions
 <https://gdgarcia.ca/psl>
 }
 \usage{
-bigrams_pt
+data(bigrams_pt)
 }
 \description{
 Set of bigrams extracted from the Portuguese Stress Lexicon using the ngram package.

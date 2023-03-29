@@ -95,8 +95,8 @@
 #'
 #' Set of stopwords in Portuguese from the tm package.
 #'
-#' @format ## `stopwords_pt`
-#' A vector with stopwords in Portuguese
+#' @format A vector with stopwords in Portuguese
+#' @usage data(stopwords_pt)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @source <https://cran.r-project.org/web/packages/tm/index.html>
 "stopwords_pt"
@@ -106,8 +106,8 @@
 #'
 #' Set of stopwords in Spanish from the tm package.
 #'
-#' @format ## `stopwords_sp`
-#' A vector with stopwords in Spanish
+#' @format A vector with stopwords in Spanish
+#' @usage data(stopwords_sp)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @source <https://cran.r-project.org/web/packages/tm/index.html>
 "stopwords_sp"
@@ -119,6 +119,7 @@
 #' at https://github.com/dmort27/panphon
 #'
 #' @format A data frame with with one IPA symbol per row and one feature per column
+#' @usage data(allFeatures)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @source <https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
 "allFeatures"
@@ -128,6 +129,7 @@
 #' Formant values (F1 and F2) for a 5-vowel system
 #'
 #' @format A hypothetical dataset with vowel formants
+#' @usage data(vowels)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @source <https://gdgarcia.ca/vowels.html>
 "vowels"
@@ -137,6 +139,7 @@
 #' Set of bigrams extracted from the Portuguese Stress Lexicon using the ngram package.
 #'
 #' @format A tibble with bigrams, frequency, and proportions
+#' @usage data(bigrams_pt)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @source <https://gdgarcia.ca/psl>
 "bigrams_pt"
@@ -147,6 +150,7 @@
 #'
 #' @format A vector containing the consonants and glides in French
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @usage data(vowels_fr)
 "vowels_fr"
 
 #' Vowel inventory for Italian
@@ -155,6 +159,7 @@
 #'
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A vector containing the consonants and glides in Italian
+#' @usage data(vowels_it)
 "vowels_it"
 
 #' Vowel inventory for Portuguese
@@ -163,6 +168,7 @@
 #'
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A vector containing the consonants and glides in Portuguese
+#' @usage data(vowels_pt)
 "vowels_pt"
 
 #' Vowel inventory for Spanish
@@ -171,6 +177,7 @@
 #'
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A vector containing the consonants and glides in Spanish
+#' @usage data(vowels_sp)
 "vowels_sp"
 
 #' Consonant inventory for French
@@ -179,6 +186,7 @@
 #'
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A vector containing the consonants and glides in French
+#' @usage data(consonants_fr)
 "consonants_fr"
 
 #' Consonant inventory for Italian
@@ -187,6 +195,7 @@
 #'
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A vector containing the consonants and glides in Italian
+#' @usage data(consonants_it)
 "consonants_it"
 
 #' Consonant inventory for Portuguese
@@ -195,6 +204,7 @@
 #'
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A vector containing the consonants and glides in Portuguese
+#' @usage data(consonants_pt)
 "consonants_pt"
 
 #' Consonant inventory for Spanish
@@ -202,4 +212,5 @@
 #' The inventory of consonants and glides in Spanish
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A vector containing the consonants and glides in Spanish
+#' @usage data(consonants_sp)
 "consonants_sp"

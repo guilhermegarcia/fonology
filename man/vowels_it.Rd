@@ -8,7 +8,7 @@
 A vector containing the consonants and glides in Italian
 }
 \usage{
-vowels_it
+data(vowels_it)
 }
 \description{
 The inventory of vowels in Italian

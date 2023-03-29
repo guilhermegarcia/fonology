@@ -11,7 +11,7 @@ A data frame with with one IPA symbol per row and one feature per column
 <https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
 }
 \usage{
-allFeatures
+data(allFeatures)
 }
 \description{
 Comprehensive dataset with phonemes and their distinctive features.

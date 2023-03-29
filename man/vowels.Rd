@@ -11,7 +11,7 @@ A hypothetical dataset with vowel formants
 <https://gdgarcia.ca/vowels.html>
 }
 \usage{
-vowels
+data(vowels)
 }
 \description{
 Formant values (F1 and F2) for a 5-vowel system
