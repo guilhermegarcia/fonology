@@ -9,8 +9,8 @@ meanSonDisp(word = c(), phonemic = F)
 \arguments{
 \item{word}{A word in its orthographic (only for Portuguese) or phonemic form}
 
-\item{phonemic}{Whether the input is phonemically transcribed (words in languages other than Portuguese must be set to TRUE)
-and syllabified. Default is FALSE}
+\item{phonemic}{Whether the input is phonemically transcribed (words in languages other than Portuguese must be set to \code{TRUE})
+and syllabified. Default is \code{FALSE}}
 }
 \value{
 The mean sonority dispersion score

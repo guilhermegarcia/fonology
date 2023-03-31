@@ -1,7 +1,7 @@
 #' Narrow IPA transcriber for Portuguese
 #'
 #' Returns IPA phonemic transcription for a given string that is already phonemically transcribed
-#' @param word The string of interest is an output of ipa_pt()
+#' @param word The string of interest is an output of \code{ipa()}
 #' @noRd
 #' @return The IPA transcription of said string with surface-level adjustments
 

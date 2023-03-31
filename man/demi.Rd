@@ -9,7 +9,7 @@ demi(word = c(), d = 1)
 \arguments{
 \item{word}{A syllabified and phonemically transcribed word; vectors are accepted}
 
-\item{d}{Whether the function should return first (1) or second (2) demisyllable}
+\item{d}{Whether the function should return first \code{(1)} or second \code{(2)} demisyllable}
 }
 \value{
 The demisyllable of interest

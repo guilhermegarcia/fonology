@@ -9,12 +9,12 @@ plotSon(word = "", syl = FALSE, save_plot = FALSE)
 \arguments{
 \item{word}{A phonemically transcribed word. Syllabification and stress are optional}
 
-\item{syl}{Whether syllables should be color-coded (requires syllabification in the input using either . or -). Defaults to F}
+\item{syl}{Whether syllables should be color-coded (requires syllabification in the input using either . or -). Defaults to \code{FALSE}}
 
-\item{save_plot}{Whether the plot should be saved (in your working directory). Default is F}
+\item{save_plot}{Whether the plot should be saved (in your working directory). Default is \code{FALSE}}
 }
 \value{
-A ggplot figure with the sonority profile of the word
+A \code{ggplot2} figure with the sonority profile of the word
 }
 \description{
 Given a string, the function plots the sonority profile of the string using

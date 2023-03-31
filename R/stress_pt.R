@@ -1,6 +1,6 @@
 #' Functions to assign stress to Portuguese words
 #'
-#' Assigns stress to a given string.
+#' Assigns stress to a given string
 #' @param word The string of interest using IPA phonemic transcription and already syllabified
 #' @return The stressed version of the string in question
 #' @examples

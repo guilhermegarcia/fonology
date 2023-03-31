@@ -4,7 +4,7 @@
 #' @param word The strings of interest must be syllabified
 #' @param pos The target syllable counting from the right edge of the word
 #' @param syl The symbol used for syllable boundaries (a period is used as the default)
-#' @return The desired syllable if it exists. The function returns NA otherwise
+#' @return The desired syllable if it exists. The function returns \code{NA} otherwise
 #' @examples
 #' getSyl(word = c("kom.pu.ta.dor", "pin.to.de"), pos = 2);
 #' @export

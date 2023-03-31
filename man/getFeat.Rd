@@ -12,7 +12,7 @@ getFeat(ph = c(), lg = "Portuguese")
 \item{lg}{The language of interest: English, French, Italian, Portuguese, Spanish}
 }
 \value{
-The minimal matrix of features given ph and lg
+The minimal matrix of features given \code{ph} and \code{lg}
 }
 \description{
 Generates a feature matrix for a given set of phonemes in a given language

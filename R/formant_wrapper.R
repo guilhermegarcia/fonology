@@ -1,7 +1,7 @@
-#' Vowel formant wrapper for ggplot2
+#' Vowel formant wrapper for \code{ggplot2}
 #'
-#' Reverses axes to accommodate F1 and F2 formants
-#' @return Axis reversal for both x and y
+#' Reverses axes to accommodate \code{F1} and \code{F2} formants
+#' @return Axis reversal for both \code{x} and \code{y}
 #' @examples
 #' formants();
 #' @export

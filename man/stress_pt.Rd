@@ -13,7 +13,7 @@ stress_pt(word = "")
 The stressed version of the string in question
 }
 \description{
-Assigns stress to a given string.
+Assigns stress to a given string
 }
 \examples{
 stress_pt(word = "kom.pu.ta.doɾ");

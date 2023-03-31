@@ -1,12 +1,11 @@
-
 #' Sonority plot
 #'
 #' Given a string, the function plots the sonority profile of the string using
 #' the fine-grained sonority scale in Parker (2011)
 #' @param word A phonemically transcribed word. Syllabification and stress are optional
-#' @param syl Whether syllables should be color-coded (requires syllabification in the input using either . or -). Defaults to F
-#' @param save_plot Whether the plot should be saved (in your working directory). Default is F
-#' @return A ggplot figure with the sonority profile of the word
+#' @param syl Whether syllables should be color-coded (requires syllabification in the input using either . or -). Defaults to \code{FALSE}
+#' @param save_plot Whether the plot should be saved (in your working directory). Default is \code{FALSE}
+#' @return A \code{ggplot2} figure with the sonority profile of the word
 #' @examples
 #' plotSon(word = "tɾon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE);
 #' @export

@@ -10,7 +10,7 @@ getWeight_sp(word = c("kom.pu.ta.ˈdoɾ"))
 \item{word}{The vector with strings of interest using IPA phonemic transcription, already syllabified and stressed}
 }
 \value{
-The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
+The sequence of Ls and Hs based on the word's weight profile given the phonology of Spanish
 }
 \description{
 Labels a given string in Portuguese according to its weight profile using Ls and Hs.

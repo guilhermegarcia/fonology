@@ -3,7 +3,7 @@
 #' Generates a feature matrix for a given set of phonemes in a given language
 #' @param ph The phonemes of interest
 #' @param lg The language of interest: English, French, Italian, Portuguese, Spanish
-#' @return The minimal matrix of features given ph and lg
+#' @return The minimal matrix of features given \code{ph} and \code{lg}
 #' @examples
 #' getFeat(ph = c("i", "u"), lg = "english");
 #' @export

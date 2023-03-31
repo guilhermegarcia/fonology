@@ -1,7 +1,11 @@
 #' Phoneme generator from distinctive features
 #'
-#' Returns a set of phonemes given different distinctive feature values.
-#' @param ft The abbreviated features of interest: syl, son, cons, cont, DR, lat, nas, strid, vce, sg, cg, ant, cor, distr, lab, hi, lo, back, round, vel, tense, long, hitone, hireg
+#' Returns a set of phonemes given different distinctive feature values
+#' @param ft The abbreviated features of interest: \code{syl}, \code{son},
+#' \code{cons}, \code{cont}, \code{DR}, \code{lat}, \code{nas}, \code{strid},
+#' \code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
+#' \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
+#' \code{tense}, \code{long}, \code{hitone}, \code{hireg}
 #' @param lg The language of interest: English, French, Italian, Portuguese, Spanish
 #' @return The phonemes given the features provided
 #' @examples

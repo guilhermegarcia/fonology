@@ -1,8 +1,8 @@
 #' Vowel plot generator
 #'
-#' Generates vowel trapezoid using ggplot2 as well as LaTeX code using vowel package.
+#' Generates vowel trapezoid using \code{ggplot2} as well as LaTeX code using vowel package
 #' @param lg The language whose vowel inventory will be plotted
-#' @param tex Whether a latex file is desired. By deafult, tex = FALSE
+#' @param tex Whether a \code{tex} file is desired. By deafult, \code{tex = FALSE}
 #' @return The vowel inventory desired
 #' @examples
 #' plotVowels(lg = "portuguese");

@@ -4,8 +4,8 @@
 #' the mean sonority dispersion score based on the
 #' sonority sequencing principle
 #' @param word A word in its orthographic (only for Portuguese) or phonemic form
-#' @param phonemic Whether the input is phonemically transcribed (words in languages other than Portuguese must be set to TRUE)
-#' and syllabified. Default is FALSE
+#' @param phonemic Whether the input is phonemically transcribed (words in languages other than Portuguese must be set to \code{TRUE})
+#' and syllabified. Default is \code{FALSE}
 #' @return The mean sonority dispersion score
 #' @examples
 #' meanSonDisp(word = c("combrade", "prondo", "clauspricos"));

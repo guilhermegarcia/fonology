@@ -1,10 +1,10 @@
 #' Sonority sequencing principle
 #'
-#' Given a demisyllable, the function returns 1 if the demisyllable respects
-#' the sonority sequencing principle (SSP) and 0 otherwise
+#' Given a demisyllable, the function returns \code{1} if the demisyllable respects
+#' the sonority sequencing principle (SSP) and \code{0} otherwise
 #' @param demi A demi syllable; see function demi()
-#' @param d Whether the function should return first (1) or second (2) demisyllable
-#' @return Either 1, indicating that the sequence respects the SSP, or 0
+#' @param d Whether the function should return first \code{(1)} or second \code{(2)} demisyllable
+#' @return Either \code{1}, indicating that the sequence respects the SSP, or \code{0}
 #' @examples
 #' ssp(demi = "tra", d = 1);
 #' @export

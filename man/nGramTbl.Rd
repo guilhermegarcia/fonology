@@ -9,7 +9,7 @@ nGramTbl(text = "", n = 2)
 \arguments{
 \item{text}{A possible string in its phonemic form without syllabification or stress. The only diacritic that should be used is the tilde for nasals, e.g., ã.}
 
-\item{n}{ngram of choice (1, 2, or 3). Defaults to 2}
+\item{n}{ngram of choice (\code{1}, \code{2}, or \code{3}). Defaults to \code{2}}
 }
 \value{
 A tibble with phonotactic ngrams
@@ -17,7 +17,7 @@ A tibble with phonotactic ngrams
 \description{
 Given a phonemically transcribed text, the function returns the phonotactic ngrams in the text in descending order of frequency.
 You must make sure that your input (your text) is phonemically transcribed first. Otherwise, the ngrams will
-be based on orthography. You might want to use the cleanText() function to remove syllable boundaries and stress marks.
+be based on orthography. You might want to use the \code{cleanText()} function to remove syllable boundaries and stress marks.
 This function uses the ngram function from the ngram package.
 }
 \examples{

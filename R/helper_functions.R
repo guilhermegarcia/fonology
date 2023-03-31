@@ -2,7 +2,7 @@
 #'
 #' Returns IPA phonemic transcription for a nonce word given a specific weight profile
 #' @param profile The weight profile of the desired string using Ls or Hs
-#' @param palatalization Whether t and d should palatalize before i (default is FALSE)
+#' @param palatalization Whether t and d should palatalize before i (defaults to \code{FALSE})
 #' @noRd
 #' @return The IPA transcription of said string
 

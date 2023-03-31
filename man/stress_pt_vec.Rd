@@ -14,7 +14,7 @@ The stressed strings
 }
 \description{
 The function assigns regular to a vector of strings
-Stress is categorically defined, so the function is more simplistic than stress_pt().
+Stress is categorically defined, so the function is more simplistic than \code{stress_pt()}
 }
 \examples{
 stress_pt_vec(word = c("pa.la.do", "an.te.dom"));

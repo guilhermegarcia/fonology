@@ -1,7 +1,7 @@
 #' Dactylic lowering helper function
 #'
 #' Given a string, the function tests if the string is LLL and has antepenult stress,
-#' in which case the antepenultimate vowel height is checked and lowered if needed.
+#' in which case the antepenultimate vowel height is checked and lowered if needed
 #' @param word A possible string in Portuguese in its phonemic form
 #' @return The transcription with dactylic lowering if applicable
 #' @examples

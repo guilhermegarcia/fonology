@@ -1,6 +1,6 @@
 #' Text cleaner
 #'
-#' Given a string, the function removes punctuation, empty tokens, numbers, and normalizes lower case.
+#' Given a string, the function removes punctuation, empty tokens, numbers, and normalizes lower case
 #' @param text A possible string or text
 #' @return A vector with all words in the input, stripped of punctuation
 #' @examples

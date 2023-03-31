@@ -2,7 +2,7 @@
 #'
 #' Given a demisyllable, the function returns its sonority dispersion score based on the
 #' sonority sequencing principle
-#' @param demi A demi syllable; see function demi()
+#' @param demi A demi syllable; see function \code{demi()}
 #' @return The sonority dispersion score
 #' @examples
 #' sonDisp(demi = "tra");

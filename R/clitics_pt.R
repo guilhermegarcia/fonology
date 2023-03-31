@@ -1,6 +1,6 @@
 #' Clitic removal for Portuguese
 #'
-#' Given a string, the function removes its hyphenated clitics.
+#' Given a string, the function removes its hyphenated clitics
 #' @param word A possible string in Portuguese in its orthographic form
 #' @noRd
 #' @return A word without its hyphenated clitics

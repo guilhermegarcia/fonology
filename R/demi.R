@@ -4,7 +4,7 @@
 #' Stress is assigned on the basis of the Portuguese Stress Lexicon for existing words, or lexical regularities
 #' and probabilistic distributions in certain cases for hypothetical words
 #' @param word A syllabified and phonemically transcribed word; vectors are accepted
-#' @param d Whether the function should return first (1) or second (2) demisyllable
+#' @param d Whether the function should return first \code{(1)} or second \code{(2)} demisyllable
 #' @return The demisyllable of interest
 #' @examples
 #' demi(word = c("kram.pjo", "tlons.tri"), d = 1);

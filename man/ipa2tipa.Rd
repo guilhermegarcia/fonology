@@ -2,20 +2,24 @@
 % Please edit documentation in R/ipa2tipa.R
 \name{ipa2tipa}
 \alias{ipa2tipa}
-\title{TIPA translator}
+\title{\code{TIPA} translator}
 \usage{
 ipa2tipa(string)
 }
 \arguments{
-\item{string}{The phonemically transcribed sequence from a function such as ipa()}
+\item{string}{The phonemically transcribed sequence from a function such as \code{ipa()}}
 }
 \value{
-The tex code using TIPA
+The tex code using \code{TIPA}
 }
 \description{
-Translates a phonemically transcribed sequence into TIPA commands for LaTeX.
-The function is expected to be used in conjunction with cleanText() and ipa(),
-which provide the appropriate input for it
+Translates a phonemically transcribed sequence into \code{TIPA} commands for LaTeX.
+The function is expected to be used in conjunction with \code{cleanText()} and \code{ipa()},
+which provide the appropriate input for it. NOTE: the function will return
+a single string, so if a vector with multiple words is provided, it will concatenate
+all the words (keeping spaces between them) into a single output to keep the tex output
+parsimonous and avoid multiple uses of the \code{\\textipa} function. Therefore,
+this function isn't meant to be used to add new columns to your data frame or tibble.
 }
 \examples{
 ipa2tipa(string = "bo.ni.to");

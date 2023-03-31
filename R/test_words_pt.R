@@ -1,7 +1,7 @@
-#' IPA tester for ipa_pt function in Fonology package
+#' IPA tester for \code{ipa_pt()} and \code{ipa()} functions in Fonology package
 #'
 #' Returns a list of words. No arguments needed.
-#' @return A list of words broadly and narrowly transcribed using ipa_pt
+#' @return A list of words broadly and narrowly transcribed using \code{ipa_pt} and \code{ipa}
 #' @examples
 #' ipa_pt_test();
 #' @export

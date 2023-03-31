@@ -14,7 +14,7 @@ getSyl(word = c("pa.la.do"), pos = 1, syl = "\\\\.")
 \item{syl}{The symbol used for syllable boundaries (a period is used as the default)}
 }
 \value{
-The desired syllable if it exists. The function returns NA otherwise
+The desired syllable if it exists. The function returns \code{NA} otherwise
 }
 \description{
 Extracts a given syllable from syllabified strings in a vector

@@ -11,7 +11,7 @@ wug_pt(profile = "LLL", n = 1, palatalization = F)
 
 \item{n}{Number of words to be generated}
 
-\item{palatalization}{Whether t and d should palatalize before i (default is FALSE)}
+\item{palatalization}{Whether t and d should palatalize before i (default is \code{FALSE})}
 }
 \value{
 The IPA transcription of said string

@@ -1,7 +1,7 @@
 #' Vectorized stress assigner for Portuguese
 #'
 #' The function assigns regular to a vector of strings
-#' Stress is categorically defined, so the function is more simplistic than stress_pt().
+#' Stress is categorically defined, so the function is more simplistic than \code{stress_pt()}
 #' @param word A vector with possible strings in Portuguese, which must be phonemically transcribed and syllabified
 #' @return The stressed strings
 #' @examples

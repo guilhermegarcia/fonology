@@ -9,13 +9,13 @@ plotVowels(lg = "English", tex = F)
 \arguments{
 \item{lg}{The language whose vowel inventory will be plotted}
 
-\item{tex}{Whether a latex file is desired. By deafult, tex = FALSE}
+\item{tex}{Whether a \code{tex} file is desired. By deafult, \code{tex = FALSE}}
 }
 \value{
 The vowel inventory desired
 }
 \description{
-Generates vowel trapezoid using ggplot2 as well as LaTeX code using vowel package.
+Generates vowel trapezoid using \code{ggplot2} as well as LaTeX code using vowel package
 }
 \examples{
 plotVowels(lg = "portuguese");

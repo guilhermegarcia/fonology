@@ -4,7 +4,7 @@
 #' Stress is assigned on the basis of the Portuguese Stress Lexicon for existing words, or lexical regularities
 #' and probabilistic distributions in certain cases for hypothetical words
 #' @param word A possible string in Portuguese in its orthographic form
-#' @param narrow Boolean. Whether a narrow transcription is desired (default is FALSE).
+#' @param narrow Boolean. Whether a narrow transcription is desired (defaults to \code{FALSE}).
 #' @return The phonemic transcription for the string in question
 #' @examples
 #' ipa_pt(word = "palado");

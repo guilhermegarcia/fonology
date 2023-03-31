@@ -2,15 +2,15 @@
 % Please edit documentation in R/formant_wrapper.R
 \name{formants}
 \alias{formants}
-\title{Vowel formant wrapper for ggplot2}
+\title{Vowel formant wrapper for \code{ggplot2}}
 \usage{
 formants()
 }
 \value{
-Axis reversal for both x and y
+Axis reversal for both \code{x} and \code{y}
 }
 \description{
-Reverses axes to accommodate F1 and F2 formants
+Reverses axes to accommodate \code{F1} and \code{F2} formants
 }
 \examples{
 formants();

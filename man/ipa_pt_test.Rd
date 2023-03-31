@@ -2,12 +2,12 @@
 % Please edit documentation in R/test_words_pt.R
 \name{ipa_pt_test}
 \alias{ipa_pt_test}
-\title{IPA tester for ipa_pt function in Fonology package}
+\title{IPA tester for \code{ipa_pt()} and \code{ipa()} functions in Fonology package}
 \usage{
 ipa_pt_test()
 }
 \value{
-A list of words broadly and narrowly transcribed using ipa_pt
+A list of words broadly and narrowly transcribed using \code{ipa_pt} and \code{ipa}
 }
 \description{
 Returns a list of words. No arguments needed.

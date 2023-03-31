@@ -9,13 +9,13 @@ ipa_pt_vec(word = c("palavra"), narrow = FALSE)
 \arguments{
 \item{word}{A possible string in Portuguese in its orthographic form}
 
-\item{narrow}{Boolean. Whether a narrow transcription is desired (default is FALSE).}
+\item{narrow}{Boolean. Whether a narrow transcription is desired (defaults to \code{FALSE})}
 }
 \value{
 The phonemic transcription for the string in question
 }
 \description{
-Given a string, the function returns its IPA transcription with stress and syllabification.
+Given a string, the function returns its IPA transcription with stress and syllabification
 }
 \examples{
 ipa_pt_vec(word = c("palado", "antedom"));

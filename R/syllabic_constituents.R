@@ -3,9 +3,9 @@
 #' Returns onset, nucleus, or coda for a given syllable
 #' @param syl The syllable of interest using IPA phonemic transcription
 #' @param const The constituent of interest (defaults to nucleus)
-#' @param glides_as_onsets Whether glides are to be interpreted as onsets (defaults to FALSE)
-#' @param glides_as_codas Whether glides are to be interpreted as codas (defaults to FALSE)
-#' @return The constituent of interest or NA if said constituent doesn't exist for the syllable in question
+#' @param glides_as_onsets Whether glides are to be interpreted as onsets (defaults to \code{FALSE})
+#' @param glides_as_codas Whether glides are to be interpreted as codas (defaults to \code{FALSE})
+#' @return The constituent of interest or \code{NA} if said constituent doesn't exist for the syllable in question
 #' @examples
 #' syllable(syl = "kom", const = "nucleus");
 #' @export

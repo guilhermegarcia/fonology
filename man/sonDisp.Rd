@@ -7,7 +7,7 @@
 sonDisp(demi = "")
 }
 \arguments{
-\item{demi}{A demi syllable; see function demi()}
+\item{demi}{A demi syllable; see function \code{demi()}}
 }
 \value{
 The sonority dispersion score
