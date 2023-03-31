@@ -11,6 +11,7 @@
 
 ipa2tipa <- function(string) {
 
+  ipa = string
   ipa <- stringr::str_replace_all(string, pattern = "$", replacement = "#")
   ipa <- stringr::str_split(ipa, "") |> unlist()
 
@@ -33,6 +34,8 @@ ipa2tipa <- function(string) {
   ipa_dict <- list(
     "#" = " ",
     "i" = "i",
+    "\u0250" = "5",
+    "x" =  "x",
     "\u026a" = "I",
     "e" = "e",
     "\u025b" = "E",
@@ -49,6 +52,7 @@ ipa2tipa <- function(string) {
     "w\u0303" = "\\~{w}",
     "j\u0303" = "\\~{j}",
     "e\u0303" = "\\~{e}",
+    "i\u0303" = "\\~{i}",
     "\u00f5" = "\\~{o}",
 
     "\u00f8" = "\\o",
@@ -105,5 +109,5 @@ ipa2tipa <- function(string) {
     stringr::str_c(post, collapse = "")
 
   message("Done! Here\'s your tex code using TIPA:")
-  return(cat(output))
+  return(noquote(output))
 }

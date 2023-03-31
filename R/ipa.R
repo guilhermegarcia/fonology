@@ -14,13 +14,15 @@ ipa = function(word, lg = "Portuguese", narrow = FALSE){
 
   if(stringr::str_to_lower(lg) %in% c("pt", "portuguese")){
 
-    output = ipa_pt_vec(word, narrow = narrow)
+    output = ipa_pt_vec(word, narrow = narrow) |>
+      stringr::str_replace_all("\\.\\s+", " ")
 
     return(output)
   }
 
   else if(stringr::str_to_lower(lg) %in% c("sp", "spanish")){
-    output = ipa_sp(word)
+    output = ipa_sp(word) |>
+      stringr::str_replace_all("\\.\\s+", " ")
 
     return(output)
   }

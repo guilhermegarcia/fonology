@@ -107,6 +107,15 @@ transcribe_pt_vec = function(word = ""){
 
   # Q:
   word = stringr::str_replace_all(word,
+                                  pattern = "^que",
+                                  replacement = "ke")
+
+  word = stringr::str_replace_all(word,
+                                  pattern = " que",
+                                  replacement = " ke")
+
+
+  word = stringr::str_replace_all(word,
                                   pattern = "qu(en|a|\u00e1|\u00e3)",
                                   replacement = "kw\\1")
 
