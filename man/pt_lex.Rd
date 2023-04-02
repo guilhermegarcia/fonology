@@ -3,7 +3,7 @@
 \docType{data}
 \name{pt_lex}
 \alias{pt_lex}
-\title{Portuguese Stress Lexicon - simplified}
+\title{Data: Portuguese Stress Lexicon - simplified}
 \format{
 A data frame with 154,610 rows and 2 columns:
 \describe{

@@ -3,7 +3,7 @@
 \docType{data}
 \name{stopwords_pt}
 \alias{stopwords_pt}
-\title{Stopwords in Portuguese}
+\title{Data: stopwords in Portuguese}
 \format{
 A vector with stopwords in Portuguese
 }

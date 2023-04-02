@@ -3,7 +3,7 @@
 \docType{data}
 \name{vowels_it}
 \alias{vowels_it}
-\title{Vowel inventory for Italian}
+\title{Data: vowel inventory for Italian}
 \format{
 A vector containing the consonants and glides in Italian
 }

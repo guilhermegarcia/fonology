@@ -1,11 +1,9 @@
 #' Syllable weight labeller for Portuguese
 #'
-#' Labels a given string in Portuguese according to its weight profile using Ls and Hs.
+#' Labels a given string in Portuguese according to its weight profile using Ls and Hs
 #' @param word The vector with strings of interest using IPA phonemic transcription, already syllabified and stressed
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Portuguese
-#' @examples
-#' getWeight_pt(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"));
-#' @export
+#' @noRd
 
 getWeight_pt = function(word = c("kom.pu.ta.\u02c8do\u027e")){
 

@@ -4,9 +4,7 @@
 #' in which case the penultimate vowel height is checked and lowered if needed.
 #' @param word A possible string in Portuguese in its phonemic form
 #' @return The transcription with spondaic lowering if applicable
-#' @examples
-#' spond_pt(word = "ˈpe.tel");
-#' @export
+#' @noRd
 
 spond_pt = function(word = ""){
 

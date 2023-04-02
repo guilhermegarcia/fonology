@@ -3,7 +3,7 @@
 \docType{data}
 \name{allFeatures}
 \alias{allFeatures}
-\title{Distinctive features}
+\title{Data: comprehensive table with distinctive features}
 \format{
 A data frame with with one IPA symbol per row and one feature per column
 }

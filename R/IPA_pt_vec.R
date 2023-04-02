@@ -4,9 +4,7 @@
 #' @param word A possible string in Portuguese in its orthographic form
 #' @param narrow Boolean. Whether a narrow transcription is desired (defaults to \code{FALSE})
 #' @return The phonemic transcription for the string in question
-#' @examples
-#' ipa_pt_vec(word = c("palado", "antedom"));
-#' @export
+#' @noRd
 
 ipa_pt_vec = function(word = c("palavra"), narrow = FALSE){
 

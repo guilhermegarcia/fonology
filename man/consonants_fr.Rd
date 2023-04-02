@@ -3,7 +3,7 @@
 \docType{data}
 \name{consonants_fr}
 \alias{consonants_fr}
-\title{Consonant inventory for French}
+\title{Data: consonant inventory for French}
 \format{
 A vector containing the consonants and glides in French
 }

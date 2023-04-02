@@ -3,7 +3,7 @@
 \docType{data}
 \name{vowels_pt}
 \alias{vowels_pt}
-\title{Vowel inventory for Portuguese}
+\title{Data: vowel inventory for Portuguese}
 \format{
 A vector containing the consonants and glides in Portuguese
 }

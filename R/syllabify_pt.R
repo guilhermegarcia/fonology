@@ -3,9 +3,7 @@
 #' Returns syllabification for a given string
 #' @param word The string of interest using IPA phonemic transcription
 #' @return The syllabification for the string in question
-#' @examples
-#' syllabify_pt(word = "komputadoɾ");
-#' @export
+#' @noRd
 
 syllabify_pt = function(word = ""){
 

@@ -3,7 +3,7 @@
 \docType{data}
 \name{psl}
 \alias{psl}
-\title{Portuguese Stress Lexicon}
+\title{Data: Portuguese Stress Lexicon}
 \format{
 A data frame with 154,610 rows and 62 columns:
 \describe{

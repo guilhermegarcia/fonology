@@ -1,13 +1,11 @@
 #' Syllable weight labeller for Spanish
 #'
-#' Labels a given string in Portuguese according to its weight profile using Ls and Hs.
+#' Labels a given string in Spanish according to its weight profile using Ls and Hs
 #' @param word The vector with strings of interest using IPA phonemic transcription, already syllabified and stressed
 #' @return The sequence of Ls and Hs based on the word's weight profile given the phonology of Spanish
-#' @examples
-#' getWeight_sp(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"));
-#' @export
+#' @noRd
 
-getWeight_sp = function(word = c("kom.pu.ta.\u02c8do\u027e")){
+getWeight_sp = function(word = c("o\u027e.de.na.\u02c8do\u027e")){
 
   syl_list = word |>
     stringr::str_split("\\.")

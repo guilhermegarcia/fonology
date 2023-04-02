@@ -96,7 +96,7 @@ Narrow transcription also includes (final) vowel reduction, voicing assimilation
 
 ### Helper functions
 
-If you plan to tokenize texts and create a table with individual columns for stress and syllables, you can use some simple additional helper functions. For example, `getWeight_pt()` and `getWeight_sp()` will take a syllabified word and return its weight profile (e.g., `getWeight_pt("kon.to")` will return `HL`). The function `getStress()`[^1] will return the stress position of a given word (up to preantepenultimate stress)---the word must already be stressed, but the symbol used can be specified in the function (argument `stress`). Finally, `getSyl()` will extract a given syllable from a string. For example, `getSyl(word = "kom-pu-ta-doɾ", pos = 3, syl = "-")` will take the antepenultimate syllable of the string in question. The default symbol for syllabification is the period. 
+If you plan to tokenize texts and create a table with individual columns for stress and syllables, you can use some simple additional helper functions. For example, `getWeight()` will take a syllabified word and return its weight profile (e.g., `getWeight("kon.to")` will return `HL`). The function `getStress()`[^1] will return the stress position of a given word (up to preantepenultimate stress)---the word must already be stressed, but the symbol used can be specified in the function (argument `stress`). Finally, `getSyl()` will extract a given syllable from a string. For example, `getSyl(word = "kom-pu-ta-doɾ", pos = 3, syl = "-")` will take the antepenultimate syllable of the string in question. The default symbol for syllabification is the period. 
 
 
 ## Sonority

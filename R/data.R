@@ -1,4 +1,4 @@
-#' Portuguese Stress Lexicon - simplified
+#' Data: Portuguese Stress Lexicon - simplified
 #'
 #' Comprehensive list of non-verbs in Portuguese and their phonemic transcription.
 #' This data set is used by different functions in Fonology. Unlike the original PSL data base,
@@ -14,7 +14,7 @@
 #' @source <https://gdgarcia.ca/psl>
 "pt_lex"
 
-#' Portuguese Stress Lexicon
+#' Data: Portuguese Stress Lexicon
 #'
 #' The Portuguese Stress Lexicon (PSL; Garcia (2014)) contains non-verbs in the Portuguese language (excluding monosyllables). The lexicon is largely based on the list of words in the Houaiss Dictionary (Houaiss et al. 2001), which is the most comprehensive dictionary in Portuguese. PSL contains 154,610 entries and 62 columns, which provide a comprehensive set of variables (including pronunciation, syllabification, stress position, syllabic constituents, intervals, CV profiles and weight profiles).
 #' Comprehensive list of non-verbs in Portuguese.
@@ -91,7 +91,7 @@
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 "psl"
 
-#' Stopwords in Portuguese
+#' Data: stopwords in Portuguese
 #'
 #' Set of stopwords in Portuguese from the tm package.
 #'
@@ -102,7 +102,7 @@
 "stopwords_pt"
 
 
-#' Stopwords in Spanish
+#' Data: stopwords in Spanish
 #'
 #' Set of stopwords in Spanish from the tm package.
 #'
@@ -112,7 +112,7 @@
 #' @source <https://cran.r-project.org/web/packages/tm/index.html>
 "stopwords_sp"
 
-#' Distinctive features
+#' Data: comprehensive table with distinctive features
 #'
 #' Comprehensive dataset with phonemes and their distinctive features.
 #' The list is based on PanPhon, by Mortensen et al (2016), whose GitHub can be found
@@ -124,7 +124,7 @@
 #' @source <https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
 "allFeatures"
 
-#' Hypothetical vowel formants
+#' Data: hypothetical vowel formants
 #'
 #' Formant values (F1 and F2) for a 5-vowel system
 #'
@@ -134,7 +134,7 @@
 #' @source <https://gdgarcia.ca/vowels.html>
 "vowels"
 
-#' Bigrams in Portuguese
+#' Data: bigrams in Portuguese
 #'
 #' Set of bigrams extracted from the Portuguese Stress Lexicon using the ngram package.
 #'
@@ -144,7 +144,7 @@
 #' @source <https://gdgarcia.ca/psl>
 "bigrams_pt"
 
-#' Vowel inventory for French
+#' Data: vowel inventory for French
 #'
 #' The inventory of vowels in French
 #'
@@ -153,7 +153,7 @@
 #' @usage data(vowels_fr)
 "vowels_fr"
 
-#' Vowel inventory for Italian
+#' Data: vowel inventory for Italian
 #'
 #' The inventory of vowels in Italian
 #'
@@ -162,7 +162,7 @@
 #' @usage data(vowels_it)
 "vowels_it"
 
-#' Vowel inventory for Portuguese
+#' Data: vowel inventory for Portuguese
 #'
 #' The inventory of vowels in Portuguese
 #'
@@ -171,7 +171,7 @@
 #' @usage data(vowels_pt)
 "vowels_pt"
 
-#' Vowel inventory for Spanish
+#' Data: vowel inventory for Spanish
 #'
 #' The inventory of vowels in Spanish
 #'
@@ -180,7 +180,7 @@
 #' @usage data(vowels_sp)
 "vowels_sp"
 
-#' Consonant inventory for French
+#' Data: consonant inventory for French
 #'
 #' The inventory of consonants and glides in French
 #'
@@ -189,7 +189,7 @@
 #' @usage data(consonants_fr)
 "consonants_fr"
 
-#' Consonant inventory for Italian
+#' Data: consonant inventory for Italian
 #'
 #' The inventory of consonants and glides in Italian
 #'
@@ -198,7 +198,7 @@
 #' @usage data(consonants_it)
 "consonants_it"
 
-#' Consonant inventory for Portuguese
+#' Data: consonant inventory for Portuguese
 #'
 #' The inventory of consonants and glides in Portuguese
 #'
@@ -207,7 +207,7 @@
 #' @usage data(consonants_pt)
 "consonants_pt"
 
-#' Consonant inventory for Spanish
+#' Data: consonant inventory for Spanish
 #'
 #' The inventory of consonants and glides in Spanish
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})

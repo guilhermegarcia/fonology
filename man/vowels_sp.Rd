@@ -3,7 +3,7 @@
 \docType{data}
 \name{vowels_sp}
 \alias{vowels_sp}
-\title{Vowel inventory for Spanish}
+\title{Data: vowel inventory for Spanish}
 \format{
 A vector containing the consonants and glides in Spanish
 }

@@ -3,7 +3,7 @@
 \docType{data}
 \name{consonants_sp}
 \alias{consonants_sp}
-\title{Consonant inventory for Spanish}
+\title{Data: consonant inventory for Spanish}
 \format{
 A vector containing the consonants and glides in Spanish
 }

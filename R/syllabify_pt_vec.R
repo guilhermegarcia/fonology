@@ -3,9 +3,7 @@
 #' Returns syllabification for a given string
 #' @param word The strings of interest using IPA phonemic transcription
 #' @return The syllabification for the strings in question
-#' @examples
-#' syllabify_pt_vec(word = c("pa.la.do", "an.te.dom"));
-#' @export
+#' @noRd
 
 syllabify_pt_vec = function(word = ""){
 

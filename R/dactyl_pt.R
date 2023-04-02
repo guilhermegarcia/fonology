@@ -4,9 +4,7 @@
 #' in which case the antepenultimate vowel height is checked and lowered if needed
 #' @param word A possible string in Portuguese in its phonemic form
 #' @return The transcription with dactylic lowering if applicable
-#' @examples
-#' dact_pt(word = "ˈpe.te.le");
-#' @export
+#' @noRd
 
 dact_pt = function(word = ""){
 

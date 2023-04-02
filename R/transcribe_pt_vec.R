@@ -3,9 +3,7 @@
 #' Returns IPA phonemic transcription for a given group of strings
 #' @param word The strings of interest
 #' @return The IPA transcription of said string without syllabification or stress
-#' @examples
-#' transcribe_pt_vec(word = c("pa.la.do", "an.te.dom"));
-#' @export
+#' @noRd
 
 transcribe_pt_vec = function(word = ""){
 

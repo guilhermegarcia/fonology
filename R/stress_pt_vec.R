@@ -4,9 +4,7 @@
 #' Stress is categorically defined, so the function is more simplistic than \code{stress_pt()}
 #' @param word A vector with possible strings in Portuguese, which must be phonemically transcribed and syllabified
 #' @return The stressed strings
-#' @examples
-#' stress_pt_vec(word = c("pa.la.do", "an.te.dom"));
-#' @export
+#' @noRd
 
 stress_pt_vec = function(word = c("ka.va.lo")){
 

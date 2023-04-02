@@ -3,7 +3,7 @@
 \docType{data}
 \name{vowels}
 \alias{vowels}
-\title{Hypothetical vowel formants}
+\title{Data: hypothetical vowel formants}
 \format{
 A hypothetical dataset with vowel formants
 }

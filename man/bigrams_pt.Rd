@@ -3,7 +3,7 @@
 \docType{data}
 \name{bigrams_pt}
 \alias{bigrams_pt}
-\title{Bigrams in Portuguese}
+\title{Data: bigrams in Portuguese}
 \format{
 A tibble with bigrams, frequency, and proportions
 }
