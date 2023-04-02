@@ -87,9 +87,12 @@ transcribe_pt = function(word = ""){
                                   replacement = "\u0292\\1")
 
   word = stringr::str_replace_all(word,
+                                  pattern = "(gu)([e\u00ea])",
+                                  replacement = "g\\2")
+
+  word = stringr::str_replace_all(word,
                                   pattern = "gu([ei])",
                                   replacement = "g\\1")
-
 
 
 
@@ -297,9 +300,10 @@ transcribe_pt = function(word = ""){
 
 
   # Diphthongs
+  # Diphthongs
   word = stringr::str_replace_all(word,
-                                  pattern = "([aeiou\u0254\u025b])i",
-                                  replacement = "\\1j")
+                                  pattern = "([aeiou\u0254\u025b])i([^mn])",
+                                  replacement = "\\1j\\2")
 
   word = stringr::str_replace_all(word,
                                   pattern = "([aeiou\u0254\u025b])u",

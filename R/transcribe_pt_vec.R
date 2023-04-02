@@ -91,13 +91,12 @@ transcribe_pt_vec = function(word = ""){
                                   replacement = "gw\\2")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "(gu)([e\u00ea])",
-                                  replacement = "g\\2")
-
-
-  word = stringr::str_replace_all(word,
                                   pattern = "g([ei])",
                                   replacement = "\u0292\\1")
+
+  word = stringr::str_replace_all(word,
+                                  pattern = "(gu)([e\u00ea])",
+                                  replacement = "g\\2")
 
   word = stringr::str_replace_all(word,
                                   pattern = "gu([ei])",
@@ -309,8 +308,8 @@ transcribe_pt_vec = function(word = ""){
 
   # Diphthongs
   word = stringr::str_replace_all(word,
-                                  pattern = "([aeiou\u0254\u025b])i",
-                                  replacement = "\\1j")
+                                  pattern = "([aeiou\u0254\u025b])i([^mn])",
+                                  replacement = "\\1j\\2")
 
   word = stringr::str_replace_all(word,
                                   pattern = "([aeiou\u0254\u025b])u",
