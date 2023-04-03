@@ -6,9 +6,14 @@
 \title{Data: comprehensive table with distinctive features}
 \format{
 A data frame with with one IPA symbol per row and one feature per column
+The (abbreviated) available features are: \code{syl}, \code{son},
+\code{cons}, \code{cont}, \code{DR}, \code{lat}, \code{nas}, \code{strid},
+\code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
+\code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
+\code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}
 }
 \source{
-<https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
+Adapted from <https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
 }
 \usage{
 data(allFeatures)

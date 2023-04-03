@@ -5,7 +5,7 @@
 #' \code{cons}, \code{cont}, \code{DR}, \code{lat}, \code{nas}, \code{strid},
 #' \code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
 #' \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
-#' \code{tense}, \code{long}, \code{hitone}, \code{hireg}
+#' \code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}
 #' @param lg The language of interest: English, French, Italian, Portuguese, Spanish
 #' @return The phonemes given the features provided
 #' @examples
