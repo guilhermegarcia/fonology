@@ -8,12 +8,14 @@
 #' parsimonous and avoid multiple uses of the \code{\\textipa} function. Therefore,
 #' this function isn't meant to be used to add new columns to your data frame or tibble.
 #' @param string The phonemically transcribed sequence from a function such as \code{ipa()}
+#' @param pre Prefix for transcription. Defaults to "/ "
+#' @param post Suffix for transcription. Defaults to " /"
 #' @return The tex code using \code{TIPA}
 #' @examples
 #' ipa2tipa(string = "bo.ni.to");
 #' @export
 
-ipa2tipa <- function(string) {
+ipa2tipa <- function(string, pre = "/ ", post = " /") {
 
   ipa = string
   ipa <- stringr::str_replace_all(string, pattern = "$", replacement = "#")
@@ -32,8 +34,8 @@ ipa2tipa <- function(string) {
 
   ipa <- ipa[ipa != ""]
 
-  pre = "\\textipa{ "
-  post = "}"
+  pre = stringr::str_c("\\textipa{ ", pre)
+  post = stringr::str_c(post, " }")
 
   ipa_dict <- list(
     "#" = " ",
@@ -109,6 +111,8 @@ ipa2tipa <- function(string) {
   for(i in 1:length(ipa)){
     output[length(output) + 1] = ipa_dict[[ipa[i]]]
   }
+
+  output = output[-length(output)]
 
   output = stringr::str_c(output, collapse = "") |>
     stringr::str_c(post, collapse = "")

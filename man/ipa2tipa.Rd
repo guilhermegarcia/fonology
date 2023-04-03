@@ -4,10 +4,14 @@
 \alias{ipa2tipa}
 \title{\code{TIPA} translator}
 \usage{
-ipa2tipa(string)
+ipa2tipa(string, pre = "/ ", post = " /")
 }
 \arguments{
 \item{string}{The phonemically transcribed sequence from a function such as \code{ipa()}}
+
+\item{pre}{Prefix for transcription. Defaults to "/ "}
+
+\item{post}{Suffix for transcription. Defaults to " /"}
 }
 \value{
 The tex code using \code{TIPA}
