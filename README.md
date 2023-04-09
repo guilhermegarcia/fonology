@@ -4,8 +4,8 @@
 <a href = "https://github.com/guilhermegarcia/fonology"><img src = "https://img.shields.io/github/r-package/v/guilhermegarcia/fonology" alt="R version"></a>
 <a href = "https://github.com/guilhermegarcia/fonology"><img src = "https://img.shields.io/github/last-commit/guilhermegarcia/fonology"></a>
 <a href = "https://github.com/guilhermegarcia/fonology/issues"><img src = "https://img.shields.io/github/issues/guilhermegarcia/fonology"></a>
-<a href = "https://gdgarcia.ca/fonology/"><img src = "https://img.shields.io/badge/Package-website-critical"></a>
-<a href = "https://osf.io/7ta53/"><img src = "https://img.shields.io/badge/OSF-Repo-9cf"></a>
+<a href = "https://gdgarcia.ca/fonology/" target = "_blank"><img src = "https://img.shields.io/badge/Package-website-critical"></a>
+<a href = "https://osf.io/7ta53/" target = "_blank"><img src = "https://img.shields.io/badge/OSF-Repo-9cf"></a>
 </p>
 <!-- [![DOI](https://zenodo.org/badge/597557920.svg)](https://zenodo.org/badge/latestdoi/597557920) -->
 
