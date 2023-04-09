@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-![](https://img.shields.io/github/r-package/v/guilhermegarcia/fonology)
-![](https://img.shields.io/github/last-commit/guilhermegarcia/fonology)
-![](https://img.shields.io/github/issues/guilhermegarcia/fonology)
+![Rversion](https://img.shields.io/github/r-package/v/guilhermegarcia/fonology)
+![LastCommit](https://img.shields.io/github/last-commit/guilhermegarcia/fonology)
+![Issues](https://img.shields.io/github/issues/guilhermegarcia/fonology)
 [![Package
 website](https://img.shields.io/badge/Package-website-critical)](https://gdgarcia.ca/fonology/)
 [![OSF](https://img.shields.io/badge/OSF-Repo-9cf)](https://osf.io/7ta53/)
