@@ -1,10 +1,5 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<style>
-img[src$="#"] {
-  pointer-events: none;
-}
-&#10;</style>
 
 ![](https://img.shields.io/github/r-package/v/guilhermegarcia/fonology)
 ![](https://img.shields.io/github/last-commit/guilhermegarcia/fonology)
