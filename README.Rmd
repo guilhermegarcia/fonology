@@ -16,9 +16,9 @@ library(stringr)
 library(tibble)
 ```
 <p>
-<img src = "https://img.shields.io/github/r-package/v/guilhermegarcia/fonology">
-<img src = "https://img.shields.io/github/last-commit/guilhermegarcia/fonology">
-<img src = "https://img.shields.io/github/issues/guilhermegarcia/fonology">
+<span><img src = "https://img.shields.io/github/r-package/v/guilhermegarcia/fonology"></span>
+<span><img src = "https://img.shields.io/github/last-commit/guilhermegarcia/fonology"></span>
+<span><img src = "https://img.shields.io/github/issues/guilhermegarcia/fonology"></span>
 <a href = "https://gdgarcia.ca/fonology/"><img src = "https://img.shields.io/badge/Package-website-critical"></a>
 <a href = "https://osf.io/7ta53/"><img src = "https://img.shields.io/badge/OSF-Repo-9cf"></a>
 </p>
