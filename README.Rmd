@@ -4,6 +4,14 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+
+<style>
+img[src$="#"] {
+  pointer-events: none;
+}
+
+</style>
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
