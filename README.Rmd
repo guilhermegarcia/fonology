@@ -16,11 +16,11 @@ library(stringr)
 library(tibble)
 ```
 
-![Rversion](https://img.shields.io/github/r-package/v/guilhermegarcia/fonology)
-![LastCommit](https://img.shields.io/github/last-commit/guilhermegarcia/fonology)
-![Issues](https://img.shields.io/github/issues/guilhermegarcia/fonology)
-[![Package website](https://img.shields.io/badge/Package-website-critical)](https://gdgarcia.ca/fonology/)
-[![OSF](https://img.shields.io/badge/OSF-Repo-9cf)](https://osf.io/7ta53/)
+<img src = "https://img.shields.io/github/r-package/v/guilhermegarcia/fonology">
+<img src = "https://img.shields.io/github/last-commit/guilhermegarcia/fonology">
+<img src = "https://img.shields.io/github/issues/guilhermegarcia/fonology">
+<a href = "https://gdgarcia.ca/fonology/"><img src = "https://img.shields.io/badge/Package-website-critical"></a>
+<a href = "https://osf.io/7ta53/"><img src = "https://img.shields.io/badge/OSF-Repo-9cf"></a>
 
 <!-- [![DOI](https://zenodo.org/badge/597557920.svg)](https://zenodo.org/badge/latestdoi/597557920) -->
 
