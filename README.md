@@ -1,12 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<p>
+
+<div style="pointer-events:none;">
+
 <img src = "https://img.shields.io/github/r-package/v/guilhermegarcia/fonology" alt="R version">
 <img src = "https://img.shields.io/github/last-commit/guilhermegarcia/fonology">
 <img src = "https://img.shields.io/github/issues/guilhermegarcia/fonology">
 <a href = "https://gdgarcia.ca/fonology/"><img src = "https://img.shields.io/badge/Package-website-critical"></a>
 <a href = "https://osf.io/7ta53/"><img src = "https://img.shields.io/badge/OSF-Repo-9cf"></a>
-</p>
+
+</div>
+
 <!-- [![DOI](https://zenodo.org/badge/597557920.svg)](https://zenodo.org/badge/latestdoi/597557920) -->
 
 ## Fonology
