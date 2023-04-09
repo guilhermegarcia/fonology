@@ -16,11 +16,18 @@ library(stringr)
 library(tibble)
 ```
 
+![](https://img.shields.io/github/r-package/v/guilhermegarcia/fonology)
+![](https://img.shields.io/github/last-commit/guilhermegarcia/fonology)
+![](https://img.shields.io/github/issues/guilhermegarcia/fonology)
+[![Package website](https://img.shields.io/badge/Package-website-critical)](https://gdgarcia.ca/fonology/)
+[![OSF](https://img.shields.io/badge/OSF-Repo-9cf)](https://osf.io/7ta53/)
+
+<!-- [![DOI](https://zenodo.org/badge/597557920.svg)](https://zenodo.org/badge/latestdoi/597557920) -->
+
 ## Fonology
 
 > An R package for phonological analysis
 
-<div style="float:right">[![DOI](https://zenodo.org/badge/597557920.svg)](https://zenodo.org/badge/latestdoi/597557920)</div>
 
 For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonology). The package requires R >= 4.1.
 
