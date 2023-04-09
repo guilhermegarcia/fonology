@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <p>
-<img src = "https://img.shields.io/github/r-package/v/guilhermegarcia/fonology">
+<img src = "https://img.shields.io/github/r-package/v/guilhermegarcia/fonology" alt="R version">
 <img src = "https://img.shields.io/github/last-commit/guilhermegarcia/fonology">
 <img src = "https://img.shields.io/github/issues/guilhermegarcia/fonology">
 <a href = "https://gdgarcia.ca/fonology/"><img src = "https://img.shields.io/badge/Package-website-critical"></a>
