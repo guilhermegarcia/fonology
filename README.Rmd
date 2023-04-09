@@ -20,6 +20,8 @@ library(tibble)
 
 > An R package for phonological analysis
 
+<div style="float:right">[![DOI](https://zenodo.org/badge/597557920.svg)](https://zenodo.org/badge/latestdoi/597557920)</div>
+
 For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonology). The package requires R >= 4.1.
 
 ## Main functions and data
