@@ -49,8 +49,8 @@ transcribe_sp = function(word) {
 
   # qu and c:
   word = stringr::str_replace_all(word, "qu", "k")
-  word = stringr::str_replace_all(word, "c(?=[ei])", "s")
-  word = stringr::str_replace_all(word, "c(?![ei])", "k")
+  word = stringr::str_replace_all(word, "c(?=[ei\u00e9\u00ed])", "s")
+  word = stringr::str_replace_all(word, "c(?![ei\u00e9\u00ed])", "k")
 
   # Word-initial h:
   word = stringr::str_replace_all(word, "h", "")
