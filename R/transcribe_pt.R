@@ -174,6 +174,11 @@ transcribe_pt = function(word = ""){
                                   pattern = "c([ei])",
                                   replacement = "s\\1")
 
+  # Word-final C (borrowings)
+  word = stringr::str_replace_all(word,
+                                  pattern = "c$",
+                                  replacement = "k")
+
   # C before other consonant
   word = stringr::str_replace_all(word,
                                   pattern = "c([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr])",
@@ -279,7 +284,7 @@ transcribe_pt = function(word = ""){
                                   replacement = "\u028e")
 
   word = stringr::str_replace_all(word,
-                                  pattern = "nh",
+                                  pattern = "nh|\u00f1",
                                   replacement = "\u0272")
 
   # Palatal fricatives
@@ -298,8 +303,6 @@ transcribe_pt = function(word = ""){
                                   pattern = "j([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9])",
                                   replacement = "\u0292\\1")
 
-
-  # Diphthongs
   # Diphthongs
   word = stringr::str_replace_all(word,
                                   pattern = "([aeiou\u0254\u025b])i([^mn])",
