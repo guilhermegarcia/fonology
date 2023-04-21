@@ -16,18 +16,18 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  vowels = phonemes[1:31]
-  semivowels = phonemes[31:33]
-  liquids = c("l.r.\u027e.\u027d.l.\u026d.\u028e.\u029f.\u0279.\u027b.\u0281.\u0280") |> stringr::str_split(pattern = "\\.") |> unlist()
-  nasals = "m.\u0271.n.\u0273.\u0272.\u014b.\u0274" |> stringr::str_split(pattern = "\\.") |> unlist()
-  fricatives = "\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266" |> stringr::str_split(pattern = "\\.") |> unlist()
-  affricates = "d\u0361z.t\u0361s.t\u0361\u0283.d\u0361\u0292" |> stringr::str_split(pattern = "\\.") |> unlist()
+  # vowels = phonemes[1:31]
+  # semivowels = phonemes[31:33]
+  # liquids = c("l.r.\u027e.\u027d.l.\u026d.\u028e.\u029f.\u0279.\u027b.\u0281.\u0280") |> stringr::str_split(pattern = "\\.") |> unlist()
+  # nasals = "m.\u0271.n.\u0273.\u0272.\u014b.\u0274" |> stringr::str_split(pattern = "\\.") |> unlist()
+  # fricatives = "\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266" |> stringr::str_split(pattern = "\\.") |> unlist()
+  # affricates = "d\u0361z.t\u0361s.t\u0361\u0283.d\u0361\u0292" |> stringr::str_split(pattern = "\\.") |> unlist()
 
   allFeatures = allFeatures |>
     dplyr::filter(ipa %in% phonemes) |>
     droplevels() |>
-    dplyr::mutate(approx = ifelse(ipa %in% c(vowels, semivowels, liquids), "+", "-")) |>
-    dplyr::select(ipa, syl, cons, son, approx, cont:hireg)
+    # dplyr::mutate(approx = ifelse(ipa %in% c(vowels, semivowels, liquids), "+", "-")) |>
+    dplyr::select(ipa, syl, cons, son, cont:approx)
 
   # Pick one language to work with:
   portuguese = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.m.n.\u0272.l.r.\u027e.\u028e" |>
@@ -50,15 +50,20 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  # Select language:
-  targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
+  pt = portuguese
+  fr = french
+  en = english
+  it = italian
+  sp = spanish
 
-
-  availableLg = c("portuguese", "french", "italian", "english", "spanish")
+  availableLg = c("portuguese", "pt", "french", "fr", "italian", "it", "english", "en", "spanish", "sp")
 
   if(!stringr::str_to_lower(lg) %in% availableLg){
     stop("Language not supported (or misspelled).")
   }
+
+  # Select language:
+  targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
 
   # Select features for phonemes:
   targetF = allFeatures |>

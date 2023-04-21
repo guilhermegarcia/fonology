@@ -7,7 +7,8 @@
 cleanText(text = "")
 }
 \arguments{
-\item{text}{A possible string or text}
+\item{text}{A possible string or text, in which case the function will first tokenize the text,
+or a vector with words already tokenized, in which case tokenization is skipped}
 }
 \value{
 A vector with all words in the input, stripped of punctuation

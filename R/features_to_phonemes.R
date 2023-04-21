@@ -14,7 +14,7 @@
 
 getPhon = function(ft = c(), lg = "Portuguese"){
 
-  features = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg"
+  features = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg|approx"
 
   plusFt = stringr::str_split(features, pattern = "\\|") |> unlist()
   plusFt = stringr::str_c("+", plusFt)
@@ -33,7 +33,7 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     stop("Incorrect feature. Type ?getPhon to see which features are allowed. All features must be immediately preceded by +, -, or 0.")
   }
 
-  availableLg = c("portuguese", "french", "english", "italian", "spanish")
+  availableLg = c("portuguese", "pt", "french", "fr", "english", "en", "italian", "it", "spanish", "sp")
 
   if(!stringr::str_to_lower(lg) %in% availableLg){
     stop("Language not supported (or misspelled).")
@@ -44,21 +44,31 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
+  pt = portuguese
+
   french = c("a.e.\u00f8.\u0251.i.y.o.u.\u025b.\u0254.\u0259.\u0153.\u025b\u0303.\u0153\u0303.\u0254\u0303.\u0251\u0303.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.\u0281.m.n.\u0272.\u014b.l.w.j.\u0265") |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
+
+  fr = french
 
   english = c("a.e.\u0251.i.o.u.\u025b.\u0254.\u0259.\u026a.\u028a.\u00e6.\u028c.p.b.f.k.g.v.t.d.s.z.\u0283.\u0292.t\u0361\u0283.d\u0361\u0292.\u03b8.\u00f0.m.n.\u014b.h.w.j.\u0279.l") |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
+  en = english
+
   italian = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.t\u0361\u0283.d\u0361\u0292.t\u0361s.d\u0361z.f.v.s.z.\u0283.m.n.\u0272.l.r.\u028e" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
+  it = italian
+
   spanish = c("a.e.\u0251.i.o.u.p.b.f.v.t.d.k.g.s.z.t\u0361\u0283.\u03b8.m.\u0272.w.j.l.r.\u027e.\u028e.x.\u029d") |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
+
+  sp = spanish
 
   # Select language:
   targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
@@ -67,7 +77,7 @@ getPhon = function(ft = c(), lg = "Portuguese"){
     dplyr::filter(ipa %in% targetLanguage) |>
     droplevels()
 
-  fNames = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg"
+  fNames = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg|approx"
 
   # Extract features:
   features = stringr::str_extract_all(string = ft, pattern = fNames) |> unlist()
