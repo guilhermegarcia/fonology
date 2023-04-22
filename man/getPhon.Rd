@@ -4,7 +4,7 @@
 \alias{getPhon}
 \title{Phoneme generator from distinctive features}
 \usage{
-getPhon(ft = c(), lg = "Portuguese")
+getPhon(ft, lg)
 }
 \arguments{
 \item{ft}{The abbreviated features of interest: \code{syl}, \code{son},
@@ -13,7 +13,8 @@ getPhon(ft = c(), lg = "Portuguese")
 \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
 \code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}}
 
-\item{lg}{The language of interest: English, French, Italian, Portuguese, Spanish}
+\item{lg}{The language of interest: English, French, Italian, Portuguese, Spanish.
+Alternatively, you can also provide your own inventory as a vector}
 }
 \value{
 The phonemes given the features provided
@@ -23,4 +24,5 @@ Returns a set of phonemes given different distinctive feature values
 }
 \examples{
 getPhon(ft = c("+hi", "+tense"), lg = "english");
+getPhon(ft = c("+hi", "+tense"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"));
 }

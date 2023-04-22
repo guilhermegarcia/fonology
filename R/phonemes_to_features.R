@@ -2,13 +2,15 @@
 #'
 #' Generates a feature matrix for a given set of phonemes in a given language
 #' @param ph The phonemes of interest
-#' @param lg The language of interest: English, French, Italian, Portuguese, Spanish
+#' @param lg The language of interest: English, French, Italian, Portuguese, Spanish.
+#' Alternatively, you can also provide your own inventory as a vector
 #' @return The minimal matrix of features given \code{ph} and \code{lg}
 #' @examples
 #' getFeat(ph = c("i", "u"), lg = "english");
+#' getFeat(ph = c("i", "u"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"));
 #' @export
 
-getFeat = function(ph = c(), lg = "Portuguese"){
+getFeat = function(ph, lg){
 
   phonemes = "i.y.\u0268.\u0289.\u026f.u.\u026a.\u028f.\u028a.e.\u00f8.\u0258.\u0275.\u0264.o.\u025b.\u0153.\u0259.\u025c.\u025e.\u028c.\u0254.\u0250.\u00e6.\u0276.a.\u0251.\u0252.\u025b\u0303.\u0153\u0303.\u0254.j.\u0265.w.p.b.t.d.\u0288.\u0256.c.\u025f.k.\u0261.q.\u0262.\u0294.m.n.\u0273.\u0272.\u014b.\u0274.\u0299.r.\u0280.\u2c71.\u027e.\u027d.\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266.\u026c.\u026e.\u028b.\u0279.\u027b.j.\u0270.l.\u026d.\u028e.\u029f.d\u0361z.t\u0361s.t\u0361\u0283.d\u0361\u0292"
 
@@ -16,8 +18,6 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  # vowels = phonemes[1:31]
-  # semivowels = phonemes[31:33]
   # liquids = c("l.r.\u027e.\u027d.l.\u026d.\u028e.\u029f.\u0279.\u027b.\u0281.\u0280") |> stringr::str_split(pattern = "\\.") |> unlist()
   # nasals = "m.\u0271.n.\u0273.\u0272.\u014b.\u0274" |> stringr::str_split(pattern = "\\.") |> unlist()
   # fricatives = "\u0278.\u03b2.f.v.\u03b8.\u00f0.s.z.\u0283.\u0292.\u0282.\u0290.\u00e7.\u029d.x.\u0263.\u03c7.\u0281.\u0127.\u0295.h.\u0266" |> stringr::str_split(pattern = "\\.") |> unlist()
@@ -28,6 +28,8 @@ getFeat = function(ph = c(), lg = "Portuguese"){
     droplevels() |>
     # dplyr::mutate(approx = ifelse(ipa %in% c(vowels, semivowels, liquids), "+", "-")) |>
     dplyr::select(ipa, syl, cons, son, cont:approx)
+
+
 
   # Pick one language to work with:
   portuguese = "a.e.i.o.u.\u025b.\u0254.j.w.p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.m.n.\u0272.l.r.\u027e.\u028e" |>
@@ -58,12 +60,24 @@ getFeat = function(ph = c(), lg = "Portuguese"){
 
   availableLg = c("portuguese", "pt", "french", "fr", "italian", "it", "english", "en", "spanish", "sp")
 
-  if(!stringr::str_to_lower(lg) %in% availableLg){
-    stop("Language not supported (or misspelled).")
+  if(length(lg) == 1){ # If language is provided
+    if(!stringr::str_to_lower(lg) %in% availableLg){
+      stop("Language not supported (or misspelled). If you're providing your own inventory, remember it must be in a vector. For example, lg = c('a', 'i', 'u', 'p', 'b').")
+    }
   }
 
   # Select language:
-  targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
+
+  if(length(lg) == 1){
+
+    targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
+
+  } else {
+
+    targetLanguage = lg
+
+  }
+
 
   # Select features for phonemes:
   targetF = allFeatures |>

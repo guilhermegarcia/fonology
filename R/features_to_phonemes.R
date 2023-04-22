@@ -6,13 +6,15 @@
 #' \code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
 #' \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
 #' \code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}
-#' @param lg The language of interest: English, French, Italian, Portuguese, Spanish
+#' @param lg The language of interest: English, French, Italian, Portuguese, Spanish.
+#' Alternatively, you can also provide your own inventory as a vector
 #' @return The phonemes given the features provided
 #' @examples
 #' getPhon(ft = c("+hi", "+tense"), lg = "english");
+#' getPhon(ft = c("+hi", "+tense"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"));
 #' @export
 
-getPhon = function(ft = c(), lg = "Portuguese"){
+getPhon = function(ft, lg){
 
   features = "syl|son|cons|cont|DR|lat|nas|strid|vce|sg|cg|ant|cor|distr|lab|hi|lo|back|round|vel|tense|long|hitone|hireg|approx"
 
@@ -35,8 +37,10 @@ getPhon = function(ft = c(), lg = "Portuguese"){
 
   availableLg = c("portuguese", "pt", "french", "fr", "english", "en", "italian", "it", "spanish", "sp")
 
-  if(!stringr::str_to_lower(lg) %in% availableLg){
-    stop("Language not supported (or misspelled).")
+  if(length(lg) == 1){ # If language is provided
+    if(!stringr::str_to_lower(lg) %in% availableLg){
+      stop("Language not supported (or misspelled). If you're providing your own inventory, remember it must be in a vector. For example, lg = c('a', 'i', 'u', 'p', 'b').")
+    }
   }
 
   # Pick one language to work with:
@@ -71,7 +75,16 @@ getPhon = function(ft = c(), lg = "Portuguese"){
   sp = spanish
 
   # Select language:
-  targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
+
+  if(length(lg) == 1){
+
+    targetLanguage = eval(parse(text = stringr::str_to_lower(lg)))
+
+  } else {
+
+    targetLanguage = lg
+
+  }
 
   allFeatures = allFeatures |>
     dplyr::filter(ipa %in% targetLanguage) |>
@@ -95,7 +108,7 @@ getPhon = function(ft = c(), lg = "Portuguese"){
   phonemes = merge(allFeatures, featuresIn, all.y = TRUE)
 
   if(is.na(phonemes$ipa[1])){
-    return("No phonemes with the features in question.")
+    return("No phonemes with the features provided given the inventory in question.")
   }
 
   # Result:

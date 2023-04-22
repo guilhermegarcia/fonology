@@ -4,12 +4,13 @@
 \alias{getFeat}
 \title{Distinctive feature generator}
 \usage{
-getFeat(ph = c(), lg = "Portuguese")
+getFeat(ph, lg)
 }
 \arguments{
 \item{ph}{The phonemes of interest}
 
-\item{lg}{The language of interest: English, French, Italian, Portuguese, Spanish}
+\item{lg}{The language of interest: English, French, Italian, Portuguese, Spanish.
+Alternatively, you can also provide your own inventory as a vector}
 }
 \value{
 The minimal matrix of features given \code{ph} and \code{lg}
@@ -19,4 +20,5 @@ Generates a feature matrix for a given set of phonemes in a given language
 }
 \examples{
 getFeat(ph = c("i", "u"), lg = "english");
+getFeat(ph = c("i", "u"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"));
 }
