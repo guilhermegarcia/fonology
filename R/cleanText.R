@@ -42,8 +42,9 @@ cleanText = function(text = ""){
   } else {
 
     # Tokenized input:
+    tokens = stringr::str_split(text, pattern = " ") |> unlist()
     # Remove stress:
-    tokens = text |>
+    tokens = tokens |>
       stringr::str_remove_all(pattern = "[\u02c8\u02cc]")
 
     # Remove numbers:
