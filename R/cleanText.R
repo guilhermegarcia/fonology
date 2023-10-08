@@ -61,6 +61,9 @@ cleanText = function(text = ""){
     output = output |>
       strip_clitic_pt()
 
+    # Remove empty items:
+    output = output[output != ""]
+
     return(output)
 
   }
