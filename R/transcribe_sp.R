@@ -35,12 +35,16 @@ transcribe_sp = function(word) {
   # Clean word of double Cs:
   word = double_C(word)
 
+  word = stringr::str_replace_all(word, "diaria", "di.\u00e1.ri.a")
+
+
   word = stringr::str_replace_all(word, "ch", "t\u0283")
   word = stringr::str_replace_all(word, "ll", "\u028e")
+  word = stringr::str_replace_all(word, "^x([ei\u00e9\u00ed])", "s\\1")#added by Nic
   word = stringr::str_replace_all(word, "x", "ks")
   word = stringr::str_replace_all(word, "sc([ei])", "s\\1")
   word = stringr::str_replace_all(word, "ss", "s")
-  word = stringr::str_replace_all(word, "(e)j([aou])", "\\1\u029d\\2")
+  #word = stringr::str_replace_all(word, "(e)j([aou])", "\\1ʝ\\2")
   word = stringr::str_replace_all(word, "j", "x")
   word = stringr::str_replace_all(word, "([^r])r([^r])", "\\1\u027e\\2")
   word = stringr::str_replace_all(word, "rr", "r")
@@ -49,17 +53,17 @@ transcribe_sp = function(word) {
 
   # qu and c:
   word = stringr::str_replace_all(word, "qu", "k")
-  word = stringr::str_replace_all(word, "c(?=[ei\u00e9\u00ed])", "s")
-  word = stringr::str_replace_all(word, "c(?![ei\u00e9\u00ed])", "k")
+  word = stringr::str_replace_all(word, "c(?=[e\u00e9i\u00ed])", "s")
+  word = stringr::str_replace_all(word, "c(?![e\u00e9i\u00ed])", "k")
 
   # Word-initial h:
-  word = stringr::str_replace_all(word, "h", "")
+  word = stringr::str_replace_all(word, "^h", "")
 
   # Conjunction y:
   word = stringr::str_replace_all(word, "^y$", "i")
 
   # y:
-  word = stringr::str_replace_all(word, "ay", "aj")
+  word = stringr::str_replace_all(word, "([aeou])y", "\\1j")
   word = stringr::str_replace_all(word, "y", "\u029d")
 
   # Specific sequences:
@@ -68,18 +72,16 @@ transcribe_sp = function(word) {
   # Nasals:
   word = stringr::str_replace_all(word, "\u00f1", "\u0272")
 
-  # Diphthongs/triphthongs:
-  word = stringr::str_replace_all(word, "u([aeoi])", "w\\1")
-  word = stringr::str_replace_all(word, "([aeou])[yi]", "\\1j")
-  word = stringr::str_replace_all(word, "i([aeou])", "j\\1")
-  word = stringr::str_replace_all(word, "([aeoi])u", "\\1w")
-  word = stringr::str_replace_all(word, "[u]([aeo\u00e1\u00e9\u00f3])[iy]", "w\\1j")
-  word = stringr::str_replace_all(word, "[i]([aeo\u00e1\u00e9\u00f3])[iy]", "j\\1j")
-  word = stringr::str_replace_all(word, "[iy]([aeo\u00e1\u00e9\u00f3])[u]", "j\\1w")
-  word = stringr::str_replace_all(word, "[u]([aeo\u00e1\u00e9\u00f3])[u]", "w\\1w")
-  word = stringr::str_replace_all(word, "i\u00f3n$", "jon")
+  # Nic
+  word = stringr::str_replace_all(word, "v", "b")
+  word = stringr::str_replace_all(word, "h", "")
+  word = stringr::str_replace_all(word, "gu([ei])", "g\\1")
+  word = stringr::str_replace_all(word, "g\u00fc([ei])", "gw\\1")
+  word = stringr::str_replace_all(word, "p([snt])", "\\1")
+
 
   word = stringr::str_replace_all(word, "z", "s")
+
 
 
   return(word)

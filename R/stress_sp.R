@@ -102,11 +102,33 @@ stress_sp = function(word){
     stringr::str_replace_all("(\\w*)(i)\\.\u02c8([aeiou])",
                              replacement = "\u02c8\\1j\\3")
 
+  # Diphthongs/triphthongs:
+  output = stringr::str_replace_all(output, "u([aeoi])", "w\\1")
+  output = stringr::str_replace_all(output, "([aeou])[yi]", "\\1j")
+  output = stringr::str_replace_all(output, "i([ae\u00e9o\u00f3u])", "j\\1")
+  output = stringr::str_replace_all(output, "([aeoi])u", "\\1w")
+  output = stringr::str_replace_all(output, "[u\u00fc]([aeo\u00e1\u00e9\u00f3])[iy]", "w\\1j")
+  output = stringr::str_replace_all(output, "[i]([aeo\u00e1\u00e9\u00f3])[iy]", "j\\1j")
+  output = stringr::str_replace_all(output, "[iy]([aeo\u00e1\u00e9\u00f3])[u]", "j\\1w")
+  output = stringr::str_replace_all(output, "[u\u00fc]([aeo\u00e1\u00e9\u00f3])[u]", "w\\1w")
+  # Paraguay words:
+  output = stringr::str_replace_all(output, "\\.(\\w*)u\\.\u02c8([aeoi])", "\\.\u02c8\\1w\\2")
+  # Sociedad words:
+  output = stringr::str_replace_all(output, "\\.(\\w*)i\\.([aeo])", "\\.\\1j\\2")
+  output = stringr::str_replace_all(output, "\\.(\\w*)u\\.([aeo])", "\\.\\1w\\2")
+
+  output = stringr::str_replace_all(output, "i\u00f3n$", "jon")
+
+
   # Adjustments post-stress: words ending in -en] are verbs (paroxytones)
   output = output |>
     stringr::str_replace_all("(\\w*)\\.\u02c8([^j]en$)",
                              replacement = "\u02c8\\1.\\2")
 
+  # Remove double dots:
+  output = output |>
+    stringr::str_replace_all("\\.\\.",
+                             replacement = ".")
   return(output)
 
 }
