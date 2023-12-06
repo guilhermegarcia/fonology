@@ -30,7 +30,6 @@ For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonolo
 
 - `getFeat()` and `getPhon()` to work with distinctive features
 - `ipa()` phonemically transcribes words (real or not) in Portuguese or Spanish
-  - `ipa_pt()` offers a more detailed transcription for Portuguese
 - `sonDisp()` calculates the sonority dispersion of a given demisyllable. `meanSonDisp()` calculates the average dispersion for a given word (or vector of words)
 - `wug_pt()` generates hypothetical words in Portuguese
 - `biGram_pt()` calculates bigram probabilities for a given word
