@@ -18,6 +18,6 @@ Age in months
 Calculates age in months based on yy;mm format, commonly used in language acquisition studies
 }
 \examples{
-monthsAge("02;06")
-monthsAge("05:03", sep = ":")
+monthsAge(age = "02;06")
+monthsAge(age = "05:03", sep = ":")
 }

@@ -6,8 +6,8 @@
 #' @return Age in months
 #' @export
 #' @examples
-#' monthsAge("02;06")
-#' monthsAge("05:03", sep = ":")
+#' monthsAge(age = "02;06")
+#' monthsAge(age = "05:03", sep = ":")
 
 monthsAge = function(age, sep = ";"){
   pattern1 = stringr::str_c("\\d", sep)
