@@ -21,7 +21,7 @@ library(tibble)
 
 > An R package for phonological analysis
 
-For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonology). The package requires R >= 4.1.
+For a more comprehensive vignette, visit [my website](https://gdgarcia.ca/fonology). The package requires `R >= 4.1`.
 
 
 ## Main functions and data
@@ -147,6 +147,11 @@ set.seed(1)
 tibble(word = wug_pt("LHL", n = 5)) |>
   mutate(bigram = word |> biGram_pt())
 ```
+
+## Extras
+
+Additional functions include `months()` and `meanAge()`, both of which can be used to convert and analyze ages following the format `yy;mm`, commonly used in first language acquisition studies. It's a good idea to check out the index of functions (`?Fonology`) to take a look at the complete list of functions available.
+
 
 ## References
 
