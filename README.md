@@ -14,7 +14,7 @@
 > An R package for phonological analysis
 
 For a more comprehensive vignette, visit [my
-website](https://gdgarcia.ca/fonology). The package requires R \>= 4.1.
+website](https://gdgarcia.ca/fonology). The package requires `R >= 4.1`.
 
 ## Main functions and data
 
@@ -44,7 +44,8 @@ website](https://gdgarcia.ca/fonology). The package requires R \>= 4.1.
 The function `getFeat()` requires a set of phonemes `ph` and a language
 `lg`. It outputs the minimal matrix of distinctive features for `ph`
 given the phonemic inventory of `lg`. Five languages are supported:
-English, French, Italian, Portuguese, and Spanish. Here are some
+English, French, Italian, Portuguese, and Spanish. You can also use `lg`
+to provide your own phonemic inventory as a vector. Here are some
 examples.
 
 ``` r
@@ -67,7 +68,8 @@ getFeat(ph = c("k", "g"), lg = "Italian")
 The function `getPhon()` requires a feature matrix `ft` and a language
 `lg`. It outputs the set of phonemes represented by `ft` given the
 phonemic inventory of `lg`. The languages supported are the same as
-those supported by `getFeat()`.
+those supported by `getFeat()`, and you can again use `lg` to provide
+your own phonemic inventory as a vector.
 
 ``` r
 getPhon(ft = c("+syl", "+hi"), lg = "French")
@@ -99,9 +101,9 @@ ipa("antidepressivo", narrow = T)
 ipa("feris") 
 #> [1] "fe.ˈɾis"
 ipa("mejorado", lg = "sp")
-#> [1] "me.ʝo.ˈɾa.do"
+#> [1] "me.xo.ˈɾa.do"
 ipa("nuevos", lg = "sp")
-#> [1] "ˈnwe.vos"
+#> [1] "nu.ˈe.bos"
 ```
 
 ### A note on stress
@@ -263,6 +265,14 @@ tibble(word = character(5)) |>
 #> 4 ʒa.ˈgɾan.fe  -51.9
 #> 5 me.ˈxes.vɾo  -68.8
 ```
+
+## Extras
+
+Additional functions include `monthsAge()` and `meanAge()`, both of
+which can be used to convert and analyze ages following the format
+`yy;mm`, commonly used in first language acquisition studies. It’s a
+good idea to check out the index of functions (`?Fonology`) to take a
+look at the complete list of functions available.
 
 ## References
 
