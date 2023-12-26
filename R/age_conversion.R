@@ -6,10 +6,10 @@
 #' @return Age in months
 #' @export
 #' @examples
-#' months("02;06")
-#' months("05:03", sep = ":")
+#' monthsAge("02;06")
+#' monthsAge("05:03", sep = ":")
 
-months = function(age, sep = ";"){
+monthsAge = function(age, sep = ";"){
   pattern1 = stringr::str_c("\\d", sep)
   pattern2 = stringr::str_c(sep, "\\d+")
   y = stringr::str_extract(age, pattern = pattern1) |>
@@ -37,7 +37,7 @@ months = function(age, sep = ";"){
 #' meanAge(age = c("05:03", "04:07"), sep = ":")
 
 meanAge = function(age, sep = ";"){
-  age_in_months = months(age, sep)
+  age_in_months = monthsAge(age, sep)
   mean_age = mean(age_in_months, na.rm = TRUE)
 
   ye = mean_age %/% 12

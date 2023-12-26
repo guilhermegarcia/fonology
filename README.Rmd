@@ -163,7 +163,7 @@ tibble(word = character(5)) |>
 
 ## Extras
 
-Additional functions include `months()` and `meanAge()`, both of which can be used to convert and analyze ages following the format `yy;mm`, commonly used in first language acquisition studies. It's a good idea to check out the index of functions (`?Fonology`) to take a look at the complete list of functions available.
+Additional functions include `monthsAge()` and `meanAge()`, both of which can be used to convert and analyze ages following the format `yy;mm`, commonly used in first language acquisition studies. It's a good idea to check out the index of functions (`?Fonology`) to take a look at the complete list of functions available.
 
 
 ## References
