@@ -7,7 +7,7 @@ bibentry(
   note     = "R package version 0.9",
   year     = "2023",
   url      = "https://gdgarcia.ca/fonology",
-  textVersion = paste("Garcia, Guilherme D. (2023). Fonology: Phonological Analysis in R. R package version 0.8.5. Available at https://gdgarcia.ca/fonology"
+  textVersion = paste("Garcia, Guilherme D. (2023). Fonology: Phonological Analysis in R. R package version 0.9. Available at https://gdgarcia.ca/fonology"
 
   )
 )
