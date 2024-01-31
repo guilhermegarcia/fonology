@@ -10,6 +10,13 @@
 
 A collection of tools to help with phonological analysis. Functions include grapheme to phoneme conversion, sonority dispersion calculation, minimal matrices for natural classes given a set of features, and others.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://gdgarcia.ca/fonology}
+}
+
+}
 \author{
 \strong{Maintainer}: Guilherme D. Garcia \email{guilherme.garcia@lli.ulaval.ca} (\href{https://orcid.org/0000-0003-1412-3856}{ORCID}) [copyright holder]
 
