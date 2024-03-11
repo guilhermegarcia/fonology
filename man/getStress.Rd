@@ -7,7 +7,7 @@
 getStress(word = c("kom.pu.ta.ˈdoɾ"), stress = "ˈ")
 }
 \arguments{
-\item{word}{The string of interest using IPA phonemic transcription, already syllabified and stressed}
+\item{word}{The string of interest using IPA phonemic transcription, already syllabified and stressed. Syllable boundaries are always assumed to be indicated by a period.}
 
 \item{stress}{The symbol used to mark stress}
 }

@@ -1,7 +1,7 @@
 #' Stress labeller
 #'
 #' Labels a given stressed string as follows: Final, Penult, Antepenult
-#' @param word The string of interest using IPA phonemic transcription, already syllabified and stressed
+#' @param word The string of interest using IPA phonemic transcription, already syllabified and stressed. Syllable boundaries are always assumed to be indicated by a period.
 #' @param stress The symbol used to mark stress
 #' @return The primary stress position
 #' @examples
