@@ -10,7 +10,7 @@
 #' monthsAge(age = "05:03", sep = ":")
 
 monthsAge = function(age, sep = ";"){
-  pattern1 = stringr::str_c("\\d", sep)
+  pattern1 = stringr::str_c("\\d+", sep)
   pattern2 = stringr::str_c(sep, "\\d+")
   y = stringr::str_extract(age, pattern = pattern1) |>
     stringr::str_remove(sep) |>
