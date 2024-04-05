@@ -14,16 +14,6 @@ ipa_pt_vec = function(word = c("palavra"), narrow = FALSE){
 
   wd[stringr::str_detect(wd, "\\d")] = NA
 
-  # Real words:
-  # real = wd[wd %in% pt_lex$word]
-  #
-  # real = pt_lex |>
-  #   dplyr::filter(word %in% real) |>
-  #   dplyr::pull(pro)
-
-  # Potentially nonce words:
-  # nonce = wd[!wd %in% pt_lex$word]
-
   wd = wd |>
     transcribe_pt_vec() |>
     syllabify_pt_vec() |>
@@ -45,4 +35,3 @@ ipa_pt_vec = function(word = c("palavra"), narrow = FALSE){
   }
 
 }
-

@@ -7,19 +7,17 @@
 
 ipa_sp = function(word = "comportamento"){
 
-  wd = stringr::str_to_lower(word)
+  wd = stringr::str_to_lower(word) |>
+    stringr::str_remove_all("[:punct:]")
 
-  if(stringr::str_detect(wd, pattern = "\\d")){
+  if(sum(stringr::str_detect(wd, pattern = "\\d")) > 0){
     message("Input contains a number and will be ignored.")
     return(NA)
   }
 
-  if(stringr::str_detect(wd, pattern = "-")){
+  if(sum(stringr::str_detect(wd, pattern = "-")) > 0){
     message("Input must be monomorphemic. Stress assignment may be incorrect.")
   }
-
-  wd = wd |>
-    stringr::str_remove_all("[:punct:]")
 
   wd = wd |>
     transcribe_sp() |>
