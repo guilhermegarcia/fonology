@@ -2,11 +2,13 @@
 #'
 #' Generates vowel trapezoid using \code{ggplot2} as well as LaTeX code using vowel package
 #' @param lg The language whose vowel inventory will be plotted
-#' @param tex Whether a \code{tex} file is desired. By deafult, \code{tex = FALSE}
+#' @param tex Whether a \code{tex} file is desired. By default, \code{tex = FALSE}
 #' @return The vowel inventory desired
 #' @examples
+#' \dontrun{
 #' plotVowels(lg = "portuguese");
 #' plotVowels(lg = "english");
+#' }
 #' @export
 
 plotVowels = function(lg = "English", tex = F){

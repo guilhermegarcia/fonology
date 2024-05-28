@@ -7,7 +7,7 @@
 #' @param save_plot Whether the plot should be saved (in your working directory). Default is \code{FALSE}
 #' @return A \code{ggplot2} figure with the sonority profile of the word
 #' @examples
-#' plotSon(word = "tɾon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE);
+#' plotSon(word = "plon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE);
 #' @export
 
 plotSon = function(word = "", syl = FALSE, save_plot = FALSE){

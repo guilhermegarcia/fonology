@@ -304,10 +304,18 @@ transcribe_pt = function(word = ""){
                                   replacement = "\u0292\\1")
 
   # Diphthongs
+
+  # ==================
+  # Addition in May 2024 given verbs in the simple past (3rd PRS SG)
   word = stringr::str_replace_all(word,
-                                  pattern = "([aeiou\u0254\u025b])i([^mn])",
+                                  pattern = "([aeiou\u0254\u025b])i?!u([^mn])",
                                   replacement = "\\1j\\2")
 
+  word = stringr::str_replace_all(word,
+                                  pattern = "([aeiou\u0254\u025b])i([aeio])",
+                                  replacement = "\\1j\\2")
+
+  # ==================
   word = stringr::str_replace_all(word,
                                   pattern = "([aeiou\u0254\u025b])u",
                                   replacement = "\\1w")

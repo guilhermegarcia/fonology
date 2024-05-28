@@ -21,5 +21,5 @@ Given a string, the function plots the sonority profile of the string using
 the fine-grained sonority scale in Parker (2011)
 }
 \examples{
-plotSon(word = "tɾon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE);
+plotSon(word = "plon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE);
 }

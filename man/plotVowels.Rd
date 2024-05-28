@@ -9,7 +9,7 @@ plotVowels(lg = "English", tex = F)
 \arguments{
 \item{lg}{The language whose vowel inventory will be plotted}
 
-\item{tex}{Whether a \code{tex} file is desired. By deafult, \code{tex = FALSE}}
+\item{tex}{Whether a \code{tex} file is desired. By default, \code{tex = FALSE}}
 }
 \value{
 The vowel inventory desired
@@ -18,6 +18,8 @@ The vowel inventory desired
 Generates vowel trapezoid using \code{ggplot2} as well as LaTeX code using vowel package
 }
 \examples{
+\dontrun{
 plotVowels(lg = "portuguese");
 plotVowels(lg = "english");
+}
 }
