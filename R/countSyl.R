@@ -8,10 +8,10 @@
 #' follow the typical syntax used in RegEx in R for special symbols
 #' @return The number of syllables in the string of interest
 #' @examples
-#' syllCount("kan.ˈto.zo")
+#' countSyl("kan.ˈto.zo")
 #' @export
 
-syllCount = function(word = "", sep = "\\."){
+countSyl = function(word = "", sep = "\\."){
   count = stringr::str_count(word, pattern = sep) + 1
 
   return(count)
