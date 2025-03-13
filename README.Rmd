@@ -63,7 +63,6 @@ getFeat(ph = c("i", "u"), lg = "French")
 getFeat(ph = c("i", "y", "u"), lg = "French")
 getFeat(ph = c("p", "b"), lg = "Portuguese")
 getFeat(ph = c("k", "g"), lg = "Italian")
-
 ```
 
 ### From features to phonemes
@@ -74,7 +73,6 @@ The function `getPhon()` requires a feature matrix `ft` and a language `lg`. It 
 getPhon(ft = c("+syl", "+hi"), lg = "French")
 getPhon(ft = c("-DR", "-cont", "-son"), lg = "English")
 getPhon(ft = c("-son", "+vce"), lg = "Spanish")
-
 ```
 
 
@@ -86,11 +84,9 @@ The function `ipa()` takes a `word` (or a vector with multiple words, real or no
 ipa("atletico")
 ipa("cantalo", narrow = T)
 ipa("antidepressivo", narrow = T)
-ipa("feris") 
+ipa("feris")
 ipa("mejorado", lg = "sp")
 ipa("nuevos", lg = "sp")
-
-
 ```
 
 ### A note on stress
@@ -114,15 +110,17 @@ If you plan to tokenize texts and create a table with individual columns for str
 There are three functions in the package to analyze sonority. First, `demi(word = ..., d = ...)` extracts either the first (`d = 1`, the default) or second (`d = 2`) demisyllables of a given (syllabified) word (or vector of words. Second, `sonDisp(demi = ...)` calculates the sonority dispersion score of a given demisyllable, based on Clements (1990)---see also Parker (2011). Note that this metric does not differentiate sequences that respect the sonority sequencing principle (SSP) from those that don't, i.e., `pla` and `lpa` will have the same score. For that reason, a third function exists, `ssp(demi = ..., d = ...)`, which evaluates whether a given demisyllable respects (`1`) or doesn't repect (`0`) the SSP. In the example below, the dispersion score of the first demisyllable in the penult syllable is calculated---`ssp()` isn't relevant here, since all words in Portuguese respect the SSP.
 
 ```{r, message=F}
-example = tibble(word = c("partolo", "metrilpo", "vanplidos"))
+example <- tibble(word = c("partolo", "metrilpo", "vanplidos"))
 
-example = example |> 
-  rowwise() |> 
-  mutate(ipa = ipa(word),
-         syl2 = getSyl(word = ipa, pos = 2),
-         demi1 = demi(word = syl2, d = 1),
-         disp = sonDisp(demi = demi1),
-         SSP = ssp(demi = demi1, d = 1))
+example <- example |>
+  rowwise() |>
+  mutate(
+    ipa = ipa(word),
+    syl2 = getSyl(word = ipa, pos = 2),
+    demi1 = demi(word = syl2, d = 1),
+    disp = sonDisp(demi = demi1),
+    SSP = ssp(demi = demi1, d = 1)
+  )
 
 example
 ```
@@ -157,8 +155,10 @@ wug_pt(profile = "LHL")
 # Let's create a table with 5 nonce words and their bigram probability
 set.seed(1)
 tibble(word = character(5)) |>
-  mutate(word = wug_pt("LHL", n = 5),
-         bigram = word |> biGram_pt())
+  mutate(
+    word = wug_pt("LHL", n = 5),
+    bigram = word |> biGram_pt()
+  )
 ```
 
 ## Extras
@@ -168,7 +168,7 @@ Additional functions include `monthsAge()` and `meanAge()`, both of which can be
 
 ## References
 
-- Clements, G. N. 1990. The role of the sonority cycle in core syllabiﬁcation. *In* John Kingston & Mary E. Beckman (eds.) *Papers in laboratory phonology I: Between the grammar and physics of speech*, 283--333. Cambridge: Cambridge University Press.
+- Clements, G. N. (1990). The role of the sonority cycle in core syllabiﬁcation. *In* John Kingston & Mary E. Beckman (eds.) *Papers in laboratory phonology I: Between the grammar and physics of speech*, 283--333. Cambridge: Cambridge University Press.
 
 - Garcia, G. D. (2014). *Portuguese Stress Lexicon*. Available at [gdgarcia.ca/psl.html](https://gdgarcia.ca/psl.html).
 
@@ -180,7 +180,7 @@ Additional functions include `monthsAge()` and `meanAge()`, both of which can be
 
 - Parker, S. (2011). Sonority. In M. van Oostendorp, C. J. Ewen, E. Hume, & K. Rice (Eds.), *The Blackwell companion to phonology* (pp. 1160–1184). Wiley Online Library. https://doi.org/10.1002/9781444335262.wbctp0049
 
-- Wetzels, L., (2007) “Primary Word Stress in Brazilian Portuguese and the Weight Parameter”, *Journal of Portuguese Linguistics* 6(1), 9-58. doi: https://doi.org/10.5334/jpl.144
+- Wetzels, L., (2007) Primary Word Stress in Brazilian Portuguese and the Weight Parameter, *Journal of Portuguese Linguistics* 6(1), 9-58. doi: https://doi.org/10.5334/jpl.144
 
 
 [^1]: Functions without `_pt` or `_sp` are language-independent.
