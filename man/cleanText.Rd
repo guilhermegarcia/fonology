@@ -14,8 +14,8 @@ or a vector with words already tokenized, in which case tokenization is skipped}
 A vector with all words in the input, stripped of punctuation
 }
 \description{
-Given a string, the function removes punctuation, empty tokens, numbers, and normalizes lower case
+Given a string, the function removes punctuation, empty tokens, numbers, and normalizes lower case.
 }
 \examples{
-cleanText(text = "Este é um texto em português? This is a text in English!");
+cleanText(text = "Este é um texto em português? This is a text in English!")
 }

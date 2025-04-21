@@ -1,6 +1,6 @@
 #' Syllable counter
 #'
-#' The function counts the number of syllables in a given string
+#' The function counts the number of syllables in a given string.
 #' @param word A possible string that is already syllabified
 #' @param sep The syllable boundary employed. By default, the
 #' function assumes a period separates syllables, but you may want to
@@ -11,8 +11,8 @@
 #' countSyl("kan.ˈto.zo")
 #' @export
 
-countSyl = function(word = "", sep = "\\."){
-  count = stringr::str_count(word, pattern = sep) + 1
+countSyl <- function(word = "", sep = "\\.") {
+  count <- stringr::str_count(word, pattern = sep) + 1
 
   return(count)
 }

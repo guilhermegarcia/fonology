@@ -17,8 +17,8 @@ The demisyllable of interest
 \description{
 Given a string, the function returns its IPA transcription with stress and syllabification.
 Stress is assigned on the basis of the Portuguese Stress Lexicon for existing words, or lexical regularities
-and probabilistic distributions in certain cases for hypothetical words
+and probabilistic distributions in certain cases for hypothetical words.
 }
 \examples{
-demi(word = c("kram.pjo", "tlons.tri"), d = 1);
+demi(word = c("kram.pjo", "tlons.tri"), d = 1)
 }

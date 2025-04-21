@@ -18,7 +18,7 @@ follow the typical syntax used in RegEx in R for special symbols}
 The number of syllables in the string of interest
 }
 \description{
-The function counts the number of syllables in a given string
+The function counts the number of syllables in a given string.
 }
 \examples{
 countSyl("kan.ˈto.zo")

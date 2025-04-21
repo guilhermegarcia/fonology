@@ -6,34 +6,36 @@
 #' @return The transcription with spondaic lowering if applicable
 #' @noRd
 
-spond_pt = function(word = ""){
+spond_pt <- function(word = "") {
+  wordWeight <- getWeight_pt(word)
+  wordStress <- getStress(word)
 
-  wordWeight = getWeight_pt(word)
-  wordStress = getStress(word)
-
-  if(stringr::str_to_lower(wordStress) == "penult" &
-     stringr::str_detect(wordWeight, pattern = "LH$")){
+  if (stringr::str_to_lower(wordStress) == "penult" &
+    stringr::str_detect(wordWeight, pattern = "LH$")) {
     # Apply spondaic lowering
     # E
-    word = stringr::str_replace(word,
-                                pattern = "(^\u02c8\\w*)e(\\.\\w*$)",
-                                replacement = "\\1\u025b\\2")
+    word <- stringr::str_replace(word,
+      pattern = "(^\u02c8\\w*)e(\\.\\w*$)",
+      replacement = "\\1\u025b\\2"
+    )
 
-    word = stringr::str_replace(word,
-                                pattern = "(\\.\u02c8\\w*)e(\\.\\w*$)",
-                                replacement = "\\1\u025b\\2")
+    word <- stringr::str_replace(word,
+      pattern = "(\\.\u02c8\\w*)e(\\.\\w*$)",
+      replacement = "\\1\u025b\\2"
+    )
 
     # O
-    word = stringr::str_replace(word,
-                                pattern = "(^\u02c8\\w*)o(\\.\\w*$)",
-                                replacement = "\\1\u0254\\2")
+    word <- stringr::str_replace(word,
+      pattern = "(^\u02c8\\w*)o(\\.\\w*$)",
+      replacement = "\\1\u0254\\2"
+    )
 
-    word = stringr::str_replace(word,
-                                pattern = "(\\.\u02c8\\w*)o(\\.\\w*$)",
-                                replacement = "\\1\u0254\\2")
+    word <- stringr::str_replace(word,
+      pattern = "(\\.\u02c8\\w*)o(\\.\\w*$)",
+      replacement = "\\1\u0254\\2"
+    )
 
     return(word)
-
   } else {
     return(word)
   }

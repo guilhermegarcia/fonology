@@ -13,7 +13,7 @@ biGram_pt(word = c(""))
 The phonemic transcription for the string in question
 }
 \description{
-Given a phonemically transcribed string, the function returns its bigram probability in log using the lexicon in the Portuguese Stress Lexicon as reference
+Given a phonemically transcribed string, the function returns its bigram probability in log using the lexicon in the Portuguese Stress Lexicon as reference.
 }
 \examples{
 biGram_pt(word = "paklode")

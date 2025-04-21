@@ -13,8 +13,8 @@ transcribe_pt(word = "")
 The IPA transcription of said string without syllabification or stress
 }
 \description{
-Returns IPA phonemic transcription for a given string
+Returns IPA phonemic transcription for a given string.
 }
 \examples{
-transcribe_pt(word = "computador");
+transcribe_pt(word = "computador")
 }

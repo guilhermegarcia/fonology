@@ -18,8 +18,8 @@ A \code{ggplot2} figure with the sonority profile of the word
 }
 \description{
 Given a string, the function plots the sonority profile of the string using
-the fine-grained sonority scale in Parker (2011)
+the fine-grained sonority scale in Parker (2011).
 }
 \examples{
-plotSon(word = "plon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE);
+plotSon(word = "plon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE)
 }

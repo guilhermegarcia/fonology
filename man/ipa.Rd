@@ -18,8 +18,8 @@ Narrow transcription is only available for Portuguese inputs and will be ignored
 The phonemic transcription for the string in question
 }
 \description{
-Given a string, the function returns its IPA transcription with stress and syllabification
+Given a string, the function returns its IPA transcription with stress and syllabification.
 }
 \examples{
-ipa(word = "palado");
+ipa(word = "palado")
 }

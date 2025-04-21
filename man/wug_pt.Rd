@@ -17,7 +17,7 @@ wug_pt(profile = "LLL", n = 1, palatalization = F)
 The IPA transcription of said string
 }
 \description{
-Returns IPA phonemic transcription for a nonce word given a specific weight profile
+Returns IPA phonemic transcription for a nonce word given a specific weight profile.
 }
 \examples{
 wug_pt(profile = "HLL", n = 2)

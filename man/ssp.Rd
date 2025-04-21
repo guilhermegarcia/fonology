@@ -16,8 +16,8 @@ Either \code{1}, indicating that the sequence respects the SSP, or \code{0}
 }
 \description{
 Given a demisyllable, the function returns \code{1} if the demisyllable respects
-the sonority sequencing principle (SSP) and \code{0} otherwise
+the sonority sequencing principle (SSP) and \code{0} otherwise.
 }
 \examples{
-ssp(demi = "tra", d = 1);
+ssp(demi = "tra", d = 1)
 }

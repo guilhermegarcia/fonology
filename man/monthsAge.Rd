@@ -15,7 +15,7 @@ monthsAge(age, sep = ";")
 Age in months
 }
 \description{
-Calculates age in months based on yy;mm format, commonly used in language acquisition studies
+Calculates age in months based on yy;mm format, commonly used in language acquisition studies.
 }
 \examples{
 monthsAge(age = "02;06")

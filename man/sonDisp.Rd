@@ -14,8 +14,8 @@ The sonority dispersion score
 }
 \description{
 Given a demisyllable, the function returns its sonority dispersion score based on the
-sonority sequencing principle
+sonority sequencing principle.
 }
 \examples{
-sonDisp(demi = "tra");
+sonDisp(demi = "tra")
 }

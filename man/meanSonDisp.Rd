@@ -18,8 +18,8 @@ The mean sonority dispersion score
 \description{
 Given a word or a vector of words, the function returns
 the mean sonority dispersion score based on the
-sonority sequencing principle
+sonority sequencing principle.
 }
 \examples{
-meanSonDisp(word = c("combrade", "prondo", "clauspricos"));
+meanSonDisp(word = c("combrade", "prondo", "clauspricos"))
 }

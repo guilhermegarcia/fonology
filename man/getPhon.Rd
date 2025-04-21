@@ -20,9 +20,9 @@ Alternatively, you can also provide your own inventory as a vector}
 The phonemes given the features provided
 }
 \description{
-Returns a set of phonemes given different distinctive feature values
+Returns a set of phonemes given different distinctive feature values.
 }
 \examples{
-getPhon(ft = c("+hi", "+tense"), lg = "english");
-getPhon(ft = c("+hi", "+tense"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"));
+getPhon(ft = c("+hi", "+tense"), lg = "english")
+getPhon(ft = c("+hi", "+tense"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"))
 }

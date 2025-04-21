@@ -13,5 +13,5 @@ A list of words broadly and narrowly transcribed using \code{ipa(lg = "Spanish")
 Returns a list of words. No arguments needed.
 }
 \examples{
-ipa_sp_test();
+ipa_sp_test()
 }

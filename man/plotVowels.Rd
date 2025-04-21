@@ -15,11 +15,11 @@ plotVowels(lg = "English", tex = F)
 The vowel inventory desired
 }
 \description{
-Generates vowel trapezoid using \code{ggplot2} as well as LaTeX code using vowel package
+Generates vowel trapezoid using \code{ggplot2} as well as LaTeX code using vowel package.
 }
 \examples{
 \dontrun{
-plotVowels(lg = "portuguese");
-plotVowels(lg = "english");
+plotVowels(lg = "portuguese")
+plotVowels(lg = "english")
 }
 }

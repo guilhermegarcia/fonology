@@ -24,8 +24,8 @@ syllable(
 The constituent of interest or \code{NA} if said constituent doesn't exist for the syllable in question
 }
 \description{
-Returns onset, nucleus, or coda for a given syllable
+Returns onset, nucleus, or coda for a given syllable.
 }
 \examples{
-syllable(syl = "kom", const = "nucleus");
+syllable(syl = "kom", const = "nucleus")
 }

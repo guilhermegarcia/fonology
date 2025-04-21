@@ -15,8 +15,8 @@ getWeight(word, lg = "Portuguese")
 The sequence of Ls and Hs based on the word's weight profile given the phonology of the language in question
 }
 \description{
-Labels a given string in Portuguese according to its weight profile using Ls and Hs
+Labels a given string in Portuguese according to its weight profile using Ls and Hs.
 }
 \examples{
-getWeight(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"));
+getWeight(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"))
 }

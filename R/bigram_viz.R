@@ -13,34 +13,32 @@
 #' @export
 
 
-nGramTbl = function(text = "", n = 2){
-
-  if(stringr::str_c(text, collapse = " ") %in% c("", NA)){
+nGramTbl <- function(text = "", n = 2) {
+  if (stringr::str_c(text, collapse = " ") %in% c("", NA)) {
     return(NA)
   }
 
-  combs2 = c("^^", "^$", "$^", "$$")
+  combs2 <- c("^^", "^$", "$^", "$$")
 
-  combs3 = c("^^^", "^^$", "^$^", "^$$", "$^^", "$^$", "$$^", "$$$")
+  combs3 <- c("^^^", "^^$", "^$^", "^$$", "$^^", "$^$", "$$^", "$$$")
 
-  textClean = text |>
+  textClean <- text |>
     cleanText()
 
-  textClean = stringr::str_c("^", textClean, "$")
+  textClean <- stringr::str_c("^", textClean, "$")
 
-  textClean = textClean |>
+  textClean <- textClean |>
     stringr::str_c(collapse = " ") |>
     stringr::str_split("") |>
     unlist() |>
-    stringr::str_c(collapse = " ", sep  = " ")
+    stringr::str_c(collapse = " ", sep = " ")
 
   # Unigram
   #
-  if(n == 1){
+  if (n == 1) {
+    ng <- ngram::ngram(str = textClean, n = n)
 
-    ng = ngram::ngram(str = textClean, n = n)
-
-    ng_tbl = ng |>
+    ng_tbl <- ng |>
       ngram::get.phrasetable() |>
       tibble::as_tibble(.name_repair = "minimal") |>
       dplyr::rename(nGrams = ngrams) |>
@@ -50,23 +48,25 @@ nGramTbl = function(text = "", n = 2){
       dplyr::select(nGrams, n1, freq, prop) |>
       dplyr::filter(!nGrams %in% c("^", "$")) |>
       dplyr::arrange(dplyr::desc(prop)) |>
-      dplyr::mutate(n1 = stringr::str_replace_all(string = n1,
-                                                  pattern = "[\\^\\$]",
-                                                  replacement = "#")) |>
-      dplyr::mutate(nGrams = stringr::str_replace_all(string = nGrams,
-                                                      pattern = "[\\^\\$]",
-                                                      replacement = "#"))
+      dplyr::mutate(n1 = stringr::str_replace_all(
+        string = n1,
+        pattern = "[\\^\\$]",
+        replacement = "#"
+      )) |>
+      dplyr::mutate(nGrams = stringr::str_replace_all(
+        string = nGrams,
+        pattern = "[\\^\\$]",
+        replacement = "#"
+      ))
 
     return(ng_tbl)
-
   }
 
   # Bigram
-  else if(n == 2){
+  else if (n == 2) {
+    ng <- ngram::ngram(str = textClean, n = n)
 
-    ng = ngram::ngram(str = textClean, n = n)
-
-    ng_tbl = ng |>
+    ng_tbl <- ng |>
       ngram::get.phrasetable() |>
       tibble::as_tibble(.name_repair = "minimal") |>
       dplyr::rename(nGrams = ngrams) |>
@@ -76,28 +76,34 @@ nGramTbl = function(text = "", n = 2){
       dplyr::select(nGrams, n1, n2, freq, prop) |>
       dplyr::filter(!nGrams %in% combs2) |>
       dplyr::arrange(dplyr::desc(prop)) |>
-      dplyr::mutate(n1 = stringr::str_replace_all(string = n1,
-                                                  pattern = "[\\^\\$]",
-                                                  replacement = "#"),
-                    n2 = stringr::str_replace_all(string = n2,
-                                                  pattern = "[\\^\\$]",
-                                                  replacement = "#")) |>
-      dplyr::mutate(nGrams = stringr::str_replace_all(string = nGrams,
-                                                      pattern = "[\\^\\$]",
-                                                      replacement = "#"))
+      dplyr::mutate(
+        n1 = stringr::str_replace_all(
+          string = n1,
+          pattern = "[\\^\\$]",
+          replacement = "#"
+        ),
+        n2 = stringr::str_replace_all(
+          string = n2,
+          pattern = "[\\^\\$]",
+          replacement = "#"
+        )
+      ) |>
+      dplyr::mutate(nGrams = stringr::str_replace_all(
+        string = nGrams,
+        pattern = "[\\^\\$]",
+        replacement = "#"
+      ))
 
     return(ng_tbl)
-
   }
 
 
 
   # Trigram
-  else if(n == 3){
+  else if (n == 3) {
+    ng <- ngram::ngram(str = textClean, n = n)
 
-    ng = ngram::ngram(str = textClean, n = n)
-
-    ng_tbl = ng |>
+    ng_tbl <- ng |>
       ngram::get.phrasetable() |>
       tibble::as_tibble(.name_repair = "minimal") |>
       dplyr::rename(nGrams = ngrams) |>
@@ -107,27 +113,35 @@ nGramTbl = function(text = "", n = 2){
       dplyr::select(nGrams, n1, n2, n3, freq, prop) |>
       dplyr::filter(!nGrams %in% combs3) |>
       dplyr::arrange(dplyr::desc(prop)) |>
-      dplyr::mutate(n1 = stringr::str_replace_all(string = n1,
-                                                  pattern = "[\\^\\$]",
-                                                  replacement = "#"),
-                    n2 = stringr::str_replace_all(string = n2,
-                                                  pattern = "[\\^\\$]",
-                                                  replacement = "#"),
-                    n3 = stringr::str_replace_all(string = n3,
-                                                  pattern = "[\\^\\$]",
-                                                  replacement = "#")) |>
-      dplyr::mutate(nGrams = stringr::str_replace_all(string = nGrams,
-                                                      pattern = "[\\^\\$]",
-                                                      replacement = "#")) |>
+      dplyr::mutate(
+        n1 = stringr::str_replace_all(
+          string = n1,
+          pattern = "[\\^\\$]",
+          replacement = "#"
+        ),
+        n2 = stringr::str_replace_all(
+          string = n2,
+          pattern = "[\\^\\$]",
+          replacement = "#"
+        ),
+        n3 = stringr::str_replace_all(
+          string = n3,
+          pattern = "[\\^\\$]",
+          replacement = "#"
+        )
+      ) |>
+      dplyr::mutate(nGrams = stringr::str_replace_all(
+        string = nGrams,
+        pattern = "[\\^\\$]",
+        replacement = "#"
+      )) |>
       dplyr::filter(!stringr::str_detect(string = nGrams, pattern = "#{2,}"))
 
     return(ng_tbl)
-
   } else {
     message("n must be 1, 2, or 3.")
     return(NA)
   }
-
 }
 
 #' Visualizing nGrams
@@ -142,22 +156,21 @@ nGramTbl = function(text = "", n = 2){
 #' plotnGrams(ngrams = "")
 #' @export
 
-plotnGrams = function(ngrams, type = "lollipop", n = 5){
+plotnGrams <- function(ngrams, type = "lollipop", n = 5) {
+  nCols <- length(names(ngrams))
 
-  nCols = length(names(ngrams))
-
-  if(nCols == 4){
-    if(!(sum(names(ngrams) == c("nGrams", "n1", "freq", "prop"))) == 4){
+  if (nCols == 4) {
+    if (!(sum(names(ngrams) == c("nGrams", "n1", "freq", "prop"))) == 4) {
       message("Your input is invalid. You must first run nGram_tbl(..., n = {1,2,3}) to create an appropriate input.")
       return(NA)
     }
-  } else if(nCols == 5){
-    if(!(sum(names(ngrams) == c("nGrams", "n1", "n2", "freq", "prop"))) == 5){
+  } else if (nCols == 5) {
+    if (!(sum(names(ngrams) == c("nGrams", "n1", "n2", "freq", "prop"))) == 5) {
       message("Your input is invalid. You must first run nGram_tbl(..., n = {1,2,3}) to create an appropriate input.")
       return(NA)
     }
-  } else if(nCols == 6){
-    if(!(sum(names(ngrams) == c("nGrams", "n1", "n2", "n3", "freq", "prop"))) == 6){
+  } else if (nCols == 6) {
+    if (!(sum(names(ngrams) == c("nGrams", "n1", "n2", "n3", "freq", "prop"))) == 6) {
       message("Your input is invalid. You must first run nGram_tbl(..., n = {1,2,3}) to create an appropriate input.")
       return(NA)
     }
@@ -167,64 +180,72 @@ plotnGrams = function(ngrams, type = "lollipop", n = 5){
   }
 
   # Requirement for heat:
-  if(type == "heat" & nCols != 5){
+  if (type == "heat" & nCols != 5) {
     message("Your input is invalid. You must first run nGram_tbl(..., n = 2) to create an appropriate input for a heat map.")
     return(NA)
   }
 
 
 
-  if(nrow(ngrams) < n){
+  if (nrow(ngrams) < n) {
     message("Text has fewer ngrams than the desired n.")
     return(NA)
   }
 
-  ngrams = ngrams |>
+  ngrams <- ngrams |>
     dplyr::slice(1:n)
 
 
-  lollipop = ggplot2::ggplot(data = ngrams,
-                             ggplot2::aes(x = forcats::fct_reorder(nGrams, prop, .desc = F),
-                                          y = prop,
-                                          label = stringr::str_remove(string = nGrams, pattern = "-"))) +
+  lollipop <- ggplot2::ggplot(
+    data = ngrams,
+    ggplot2::aes(
+      x = forcats::fct_reorder(nGrams, prop, .desc = F),
+      y = prop,
+      label = stringr::str_remove(string = nGrams, pattern = "-")
+    )
+  ) +
     ggplot2::geom_point(size = 4) +
     ggplot2::geom_segment(ggplot2::aes(x = nGrams, xend = nGrams, y = 0, yend = prop),
-                          color = "gray") +
+      color = "gray"
+    ) +
     ggplot2::geom_label(fill = "#CCE8FF") +
     ggplot2::coord_flip() +
     ggplot2::theme_classic() +
-    ggplot2::theme(axis.ticks.y = ggplot2::element_blank(),
-                   axis.text.y = ggplot2::element_blank()) +
-    ggplot2::labs(x = NULL,
-                  y = "Proportion") +
+    ggplot2::theme(
+      axis.ticks.y = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_blank()
+    ) +
+    ggplot2::labs(
+      x = NULL,
+      y = "Proportion"
+    ) +
     ggplot2::scale_y_continuous(labels = scales::percent_format())
 
 
 
-  heat = ggplot2::ggplot(data = ngrams,
-                         ggplot2::aes(x = n2, y = n1, fill = prop)) +
+  heat <- ggplot2::ggplot(
+    data = ngrams,
+    ggplot2::aes(x = n2, y = n1, fill = prop)
+  ) +
     ggplot2::geom_tile(color = "white", lwd = .5) +
     # ggplot2::geom_text(ggplot2::aes(label = round(prop, 2)),
     #                    color = "white", size = 4) +
     ggplot2::theme_classic() +
     ggplot2::theme(legend.position = "none") +
-    ggplot2::scale_fill_gradient(low = "#CCE8FF",
-                                 high = "#08306B") +
+    ggplot2::scale_fill_gradient(
+      low = "#CCE8FF",
+      high = "#08306B"
+    ) +
     ggplot2::labs(x = "2", y = "1") +
     ggplot2::scale_x_discrete(position = "top") +
     ggplot2::coord_fixed()
 
-  if(stringr::str_to_lower(type) == "lollipop"){
+  if (stringr::str_to_lower(type) == "lollipop") {
     return(lollipop)
-  } else if(stringr::str_to_lower(type) == "heat"){
+  } else if (stringr::str_to_lower(type) == "heat") {
     return(heat)
   } else {
     message("The only two types of plots available are 'lollipop' and 'heat'.")
     return(NA)
   }
-
 }
-
-
-
-

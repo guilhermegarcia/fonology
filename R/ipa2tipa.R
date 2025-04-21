@@ -2,7 +2,7 @@
 #'
 #' Translates a phonemically transcribed sequence into \code{TIPA} commands for LaTeX.
 #' The function is expected to be used in conjunction with \code{cleanText()} and \code{ipa()},
-#' which provide the appropriate input for it. NOTE: the function will return
+#' which provide the appropriate input for it. Note: the function will return
 #' a single string, so if a vector with multiple words is provided, it will concatenate
 #' all the words (keeping spaces between them) into a single output to keep the tex output
 #' parsimonous and avoid multiple uses of the \code{\\textipa} function. Therefore,
@@ -12,36 +12,35 @@
 #' @param post Suffix for transcription. Defaults to " /"
 #' @return The tex code using \code{TIPA}
 #' @examples
-#' ipa2tipa(string = "bo.ni.to");
+#' ipa2tipa(string = "bo.ni.to")
 #' @export
 
 ipa2tipa <- function(string, pre = "/ ", post = " /") {
-
-  ipa = string
+  ipa <- string
   ipa <- stringr::str_replace_all(string, pattern = "$", replacement = "#")
   ipa <- stringr::str_split(ipa, "") |> unlist()
 
   # Fix affricates:
-  for(i in 1:(length(ipa)-1)){
-    if(ipa[i] == "t\u0361" & ipa[i+1] == "\u0283"){
+  for (i in 1:(length(ipa) - 1)) {
+    if (ipa[i] == "t\u0361" & ipa[i + 1] == "\u0283") {
       ipa[i] <- "t\u0361\u0283"
-      ipa[i+1] <- ""
-    } else if(ipa[i] == "d\u0361" & ipa[i+1] == "\u0292"){
+      ipa[i + 1] <- ""
+    } else if (ipa[i] == "d\u0361" & ipa[i + 1] == "\u0292") {
       ipa[i] <- "d\u0361\u0292"
-      ipa[i+1] <- ""
+      ipa[i + 1] <- ""
     }
   }
 
   ipa <- ipa[ipa != ""]
 
-  pre = stringr::str_c("\\textipa{ ", pre)
-  post = stringr::str_c(post, " }")
+  pre <- stringr::str_c("\\textipa{ ", pre)
+  post <- stringr::str_c(post, " }")
 
   ipa_dict <- list(
     "#" = " ",
     "i" = "i",
     "\u0250" = "5",
-    "x" =  "x",
+    "x" = "x",
     "\u026a" = "I",
     "e" = "e",
     "\u025b" = "E",
@@ -61,7 +60,6 @@ ipa2tipa <- function(string, pre = "/ ", post = " /") {
     "i\u0303" = "\\~{i}",
     "\u00f5" = "\\~{o}",
     "u\u0303" = "\\~{u}",
-
     "\u00f8" = "\\o",
     "\u025b\u0303" = "@",
     "\u0153\u0303" = "\\~{\\oe}",
@@ -70,7 +68,6 @@ ipa2tipa <- function(string, pre = "/ ", post = " /") {
     "\u0153" = "{\\oe}",
     "\u0265" = "4",
     "\u0281" = "K",
-
     "p" = "p",
     "b" = "b",
     "t" = "t",
@@ -106,15 +103,15 @@ ipa2tipa <- function(string, pre = "/ ", post = " /") {
     "\u02cc" = '{\"\"}'
   )
 
-  output = c(pre)
+  output <- c(pre)
 
-  for(i in 1:length(ipa)){
-    output[length(output) + 1] = ipa_dict[[ipa[i]]]
+  for (i in 1:length(ipa)) {
+    output[length(output) + 1] <- ipa_dict[[ipa[i]]]
   }
 
-  output = output[-length(output)]
+  output <- output[-length(output)]
 
-  output = stringr::str_c(output, collapse = "") |>
+  output <- stringr::str_c(output, collapse = "") |>
     stringr::str_c(post, collapse = "")
 
   message("Done! Here\'s your tex code using TIPA:")

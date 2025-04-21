@@ -10,8 +10,8 @@ formants()
 Axis reversal for both \code{x} and \code{y}
 }
 \description{
-Reverses axes to accommodate \code{F1} and \code{F2} formants
+Reverses axes to accommodate \code{F1} and \code{F2} formants.
 }
 \examples{
-formants();
+formants()
 }

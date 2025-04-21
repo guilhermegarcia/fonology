@@ -16,9 +16,9 @@ Alternatively, you can also provide your own inventory as a vector}
 The minimal matrix of features given \code{ph} and \code{lg}
 }
 \description{
-Generates a feature matrix for a given set of phonemes in a given language
+Generates a feature matrix for a given set of phonemes in a given language.
 }
 \examples{
-getFeat(ph = c("i", "u"), lg = "english");
-getFeat(ph = c("i", "u"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"));
+getFeat(ph = c("i", "u"), lg = "english")
+getFeat(ph = c("i", "u"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"))
 }
