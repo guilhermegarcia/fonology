@@ -4,14 +4,14 @@
 \alias{getSyl}
 \title{Function to extract syllables from words}
 \usage{
-getSyl(word = c("pa.la.do"), pos = 1, dir = "from_right", syl = "\\\\.")
+getSyl(word = c("pa.la.do"), pos = 1, from_right = TRUE, syl = "\\\\.")
 }
 \arguments{
 \item{word}{The strings of interest must be syllabified}
 
 \item{pos}{The target syllable counting from the right edge of the word}
 
-\item{dir}{The direction used, either \code{"from_right"} or \code{"from_left"} (default is \code{"from_right"})}
+\item{from_right}{Whether to parse from the right (default is \code{TRUE}).}
 
 \item{syl}{The symbol used for syllable boundaries (a period is used as the default)}
 }
