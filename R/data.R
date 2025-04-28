@@ -101,6 +101,15 @@
 #' @source <https://cran.r-project.org/web/packages/tm/index.html>
 "stopwords_pt"
 
+#' Data: stopwords in French
+#'
+#' Set of stopwords in French from the tm package.
+#'
+#' @format A vector with stopwords in French
+#' @usage data(stopwords_fr)
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @source <https://cran.r-project.org/web/packages/tm/index.html>
+"stopwords_fr"
 
 #' Data: stopwords in Spanish
 #'

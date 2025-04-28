@@ -1,7 +1,7 @@
 #' IPA transcriber for Spanish
 #'
 #' Given a string, the function returns its IPA transcription with stress and syllabification.
-#' @param word A possible string in Portuguese in its orthographic form
+#' @param word A possible string in Spanish in its orthographic form
 #' @return The phonemic transcription for the string in question
 #' @noRd
 
