@@ -5,7 +5,7 @@
 \title{MaxEnt Grammar}
 \usage{
 maxent(
-  tableaux,
+  tableau,
   obs_col = "obs",
   mu = NULL,
   sigma = NULL,
@@ -15,7 +15,7 @@ maxent(
 )
 }
 \arguments{
-\item{tableaux}{The data object (data frame or tibble) containing an \code{input} column
+\item{tableau}{The data object (data frame or tibble) containing an \code{input} column
 and an \code{output} column, in addition to all relevant constraints, their respective
 violations, and a column \code{obs} containing the number of observations for each output}
 
@@ -48,12 +48,12 @@ Given an object with one or more tableaux, the function returns the
 weights for the set of constraints.
 }
 \examples{
-tableaux <- tibble::tibble(
+maxent_data <- tibble::tibble(
   input = rep(c("pad", "tab", "bid", "dog", "pok"), each = 2),
   output = c("pad", "pat", "tab", "tap", "bid", "bit", "dog", "dok", "pog", "pok"),
   ident_vce = c(0, 1, 0, 1, 0, 1, 0, 1, 1, 0),
   no_vce_final = c(1, 0, 1, 0, 1, 0, 1, 0, 1, 0),
   obs = c(5, 15, 10, 20, 12, 18, 12, 17, 4, 8)
 )
-maxent(tableaux = tableaux)
+maxent(tableau = maxent_data)
 }

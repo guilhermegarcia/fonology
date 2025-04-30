@@ -174,14 +174,14 @@ If you plan to tokenize texts and create a table with individual columns for str
 The function `maxent()` learns weights given a tableau object containing inputs, outputs, constraints, violations and observations (see documentation). The function returns a list with different objects, including learned weights, BIC value and predicted probabilities for each output. If the reader wishes to pursue a comprehensive MaxEnt analysis, I strongly recommend the `maxent.ot` package, which is dedicated exclusively to MaxEnt grammars (Mayer et al, 2024). Here's an example of `maxent()` in action.
 
 ```{r}
-tableaux <- tibble::tibble(
+maxent_data <- tibble::tibble(
   input = rep(c("pad", "tab", "bid", "dog", "pok"), each = 2),
   output = c("pad", "pat", "tab", "tap", "bid", "bit", "dog", "dok", "pog", "pok"),
   ident_vce = c(0, 1, 0, 1, 0, 1, 0, 1, 1, 0),
   no_vce_final = c(1, 0, 1, 0, 1, 0, 1, 0, 1, 0),
   obs = c(5, 15, 10, 20, 12, 18, 12, 17, 4, 8)
 )
-maxent(tableaux = tableaux)
+maxent(tableau = maxent_data)
 ```
 
 Finally, a couple of functions are dedicated to Noisy Harmonic Grammars. These are pedagogical tools that can be used to demonstrate how probabilities are generated given constraint weights and violation profiles for different candidates. The function `nhg()` takes a tableau object and returns predicted probabilities given `n` simulations. The user can also set the standard deviation for the noise used. The function `plotNhg()` can be helpful to visualize how different standard deviations affect probabilities over candidates after 100 simulations.

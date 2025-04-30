@@ -1,7 +1,7 @@
 Package: Fonology
 Type: Package
 Title: Phonological Analysis in R
-Version: 0.9.5
+Version: 0.9.6
 Authors@R: person(given = c("Guilherme", "D."), family = "Garcia",
                   role = c("aut", "cre", "cph"),
                   email = "guilherme.garcia@lli.ulaval.ca",
@@ -33,5 +33,6 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    utils
+    utils,
+    glue
 URL: https://gdgarcia.ca/fonology

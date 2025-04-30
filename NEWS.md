@@ -1,3 +1,9 @@
+# Fonology 0.9.6
+
+- Minor consistency issues fixed
+- Sample tableaux added to accompany `nhg()` function
+- Data file included based on features found in Hayes (2009)
+
 # Fonology 0.9.5
 
 This is a relatively large update.

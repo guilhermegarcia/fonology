@@ -182,14 +182,14 @@ dedicated exclusively to MaxEnt grammars (Mayer et al, 2024). Here’s an
 example of `maxent()` in action.
 
 ``` r
-tableaux <- tibble::tibble(
+maxent_data <- tibble::tibble(
   input = rep(c("pad", "tab", "bid", "dog", "pok"), each = 2),
   output = c("pad", "pat", "tab", "tap", "bid", "bit", "dog", "dok", "pog", "pok"),
   ident_vce = c(0, 1, 0, 1, 0, 1, 0, 1, 1, 0),
   no_vce_final = c(1, 0, 1, 0, 1, 0, 1, 0, 1, 0),
   obs = c(5, 15, 10, 20, 12, 18, 12, 17, 4, 8)
 )
-maxent(tableaux = tableaux)
+maxent(tableau = maxent_data)
 #> $predictions
 #> # A tibble: 10 × 12
 #>    input output ident_vce no_vce_final   obs harmony max_h exp_h     Z obs_prob

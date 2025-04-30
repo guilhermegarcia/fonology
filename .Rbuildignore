@@ -4,3 +4,5 @@
 ^cran-comments\.md$
 ^LICENSE\.md$
 ^builds$
+^notes\.md$
+^toUTF\.R$
