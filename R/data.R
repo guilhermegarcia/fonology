@@ -231,6 +231,7 @@
 
 #' Data: sample tableau for NHG (1)
 #'
+#' Dummy example to be used in intro to Noisy Harmonic Grammars
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A tibble to be used with the \code{nhg()} function
 #' @usage data(tableau_nhg_1)
@@ -238,11 +239,20 @@
 
 #' Data: sample tableau for NHG (2)
 #'
-#' The inventory of consonants and glides in Spanish
+#' Dummy example to be used in intro to Noisy Harmonic Grammars
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
-#' @format A vector containing the consonants and glides in Spanish
+#' @format A tibble to be used with the \code{nhg()} function
 #' @usage data(tableau_nhg_2)
 "tableau_nhg_2"
+
+#' Data: sample MaxEnt tableau (1)
+#'
+#' Dummy example to be used in intro to MaxEnt Grammars
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @format A tibble to be used with the \code{maxent()} function
+#' @usage data(tableau_nhg_2)
+"tableau_maxent_1"
+
 
 #' Data: contrastive features from Hayes (2009)
 #' The complete table of features found in Hayes's 2009

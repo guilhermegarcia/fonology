@@ -6,5 +6,6 @@
 ^builds$
 ^notes\.md$
 ^toUTF\.R$
+^tableaux\.R$
 ^doc$
 ^Meta$

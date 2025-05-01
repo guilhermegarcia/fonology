@@ -11,7 +11,7 @@ A tibble to be used with the \code{nhg()} function
 data(tableau_nhg_1)
 }
 \description{
-Data: sample tableau for NHG (1)
+Dummy example to be used in intro to Noisy Harmonic Grammars
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})
