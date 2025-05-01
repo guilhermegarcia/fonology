@@ -351,9 +351,8 @@ look at the complete list of functions available.
 - Garcia, G. D. (2014). *Portuguese Stress Lexicon*. Available at
   [gdgarcia.ca/psl.html](https://gdgarcia.ca/psl.html).
 
-- Garcia, G. D. (2017). *Weight effects on stress: Lexicon and grammar*
-  $$PhD thesis, McGill University$$.
-  <https://doi.org/10.31219/osf.io/bt8hk>
+- Garcia, G. D. (2017). *Weight effects on stress: Lexicon and grammar*.
+  PhD thesis, McGill University. <https://doi.org/10.31219/osf.io/bt8hk>
 
 - Garcia, G. D. (2017). Weight gradience and stress in Portuguese.
   *Phonology*, 34(1), 41–79. <https://doi.org/10.1017/S0952675717000033>
