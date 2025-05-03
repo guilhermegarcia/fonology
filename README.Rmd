@@ -124,6 +124,10 @@ ipa("mejorado", lg = "sp")
 #> [1] "me.xo.ˈɾa.do"
 ipa("nuevos", lg = "sp")
 #> [1] "nu.ˈe.bos"
+ipa("informatique", lg = "fr")
+#> [1] "ɛ̃.fɔʁ.ma.tik"
+ipa("acheter", lg = "fr")
+#> [1] "a.ʃə.te"
 ```
 
 ### A note on stress
