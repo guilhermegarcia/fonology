@@ -3,6 +3,7 @@
 - Minor consistency issues fixed
 - Sample tableaux added to accompany `nhg()` function
 - Data file included based on features found in Hayes (2009)
+  - This is _not_ the file used in functions involving distinctive features
 
 # Fonology 0.9.5
 
