@@ -346,6 +346,16 @@ which can be used to convert and analyze ages following the format
 good idea to check out the index of functions (`?Fonology`) to take a
 look at the complete list of functions available.
 
+## Acknowledgements and funding
+
+Parts of this project have benefited from funding from the ENVOL program
+at Université Laval and from the Social Sciences and Humanities Research
+Council of Canada (**SSHRC**). Different undergraduate research
+assistants at Université Laval have worked on the Spanish and French
+grapheme-to-phoneme conversion functions: Nicolas C. Bustos, Emmy
+Dumont, and Linda Wong. Matéo Levesque implemented comprehensive regular
+expressions for French transcription.
+
 ## References
 
 - Clements, G. N. (1990). The role of the sonority cycle in core
