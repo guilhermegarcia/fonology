@@ -1,14 +1,14 @@
 Package: Fonology
 Type: Package
 Title: Phonological Analysis in R
-Version: 0.9.6
+Version: 0.9.7
 Authors@R: person(given = c("Guilherme", "D."), family = "Garcia",
                   role = c("aut", "cre", "cph"),
                   email = "guilherme.garcia@lli.ulaval.ca",
                   comment = c(
                               ORCID = "0000-0003-1412-3856")) 
 Maintainer: Guilherme D. Garcia <guilherme.garcia@lli.ulaval.ca>
-Description: A collection of tools to help with phonological analysis. Functions include grapheme to phoneme conversion, sonority dispersion calculation, minimal matrices for natural classes given a set of features, and others.
+Description: A collection of tools to help with phonological analysis. Functions include grapheme to phoneme conversion, sonority dispersion calculation, minimal matrices for natural classes given a set of features, maxent models, and more.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -31,6 +31,7 @@ Imports:
     scales,
     stats,
     stringr,
+    stringi,
     tibble,
     tidyr,
     utils,

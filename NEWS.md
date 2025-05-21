@@ -1,3 +1,8 @@
+# Fonology 0.9.7
+
+- Minor issues with Portuguese transcription fixed
+- New function added (`cv()`) to return syllable shape of a given transcribed string
+
 # Fonology 0.9.6
 
 - Minor consistency issues fixed

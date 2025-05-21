@@ -354,14 +354,10 @@ transcribe_pt_vec <- function(word = "") {
 
 
   # Diphthongs
-  # word = stringr::str_replace_all(word,
-  #                                 pattern = "([aeiou\u0254\u025b])i([^mn])",
-  #                                 replacement = "\\1j\\2")
-
   # ==================
-  # Addition in May 2024 given verbs in the simple past (3rd PRS SG)
+  # NOTE: Corrected typo in pattern (May 2025)
   word <- stringr::str_replace_all(word,
-    pattern = "([aeiou\u0254\u025b])i?!u([^mn])",
+    pattern = "([aeiou\u0254\u025b])i([^mn])",
     replacement = "\\1j\\2"
   )
 
@@ -378,7 +374,7 @@ transcribe_pt_vec <- function(word = "") {
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "\u00e3o$",
+    pattern = "\u00e3o",
     replacement = "\u00e3w\u0303"
   )
 
