@@ -316,10 +316,17 @@ transcribe_pt <- function(word = "") {
     replacement = "\u028ea"
   )
 
+
   word <- stringr::str_replace_all(word,
-    pattern = "lhe",
-    replacement = "\u028ee"
+    pattern = "lher",
+    replacement = "\u028e\u025b\u027e"
   )
+
+  word <- stringr::str_replace_all(word,
+    pattern = "lhor",
+    replacement = "\u028e\u0254\u027e"
+  )
+
 
   word <- stringr::str_replace_all(word,
     pattern = "lh",
