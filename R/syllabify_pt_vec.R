@@ -113,6 +113,14 @@ syllabify_pt_vec <- function(word = "") {
       replacement = "\\1\\2"
     )
 
+  # NOTE: nasal-ending compound members
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "w\u0303(?!s|$)",
+      replacement = "w\u0303."
+    )
+
+
   # Two plosives word-finally:
   word <- word |>
     stringr::str_replace_all(

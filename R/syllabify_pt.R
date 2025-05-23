@@ -121,6 +121,15 @@ syllabify_pt <- function(word = "") {
       replacement = "t"
     )
 
+  # NOTE: nasal-ending compound members
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "w\u0303(?!s|$)",
+      replacement = "w\u0303."
+    )
+
+
+
 
 
   return(word)

@@ -46,7 +46,6 @@ transcribe_pt <- function(word = "") {
   # Clean word of double Cs:
   word <- double_C(word)
 
-
   # Initial h
   word <- stringr::str_remove(word,
     pattern = "^h"
