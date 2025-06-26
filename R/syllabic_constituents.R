@@ -13,6 +13,7 @@
 syllable <- function(syl = "", const = "nucleus", glides_as_onsets = FALSE, glides_as_codas = FALSE) {
   # Lower case:
   syl <- stringr::str_to_lower(syl)
+  syl <- stringr::str_remove_all(syl, pattern = "\u02c8|\u02cc")
 
   # If rhymes, count glides as codas:
   if (stringr::str_to_lower(const) == "rhyme") {
