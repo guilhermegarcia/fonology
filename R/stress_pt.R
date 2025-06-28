@@ -102,14 +102,14 @@ stress_pt <- function(word = "") {
     return(word)
   }
 
-  if (stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|\u027e|w|j|i|u|\u00e3|\u00f5|w\u0303]$") |
+  if (stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|\u027e|r|w|j|i|u|\u00e3|\u00f5|w\u0303]$") |
     stringr::str_detect(string = word, pattern = "\\.\\w+is$|\\.\\w+us$|\\.\\w+ws$|\\.\\w+js$") |
     stringr::str_detect(string = word, pattern = "[nlr]s$") |
     stringr::str_detect(string = word, pattern = "[wj]\u0303s$")) {
     # Stress is final if word ends in consonant other than s, diph, high vowel (Tupi), or high vowel + s
     word <- stringr::str_replace_all(
       string = word,
-      pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|\u027e|w|ws|j|js|i|u|is|us|\u00e3|\u00f5|w\u0303|o\u0303j\u0303s|a\u0303|w\u0303s]$)",
+      pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|r|\u027e|w|ws|j|js|i|u|is|us|\u00e3|\u00f5|w\u0303|o\u0303j\u0303s|a\u0303|w\u0303s]$)",
       replacement = ".\u02c8\\1"
     )
 
@@ -155,6 +155,13 @@ stress_pt <- function(word = "") {
         pattern = "\u028ee\u027e$",
         replacement = "\u028e\u025b\u027e"
       )
+
+    word <- word |>
+      stringr::str_replace(
+        pattern = "\u028eer$",
+        replacement = "\u028e\u025br"
+      )
+
 
 
     return(word)
@@ -305,7 +312,7 @@ sec_stress_pt <- function(word = "") {
 #' @return The stressed version of the string in question
 
 
-sec_stress_pt_vec <- function(word = c("pa.\u02c8la.v\u027ea")) {
+sec_stress_pt_vec <- function(word = c("pa.\u02c8la.vra")) {
   # Part 1: adjacent foot
   unstressedFoot1 <- "((\\.|^)(?!\u02c8)\\w+\\.(?!\u02c8)(\\w+\\.\u02c8))" # FIRST STAGE: ADJACENT LEFT FOOT
 

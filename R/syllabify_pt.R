@@ -57,7 +57,7 @@ syllabify_pt <- function(word = "") {
   # Remove C-syllables word finally:
   word <- stringr::str_replace_all(
     string = word,
-    pattern = "\\.([pbtdkgszfv\u0283\u0292\u028elmn\u027es])$",
+    pattern = "\\.([pbtdkgszfv\u0283\u0292\u028elmn\u027ers])$",
     replacement = "\\1"
   )
 

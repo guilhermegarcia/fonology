@@ -13,7 +13,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
   semivowels <- "j.w" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
-  liquids <- "l.x.\u027e.\u028e" |>
+  liquids <- "l.x.r.\u028e" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
   nasals <- "m.n.\u0272" |>
@@ -38,11 +38,11 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
   onsets <- "p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.x.m.n.l.x" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
-  codas <- "s.l.\u027e.m.n" |>
+  codas <- "s.l.r.m.n" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
 
-  clusters <- "p\u027e.b\u027e.t\u027e.d\u027e.k\u027e.g\u027e.pl.bl.kl.gl"
+  clusters <- "pr.br.tr.dr.kr.gr.pl.bl.kl.gl"
 
   # Syllables:
   syllables <- c()
@@ -151,7 +151,6 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
 
 
   # Replace i/u final with e/o:
-  syllables
 
   if (stringr::str_detect(
     string = syllables[length(syllables)],
@@ -178,7 +177,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
   clusterSyl <- syllables |>
     stringr::str_replace(
       pattern = "([pbtdkgfv])([aeiou])",
-      replacement = "\\1\u027e\\2"
+      replacement = "\\1r\\2"
     )
 
   randomOrder <- sample(x = seq(1, nSyl), size = nSyl, replace = F)
@@ -268,6 +267,12 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
     )
   }
 
+  # rC onsets must resyllabify
+  word <- stringr::str_replace_all(word,
+    pattern = "([aeiou])\\.r(?!([aeiou]))",
+    replacement = "\\1r.\\2"
+  )
+
   word <- stringr::str_replace_all(word,
     pattern = "l($|\\.)",
     replacement = "w\\1"
@@ -348,7 +353,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
 
 
   # OCP for coda-onsets:
-  # "s.l.\u027e.m.n"
+  # "s.l.r.m.n"
 
   word <- stringr::str_replace_all(word,
     pattern = "(n\\.\u02c8?)m",
@@ -381,7 +386,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "(\u027e\\.\u02c8?)\u027e",
+    pattern = "(r\\.\u02c8?)r",
     replacement = "\\1d"
   )
 

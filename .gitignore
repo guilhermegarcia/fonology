@@ -11,3 +11,5 @@ toUTF.R
 tableaux.R
 /doc/
 /Meta/
+
+/.quarto/

@@ -1,9 +1,23 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+``` {r, include = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+library(tidyverse)
+```
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <p>
+
 
 <a href = "https://github.com/guilhermegarcia/fonology"><img src = "https://img.shields.io/github/r-package/v/guilhermegarcia/fonology" alt="R version"></a>
 <a href = "https://github.com/guilhermegarcia/fonology"><img src = "https://img.shields.io/github/last-commit/guilhermegarcia/fonology"></a>
@@ -56,18 +70,13 @@ English, French, Italian, Portuguese, and Spanish. You can also use `lg`
 to provide your own phonemic inventory as a vector. Here are some
 examples.
 
-``` r
+``` {r}
 library(Fonology)
 getFeat(ph = c("i", "u"), lg = "English")
-#> [1] "+hi"    "+tense"
 getFeat(ph = c("i", "u"), lg = "French")
-#> [1] "Not a natural class in this language."
 getFeat(ph = c("i", "y", "u"), lg = "French")
-#> [1] "+syl" "+hi"
 getFeat(ph = c("p", "b"), lg = "Portuguese")
-#> [1] "-son"  "-cont" "+lab"
 getFeat(ph = c("k", "g"), lg = "Italian")
-#> [1] "+cons" "+back"
 ```
 
 ### From features to phonemes
@@ -78,13 +87,10 @@ phonemic inventory of `lg`. The languages supported are the same as
 those supported by `getFeat()`, and you can again use `lg` to provide
 your own phonemic inventory as a vector.
 
-``` r
+``` {r}
 getPhon(ft = c("+syl", "+hi"), lg = "French")
-#> [1] "u" "i" "y"
 getPhon(ft = c("-DR", "-cont", "-son"), lg = "English")
-#> [1] "t" "d" "b" "k" "g" "p"
 getPhon(ft = c("-son", "+vce"), lg = "Spanish")
-#> [1] "z" "d" "b" "ʝ" "g" "v"
 ```
 
 ## IPA transcription
@@ -100,23 +106,15 @@ adding `narrow = T` to the function. Run `ipa_pt_test()`,
 By default, `ipa()` assumes that `lg = "Portuguese"` (or `lg = "pt"`)
 and `narrow = F`.
 
-``` r
+``` {r}
 ipa("atletico")
-#> [1] "a.tle.ˈti.ko"
 ipa("cantalo", narrow = T)
-#> [1] "kãn.ˈta.lʊ"
 ipa("antidepressivo", narrow = T)
-#> [1] "ˌãn.t͡ʃi.ˌde.pɾe.ˈsi.vʊ"
 ipa("feris")
-#> [1] "fe.ˈris"
 ipa("mejorado", lg = "sp")
-#> [1] "me.xo.ˈɾa.do"
 ipa("nuevos", lg = "sp")
-#> [1] "nu.ˈe.bos"
 ipa("informatique", lg = "fr")
-#> [1] "ɛ̃.fɔʁ.ma.tik"
 ipa("acheter", lg = "fr")
-#> [1] "a.ʃə.te"
 ```
 
 ### A note on stress
@@ -186,7 +184,7 @@ analysis, I strongly recommend the `maxent.ot` package, which is
 dedicated exclusively to MaxEnt grammars (Mayer et al, 2024). Here’s an
 example of `maxent()` in action.
 
-``` r
+``` {r}
 maxent_data <- tibble::tibble(
   input = rep(c("pad", "tab", "bid", "dog", "pok"), each = 2),
   output = c("pad", "pat", "tab", "tap", "bid", "bit", "dog", "dok", "pog", "pok"),
@@ -195,34 +193,6 @@ maxent_data <- tibble::tibble(
   obs = c(5, 15, 10, 20, 12, 18, 12, 17, 4, 8)
 )
 maxent(tableau = maxent_data)
-#> $predictions
-#> # A tibble: 10 × 12
-#>    input output ident_vce no_vce_final   obs harmony max_h exp_h     Z obs_prob
-#>    <chr> <chr>      <dbl>        <dbl> <dbl>   <dbl> <dbl> <dbl> <dbl>    <dbl>
-#>  1 pad   pad            0            1     5  0.639  0.639  1     2.79    0.25 
-#>  2 pad   pat            1            0    15  0.0541 0.639  1.79  2.79    0.75 
-#>  3 tab   tab            0            1    10  0.639  0.639  1     2.79    0.333
-#>  4 tab   tap            1            0    20  0.0541 0.639  1.79  2.79    0.667
-#>  5 bid   bid            0            1    12  0.639  0.639  1     2.79    0.4  
-#>  6 bid   bit            1            0    18  0.0541 0.639  1.79  2.79    0.6  
-#>  7 dog   dog            0            1    12  0.639  0.639  1     2.79    0.414
-#>  8 dog   dok            1            0    17  0.0541 0.639  1.79  2.79    0.586
-#>  9 pok   pog            1            1     4  0.693  0.693  1     3.00    0.333
-#> 10 pok   pok            0            0     8  0      0.693  2.00  3.00    0.667
-#> # ℹ 2 more variables: pred_prob <dbl>, error <dbl>
-#> 
-#> $weights
-#>    ident_vce no_vce_final 
-#>   0.05410679   0.63904039 
-#> 
-#> $log_likelihood
-#> [1] -78.72152
-#> 
-#> $log_likelihood_norm
-#> [1] -7.872152
-#> 
-#> $bic
-#> [1] -152.8379
 ```
 
 Finally, a couple of functions are dedicated to Noisy Harmonic Grammars.
@@ -251,7 +221,7 @@ the dispersion score of the first demisyllable in the penult syllable is
 calculated—`ssp()` isn’t relevant here, since all words in Portuguese
 respect the SSP.
 
-``` r
+``` {r}
 example = tibble(word = c("partolo", "metrilpo", "vanplidos"))
 
 example = example |>
@@ -263,13 +233,6 @@ example = example |>
          SSP = ssp(demi = demi1, d = 1))
 
 example
-#> # A tibble: 3 × 6
-#> # Rowwise: 
-#>   word      ipa          syl2  demi1  disp   SSP
-#>   <chr>     <chr>        <chr> <chr> <dbl> <dbl>
-#> 1 partolo   par.ˈto.lo   to    to     0.06     1
-#> 2 metrilpo  me.ˈtril.po  tril  tri    0.56     1
-#> 3 vanplidos vam.ˈpli.dos pli   pli    0.56     1
 ```
 
 You may also want to calculate the average sonority dispersion for whole
@@ -278,9 +241,8 @@ possible or real Portuguese words, they can be entered in their
 orthographic form. Otherwise, they need to be phonemically transcribed
 and syllabified. In this scenario, use `phonemic = T`.
 
-``` r
+``` {r}
 meanSonDisp(word = c("partolo", "metrilpo", "vanplidos"))
-#> [1] 1.53
 ```
 
 ## Plotting vowels
@@ -319,24 +281,15 @@ create novel words. Finally, if you wish to include palatalization, set
 won’t work as it requires phonemic transcription without syllabification
 or stress.
 
-``` r
+``` {r}
 set.seed(1)
 wug_pt(profile = "LHL")
-#> [1] "dra.ˈbur.me"
 
 # Let's create a table with 5 nonce words and their bigram probability
 set.seed(1)
 tibble(word = character(5)) |>
   mutate(word = wug_pt("LHL", n = 5),
          bigram = word |> biGram_pt())
-#> # A tibble: 5 × 2
-#>   word        bigram
-#>   <chr>        <dbl>
-#> 1 dra.ˈbur.me -119. 
-#> 2 ze.ˈfran.ka  -85.6
-#> 3 be.ˈʒan.tre  -84.8
-#> 4 ʒa.ˈgran.fe  -87.6
-#> 5 me.ˈxes.vro -101.
 ```
 
 ## Extras
