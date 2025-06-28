@@ -94,10 +94,10 @@ stress_pt_vec <- function(word = c("ka.va.lo")) {
   word <- word[!which_mid_lows]
 
   # Word with final stress:
-  which_heavy_finals <- stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|i|\u027e|u|\u00e3|\u00f5|w\u0303|j\u0303]$|\\.\\w+w\u0303s$|\\.\\w+j\u0303s$|\\.\\w+ns$")
+  which_heavy_finals <- stringr::str_detect(string = word, pattern = "\\.\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|w|j|i|\u027e|r|u|\u00e3|\u00f5|w\u0303|j\u0303]$|\\.\\w+w\u0303s$|\\.\\w+j\u0303s$|\\.\\w+ns$")
   heavy_finals <- stringr::str_replace_all(
     string = word[which_heavy_finals],
-    pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|\u027e|w|j|i|u|\u00e3|\u00f5|w\u0303|j\u0303|w\u0303s|j\u0303s])$",
+    pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|\u027e|r|w|j|i|u|\u00e3|\u00f5|w\u0303|j\u0303|w\u0303s|j\u0303s])$",
     replacement = ".\u02c8\\1"
   )
 
@@ -202,6 +202,7 @@ stress_pt_vec <- function(word = c("ka.va.lo")) {
     stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
     stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
     stringr::str_replace(pattern = "\u028ee\u027e$", replacement = "\u028e\u025b\u027e") |>
+    stringr::str_replace(pattern = "\u028eer$", replacement = "\u028e\u025br") |>
     stringr::str_replace(pattern = "a.o$", replacement = "aw") |>
     stringr::str_replace(pattern = "a.os$", replacement = "aws")
 

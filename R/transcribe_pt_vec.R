@@ -320,12 +320,12 @@ transcribe_pt_vec <- function(word = "") {
 
   word <- stringr::str_replace_all(word,
     pattern = "lher",
-    replacement = "\u028e\u025b\u027e"
+    replacement = "\u028e\u025br"
   )
 
   word <- stringr::str_replace_all(word,
     pattern = "lhor",
-    replacement = "\u028e\u0254\u027e"
+    replacement = "\u028e\u0254r"
   )
 
 
@@ -370,6 +370,13 @@ transcribe_pt_vec <- function(word = "") {
     pattern = "([aeiou\u0254\u025b])i([aeio])",
     replacement = "\\1j\\2"
   )
+
+  word <- stringr::str_replace_all(word,
+    pattern = "([aeiou\u0254\u025b])i$",
+    replacement = "\\1j"
+  )
+
+
 
   # ==================
 
@@ -512,14 +519,6 @@ transcribe_pt_vec <- function(word = "") {
     pattern = "([nmsz])r",
     replacement = "\\1x"
   )
-
-  # Tap
-  word <- stringr::str_replace_all(word,
-    pattern = "r",
-    replacement = "\u027e"
-  )
-
-
 
   return(word)
 }

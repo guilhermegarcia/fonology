@@ -48,6 +48,10 @@ cleanText <- function(text = "") {
     tokens <- tokens |>
       stringr::str_remove_all(pattern = "\\d*")
 
+    # Remove additional symbols:
+    tokens <- tokens |>
+      stringr::str_remove_all(pattern = "\u00b0")
+
     # Punctuation:
     output <- stringr::str_remove_all(tokens, "[:punct:]")
 

@@ -31,7 +31,9 @@ ipa_pt <- function(word = "palavra", narrow = FALSE) {
       dplyr::filter(word == wd) |>
       dplyr::slice(1) |>
       dplyr::pull(pro) |>
-      stringr::str_replace(pattern = "\'", replacement = "\u02c8")
+      stringr::str_replace(pattern = "\'", replacement = "\u02c8") |>
+      stringr::str_replace(pattern = "\u027e", replacement = "r")
+
 
     if (narrow == F) {
       broadLex <- broadLex |>
@@ -123,6 +125,10 @@ ipa_pt <- function(word = "palavra", narrow = FALSE) {
         stringr::str_replace(
           pattern = "(\u02c8\\w*)el$",
           replacement = "\\1\u025bl"
+        ) |>
+        stringr::str_replace_all(
+          pattern = "\u027e",
+          replacement = "r"
         )
 
       return(wd)
