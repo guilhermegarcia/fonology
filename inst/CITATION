@@ -4,10 +4,10 @@ bibentry(
   bibtype  = "manual",
   title    = "Fonology: Phonological Analysis in {R}",
   author   = "Guilherme D. Garcia",
-  note     = "R package version 0.9.6 (first released in 2023)",
+  note     = "R package version 0.9.7 (first released in 2023)",
   year     = "2025",
   url      = "https://gdgarcia.ca/fonology",
-  textVersion = paste("Garcia, Guilherme D. (2025). Fonology: Phonological Analysis in R. R package version 0.9.6 (first released in 2023). Available at https://gdgarcia.ca/fonology"
+  textVersion = paste("Garcia, Guilherme D. (2025). Fonology: Phonological Analysis in R. R package version 0.9.7 (first released in 2023). Available at https://gdgarcia.ca/fonology"
 
   )
 )
