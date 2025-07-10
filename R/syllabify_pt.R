@@ -43,7 +43,7 @@ syllabify_pt <- function(word = "") {
   # Fix onset clusteres:
   word <- stringr::str_replace_all(
     string = word,
-    pattern = "\\.([lmn\u027eskgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mn])",
+    pattern = "\\.([lmn\u027eskgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mnl])",
     replacement = "\\1.\\2"
   )
 

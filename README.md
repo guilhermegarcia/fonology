@@ -197,19 +197,18 @@ maxent_data <- tibble::tibble(
 maxent(tableau = maxent_data)
 #> $predictions
 #> # A tibble: 10 × 12
-#>    input output ident_vce no_vce_final   obs harmony max_h exp_h     Z obs_prob
-#>    <chr> <chr>      <dbl>        <dbl> <dbl>   <dbl> <dbl> <dbl> <dbl>    <dbl>
-#>  1 pad   pad            0            1     5  0.639  0.639  1     2.79    0.25 
-#>  2 pad   pat            1            0    15  0.0541 0.639  1.79  2.79    0.75 
-#>  3 tab   tab            0            1    10  0.639  0.639  1     2.79    0.333
-#>  4 tab   tap            1            0    20  0.0541 0.639  1.79  2.79    0.667
-#>  5 bid   bid            0            1    12  0.639  0.639  1     2.79    0.4  
-#>  6 bid   bit            1            0    18  0.0541 0.639  1.79  2.79    0.6  
-#>  7 dog   dog            0            1    12  0.639  0.639  1     2.79    0.414
-#>  8 dog   dok            1            0    17  0.0541 0.639  1.79  2.79    0.586
-#>  9 pok   pog            1            1     4  0.693  0.693  1     3.00    0.333
-#> 10 pok   pok            0            0     8  0      0.693  2.00  3.00    0.667
-#> # ℹ 2 more variables: pred_prob <dbl>, error <dbl>
+#>    input output ident_vce no_vce_final   obs harmony max_h exp_h     Z obs_prob pred_prob     error
+#>    <chr> <chr>      <dbl>        <dbl> <dbl>   <dbl> <dbl> <dbl> <dbl>    <dbl>     <dbl>     <dbl>
+#>  1 pad   pad            0            1     5  0.639  0.639  1     2.79    0.25      0.358 -1.08e- 1
+#>  2 pad   pat            1            0    15  0.0541 0.639  1.79  2.79    0.75      0.642  1.08e- 1
+#>  3 tab   tab            0            1    10  0.639  0.639  1     2.79    0.333     0.358 -2.45e- 2
+#>  4 tab   tap            1            0    20  0.0541 0.639  1.79  2.79    0.667     0.642  2.45e- 2
+#>  5 bid   bid            0            1    12  0.639  0.639  1     2.79    0.4       0.358  4.22e- 2
+#>  6 bid   bit            1            0    18  0.0541 0.639  1.79  2.79    0.6       0.642 -4.22e- 2
+#>  7 dog   dog            0            1    12  0.639  0.639  1     2.79    0.414     0.358  5.60e- 2
+#>  8 dog   dok            1            0    17  0.0541 0.639  1.79  2.79    0.586     0.642 -5.60e- 2
+#>  9 pok   pog            1            1     4  0.693  0.693  1     3.00    0.333     0.333  2.04e-11
+#> 10 pok   pok            0            0     8  0      0.693  2.00  3.00    0.667     0.667 -2.04e-11
 #> 
 #> $weights
 #>    ident_vce no_vce_final 
