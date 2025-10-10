@@ -21,7 +21,8 @@ cleanText <- function(text = "") {
       stringr::str_remove_all(pattern = "[\u02c8\u02cc]")
 
     # Numbers:
-    tokens[stringr::str_detect(tokens, "\\d")] <- NA
+    # tokens[stringr::str_detect(tokens, "\\d")] <- NA
+    tokens <- stringr::str_remove_all(tokens, pattern = "\\d")
 
     # Punctuation:
     output <- stringr::str_remove_all(tokens, "[:punct:]")
@@ -40,6 +41,9 @@ cleanText <- function(text = "") {
   } else {
     # Tokenized input:
     tokens <- stringr::str_split(text, pattern = " ") |> unlist()
+    # Replace elements that are ONLY digits/punctuation/symbols with NA
+    tokens[stringr::str_detect(tokens, "^[^a-zA-Z]+$")] <- NA
+
     # Remove stress:
     tokens <- tokens |>
       stringr::str_remove_all(pattern = "[\u02c8\u02cc]")
