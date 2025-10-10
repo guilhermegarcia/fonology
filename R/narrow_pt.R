@@ -167,11 +167,16 @@ narrow_pt <- function(word = "") {
 
   # Flapping
   # Onset and coda
+  # narrow <- stringr::str_replace_all(narrow,
+  #   pattern = "(\\w+)r(\\w+|\\.|$)",
+  #   replacement = "\\1\u027e\\2"
+  # )
   narrow <- stringr::str_replace_all(narrow,
-    pattern = "(\\w+)r(\\w+|\\.|$)",
-    replacement = "\\1\u027e\\2"
+    pattern = "r",
+    replacement = "\u027e"
   )
 
+  #
   # Voicing assimilation
   narrow <- stringr::str_replace_all(
     string = narrow,
@@ -439,10 +444,16 @@ narrow_pt_vec <- function(word = "") {
 
   # Flapping
   # Onset and coda
+  # narrow <- stringr::str_replace_all(narrow,
+  #   pattern = "(\\w+)r(\\w+|\\.|$)",
+  #   replacement = "\\1\u027e\\2"
+  # )
   narrow <- stringr::str_replace_all(narrow,
-    pattern = "(\\w+)r(\\w+|\\.|$)",
-    replacement = "\\1\u027e\\2"
+    pattern = "r",
+    replacement = "\u027e"
   )
+
+
 
   # Voicing assimilation
   narrow <- stringr::str_replace_all(

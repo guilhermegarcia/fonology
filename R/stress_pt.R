@@ -6,6 +6,13 @@
 #' @noRd
 
 stress_pt <- function(word = "") {
+  # Loanwords
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "bur.ger$",
+      replacement = "bur.GER"
+    )
+
   # If word has a diacritic:
   if (stringr::str_detect(string = word, pattern = "[\u00e1\u00e9\u00ed\u00f3\u00fa\u00e0\u00e8\u00ec\u00f2\u00f9\u00ea\u00f4\u00e2\u00f4\u00ea]")) {
     word <- word |>
@@ -54,7 +61,7 @@ stress_pt <- function(word = "") {
         replacement = "e"
       )
 
-    # Replace potential cases of multiple stresses:
+    # Final devoicing for z
     word <- word |>
       stringr::str_replace(
         pattern = "z$",
@@ -66,6 +73,22 @@ stress_pt <- function(word = "") {
       stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
       stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
       stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "")
+
+    # NOTE: Adjustments to loanwords ending in rs
+    # If penult is light, antepenult:
+    word <- word |>
+      stringr::str_replace_all(
+        pattern = "(\\w+)\\.(\\w+[aeiou])\\.(\\w+[rl]s)$",
+        replacement = "\u02c8\\1.\\2.\\3"
+      )
+
+    # Else, penult:
+    word <- word |>
+      stringr::str_replace_all(
+        pattern = "^(\\w+)\\.(\\w+[rl]s)$",
+        replacement = "\u02c8\\1.\\2"
+      )
+
 
     # Adjustments to vowel quality when coda is nasal (diacritics):
     word <- word |>
@@ -79,6 +102,12 @@ stress_pt <- function(word = "") {
         pattern = "\u0254([mn])",
         replacement = "o\\1"
       )
+    word <- word |>
+      stringr::str_replace_all(
+        pattern = "\u02c8bur.GER$",
+        replacement = "\u02c8bur.ger"
+      )
+
 
     return(word)
   }
@@ -107,21 +136,12 @@ stress_pt <- function(word = "") {
     stringr::str_detect(string = word, pattern = "[nlr]s$") |
     stringr::str_detect(string = word, pattern = "[wj]\u0303s$")) {
     # Stress is final if word ends in consonant other than s, diph, high vowel (Tupi), or high vowel + s
+    #
     word <- stringr::str_replace_all(
       string = word,
       pattern = "\\.(\\w+[p|b|t|d|k|g|z|f|v|\u0283|m|n|l|r|\u027e|w|ws|j|js|i|u|is|us|\u00e3|\u00f5|w\u0303|o\u0303j\u0303s|a\u0303|w\u0303s]$)",
       replacement = ".\u02c8\\1"
     )
-
-    # Syllables such as ns], ls], rs] are heavy despite having an s]:
-    # word = stringr::str_replace_all(string = word,
-    #                                 pattern = "\\.([nlr]s$)",
-    #                                 replacement = ".\u02c8\\1")
-
-    # Move stress to final syllable where a nasal diphthong is present:
-    # word = stringr::str_replace_all(string = word,
-    #                                 pattern = "\\.(\\w+[wj]\u0303s$)",
-    #                                 replacement = ".\u02c8\\1")
 
     # But change stress to penult if word ends in am:
     word <- word |>
@@ -162,8 +182,13 @@ stress_pt <- function(word = "") {
         replacement = "\u028e\u025br"
       )
 
-
-
+    # word <- word |>
+    #   stringr::str_replace_all(
+    #     pattern = "\u02c8bur.GER$",
+    #     replacement = "\u02c8bur.ger"
+    #   )
+    #
+    #
     return(word)
   } else if (stringr::str_detect(string = word, pattern = "\\w*[\u0254\u025b]\\w*\\.\\w*\\.\\w*$")) {
     # Stress is antepenultimate if vowel is open:
@@ -199,9 +224,11 @@ stress_pt <- function(word = "") {
         pattern = "a.os$",
         replacement = "aws"
       )
-
-
-
+    word <- word |>
+      stringr::str_replace_all(
+        pattern = "\u02c8bur.GER$",
+        replacement = "\u02c8bur.ger"
+      )
 
     return(word)
   }

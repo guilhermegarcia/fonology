@@ -43,7 +43,7 @@ syllabify_pt <- function(word = "") {
   # Fix onset clusteres:
   word <- stringr::str_replace_all(
     string = word,
-    pattern = "\\.([lmn\u027eskgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mnl])",
+    pattern = "\\.([lmn\u027erskgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mnl])",
     replacement = "\\1.\\2"
   )
 
@@ -61,6 +61,20 @@ syllabify_pt <- function(word = "") {
     replacement = "\\1"
   )
 
+  # Fix sf sequences
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "n\\.sf",
+    replacement = "ns.f"
+  )
+
+  # Fix kt sequences
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "([szlrnm\u014b])\\.([ptkbdgfvsz\u0283\u0292])([ptkbdg])",
+    replacement = "\\1\\2.\\3"
+  )
+
   word <- stringr::str_replace_all(
     string = word,
     pattern = "\\.([sznm])([lr])",
@@ -76,7 +90,7 @@ syllabify_pt <- function(word = "") {
   # Overly complex onset clusters:
   word <- stringr::str_replace_all(
     string = word,
-    pattern = "\\.s([tdpbkg][\u027el])",
+    pattern = "\\.s([tdpbkg][rel])",
     replacement = "s.\\1"
   )
 
@@ -89,7 +103,7 @@ syllabify_pt <- function(word = "") {
   # Adjust complex nasal diphthongs (especially when followed by clitics):
   word <- word |>
     stringr::str_replace(
-      pattern = "(j\u0303)([pbtdgkfvl\u028emnsz\u027e\u0283\u0292x])",
+      pattern = "(j\u0303)([pbtdgkfvl\u028emnsz\u027er\u0283\u0292x])",
       replacement = "\\1.\\2"
     )
 
@@ -110,7 +124,7 @@ syllabify_pt <- function(word = "") {
   # Vowelless syllables word-finally:
   word <- word |>
     stringr::str_replace_all(
-      pattern = "(\\w+)\\.([bdfgklmnp\u027estvxz]+$)",
+      pattern = "(\\w+)\\.([bdfgklmnp\u027erstvxz]+$)",
       replacement = "\\1\\2"
     )
 
@@ -126,6 +140,25 @@ syllabify_pt <- function(word = "") {
     stringr::str_replace_all(
       pattern = "w\u0303(?!s|$)",
       replacement = "w\u0303."
+    )
+
+  # NOTE: Fix syllabification for certain loanwords
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "(\\w+)\\.t\u0292",
+      replacement = "\\1t.\u0292"
+    )
+
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "(\\w+)\\.ts",
+      replacement = "\\1t.s"
+    )
+
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "k\\.k",
+      replacement = ".k"
     )
 
 

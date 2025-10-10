@@ -84,6 +84,12 @@ transcribe_pt <- function(word = "") {
   )
 
   # G:
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "burger",
+    replacement = "burGER"
+  )
+
   word <- stringr::str_replace_all(word,
     pattern = "(gu)([aeo\u00e9\u00e1\u00f3\u00ea\u00f4]n)",
     replacement = "gw\\2"
@@ -102,6 +108,13 @@ transcribe_pt <- function(word = "") {
   word <- stringr::str_replace_all(word,
     pattern = "gu([ei])",
     replacement = "g\\1"
+  )
+
+  # Retrieve g:
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "GER",
+    replacement = "ger"
   )
 
 
@@ -318,12 +331,12 @@ transcribe_pt <- function(word = "") {
 
   word <- stringr::str_replace_all(word,
     pattern = "lher",
-    replacement = "\u028e\u025b\u027e"
+    replacement = "\u028e\u025br"
   )
 
   word <- stringr::str_replace_all(word,
     pattern = "lhor",
-    replacement = "\u028e\u0254\u027e"
+    replacement = "\u028e\u0254r"
   )
 
 
@@ -516,10 +529,10 @@ transcribe_pt <- function(word = "") {
   )
 
   # Tap
-  word <- stringr::str_replace_all(word,
-    pattern = "r",
-    replacement = "\u027e"
-  )
+  # word <- stringr::str_replace_all(word,
+  #   pattern = "r",
+  #   replacement = "\u027e"
+  # )
 
 
   return(word)

@@ -93,6 +93,12 @@ transcribe_pt_vec <- function(word = "") {
   )
 
   # G:
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "burger",
+    replacement = "burGER"
+  )
+
   word <- stringr::str_replace_all(word,
     pattern = "(gu)([aeo\u00e9\u00e1\u00f3\u00ea\u00f4]n)",
     replacement = "gw\\2"
@@ -111,6 +117,13 @@ transcribe_pt_vec <- function(word = "") {
   word <- stringr::str_replace_all(word,
     pattern = "gu([ei])",
     replacement = "g\\1"
+  )
+
+  # Retrieve g:
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "GER",
+    replacement = "ger"
   )
 
 

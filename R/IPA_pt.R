@@ -40,7 +40,7 @@ ipa_pt <- function(word = "palavra", narrow = FALSE) {
         # Fix v height in lher]:
         stringr::str_replace(
           pattern = "\u028ee\u027e$",
-          replacement = "\u028e\u025b\u027e"
+          replacement = "\u028e\u025br"
         )
 
       return(broadLex)

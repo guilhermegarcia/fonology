@@ -43,8 +43,8 @@ ipa_pt_test <- function() {
   }
 
   message("Vectorized version using ipa(..., narrow = F):")
-  print(ipa_pt_vec(testWords))
+  print(ipa(testWords))
 
   message("Vectorized version using ipa(..., narrow = T):")
-  print(ipa_pt_vec(testWords, narrow = T))
+  print(ipa(testWords, narrow = T))
 }

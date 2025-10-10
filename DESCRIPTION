@@ -17,7 +17,7 @@ VignetteBuilder: knitr
 Suggests: knitr, rmarkdown
 Depends: 
     R (>= 4.1)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: 
     dplyr,
     forcats,

@@ -219,5 +219,34 @@ stress_pt_vec <- function(word = c("ka.va.lo")) {
       replacement = "o\\1"
     )
 
+  # NOTE: Adjustments to loanwords ending in rs
+  # If penult is light, antepenult:
+  output <- output |>
+    stringr::str_replace_all(
+      pattern = "(\\w+)\\.(\\w*[aeiou])\\.(\\w+[rl]s)$",
+      replacement = "\u02c8\\1.\\2.\\3"
+    )
+
+  # NOTE: If penult is heavy and longer:
+  output <- output |>
+    stringr::str_replace_all(
+      pattern = "(\\w+)\\.(\\w*[aeiou][bdfgklmnpkrstvz\u0283\u0292]+)\\.(\\w+[rl]s)$",
+      replacement = "\\1.\u02c8\\2.\\3"
+    )
+
+  # Else, penult:
+  output <- output |>
+    stringr::str_replace_all(
+      pattern = "^(\\w+)\\.(\\w+[rl]s)$",
+      replacement = "\u02c8\\1.\\2"
+    )
+
+  output <- output |>
+    stringr::str_replace_all(
+      pattern = "bur.\u02c8ger$",
+      replacement = "\u02c8bur.ger"
+    )
+
+
   return(output)
 }

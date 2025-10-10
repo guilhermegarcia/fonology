@@ -73,6 +73,21 @@ syllabify_pt_vec <- function(word = "") {
     replacement = "s.\\1"
   )
 
+  # Fix sf sequences
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "n\\.sf",
+    replacement = "ns.f"
+  )
+
+  # Fix kt sequences
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "([szlrnm\u014b])\\.([ptkbdgfvsz\u0283\u0292])([ptkbdg])",
+    replacement = "\\1\\2.\\3"
+  )
+
+
   # Remove word-final syllable boundary:
   word <- stringr::str_remove_all(
     string = word,
@@ -119,6 +134,26 @@ syllabify_pt_vec <- function(word = "") {
       pattern = "w\u0303(?!s|$)",
       replacement = "w\u0303."
     )
+
+  # NOTE: Fix syllabification for certain loanwords
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "(\\w+)\\.t\u0292",
+      replacement = "\\1t.\u0292"
+    )
+
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "(\\w+)\\.ts",
+      replacement = "\\1t.s"
+    )
+
+  word <- word |>
+    stringr::str_replace_all(
+      pattern = "k\\.k",
+      replacement = ".k"
+    )
+
 
 
   # Two plosives word-finally:
