@@ -33,10 +33,10 @@ ipa_pt_test <- function() {
   for (i in 1:length(testWords)) {
     message(stringr::str_c(testWords[i], ":"))
 
-    ipa_pt(testWords[i]) |>
+    ipa(testWords[i]) |>
       print()
 
-    ipa_pt(testWords[i], narrow = T) |>
+    ipa(testWords[i], narrow = T) |>
       print()
 
     message("========================")

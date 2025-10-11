@@ -57,11 +57,11 @@ narrow_pt <- function(word = "") {
   )
 
   # Vowel devoicing word-finally after voiceless affricate:
-  narrow <- stringr::str_replace(narrow,
-    pattern = "(t\u0361\u0283)\u026a$",
-    replacement = "\\1\u026a\u0325"
-  )
-
+  # narrow <- stringr::str_replace(narrow,
+  #   pattern = "(t\u0361\u0283)\u026a$",
+  #   replacement = "\\1\u026a\u0325"
+  # )
+  #
   # Clusters and epentheses:
   narrow <- stringr::str_replace(narrow,
     pattern = "^ps",
@@ -266,10 +266,10 @@ narrow_pt <- function(word = "") {
   )
 
   # Vowel devoicing word-finally after voiceless affricate:
-  narrow <- stringr::str_replace(narrow,
-    pattern = "(t\u0361\u0283)\u026a$",
-    replacement = "\\1\u026a\u0325"
-  )
+  # narrow <- stringr::str_replace(narrow,
+  #   pattern = "(t\u0361\u0283)\u026a$",
+  #   replacement = "\\1\u026a\u0325"
+  # )
 
 
   return(narrow)
@@ -334,10 +334,10 @@ narrow_pt_vec <- function(word = "") {
   )
 
   # Vowel devoicing word-finally after voiceless affricate:
-  narrow <- stringr::str_replace(narrow,
-    pattern = "(t\u0361\u0283)\u026a$",
-    replacement = "\\1\u026a\u0325"
-  )
+  # narrow <- stringr::str_replace(narrow,
+  #   pattern = "(t\u0361\u0283)\u026a$",
+  #   replacement = "\\1\u026a\u0325"
+  # )
 
   # Clusters and epentheses:
   narrow <- stringr::str_replace(narrow,
@@ -543,11 +543,11 @@ narrow_pt_vec <- function(word = "") {
   )
 
   # Vowel devoicing word-finally after voiceless affricate:
-  narrow <- stringr::str_replace(narrow,
-    pattern = "(t\u0361\u0283)\u026a$",
-    replacement = "\\1\u026a\u0325"
-  )
-
+  # narrow <- stringr::str_replace(narrow,
+  #   pattern = "(t\u0361\u0283)\u026a$",
+  #   replacement = "\\1\u026a\u0325"
+  # )
+  #
 
   # Adjust secondary stress:
 

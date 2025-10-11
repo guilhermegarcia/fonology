@@ -7,32 +7,65 @@
 #' @param syl Whether the function should return the stressed syllable instead of the stress position (default is \code{FALSE})
 #' @return The primary stress position
 #' @examples
-#' getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ")
-#' getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ", syl = TRUE)
+#' getStress(word = "kom.pu.ta.\u02c8dor", stress = "ˈ")
+#' getStress(word = "kom.pu.ta.\u02c8dor", stress = "ˈ", syl = TRUE)
 #' @export
 
-getStress <- function(word = c("kom.pu.ta.\u02c8do\u027e"), stress = "\u02c8", syl = FALSE) {
+getStress <- function(word = c("kom.pu.ta.\u02c8dor"), stress = "\u02c8", syl = FALSE) {
   input_length <- length(word)
-  if (length(which(stringr::str_detect(string = word, pattern = stress) == TRUE)) != input_length) {
-    stop("No stress detected. Did you specify the correct diacritic for stress for?")
+
+  # Handle NA input
+  if (all(is.na(word))) {
+    return(rep(NA_character_, input_length))
   }
-  syl_list <- word |>
-    stringr::str_split("\\.")
 
-  indices <- lapply(syl_list, function(x) which(stringr::str_detect(rev(x), pattern = stress))) |> unlist()
+  # Check which words have stress marks
+  has_stress <- stringr::str_detect(string = word, pattern = stress)
 
-  syllable <- purrr::map2_chr(
-    syl_list,
-    indices,
-    ~ .x[length(.x) - .y + 1]
-  ) |>
-    stringr::str_remove(pattern = stress)
+  # Replace NAs in has_stress with FALSE
+  has_stress[is.na(has_stress)] <- FALSE
 
-  indices <- stringr::str_replace_all(indices, pattern = "1", replacement = "final")
-  indices <- stringr::str_replace_all(indices, pattern = "2", replacement = "penult")
-  indices <- stringr::str_replace_all(indices, pattern = "3", replacement = "antepenult")
-  indices <- stringr::str_replace_all(indices, pattern = "4", replacement = "pre-antepenult")
-  indices <- stringr::str_replace_all(indices, pattern = "[56789]", replacement = "ungrammatical")
+  # Initialize output vectors
+  indices <- rep(NA_character_, input_length)
+  syllable <- rep(NA_character_, input_length)
+
+  # Only process words that have stress marks
+  if (any(has_stress)) {
+    words_with_stress <- word[has_stress]
+    syl_list <- stringr::str_split(words_with_stress, "\\.")
+
+    # Find stress position - ensure we always get a result for each word
+    stress_indices <- sapply(syl_list, function(x) {
+      stress_pos <- which(stringr::str_detect(rev(x), pattern = stress))
+      if (length(stress_pos) == 0) {
+        return(NA_integer_)
+      }
+      return(stress_pos[1]) # Take first if multiple
+    })
+
+    # Extract syllables for words with valid stress positions
+    valid_stress <- !is.na(stress_indices)
+    if (any(valid_stress)) {
+      syllable[has_stress][valid_stress] <- stringr::str_remove(
+        purrr::map2_chr(
+          syl_list[valid_stress],
+          stress_indices[valid_stress],
+          ~ .x[length(.x) - .y + 1]
+        ),
+        pattern = stress
+      )
+    }
+
+    # Convert indices to labels
+    stress_labels <- as.character(stress_indices)
+    stress_labels <- stringr::str_replace_all(stress_labels, pattern = "^1$", replacement = "final")
+    stress_labels <- stringr::str_replace_all(stress_labels, pattern = "^2$", replacement = "penult")
+    stress_labels <- stringr::str_replace_all(stress_labels, pattern = "^3$", replacement = "antepenult")
+    stress_labels <- stringr::str_replace_all(stress_labels, pattern = "^4$", replacement = "pre-antepenult")
+    stress_labels <- stringr::str_replace_all(stress_labels, pattern = "^[56789]$", replacement = "ungrammatical")
+
+    indices[has_stress] <- stress_labels
+  }
 
   if (syl) {
     return(syllable)

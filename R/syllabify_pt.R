@@ -71,9 +71,10 @@ syllabify_pt <- function(word = "") {
   # Fix kt sequences
   word <- stringr::str_replace_all(
     string = word,
-    pattern = "([szlrnm\u014b])\\.([ptkbdgfvsz\u0283\u0292])([ptkbdg])",
+    pattern = "([szlrnm\u014b])\\.([ptkbdgfvsz\u0283\u0292])([ptkbdgfvsz\u0283\u0292])",
     replacement = "\\1\\2.\\3"
   )
+
 
   word <- stringr::str_replace_all(
     string = word,

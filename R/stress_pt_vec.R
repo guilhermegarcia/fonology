@@ -241,6 +241,22 @@ stress_pt_vec <- function(word = c("ka.va.lo")) {
       replacement = "\u02c8\\1.\\2"
     )
 
+  # Make sure no sequence two primary stresses exist:
+  output <- output |>
+    stringr::str_replace_all(
+      pattern = "\u02c8\u02c8",
+      replacement = "\u02c8"
+    )
+
+  # If two stresses exist, this is due to loanwords
+  # In that case, keep the leftmost stress:
+
+  output <- output |>
+    stringr::str_replace(
+      pattern = "^(.*\u02c8.*)\u02c8",
+      replacement = "\\1"
+    )
+
   output <- output |>
     stringr::str_replace_all(
       pattern = "bur.\u02c8ger$",

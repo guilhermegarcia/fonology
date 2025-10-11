@@ -163,6 +163,13 @@ transcribe_pt <- function(word = "") {
     replacement = "k\\1"
   )
 
+  word <- stringr::str_replace_all(word,
+    pattern = "q([bdfgklmnpqrstvxz\u0283\u0292])",
+    replacement = "k\\1"
+  )
+
+
+
   # n+lab:
   word <- stringr::str_replace_all(word,
     pattern = "n([bp])",
@@ -335,7 +342,7 @@ transcribe_pt <- function(word = "") {
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "lhor",
+    pattern = "lhor$",
     replacement = "\u028e\u0254r"
   )
 

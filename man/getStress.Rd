@@ -4,7 +4,7 @@
 \alias{getStress}
 \title{Stress labeller}
 \usage{
-getStress(word = c("kom.pu.ta.ˈdoɾ"), stress = "ˈ", syl = FALSE)
+getStress(word = c("kom.pu.ta.ˈdor"), stress = "ˈ", syl = FALSE)
 }
 \arguments{
 \item{word}{The string of interest using IPA phonemic transcription, already syllabified and stressed. Syllable boundaries are always assumed to be indicated by a period.}
@@ -21,6 +21,6 @@ Labels a given stressed string as follows: Final, Penult, Antepenult.
 Alternatively, extracts stressed syllable from input.
 }
 \examples{
-getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ")
-getStress(word = "kom.pu.ta.ˈdoɾ", stress = "ˈ", syl = TRUE)
+getStress(word = "kom.pu.ta.\u02c8dor", stress = "ˈ")
+getStress(word = "kom.pu.ta.\u02c8dor", stress = "ˈ", syl = TRUE)
 }

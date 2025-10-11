@@ -1,3 +1,22 @@
+#' Portuguese frequency corpus
+#'
+#' A dataset containing frequent words in Portuguese
+#'
+#' @format A data frame with 60,380 rows and 8 variables:
+#' \describe{
+#'   \item{\code{word}}{Portuguese word in orthographic form}
+#'   \item{\code{freq}}{Frequency count of the word}
+#'   \item{\code{ipa}}{IPA phonemic transcription}
+#'   \item{\code{apu}}{antepenultimate syllable if applicable}
+#'   \item{\code{pu}}{penultimate syllable if applicable}
+#'   \item{\code{u}}{final syllable}
+#'   \item{\code{stress}}{stress position}
+#'   \item{\code{CV}}{CV template for word}
+#' }
+#' @source Based on the frequency list found in https://github.com/hermitdave/FrequencyWords
+#' @encoding UTF-8
+"pt_freq"
+
 #' Data: Portuguese Stress Lexicon - simplified
 #'
 #' Comprehensive list of non-verbs in Portuguese and their phonemic transcription.

@@ -89,16 +89,30 @@ stress_pt <- function(word = "") {
         replacement = "\u02c8\\1.\\2"
       )
 
+    # Make sure no sequence two primary stresses exist:
+    word <- word |>
+      stringr::str_replace_all(
+        pattern = "\u02c8\u02c8",
+        replacement = "\u02c8"
+      )
+
+    # If two stresses exist, this is due to loanwords
+    # In that case, keep the leftmost stress:
+    word <- word |>
+      stringr::str_replace(
+        pattern = "^(.*\u02c8.*)\u02c8",
+        replacement = "\\1"
+      )
 
     # Adjustments to vowel quality when coda is nasal (diacritics):
     word <- word |>
-      stringr::str_replace(
+      stringr::str_replace_all(
         pattern = "\u025b([mn])",
         replacement = "e\\1"
       )
 
     word <- word |>
-      stringr::str_replace(
+      stringr::str_replace_all(
         pattern = "\u0254([mn])",
         replacement = "o\\1"
       )

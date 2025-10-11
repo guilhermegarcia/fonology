@@ -150,6 +150,11 @@ transcribe_pt_vec <- function(word = "") {
     replacement = "k\\1"
   )
 
+  word <- stringr::str_replace_all(word,
+    pattern = "q([bdfgklmnpqrstvxz\u0283\u0292])",
+    replacement = "k\\1"
+  )
+
 
   # Diacritics: keep diacritics
   # word = stringr::str_replace_all(word,
@@ -337,7 +342,7 @@ transcribe_pt_vec <- function(word = "") {
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "lhor",
+    pattern = "lhor$",
     replacement = "\u028e\u0254r"
   )
 

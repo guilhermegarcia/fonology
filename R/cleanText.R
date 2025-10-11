@@ -42,7 +42,8 @@ cleanText <- function(text = "") {
     # Tokenized input:
     tokens <- stringr::str_split(text, pattern = " ") |> unlist()
     # Replace elements that are ONLY digits/punctuation/symbols with NA
-    tokens[stringr::str_detect(tokens, "^[^a-zA-Z]+$")] <- NA
+    # tokens[stringr::str_detect(tokens, "^[^a-zA-Z]+$")] <- NA
+    tokens[stringr::str_detect(tokens, "^[^\\p{L}]+$")] <- NA
 
     # Remove stress:
     tokens <- tokens |>
