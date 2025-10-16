@@ -10,46 +10,42 @@
 #' plotSon(word = "plon.fo.ˈnil.to", syl = TRUE, save_plot = FALSE)
 #' @export
 
+
 plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
   lo_v <- "a.\u0276.\u0251.\u0252.\u00e6.\u0250" |>
     stringr::str_split("\\.") |>
     unlist()
-  mid_per_v <- "\u025b.\u0153.\u028c.\u0254.e.\u00f8.\u0264.o" |>
+  mid_per_v <- "\u025b.\u0153.\u028c.\u0254.e.\u00f8.\u0264.o.\u0153\u0303.\u0254\u0303.\u0251\u0303" |>
     stringr::str_split("\\.") |>
     unlist()
   hi_per_v <- "i.y.\u026f.u" |>
     stringr::str_split("\\.") |>
     unlist()
-  mid_int_v <- "\u0258.\u0275.\u0259.\u025c.\u025e" |>
+  mid_int_v <- "\u0258.\u0275.\u0259.\u025c.\u025e.\u025b\u0303" |>
     stringr::str_split("\\.") |>
     unlist()
   hi_int_v <- "\u0268.\u0289" |>
     stringr::str_split("\\.") |>
     unlist()
-
   glides <- "j.w.\u0265" |>
     stringr::str_split("\\.") |>
     unlist()
-
-  rhotic_approx <- "\u027b.\u0280.\u0279" |>
+  rhotic_approx <- "\u027b.\u0280.\u0279.\u0281" |>
     stringr::str_split("\\.") |>
     unlist()
   flaps <- "\u027e.\u027d.\u2c71." |>
     stringr::str_split("\\.") |>
     unlist()
-
   laterals <- "l.\u026c.\u026e.\u028e" |>
     stringr::str_split("\\.") |>
     unlist()
   trills <- "r.\u0299" |>
     stringr::str_split("\\.") |>
     unlist()
-
   nasals <- "m.n.\u0271.\u0273.\u0272.\u014b.\u0274" |>
     stringr::str_split("\\.") |>
     unlist()
-
-  fricatives_vce <- "\u03b2.v.\u00f0.z.\u0292.\u0290.\u029d.\u0263.\u0281.\u0295.\u0266" |>
+  fricatives_vce <- "\u03b2.v.\u00f0.z.\u0292.\u0290.\u029d.\u0263.\u0295.\u0266" |>
     stringr::str_split("\\.") |>
     unlist()
   affricates_vce <- "t\u0361s.d\u0361z.t\u0361\u0283.d\u0361\u0292" |>
@@ -68,7 +64,6 @@ plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
     stringr::str_split("\\.") |>
     unlist()
 
-  # Complete
   full <- tibble::tibble(
     phoneme = c(
       lo_v, mid_per_v, hi_per_v, mid_int_v, hi_int_v,
@@ -99,18 +94,18 @@ plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
 
   stressPosition <- ""
 
-  if (getStress(word) == "pre-antepenult") {
+  if (!stringr::str_detect(string = word, pattern = "\u02c8")) {
+    stressPosition <- "1"
+  } else if (getStress(word) == "pre-antepenult") {
     stressPosition <- "4"
-  }
-  if (getStress(word) == "antepenult") {
+  } else if (getStress(word) == "antepenult") {
     stressPosition <- "3"
-  }
-  if (getStress(word) == "penult") {
+  } else if (getStress(word) == "penult") {
     stressPosition <- "2"
-  }
-  if (getStress(word) == "final") {
+  } else if (getStress(word) == "final") {
     stressPosition <- "1"
   }
+
 
   checkInput <- word |>
     stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc|\u02d0|\u02d1|-|\\.") |>
@@ -131,11 +126,25 @@ plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
   }
 
 
-
   if (syl) {
+    # Check if input has syllable boundaries
     if (!stringr::str_detect(string = word, pattern = "\\.|-")) {
-      stop("Input must be syllabified.")
+      # Count vowels to estimate number of syllables
+      vowel_phonemes <- c(lo_v, mid_per_v, hi_per_v, mid_int_v, hi_int_v)
+      word_check <- word |>
+        stringr::str_remove_all("\'|\u02c8|\u02cc|\u02d0|\u02d1") |>
+        stringr::str_split("") |>
+        unlist()
+      n_vowels <- sum(word_check %in% vowel_phonemes)
+
+      # If likely polysyllabic, throw error
+      if (n_vowels > 1) {
+        stop("Input appears to be polysyllabic but is not syllabified. Please add syllable boundaries (. or -).")
+      }
+      # If monosyllabic, proceed without syllable boundaries
+      message("Monosyllabic input detected. Proceeding without syllable boundaries.")
     }
+
     word_simple <- word |>
       stringr::str_remove_all("\'|\u02c8|\u02cc|\u02d0|\u02d1") |>
       stringr::str_split("") |>
@@ -204,7 +213,7 @@ plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
         ),
         size = 8, fontface = "bold",
         label.r = ggplot2::unit(0, "lines"),
-        label.size = 1.25,
+        linewidth = 1.25,
         label.padding = ggplot2::unit(0.75, "lines")
       ) +
       ggplot2::scale_fill_brewer(palette = "Pastel1")
