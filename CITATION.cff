@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Garcia
+    given-names: Guilherme D.
+    email: guilherme.garcia@lli.ulaval.ca
+    orcid: https://orcid.org/0000-0003-1412-3856
+title: "Fonology: Phonological Analysis in R"
+version: 0.9.7
+date-released: 2025-05-21
+url: "https://gdgarcia.ca/fonology"
+repository-code: "https://github.com/guilhermegarcia/fonology"
+doi: 10.5281/zenodo.10433695
+license: MIT
+keywords:
+  - phonology
+  - linguistics
+  - R
+  - IPA
+  - grapheme-to-phoneme
+  - sonority
+  - optimality-theory
+  - maxent
+abstract: "A collection of tools to help with phonological analysis. Functions include grapheme to phoneme conversion, sonority dispersion calculation, minimal matrices for natural classes given a set of features, maxent models, and more."
