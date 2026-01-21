@@ -107,7 +107,8 @@ stress_sp <- function(word) {
   # names(output) = c(names(monos), names(mid_lows), names(heavy_finals), names(penults), names(diacritics))
 
   # Revert to original order:
-  output <- output[as.character(sort(as.numeric(names(output))))]
+  # Note: format() with scientific=FALSE avoids "1e+05" vs "100000" mismatch
+  output <- output[format(sort(as.numeric(names(output))), scientific = FALSE, trim = TRUE)]
 
   # Change stress to penult if word ends in am:
   output <- output |>
