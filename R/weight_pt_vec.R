@@ -14,7 +14,12 @@ getWeight_pt <- function(word = c("kom.pu.ta.\u02c8do\u027e")) {
 
   # Classify each syllable as H (heavy, ends in consonant) or L (light, ends in vowel)
   syl_list <- lapply(syl_list, function(syls) {
+    # Handle NA input gracefully
+    if (length(syls) == 1 && is.na(syls)) {
+      return(NA_character_)
+    }
     sapply(syls, function(syl) {
+      if (is.na(syl)) return(NA_character_)
       # Remove stress markers for analysis
       syl_clean <- stringr::str_remove_all(syl, "[\u02c8\u02cc]")
       # Check if syllable ends in a vowel (light) or consonant (heavy)
