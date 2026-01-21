@@ -6,28 +6,24 @@
 #' @noRd
 
 getWeight_pt <- function(word = c("kom.pu.ta.\u02c8do\u027e")) {
+  # IPA vowels (including nasal and mid-low vowels)
+  vowels_pattern <- "[\u00e3\u00f5aeiou\u025b\u0254]"
+
   syl_list <- word |>
     stringr::str_split("\\.")
 
-  syl_list <- lapply(syl_list, function(x) {
-    stringr::str_replace_all(x,
-      pattern = "\\w+[jwlmn\u027espbtdkg\u027ezfv\u0283\u0292\u028e\u0272]",
-      replacement = "H"
-    )
-  })
-
-  syl_list <- lapply(syl_list, function(x) {
-    stringr::str_replace_all(x,
-      pattern = "[\\w*]{0,3}[\u00e3\u00f5aeiou\u025b\u0254]$",
-      replacement = "L"
-    )
-  })
-
-  syl_list <- lapply(syl_list, function(x) {
-    stringr::str_replace_all(x,
-      pattern = "H\u0303",
-      replacement = "H"
-    )
+  # Classify each syllable as H (heavy, ends in consonant) or L (light, ends in vowel)
+  syl_list <- lapply(syl_list, function(syls) {
+    sapply(syls, function(syl) {
+      # Remove stress markers for analysis
+      syl_clean <- stringr::str_remove_all(syl, "[\u02c8\u02cc]")
+      # Check if syllable ends in a vowel (light) or consonant (heavy)
+      if (stringr::str_detect(syl_clean, paste0(vowels_pattern, "$"))) {
+        return("L")
+      } else {
+        return("H")
+      }
+    }, USE.NAMES = FALSE)
   })
 
   # Select only trisyllabic window:

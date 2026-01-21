@@ -9,3 +9,6 @@
 ^tableaux\.R$
 ^doc$
 ^Meta$
+^\.claude$
+^CLAUDE\.md$
+^CITATION\.cff$
