@@ -9,6 +9,11 @@
 #' @export
 
 getWeight <- function(word, lg = "Portuguese") {
+  if (any(stringr::str_detect(word, " "))) {
+    message("Input must be a single word, phonemically transcribed and syllabified")
+    return(NA)
+  }
+
   if (stringr::str_to_lower(lg) %in% c("pt", "portuguese")) {
     output <- getWeight_pt(word)
 
