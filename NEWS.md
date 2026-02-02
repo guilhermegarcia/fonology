@@ -1,3 +1,7 @@
+# Fonology 0.9.8
+
+- New function `ipa2typst()` to export Typst code for phonetic transcription using phonokit package
+
 # Fonology 0.9.7
 
 - Minor issues with Portuguese transcription fixed
