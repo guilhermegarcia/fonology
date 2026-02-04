@@ -90,6 +90,12 @@ ipa(word, lg) → ipa_pt_vec() / ipa_sp() / ipa_fr()
 
 All changes made during Claude Code sessions are documented here.
 
+### 2026-02-02
+
+**Fixed `cleanText()` in `R/cleanText.R`**
+- **Issue**: Non-tokenized input (single string) that contained non-alphabetic-only tokens (e.g., "123#") left empty strings in the output after digit/punctuation stripping. The empty-token filter only existed in the tokenized-input branch.
+- **Fix**: Added `output <- output[output != ""]` to the single-string branch, matching the existing filter in the tokenized-input branch.
+
 ### 2026-02-01
 
 **Added `ipa2typst()` in `R/ipa2typst.R`**
