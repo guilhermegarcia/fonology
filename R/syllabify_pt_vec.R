@@ -33,10 +33,19 @@ syllabify_pt_vec <- function(word = "") {
     replacement = "\\1\\2."
   )
 
-  # Fix onset clusteres:
+  # Fix onset clusters:
+  # Sonorants (l, m, n, ɾ, r) and s never begin valid two-consonant onsets
+  # in Portuguese, so always move them to the preceding coda.
   word <- stringr::str_replace_all(
     string = word,
-    pattern = "\\.([lmn\u027erskgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mnl])",
+    pattern = "\\.([lmn\u027ers])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mnl])",
+    replacement = "\\1.\\2"
+  )
+  # Stops (p, b, k, g) split before another obstruent or nasal, but NOT
+  # before l — pl, bl, kl, gl are valid onsets in Portuguese.
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "\\.([kgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mn])",
     replacement = "\\1.\\2"
   )
 
