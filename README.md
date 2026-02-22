@@ -173,7 +173,7 @@ string. For example,
 antepenultimate syllable of the string in question. The default symbol
 for syllabification is the period.
 
-## User lexicons
+## User lexica
 
 Italian, Spanish, and Portuguese can each be extended with a **user
 lexicon**: a personal list of words that override or supplement the
