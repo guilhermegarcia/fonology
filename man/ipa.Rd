@@ -9,7 +9,7 @@ ipa(word, lg = "Portuguese", narrow = FALSE)
 \arguments{
 \item{word}{A possible string in its orthographic form}
 
-\item{lg}{Language. Currently, Portuguese (\code{pt}), French (\code{fr}) or Spanish (\code{sp}) are supported}
+\item{lg}{Language. Currently, Portuguese (\code{pt}), French (\code{fr}), Spanish (\code{sp}), or Italian (\code{it}) are supported}
 
 \item{narrow}{Boolean. Whether a narrow transcription is desired (default is \code{FALSE})
 Narrow transcription is only available for Portuguese inputs and will be ignored for other languages}

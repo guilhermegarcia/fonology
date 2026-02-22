@@ -1,5 +1,5 @@
 utils::globalVariables(c(
-  "pt_lex", ".", "pro",
+  "pt_lex", "it_lex", "sp_lex", "pt_lex_user", ".", "pro",
   "proB", "ipa", "syl",
   "cons", "son", "cont",
   "hireg", "ipa", "feature",

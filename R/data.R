@@ -231,6 +231,47 @@
 #' @usage data(consonants_it)
 "consonants_it"
 
+#' Data: Spanish user lexicon for stress exceptions
+#'
+#' A named character vector used by \code{ipa(lg = "Spanish")} to handle
+#' stress irregularities. Keys are plain orthographic forms; values are
+#' diacritized forms encoding stress position. Use \code{add_lex_sp()} to populate it.
+#'
+#' @format A named character vector (initially empty; grows via \code{add_lex_sp()})
+#' @usage data(sp_lex)
+#' @seealso \code{\link{add_lex_sp}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"sp_lex"
+
+
+#' Data: Portuguese user lexicon for stress exceptions
+#'
+#' A named character vector used by \code{ipa(lg = "Portuguese")} to handle
+#' stress exceptions not covered by (or overriding) the default \code{pt_lex}
+#' lexicon. Keys are plain orthographic forms; values are diacritized forms.
+#' Use \code{add_lex_pt()} to populate it.
+#'
+#' @format A named character vector (initially empty; grows via \code{add_lex_pt()})
+#' @usage data(pt_lex_user)
+#' @seealso \code{\link{add_lex_pt}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"pt_lex_user"
+
+#' Data: Italian lexicon for stress and vowel-quality exceptions
+#'
+#' A named character vector used by \code{ipa(lg = "Italian")} to handle
+#' stress irregularities and mid-vowel quality distinctions that cannot be
+#' inferred from orthography alone. Keys are plain orthographic forms;
+#' values are diacritized forms encoding stress position and, optionally,
+#' vowel quality (e.g. \code{"chiedere" -> "chi\u00e9dere"},
+#' \code{"livello" -> "liv\u00e9llo"}). Use \code{add_lex()} to populate it.
+#'
+#' @format A named character vector (initially empty; grows via \code{add_lex()})
+#' @usage data(it_lex)
+#' @seealso \code{\link{add_lex_it}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"it_lex"
+
 #' Data: consonant inventory for Portuguese
 #'
 #' The inventory of consonants and glides in Portuguese

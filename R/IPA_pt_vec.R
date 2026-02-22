@@ -13,6 +13,9 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
 
   wd[stringr::str_detect(wd, "\\d")] <- NA
 
+  matches <- wd %in% names(pt_lex_user)
+  if (any(matches)) wd[matches] <- pt_lex_user[wd[matches]]
+
   wd <- wd |>
     transcribe_pt_vec() |>
     syllabify_pt_vec() |>
