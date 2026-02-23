@@ -173,91 +173,6 @@ string. For example,
 antepenultimate syllable of the string in question. The default symbol
 for syllabification is the period.
 
-## User lexica
-
-Italian, Spanish, and Portuguese can each be extended with a **user
-lexicon**: a personal list of words that override or supplement the
-default rule-based transcriber. This is particularly useful when working
-with large texts, where a recurring word may be transcribed incorrectly
-without additional information.
-
-### Why a lexicon?
-
-Two situations call for explicit entries:
-
-- **Italian and Portuguese**: mid-vowel quality (/e/ vs /ɛ/, /o/ vs /ɔ/)
-  is not recoverable from standard orthography and must be encoded with
-  diacritics.
-- **Italian, Portuguese and Spanish**: to correct stress for any word where the automatic
-  assignment is wrong, for whatever reason. This is especially important given
-  enclitics in Italian and Spanish.
-
-### Adding words
-
-Use `add_lex_it()`, `add_lex_sp()`, or `add_lex_pt()` with a character
-vector of diacritized forms. The plain (undiacritized) lookup key is
-derived automatically by stripping combining marks, so only the
-diacritized form is needed.
-
-Suppose you have a nonce word like "metido" in Portuguese. Of course, if the word
-has antepenultimate stress, it should have a diacritic in its spelling
-(either "métido" or "mêtido"). But if for some reason it doesn't, it will be
-transcribed with penultimate stress. By adding "métido" or "mêtido" to the dictionary,
-you fix both stress and vowel quality as needed.
-
-``` r
-add_lex_it(c("chiédere", "livéllo", "vôce"))
-add_lex_sp(c("término", "música", "rápido"))
-add_lex_pt(c("fôlego", "ródeo"))
-```
-
-Once registered, `ipa()` consults the lexicon automatically—no change to
-existing code. Lexicon entries are saved to the package’s `data/` directory and persist
-across R sessions.
-
-### Diacritic conventions
-
-| Language | Diacritic | Meaning | Example entry |
-|----|----|----|----|
-| Italian | `´` acute | Stressed + open-mid: é → /ɛ/, ó → /ɔ/ | `"livéllo"`, `"nótte"` |
-| Italian | `ˆ` circumflex | Stressed + close-mid: ê → /e/, ô → /o/ | `"vôce"`, `"pêsca"` |
-| Italian | `à ì ù` | Stress only (final syllable) | `"città"`, `"virtù"` |
-| Spanish | `´` acute | Stress position only | `"término"`, `"música"` |
-| Portuguese | `´` acute | Stressed + open-mid: é → /ɛ/, ó → /ɔ/ | `"fé"`, `"avó"` |
-| Portuguese | `ˆ` circumflex | Stressed + close-mid: ê → /e/, ô → /o/ | `"fôlego"`, `"vôo"` |
-
-Italian and Portuguese are the only languages where both diacritics
-carry phonological meaning (quality + stress). In Spanish, any accent
-mark signals stress position—the acute is the conventional choice, but
-other diacritics are also recognized. Of course, misspellings are also common
-(e.g., OCR, old texts), so think of these functions as a "back-up" in any
-relevant scenario.
-
-### Exporting and sharing
-
-To save your lexicon to a plain-text file (one diacritized word per
-line):
-
-``` r
-export_lex("it", "italian_entries.txt")
-export_lex("sp", "spanish_entries.txt")
-export_lex("pt", "portuguese_entries.txt")
-```
-
-This is especially useful if you want to contribute to the package by adding your
-own lexicon to the official version of Fonology. Share the file with me and
-the package itself will be updated with the additions.
-
-The file can be shared and reimported directly—a file path is accepted
-wherever a character vector is:
-
-``` r
-add_lex_it("italian_entries.txt")
-```
-
-Duplicate entries are handled automatically: if the same plain key
-appears more than once, the most recent entry is kept.
-
 ## Probabilistic grammars
 
 The function `maxent()` learns weights given a tableau object containing
@@ -429,6 +344,19 @@ which can be used to convert and analyze ages following the format
 `yy;mm`, commonly used in first language acquisition studies. It’s a
 good idea to check out the index of functions (`?Fonology`) to take a
 look at the complete list of functions available.
+
+## Notice an incorrect transcription?
+
+There *will* be errors because the `ipa()` function is deterministic
+and uses predictable cases as its guiding rules. When it produces
+a wrong result for a word—wrong stress, wrong
+segment, or a loanword the rules don’t handle—please [open an
+issue](https://github.com/guilhermegarcia/fonology/issues) with the
+word, the current output, and the expected IPA. This is the most
+reliable way to get the fix into the package for everyone.
+As of 2026, the package contains lexica with idiosyncratic forms.
+The more words are added to the lexica, the more precise the function
+becomes.
 
 ## Acknowledgements and funding
 
