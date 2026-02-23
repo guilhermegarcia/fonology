@@ -4,32 +4,49 @@
 \alias{add_lex_sp}
 \title{Add words to the Spanish lexicon}
 \usage{
-add_lex_sp(words)
+add_lex_sp(words, ipa = NULL)
 }
 \arguments{
-\item{words}{A character vector of Spanish words with stress diacritics,
-e.g. \code{c("t\u00e9rmino", "im\u00e1gen")}. Alternatively, a path to a
-plain-text file with one diacritized word per line.}
+\item{words}{A character vector of Spanish words. In diacritized-form mode,
+supply the diacritized orthographic forms; in IPA-override mode, supply
+plain orthographic forms. Alternatively (diacritized-form mode only), a
+path to a plain-text file with one word per line.}
+
+\item{ipa}{\code{NULL} (default) or a character vector of IPA strings the
+same length as \code{words}.}
 }
 \value{
-Invisibly returns the updated \code{sp_lex} named character vector.
+Invisibly returns the updated lexicon named character vector.
 }
 \description{
-Adds one or more Spanish words (supplied with stress diacritics) to the
-\code{sp_lex} lexicon used by \code{ipa(lg = "Spanish")}. The plain
-orthographic key is derived automatically by stripping all combining
-diacritics, so only the diacritized form needs to be provided.
+Adds one or more Spanish words to the user lexicon used by
+\code{ipa(lg = "Spanish")}.
 }
 \details{
-You can also pass a path to a plain-text file (one diacritized word per line,
-as produced by \code{export_lex("sp", file)}) and the words will be read
-from that file automatically.
+\strong{Diacritized-form mode} (\code{ipa = NULL}, default): supply words
+with stress diacritics. The plain orthographic key is derived automatically,
+and the diacritized form is injected into the transcription pipeline. A file
+path (one diacritized word per line) may be passed instead of a character
+vector.
+
+\strong{IPA-override mode} (\code{ipa} not \code{NULL}): supply the plain
+orthographic form(s) in \code{words} and the corresponding IPA string(s) in
+\code{ipa}. The IPA is stored verbatim and returned directly—the
+transcription pipeline is bypassed entirely.
+
+IPA-override entries take priority over diacritized-form entries.
 }
 \examples{
 \dontrun{
-add_lex_sp(c("t\u00e9rmino", "im\u00e1gen"))
-ipa("termino", lg = "sp")
-# Import from a shared file:
+# Fix stress (supply the diacritized form you want):
+add_lex_sp(c("fl\u00f3rico", "pl\u00e1vico"))
+ipa("florico", lg = "sp")
+
+# Fix an entirely wrong transcription (supply the target IPA directly):
+add_lex_sp("flopranto", ipa = "flo.\u02c8pran.to")
+ipa("flopranto", lg = "sp")
+
+# Import from a shared file (diacritized-form mode only):
 add_lex_sp("spanish_entries.txt")
 }
 }

@@ -272,6 +272,47 @@
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 "it_lex"
 
+#' Data: Portuguese IPA-override lexicon
+#'
+#' A named character vector used by \code{ipa(lg = "Portuguese")} to store
+#' verbatim IPA transcriptions for words whose pipeline output is incorrect.
+#' Keys are plain orthographic forms; values are complete IPA strings.
+#' Entries here bypass the transcription pipeline entirely and take priority
+#' over \code{pt_lex_user}. Use \code{add_lex_pt(word, ipa = "...")} to
+#' populate it.
+#'
+#' @format A named character vector (initially empty; grows via \code{add_lex_pt()})
+#' @usage data(pt_ipa_lex)
+#' @seealso \code{\link{add_lex_pt}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"pt_ipa_lex"
+
+#' Data: Spanish IPA-override lexicon
+#'
+#' A named character vector used by \code{ipa(lg = "Spanish")} to store
+#' verbatim IPA transcriptions for words whose pipeline output is incorrect.
+#' Keys are plain orthographic forms; values are complete IPA strings.
+#' Use \code{add_lex_sp(word, ipa = "...")} to populate it.
+#'
+#' @format A named character vector (initially empty; grows via \code{add_lex_sp()})
+#' @usage data(sp_ipa_lex)
+#' @seealso \code{\link{add_lex_sp}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"sp_ipa_lex"
+
+#' Data: Italian IPA-override lexicon
+#'
+#' A named character vector used by \code{ipa(lg = "Italian")} to store
+#' verbatim IPA transcriptions for words whose pipeline output is incorrect.
+#' Keys are plain orthographic forms; values are complete IPA strings.
+#' Use \code{add_lex_it(word, ipa = "...")} to populate it.
+#'
+#' @format A named character vector (initially empty; grows via \code{add_lex_it()})
+#' @usage data(it_ipa_lex)
+#' @seealso \code{\link{add_lex_it}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"it_ipa_lex"
+
 #' Data: consonant inventory for Portuguese
 #'
 #' The inventory of consonants and glides in Portuguese

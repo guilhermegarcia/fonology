@@ -4,44 +4,60 @@
 \alias{add_lex_it}
 \title{Add words to the Italian lexicon}
 \usage{
-add_lex_it(words)
+add_lex_it(words, ipa = NULL)
 }
 \arguments{
-\item{words}{A character vector of Italian words with diacritics, e.g.
-\code{c("chiédere", "livéllo", "città")}. Alternatively, a path to a
-plain-text file with one diacritized word per line.}
+\item{words}{A character vector of Italian words. In diacritized-form mode,
+supply the diacritized orthographic forms; in IPA-override mode, supply
+plain orthographic forms. Alternatively (diacritized-form mode only), a
+path to a plain-text file with one word per line.}
+
+\item{ipa}{\code{NULL} (default) or a character vector of IPA strings the
+same length as \code{words}.}
 }
 \value{
-Invisibly returns the updated \code{it_lex} named character vector.
+Invisibly returns the updated lexicon named character vector.
 }
 \description{
-Adds one or more Italian words (supplied with diacritics that encode stress
-position and/or mid-vowel quality) to the \code{it_lex} lexicon used by
-\code{ipa(lg = "Italian")}. The plain orthographic key is derived
-automatically by stripping all combining diacritics, so only the diacritized
-form needs to be provided.
+Adds one or more Italian words to the user lexicon used by
+\code{ipa(lg = "Italian")}.
 }
 \details{
-You can also pass a path to a plain-text file (one diacritized word per line,
-as produced by \code{export_lex("it", file)}) and the words will be read
-from that file automatically.
+\strong{Diacritized-form mode} (\code{ipa = NULL}, default): supply words
+with diacritics encoding stress position and/or mid-vowel quality. The plain
+orthographic key is derived automatically, and the diacritized form is
+injected into the transcription pipeline. A file path (one diacritized word
+per line) may be passed instead of a character vector.
 
-Diacritic conventions for Italian:
+\strong{IPA-override mode} (\code{ipa} not \code{NULL}): supply the plain
+orthographic form(s) in \code{words} and the corresponding IPA string(s) in
+\code{ipa}. The IPA is stored verbatim and returned directly—the
+transcription pipeline is bypassed entirely.
+
+IPA-override entries take priority over diacritized-form entries.
+
+Diacritic conventions for Italian (diacritized-form mode):
 \describe{
-  \item{\code{é}}{Stressed open-mid /ɛ/ (e.g. \code{"café"} → stress + open e)}
-  \item{\code{ê}}{Stressed close-mid /e/ (e.g. \code{"chêsa"} → stress + close e)}
-  \item{\code{è}}{Stressed open-mid /ɛ/ on final syllable (Italian orthographic convention)}
-  \item{\code{ó}}{Stressed open-mid /ɔ/ (e.g. \code{"nótto"} → stress + open o)}
-  \item{\code{ô}}{Stressed close-mid /o/ (e.g. \code{"vôce"} → stress + close o)}
-  \item{\code{ò}}{Stressed open-mid /ɔ/ on final syllable}
+  \item{\code{é}}{Stressed open-mid /\enc{ɛ}{e}/ (stress on this syllable, open e)}
+  \item{\code{ê}}{Stressed close-mid /e/ (stress on this syllable, close e)}
+  \item{\code{è}}{Stressed open-mid /\enc{ɛ}{e}/ on final syllable (Italian orthographic convention)}
+  \item{\code{ó}}{Stressed open-mid /\enc{ɔ}{o}/ (stress on this syllable, open o)}
+  \item{\code{ô}}{Stressed close-mid /o/ (stress on this syllable, close o)}
+  \item{\code{ò}}{Stressed open-mid /\enc{ɔ}{o}/ on final syllable}
   \item{\code{à}, \code{ì}, \code{ù}}{Stress-only markers (no quality distinction)}
 }
 }
 \examples{
 \dontrun{
-add_lex_it(c("chiédere", "livéllo"))
-ipa("chiedere", lg = "it")   # now uses lexicon entry
-# Import from a shared file:
+# Fix stress / mid-vowel quality (supply the diacritized form you want):
+add_lex_it(c("bl\u00e9rico", "tr\u00f4vico"))
+ipa("blerico", lg = "it")
+
+# Fix an entirely wrong transcription (supply the target IPA directly):
+add_lex_it("flopranto", ipa = "flo.\u02c8pran.to")
+ipa("flopranto", lg = "it")
+
+# Import from a shared file (diacritized-form mode only):
 add_lex_it("italian_entries.txt")
 }
 }

@@ -4,33 +4,52 @@
 \alias{add_lex_pt}
 \title{Add words to the Portuguese user lexicon}
 \usage{
-add_lex_pt(words)
+add_lex_pt(words, ipa = NULL)
 }
 \arguments{
-\item{words}{A character vector of Portuguese words with stress diacritics,
-e.g. \code{c("f\u00f4lego", "r\u00fabrica")}. Alternatively, a path to a
-plain-text file with one diacritized word per line.}
+\item{words}{A character vector of Portuguese words. In diacritized-form
+mode, supply the diacritized orthographic forms; in IPA-override mode,
+supply the plain orthographic forms. Alternatively (diacritized-form mode
+only), a path to a plain-text file with one word per line.}
+
+\item{ipa}{\code{NULL} (default, diacritized-form mode) or a character
+vector of IPA strings the same length as \code{words}.}
 }
 \value{
-Invisibly returns the updated \code{pt_lex_user} named character vector.
+Invisibly returns the updated lexicon named character vector.
 }
 \description{
-Adds one or more Portuguese words (supplied with stress diacritics) to the
-\code{pt_lex_user} lexicon used by \code{ipa(lg = "Portuguese")}. Entries
-here take priority over the default \code{pt_lex} stress lexicon. The plain
-orthographic key is derived automatically by stripping all combining
-diacritics, so only the diacritized form needs to be provided.
+Adds one or more Portuguese words to the user lexicon used by
+\code{ipa(lg = "Portuguese")}.
 }
 \details{
-You can also pass a path to a plain-text file (one diacritized word per line,
-as produced by \code{export_lex("pt", file)}) and the words will be read
-from that file automatically.
+\strong{Diacritized-form mode} (\code{ipa = NULL}, default): supply words
+with stress/quality diacritics. The plain orthographic key is derived
+automatically, and the diacritized form is injected into the transcription
+pipeline so that stress and vowel-quality rules apply correctly. A file path
+(one diacritized word per line) may be passed instead of a character vector.
+
+\strong{IPA-override mode} (\code{ipa} not \code{NULL}): supply the plain
+orthographic form(s) in \code{words} and the corresponding IPA string(s) in
+\code{ipa}. The IPA is stored verbatim and returned directly—the
+transcription pipeline is bypassed entirely. Use this when the pipeline
+produces a wrong transcription that cannot be fixed with diacritics alone
+(e.g. loanwords whose segmental make-up the rules do not handle).
+
+IPA-override entries take priority over diacritized-form entries, which in
+turn take priority over the default pipeline.
 }
 \examples{
 \dontrun{
-add_lex_pt(c("f\u00f4lego", "r\u00fabrica"))
-ipa("folego", lg = "pt")
-# Import from a shared file:
+# Fix stress / mid-vowel quality (supply the diacritized form you want):
+add_lex_pt(c("bl\u00f3rico", "tr\u00e1vico"))
+ipa("blorico", lg = "pt")
+
+# Fix an entirely wrong transcription (supply the target IPA directly):
+add_lex_pt("flopranto", ipa = "flo.\u02c8pran.to")
+ipa("flopranto", lg = "pt")
+
+# Import from a shared file (diacritized-form mode only):
 add_lex_pt("portuguese_entries.txt")
 }
 }

@@ -4,25 +4,37 @@
 \alias{export_lex}
 \title{Export a user lexicon to a plain-text file}
 \usage{
-export_lex(lg, file)
+export_lex(lg, file, ipa = FALSE)
 }
 \arguments{
 \item{lg}{Language: \code{"it"}, \code{"sp"}, or \code{"pt"}.}
 
-\item{file}{Path to the output file (e.g. \code{"my_it_lex.txt"}).}
+\item{file}{Path to the output file.}
+
+\item{ipa}{Logical. If \code{FALSE} (default), export the diacritized-form
+lexicon. If \code{TRUE}, export the IPA-override lexicon.}
 }
 \value{
-Invisibly returns the character vector that was written.
+Invisibly returns the character vector (diacritized-form mode) or
+  named character vector (IPA-override mode) that was written.
 }
 \description{
-Writes the diacritized entries of a language lexicon to a plain-text file
-(one word per line). The file can be shared and re-imported directly via
+Writes lexicon entries to a plain-text file for sharing.
+}
+\details{
+\strong{Diacritized-form mode} (\code{ipa = FALSE}, default): writes one
+diacritized word per line. The file can be re-imported directly via
 the corresponding \code{add_lex_XX()} function.
+
+\strong{IPA-override mode} (\code{ipa = TRUE}): writes IPA-override entries
+as tab-separated \samp{plain_form<TAB>IPA} pairs, one per line. These can
+be re-imported by reading the file and calling \code{add_lex_XX(words, ipa)}.
 }
 \examples{
 \dontrun{
 export_lex("it", "italian_entries.txt")
-# share the file, then the recipient runs:
 add_lex_it("italian_entries.txt")
+
+export_lex("pt", "pt_ipa_overrides.tsv", ipa = TRUE)
 }
 }

@@ -18,8 +18,11 @@ ipa_it <- function(word = "italiano") {
     message("Input must be monomorphemic. Stress assignment may be incorrect.")
   }
 
-  # Lexicon lookup (Option C): replace plain form with diacritized form so that
-  # stress_it()'s diacritic rule places stress and vowel quality correctly.
+  # IPA-override check: return stored IPA verbatim, bypassing the pipeline
+  if (wd %in% names(it_ipa_lex)) return(unname(it_ipa_lex[wd]))
+
+  # Diacritized-form lookup: replace plain form so stress_it()'s diacritic rule
+  # places stress and vowel quality correctly.
   matches <- wd %in% names(it_lex)
   if (any(matches)) {
     wd[matches] <- it_lex[wd[matches]]
