@@ -1,11 +1,11 @@
-#' IPA transcriber for Spanish
+#' IPA transcriber for Italian
 #'
 #' Given a string, the function returns its IPA transcription with stress and syllabification.
-#' @param word A possible string in Spanish in its orthographic form
+#' @param word A possible string in Italian in its orthographic form
 #' @return The phonemic transcription for the string in question
 #' @noRd
 
-ipa_sp <- function(word = "comportamento") {
+ipa_it <- function(word = "italiano") {
   wd <- stringr::str_to_lower(word) |>
     stringr::str_remove_all("[:punct:]")
 
@@ -19,15 +19,19 @@ ipa_sp <- function(word = "comportamento") {
   }
 
   # IPA-override check: return stored IPA verbatim, bypassing the pipeline
-  if (wd %in% names(sp_ipa_lex)) return(unname(sp_ipa_lex[wd]))
+  if (wd %in% names(it_ipa_lex)) return(unname(it_ipa_lex[wd]))
 
-  matches <- wd %in% names(sp_lex)
-  if (any(matches)) wd[matches] <- sp_lex[wd[matches]]
+  # Diacritized-form lookup: replace plain form so stress_it()'s diacritic rule
+  # places stress and vowel quality correctly.
+  matches <- wd %in% names(it_lex)
+  if (any(matches)) {
+    wd[matches] <- it_lex[wd[matches]]
+  }
 
   wd <- wd |>
-    transcribe_sp() |>
-    syllabify_sp() |>
-    stress_sp()
+    transcribe_it() |>
+    syllabify_it() |>
+    stress_it()
 
   return(wd)
 }

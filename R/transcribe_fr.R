@@ -135,8 +135,10 @@ transcribe_fr <- function(word) {
   word <- stringr::str_replace_all(word, pattern = "y", replacement = "i")
   # k
   word <- stringr::str_replace_all(word, pattern = "qY|q\u0265|ch(?=l)|c(?!h)|q", replacement = "k")
-  # x devient s
-  word <- stringr::str_replace_all(word, pattern = "(?<=Di|si)x$|(?<=Di|si)x(?= )", replacement = "s")
+  # dix, six: final x -> s in isolation
+  word <- stringr::str_replace_all(word, pattern = "(?<=di|si)x$|(?<=di|si)x(?= )", replacement = "s")
+  # all other ix$ -> i (prix, perdrix, Chamonix, etc.)
+  word <- stringr::str_replace_all(word, pattern = "ix$|ix(?= )", replacement = "i")
   # ks
   word <- stringr::str_replace_all(word, pattern = "x", replacement = "ks")
   # consonnes doubles restantes
