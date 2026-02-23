@@ -18,9 +18,10 @@ stress_it <- function(word) {
   # (and occasionally to disambiguate monosyllables). The stressed syllable is
   # the one containing the accented vowel.
 
-  # à è é ê ì ò ó ô ù
-  # ê (U+00EA) and ô (U+00F4) encode close mid-vowels; é/è and ó/ò encode open mid-vowels.
-  accent_chars <- "\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9"
+  # Any diacritic on any vowel marks stress. For e/o the diacritic also encodes
+  # vowel quality: è/é → ɛ, ê → e, ò/ó → ɔ, ô → o. For a/i/u all diacritics
+  # (grave, acute, circumflex) are treated as stress-only markers.
+  accent_chars <- "\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb"
   which_diacritics <- stringr::str_detect(word, paste0("[", accent_chars, "]"))
 
   diacritics <- stringr::str_replace_all(
@@ -37,8 +38,14 @@ stress_it <- function(word) {
     stringr::str_replace_all("\u00f4", "o") |>         # ô → o (close-mid o)
     # Remaining stress-only diacritics → base vowel
     stringr::str_replace_all("\u00e0", "a") |>         # à → a
+    stringr::str_replace_all("\u00e1", "a") |>         # á → a
+    stringr::str_replace_all("\u00e2", "a") |>         # â → a
     stringr::str_replace_all("\u00ec", "i") |>         # ì → i
-    stringr::str_replace_all("\u00f9", "u")
+    stringr::str_replace_all("\u00ed", "i") |>         # í → i
+    stringr::str_replace_all("\u00ee", "i") |>         # î → i
+    stringr::str_replace_all("\u00f9", "u") |>         # ù → u
+    stringr::str_replace_all("\u00fa", "u") |>         # ú → u
+    stringr::str_replace_all("\u00fb", "u")
 
   names(diacritics) <- names(word[which_diacritics])
   word <- word[!which_diacritics]

@@ -30,7 +30,7 @@ transcribe_it <- function(word) {
   word <- stringr::str_remove_all(word, "h")
 
   # 5. QU: qu + vowel → kw + vowel; remaining q → k
-  word <- stringr::str_replace_all(word, "qu([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])", "kw\\1")
+  word <- stringr::str_replace_all(word, "qu([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])", "kw\\1")
   word <- stringr::str_replace_all(word, "q", "k")
 
   # 6. GN → ɲ (palatal nasal)
@@ -38,7 +38,7 @@ transcribe_it <- function(word) {
 
   # 7. GLI: gli + vowel → ʎ + vowel (drop silent i before another vowel);
   #    remaining gli → ʎi (e.g. article "gli", word-final position)
-  word <- stringr::str_replace_all(word, "gli([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])", "\u028e\\1")
+  word <- stringr::str_replace_all(word, "gli([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])", "\u028e\\1")
   word <- stringr::str_replace_all(word, "gli", "\u028ei")
 
   # 8. SCI + a/o/u → ʃ + vowel (drop silent <i> before non-front vowels)
@@ -62,7 +62,7 @@ transcribe_it <- function(word) {
   word <- stringr::str_replace_all(word, "cc([ei\u00e8\u00e9\u00ea\u00ec])", "tt\u0283\\1")
 
   # 13. GI + vowel → dʒ + vowel (drop silent <i> before another vowel)
-  word <- stringr::str_replace_all(word, "gi([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])", "d\u0292\\1")
+  word <- stringr::str_replace_all(word, "gi([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])", "d\u0292\\1")
 
   # 14. G + e/i → dʒ (palatal affricate before front vowels)
   word <- stringr::str_replace_all(word, "g([ei\u00e8\u00e9\u00ea\u00ec])", "d\u0292\\1")
@@ -73,10 +73,10 @@ transcribe_it <- function(word) {
   word <- stringr::str_replace_all(word, "G", "g")
 
   # 16. GU + vowel → gw + vowel (u becomes labial glide before another vowel)
-  word <- stringr::str_replace_all(word, "gu([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])", "gw\\1")
+  word <- stringr::str_replace_all(word, "gu([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])", "gw\\1")
 
   # 16. CI + vowel → tʃ + vowel (drop silent <i> before another vowel)
-  word <- stringr::str_replace_all(word, "ci([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])", "t\u0283\\1")
+  word <- stringr::str_replace_all(word, "ci([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])", "t\u0283\\1")
 
   # 17. C + e/i → tʃ (palatal affricate before front vowels)
   word <- stringr::str_replace_all(word, "c([ei\u00e8\u00e9\u00ea\u00ec])", "t\u0283\\1")
@@ -96,7 +96,7 @@ transcribe_it <- function(word) {
   # 22. Protect geminate ss, apply intervocalic s → z, then restore ss
   word <- stringr::str_replace_all(word, "ss", "SS")
   word <- stringr::str_replace_all(word,
-    "([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])s([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])",
+    "([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])s([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])",
     "\\1z\\2"
   )
   word <- stringr::str_replace_all(word, "SS", "ss")
@@ -112,7 +112,7 @@ transcribe_it <- function(word) {
   # Character class for consonants at this stage:
   #   p b t d k g f v s z m n l r ɲ ʎ ŋ ʃ ʒ (and complex tokens ending in these)
   C_class <- "[pbtdkgfvszmnlr\u0272\u028e\u014b\u0283\u0292]"
-  V_class <- "[aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9]"
+  V_class <- "[aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb]"
 
   # u after consonant and before vowel → w (e.g. "scuola" → "skwola")
   word <- stringr::str_replace_all(word,

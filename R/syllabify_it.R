@@ -23,7 +23,7 @@ syllabify_it <- function(word) {
 
   # Step 2: Insert syllable boundary after every vowel (onset maximization)
   word <- stringr::str_replace_all(word,
-    "([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])",
+    "([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])",
     "\\1."
   )
 
@@ -33,7 +33,7 @@ syllabify_it <- function(word) {
   # Step 4: Move glides back to their nucleus (diphthong protection)
   # e.g. V.jC → Vj.C  and  V.wC → Vw.C
   word <- stringr::str_replace_all(word,
-    "([aeiou\u00e0\u00e8\u00e9\u00ea\u00ec\u00f2\u00f3\u00f4\u00f9])\\.([jw])",
+    "([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])\\.([jw])",
     "\\1\\2."
   )
 
@@ -55,7 +55,7 @@ syllabify_it <- function(word) {
   # Step 6a: Sonorants (l, m, n, r, ɲ, ʎ, ŋ) followed by another consonant
   # → sonorant moves to coda of preceding syllable.
   word <- stringr::str_replace_all(word,
-    "\\.([lmnr\u0272\u028e\u014b])([^aeiou\u00e0\u00e8\u00e9\u00ec\u00f2\u00f3\u00f9.])",
+    "\\.([lmnr\u0272\u028e\u014b])([^aeiou\u00e0\u00e1\u00e8\u00e9\u00ec\u00ed\u00f2\u00f3\u00f9\u00fa.])",
     "\\1.\\2"
   )
 
