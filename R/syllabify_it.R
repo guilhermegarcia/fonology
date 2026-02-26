@@ -78,7 +78,16 @@ syllabify_it <- function(word) {
   word <- stringr::str_replace_all(word, "DZ", "dz")
   word <- stringr::str_replace_all(word, "TZ", "ts")
 
-  # Step 8: Clean up double dots and trailing dot
+  # Step 8: Merge word-final nucleus-less syllable back into preceding coda.
+  # Loanwords ending in consonant(s) (e.g. "thriller" → "tril.le.r") get a
+  # stranded final segment from the vowel-dot insertion in step 2. Remove the
+  # dot before any word-final sequence that contains no vowel at all.
+  word <- stringr::str_replace_all(word,
+    "\\.([^aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb\\.]+)$",
+    "\\1"
+  )
+
+  # Step 9: Clean up double dots and trailing dot
   word <- stringr::str_replace_all(word, "\\.\\.", ".")
   word <- stringr::str_remove_all(word, "\\.$")
 
