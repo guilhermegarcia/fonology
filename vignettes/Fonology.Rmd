@@ -58,8 +58,8 @@ website](https://gdgarcia.ca/fonology). The package requires `R >= 4.1`.
 - `psl` contains the [_Portuguese Stress
   Lexicon_](https://gdgarcia.ca/psl.html)
 - `pt_lex` contains a simplified version of `psl`
-- `stopwords_pt`, `stopwords_fr` and `stopwords_sp` contain stopwords in Portuguese, French and
-  Spanish
+- `stopwords_pt`, `stopwords_fr`, `stopwords_sp` and `stopwords_it` contain stopwords in Portuguese, French,
+  Spanish and Italian
 
 ## Distinctive features
 

@@ -5,16 +5,16 @@
 \alias{stopwords_sp}
 \title{Data: stopwords in Spanish}
 \format{
-A vector with stopwords in Spanish
+A character vector with stopwords in Spanish
 }
 \source{
-<https://cran.r-project.org/web/packages/tm/index.html>
+<https://cran.r-project.org/web/packages/stopwords/index.html>
 }
 \usage{
 data(stopwords_sp)
 }
 \description{
-Set of stopwords in Spanish from the tm package.
+Set of stopwords in Spanish from the stopwords package (stopwords-iso source).
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})

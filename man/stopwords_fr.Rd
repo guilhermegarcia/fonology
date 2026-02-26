@@ -5,16 +5,16 @@
 \alias{stopwords_fr}
 \title{Data: stopwords in French}
 \format{
-A vector with stopwords in French
+A character vector with stopwords in French
 }
 \source{
-<https://cran.r-project.org/web/packages/tm/index.html>
+<https://cran.r-project.org/web/packages/stopwords/index.html>
 }
 \usage{
 data(stopwords_fr)
 }
 \description{
-Set of stopwords in French from the tm package.
+Set of stopwords in French from the stopwords package (stopwords-iso source).
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})

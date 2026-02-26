@@ -112,33 +112,43 @@
 
 #' Data: stopwords in Portuguese
 #'
-#' Set of stopwords in Portuguese from the tm package.
+#' Set of stopwords in Portuguese from the stopwords package (stopwords-iso source).
 #'
-#' @format A vector with stopwords in Portuguese
+#' @format A character vector with stopwords in Portuguese
 #' @usage data(stopwords_pt)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
-#' @source <https://cran.r-project.org/web/packages/tm/index.html>
+#' @source <https://cran.r-project.org/web/packages/stopwords/index.html>
 "stopwords_pt"
 
 #' Data: stopwords in French
 #'
-#' Set of stopwords in French from the tm package.
+#' Set of stopwords in French from the stopwords package (stopwords-iso source).
 #'
-#' @format A vector with stopwords in French
+#' @format A character vector with stopwords in French
 #' @usage data(stopwords_fr)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
-#' @source <https://cran.r-project.org/web/packages/tm/index.html>
+#' @source <https://cran.r-project.org/web/packages/stopwords/index.html>
 "stopwords_fr"
 
 #' Data: stopwords in Spanish
 #'
-#' Set of stopwords in Spanish from the tm package.
+#' Set of stopwords in Spanish from the stopwords package (stopwords-iso source).
 #'
-#' @format A vector with stopwords in Spanish
+#' @format A character vector with stopwords in Spanish
 #' @usage data(stopwords_sp)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
-#' @source <https://cran.r-project.org/web/packages/tm/index.html>
+#' @source <https://cran.r-project.org/web/packages/stopwords/index.html>
 "stopwords_sp"
+
+#' Data: stopwords in Italian
+#'
+#' Set of stopwords in Italian from the stopwords package (stopwords-iso source).
+#'
+#' @format A character vector with stopwords in Italian
+#' @usage data(stopwords_it)
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @source <https://cran.r-project.org/web/packages/stopwords/index.html>
+"stopwords_it"
 
 #' Data: comprehensive table with distinctive features
 #'

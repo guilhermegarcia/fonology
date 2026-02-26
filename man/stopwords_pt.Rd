@@ -5,16 +5,16 @@
 \alias{stopwords_pt}
 \title{Data: stopwords in Portuguese}
 \format{
-A vector with stopwords in Portuguese
+A character vector with stopwords in Portuguese
 }
 \source{
-<https://cran.r-project.org/web/packages/tm/index.html>
+<https://cran.r-project.org/web/packages/stopwords/index.html>
 }
 \usage{
 data(stopwords_pt)
 }
 \description{
-Set of stopwords in Portuguese from the tm package.
+Set of stopwords in Portuguese from the stopwords package (stopwords-iso source).
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})
