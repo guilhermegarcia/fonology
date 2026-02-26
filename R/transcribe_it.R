@@ -42,7 +42,7 @@ transcribe_it <- function(word) {
   word <- stringr::str_replace_all(word, "gli", "\u028ei")
 
   # 8. SCI + a/o/u → ʃ + vowel (drop silent <i> before non-front vowels)
-  word <- stringr::str_replace_all(word, "sci([aou\u00e0\u00f2\u00f9])", "\u0283\\1")
+  word <- stringr::str_replace_all(word, "sci([aou\u00e0\u00e1\u00e2\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])", "\u0283\\1")
 
   # 9. SC + e/i → ʃ (palatal sibilant before front vowels)
   word <- stringr::str_replace_all(word, "sc([ei\u00e8\u00e9\u00ea\u00ec])", "\u0283\\1")
@@ -53,12 +53,12 @@ transcribe_it <- function(word) {
   # 11. GG + e/i → ddʒ (geminate palatal affricate; MUST precede single-g rule).
   #    When <ggi> precedes a/o/u, the <i> is a silent orthographic marker (like
   #    in <gi>+vowel) and is dropped: "viaggio" → vjaddʒo, not vjaddʒio.
-  word <- stringr::str_replace_all(word, "ggi([aou\u00e0\u00f2\u00f9])", "dd\u0292\\1")
+  word <- stringr::str_replace_all(word, "ggi([aou\u00e0\u00e1\u00e2\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])", "dd\u0292\\1")
   word <- stringr::str_replace_all(word, "gg([ei\u00e8\u00e9\u00ea\u00ec])", "dd\u0292\\1")
 
   # 12. CC + e/i → ttʃ (geminate palatal affricate; MUST precede single-c rule).
   #    Same silent-i rule: <cci> before a/o/u drops the i.
-  word <- stringr::str_replace_all(word, "cci([aou\u00e0\u00f2\u00f9])", "tt\u0283\\1")
+  word <- stringr::str_replace_all(word, "cci([aou\u00e0\u00e1\u00e2\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])", "tt\u0283\\1")
   word <- stringr::str_replace_all(word, "cc([ei\u00e8\u00e9\u00ea\u00ec])", "tt\u0283\\1")
 
   # 13. GI + vowel → dʒ + vowel (drop silent <i> before another vowel)
