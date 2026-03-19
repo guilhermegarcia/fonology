@@ -25,10 +25,7 @@ remove_lex_pt <- function(words) {
   save(pt_lex_user,
        file = file.path(find.package("Fonology"), "data", "pt_lex_user.rda"),
        compress = "xz")
-  tryCatch(
-    assign("pt_lex_user", lex_d, envir = as.environment("package:Fonology")),
-    error = function(e) invisible(NULL)
-  )
+  .lex_assign("pt_lex_user", lex_d)
 
   ## ---- IPA-override lexicon -----------------------------------------------
   lex_i <- get("pt_ipa_lex", envir = as.environment("package:Fonology"))
@@ -38,10 +35,7 @@ remove_lex_pt <- function(words) {
   save(pt_ipa_lex,
        file = file.path(find.package("Fonology"), "data", "pt_ipa_lex.rda"),
        compress = "xz")
-  tryCatch(
-    assign("pt_ipa_lex", lex_i, envir = as.environment("package:Fonology")),
-    error = function(e) invisible(NULL)
-  )
+  .lex_assign("pt_ipa_lex", lex_i)
 
   invisible(list(diacritized = lex_d, ipa = lex_i))
 }

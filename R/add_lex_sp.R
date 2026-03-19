@@ -63,10 +63,7 @@ add_lex_sp <- function(words, ipa = NULL) {
          file = file.path(find.package("Fonology"), "data", "sp_ipa_lex.rda"),
          compress = "xz")
 
-    tryCatch(
-      assign("sp_ipa_lex", lex, envir = as.environment("package:Fonology")),
-      error = function(e) invisible(NULL)
-    )
+    .lex_assign("sp_ipa_lex", lex)
 
     return(invisible(lex))
   }
@@ -94,10 +91,7 @@ add_lex_sp <- function(words, ipa = NULL) {
   save(sp_lex, file = file.path(find.package("Fonology"), "data", "sp_lex.rda"),
        compress = "xz")
 
-  tryCatch(
-    assign("sp_lex", lex, envir = as.environment("package:Fonology")),
-    error = function(e) invisible(NULL)
-  )
+  .lex_assign("sp_lex", lex)
 
   invisible(lex)
 }

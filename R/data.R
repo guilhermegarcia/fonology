@@ -310,6 +310,19 @@
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 "sp_ipa_lex"
 
+#' Data: French IPA-override lexicon
+#'
+#' A named character vector used by \code{ipa(lg = "French")} to store
+#' verbatim IPA transcriptions for words whose pipeline output is incorrect.
+#' Keys are plain orthographic forms; values are complete IPA strings.
+#' Use \code{add_lex_fr(word, ipa = "...")} to populate it.
+#'
+#' @format A named character vector (initially empty; grows via \code{add_lex_fr()})
+#' @usage data(fr_ipa_lex)
+#' @seealso \code{\link{add_lex_fr}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"fr_ipa_lex"
+
 #' Data: Italian IPA-override lexicon
 #'
 #' A named character vector used by \code{ipa(lg = "Italian")} to store

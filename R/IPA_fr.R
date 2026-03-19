@@ -18,6 +18,9 @@ ipa_fr <- function(word = "comportamento") {
     message("Input must be monomorphemic. Stress assignment may be incorrect.")
   }
 
+  # IPA-override check: return stored IPA verbatim, bypassing the pipeline
+  if (wd %in% names(fr_ipa_lex)) return(unname(fr_ipa_lex[wd]))
+
   wd <- wd |>
     transcribe_fr() |>
     syllabify_fr()
