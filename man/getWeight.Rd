@@ -9,13 +9,13 @@ getWeight(word, lg = "Portuguese")
 \arguments{
 \item{word}{The vector with strings of interest using IPA phonemic transcription, already syllabified and stressed}
 
-\item{lg}{Language (defaults to Portuguese)}
+\item{lg}{Language (defaults to Portuguese). Currently Portuguese, Spanish, French, Italian, and English are supported.}
 }
 \value{
 The sequence of Ls and Hs based on the word's weight profile given the phonology of the language in question
 }
 \description{
-Labels a given string in Portuguese according to its weight profile using Ls and Hs.
+Labels a given string according to its weight profile using Ls and Hs.
 }
 \examples{
 getWeight(word = c("kom.pu.ta.ˈdoɾ", "ka.ˈloɾ.pe"))

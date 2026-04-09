@@ -54,8 +54,10 @@ syllabify_it <- function(word) {
 
   # Step 6a: Sonorants (l, m, n, r, ɲ, ʎ, ŋ) followed by another consonant
   # → sonorant moves to coda of preceding syllable.
+  # Do NOT apply this before glides j/w: clusters such as lj and nj belong
+  # to the following onset in forms like "italiano".
   word <- stringr::str_replace_all(word,
-    "\\.([lmnr\u0272\u028e\u014b])([^aeiou\u00e0\u00e1\u00e8\u00e9\u00ec\u00ed\u00f2\u00f3\u00f9\u00fa.])",
+    "\\.([lmnr\u0272\u028e\u014b])([^aeiou\u00e0\u00e1\u00e8\u00e9\u00ec\u00ed\u00f2\u00f3\u00f9\u00fajw.])",
     "\\1.\\2"
   )
 
