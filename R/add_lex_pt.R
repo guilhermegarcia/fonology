@@ -16,6 +16,11 @@
 #' produces a wrong transcription that cannot be fixed with diacritics alone
 #' (e.g. loanwords whose segmental make-up the rules do not handle).
 #'
+#' Changes made by this function are local to the current package
+#' installation. When used from a source checkout loaded with
+#' \code{devtools::load_all()}, the corresponding data file in the source tree
+#' is updated and can be committed.
+#'
 #' IPA-override entries take priority over diacritized-form entries, which in
 #' turn take priority over the default pipeline.
 #'

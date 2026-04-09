@@ -12,3 +12,4 @@
 ^\.claude$
 ^CLAUDE\.md$
 ^CITATION\.cff$
+^data-raw$

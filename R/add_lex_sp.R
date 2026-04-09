@@ -14,6 +14,11 @@
 #' \code{ipa}. The IPA is stored verbatim and returned directly—the
 #' transcription pipeline is bypassed entirely.
 #'
+#' Changes made by this function are local to the current package
+#' installation. When used from a source checkout loaded with
+#' \code{devtools::load_all()}, the corresponding data file in the source tree
+#' is updated and can be committed.
+#'
 #' IPA-override entries take priority over diacritized-form entries.
 #'
 #' @param words A character vector of Spanish words. In diacritized-form mode,

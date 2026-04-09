@@ -7,7 +7,7 @@
 export_lex(lg, file, ipa = FALSE)
 }
 \arguments{
-\item{lg}{Language: \code{"it"}, \code{"sp"}, \code{"pt"}, or \code{"fr"}.}
+\item{lg}{Language: \code{"it"}, \code{"sp"}, \code{"pt"}, \code{"fr"}, or \code{"en"}.}
 
 \item{file}{Path to the output file.}
 

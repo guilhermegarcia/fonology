@@ -1,6 +1,6 @@
 utils::globalVariables(c(
   "pt_lex", "it_lex", "sp_lex", "pt_lex_user",
-  "pt_ipa_lex", "sp_ipa_lex", "it_ipa_lex", "fr_ipa_lex",
+  "pt_ipa_lex", "sp_ipa_lex", "it_ipa_lex", "fr_ipa_lex", "en_ipa_lex", "en_lex",
   ".", "pro",
   "proB", "ipa", "syl",
   "cons", "son", "cont",

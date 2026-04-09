@@ -150,6 +150,16 @@
 #' @source <https://cran.r-project.org/web/packages/stopwords/index.html>
 "stopwords_it"
 
+#' Data: stopwords in English
+#'
+#' Set of stopwords in English from the stopwords package (stopwords-iso source).
+#'
+#' @format A character vector with stopwords in English
+#' @usage data(stopwords_en)
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @source <https://cran.r-project.org/web/packages/stopwords/index.html>
+"stopwords_en"
+
 #' Data: comprehensive table with distinctive features
 #'
 #' Comprehensive dataset with phonemes and their distinctive features.
@@ -335,6 +345,40 @@
 #' @seealso \code{\link{add_lex_it}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 "it_ipa_lex"
+
+#' Data: English CMU-derived lexicon
+#'
+#' A precomputed English lexicon derived from CMUdict and used by
+#' \code{ipa(lg = "English")}. It contains the orthographic form, the default
+#' ARPAbet entry used by the package, and precomputed IPA transcriptions with
+#' stress and syllabification.
+#'
+#' @format A data frame with 133,854 rows and 6 variables:
+#' \describe{
+#'   \item{\code{word}}{English orthographic form}
+#'   \item{\code{alt}}{CMU pronunciation index, where 0 is the default entry}
+#'   \item{\code{arpabet}}{ARPAbet transcription from CMUdict}
+#'   \item{\code{ipa_plain}}{IPA transcription without syllable separators}
+#'   \item{\code{ipa_syll}}{IPA transcription with syllabification and stress}
+#'   \item{\code{stress_pattern}}{Stress digits extracted from vowel tokens}
+#' }
+#' @usage data(en_lex)
+#' @seealso \code{\link{add_lex_en}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"en_lex"
+
+#' Data: English IPA-override lexicon
+#'
+#' A named character vector used by \code{ipa(lg = "English")} to store
+#' verbatim IPA transcriptions for words whose CMU-backed or fallback output is
+#' incorrect. Keys are plain orthographic forms; values are complete IPA
+#' strings. Use \code{add_lex_en(word, ipa = "...")} to populate it.
+#'
+#' @format A named character vector (initially empty; grows via \code{add_lex_en()})
+#' @usage data(en_ipa_lex)
+#' @seealso \code{\link{add_lex_en}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"en_ipa_lex"
 
 #' Data: consonant inventory for Portuguese
 #'

@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A collection of tools for phonological analysis of Romance languages (Portuguese, Spanish, French, and Italian). Functions include grapheme-to-phoneme conversion with syllabification and stress assignment, sonority dispersion calculation, minimal matrices for natural classes given a set of features, maxent models, and more.
+A collection of tools for phonological analysis, with primary support for Portuguese, Spanish, French, and Italian, plus CMU-backed English transcription with user-correctable overrides and heuristic fallback for out-of-vocabulary forms. Functions include grapheme-to-phoneme conversion with syllabification and stress assignment, sonority dispersion calculation, minimal matrices for natural classes given a set of features, maxent models, and more.
 }
 \seealso{
 Useful links:

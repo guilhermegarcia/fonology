@@ -10,7 +10,7 @@
 #' as tab-separated \samp{plain_form<TAB>IPA} pairs, one per line. These can
 #' be re-imported by reading the file and calling \code{add_lex_XX(words, ipa)}.
 #'
-#' @param lg Language: \code{"it"}, \code{"sp"}, \code{"pt"}, or \code{"fr"}.
+#' @param lg Language: \code{"it"}, \code{"sp"}, \code{"pt"}, \code{"fr"}, or \code{"en"}.
 #' @param file Path to the output file.
 #' @param ipa Logical. If \code{FALSE} (default), export the diacritized-form
 #'   lexicon. If \code{TRUE}, export the IPA-override lexicon.
@@ -35,7 +35,8 @@ export_lex <- function(lg, file, ipa = FALSE) {
       "sp" = "sp_ipa_lex",
       "pt" = "pt_ipa_lex",
       "fr" = "fr_ipa_lex",
-      stop("lg must be one of: \"it\", \"sp\", \"pt\", \"fr\"")
+      "en" = "en_ipa_lex",
+      stop("lg must be one of: \"it\", \"sp\", \"pt\", \"fr\", \"en\"")
     )
 
     lex <- get(lex_name, envir = as.environment("package:Fonology"))
@@ -57,7 +58,8 @@ export_lex <- function(lg, file, ipa = FALSE) {
     "sp" = "sp_lex",
     "pt" = "pt_lex_user",
     "fr" = stop("French only supports IPA-override mode: use export_lex(\"fr\", file, ipa = TRUE)."),
-    stop("lg must be one of: \"it\", \"sp\", \"pt\", \"fr\"")
+    "en" = stop("English only supports IPA-override mode: use export_lex(\"en\", file, ipa = TRUE)."),
+    stop("lg must be one of: \"it\", \"sp\", \"pt\", \"fr\", \"en\"")
   )
 
   lex <- get(lex_name, envir = as.environment("package:Fonology"))
