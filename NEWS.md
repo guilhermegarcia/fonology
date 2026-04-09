@@ -1,3 +1,9 @@
+# Fonology 1.1.0
+
+- Added English support to `ipa()` via CMU-backed lookup with user IPA overrides and heuristic fallback for out-of-vocabulary forms
+- Added `add_lex_en()` and English package data (`en_lex`, `en_ipa_lex`, `stopwords_en`)
+- Updated documentation and README to reflect English support
+
 # Fonology 0.9.8
 
 - New function `ipa2typst()` to export Typst code for phonetic transcription using phonokit package
