@@ -21,6 +21,24 @@
   get("default_lex", envir = .en_cache, inherits = FALSE)
 }
 
+.get_en_cmu_complement_lex <- function() {
+  if (!exists("cmu_complement_lex", envir = .en_cache, inherits = FALSE)) {
+    cmu_complement <- get(
+      "lex_en_cmu_complement",
+      envir = as.environment("package:Fonology")
+    )
+
+    complement_lex <- stats::setNames(
+      as.character(cmu_complement$ipa),
+      cmu_complement$word
+    )
+
+    assign("cmu_complement_lex", complement_lex, envir = .en_cache)
+  }
+
+  get("cmu_complement_lex", envir = .en_cache, inherits = FALSE)
+}
+
 .ipa_vowels_en <- c("e\u026a", "o\u028a", "a\u028a", "\u0254\u026a", "a\u026a", "i", "u", "\u025b", "\u026a", "\u0251", "\u028c", "\u00e6", "\u0259", "\u025a", "\u028a", "\u0254")
 .ipa_multiseg_en <- c("t\u0283", "d\u0292", .ipa_vowels_en)
 
@@ -375,17 +393,24 @@ ipa_en <- function(word = "hospital") {
   wd[empty] <- ""
 
   ipa_override <- !is.na(wd) & wd %in% names(en_ipa_lex)
+  complement_lex <- .get_en_cmu_complement_lex()
+  complement_matches <- !is.na(wd) & wd %in% names(complement_lex)
   matches <- !is.na(wd) & wd %in% en_lex$word
 
   out <- rep(NA_character_, length(wd))
 
-  if (any(matches)) {
-    lex_default <- .get_en_default_lex()
-    idx <- match(wd[matches], lex_default$word)
-    out[matches] <- lex_default$ipa_syll[idx]
+  if (any(complement_matches)) {
+    out[complement_matches] <- unname(complement_lex[wd[complement_matches]])
   }
 
-  unmatched <- !is.na(wd) & !matches
+  cmu_matches <- matches & is.na(out)
+  if (any(cmu_matches)) {
+    lex_default <- .get_en_default_lex()
+    idx <- match(wd[cmu_matches], lex_default$word)
+    out[cmu_matches] <- lex_default$ipa_syll[idx]
+  }
+
+  unmatched <- !is.na(wd) & is.na(out)
   if (any(unmatched)) {
     out[unmatched] <- vapply(wd[unmatched], .fallback_to_ipa_en, character(1))
   }

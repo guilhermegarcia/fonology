@@ -380,6 +380,23 @@
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 "en_ipa_lex"
 
+#' Data: English CMU-complement lexicon
+#'
+#' A curated English lexicon used by \code{ipa(lg = "English")} after
+#' user overrides and before the CMU-derived lexicon. It stores complete IPA
+#' transcriptions with stress and syllabification for forms that are absent
+#' from CMUdict or need package-level supplementation.
+#'
+#' @format A data frame with 2 variables:
+#' \describe{
+#'   \item{\code{word}}{English orthographic form}
+#'   \item{\code{ipa}}{IPA transcription with syllabification and stress}
+#' }
+#' @usage data(lex_en_cmu_complement)
+#' @seealso \code{\link{add_lex_en}}, \code{\link{ipa}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"lex_en_cmu_complement"
+
 #' Data: consonant inventory for Portuguese
 #'
 #' The inventory of consonants and glides in Portuguese
