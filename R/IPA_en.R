@@ -129,6 +129,27 @@
     paste(collapse = ".")
 }
 
+.collapse_double_consonants_ipa_en <- function(x) {
+  tokens <- .tokenize_ipa_en(x)
+
+  if (length(tokens) <= 1L) {
+    return(x)
+  }
+
+  out <- tokens[1]
+
+  for (tok in tokens[-1]) {
+    prev <- out[length(out)]
+    is_double_consonant <- identical(tok, prev) && !(tok %in% .ipa_vowels_en)
+
+    if (!is_double_consonant) {
+      out <- c(out, tok)
+    }
+  }
+
+  paste0(out, collapse = "")
+}
+
 .simple_vowel_map_en <- function(chars) {
   chars <- chars |>
     stringr::str_replace_all("ee", "i") |>
@@ -222,6 +243,7 @@
     stringr::str_replace_all("__YLONG__", "a\u026a") |>
     stringr::str_replace_all("__YSHORT__", "\u026a") |>
     stringr::str_replace_all("\\s+", "") |>
+    .collapse_double_consonants_ipa_en() |>
     .syllabify_fallback_ipa_en() |>
     stringr::str_c("*")
 }
