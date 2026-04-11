@@ -9,7 +9,9 @@
 #' @export
 
 getWeight <- function(word, lg = "Portuguese") {
-  if (any(stringr::str_detect(word, " "))) {
+  has_space <- stringr::str_detect(word, " ")
+
+  if (any(has_space, na.rm = TRUE)) {
     message("Input must be a single word, phonemically transcribed and syllabified")
     return(NA)
   }

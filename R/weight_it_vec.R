@@ -6,5 +6,6 @@
 #' @noRd
 
 getWeight_it <- function(word = c("i.ta.li.\u02c8a.no")) {
-  .getWeight_by_vowels(word, vowels_it)
+  vowels <- get("vowels_it", envir = as.environment("package:Fonology"))
+  .getWeight_by_vowels(word, vowels)
 }
