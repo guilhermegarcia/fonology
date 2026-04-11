@@ -60,18 +60,14 @@ add_lex_pt <- function(words, ipa = NULL) {
     plain <- plain[keep]
     ipa   <- ipa[keep]
 
-    lex <- get("pt_ipa_lex", envir = as.environment("package:Fonology"))
+    lex <- .get_user_lex("pt_ipa_lex")
 
     new_entries       <- ipa
     names(new_entries) <- plain
     lex <- c(lex[!names(lex) %in% plain], new_entries)
 
-    pt_ipa_lex <- lex
-    save(pt_ipa_lex,
-         file = file.path(find.package("Fonology"), "data", "pt_ipa_lex.rda"),
-         compress = "xz")
-
-    .lex_assign("pt_ipa_lex", lex)
+    .set_user_lex("pt_ipa_lex", lex)
+    .save_user_lex("pt_ipa_lex")
 
     return(invisible(lex))
   }
@@ -89,18 +85,14 @@ add_lex_pt <- function(words, ipa = NULL) {
   words <- words[keep]
   plain <- plain[keep]
 
-  lex <- get("pt_lex_user", envir = as.environment("package:Fonology"))
+  lex <- .get_user_lex("pt_lex_user")
 
   new_entries <- words
   names(new_entries) <- plain
   lex <- c(lex[!names(lex) %in% plain], new_entries)
 
-  pt_lex_user <- lex
-  save(pt_lex_user,
-       file = file.path(find.package("Fonology"), "data", "pt_lex_user.rda"),
-       compress = "xz")
-
-  .lex_assign("pt_lex_user", lex)
+  .set_user_lex("pt_lex_user", lex)
+  .save_user_lex("pt_lex_user")
 
   invisible(lex)
 }

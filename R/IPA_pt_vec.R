@@ -7,6 +7,9 @@
 #' @noRd
 
 ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
+  pt_ipa_lex <- .get_user_lex("pt_ipa_lex")
+  pt_lex_user <- .get_user_lex("pt_lex_user")
+
   wd <- stringr::str_to_lower(word) |>
     stringr::str_remove_all(pattern = "[:punct:]") |>
     strip_clitic_pt()

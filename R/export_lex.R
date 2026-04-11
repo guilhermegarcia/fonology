@@ -39,7 +39,7 @@ export_lex <- function(lg, file, ipa = FALSE) {
       stop("lg must be one of: \"it\", \"sp\", \"pt\", \"fr\", \"en\"")
     )
 
-    lex <- get(lex_name, envir = as.environment("package:Fonology"))
+    lex <- .get_user_lex(lex_name)
 
     if (length(lex) == 0) {
       message("IPA lexicon is empty - nothing to export.")
@@ -62,7 +62,7 @@ export_lex <- function(lg, file, ipa = FALSE) {
     stop("lg must be one of: \"it\", \"sp\", \"pt\", \"fr\", \"en\"")
   )
 
-  lex <- get(lex_name, envir = as.environment("package:Fonology"))
+  lex <- .get_user_lex(lex_name)
 
   if (length(lex) == 0) {
     message("Lexicon is empty - nothing to export.")

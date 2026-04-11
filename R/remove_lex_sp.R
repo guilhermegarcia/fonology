@@ -18,24 +18,18 @@ remove_lex_sp <- function(words) {
     stringr::str_remove_all("\\p{M}")
 
   ## ---- Diacritized-form lexicon -------------------------------------------
-  lex_d <- get("sp_lex", envir = as.environment("package:Fonology"))
+  lex_d <- .get_user_lex("sp_lex")
   lex_d <- lex_d[!names(lex_d) %in% plain]
 
-  sp_lex <- lex_d
-  save(sp_lex,
-       file = file.path(find.package("Fonology"), "data", "sp_lex.rda"),
-       compress = "xz")
-  .lex_assign("sp_lex", lex_d)
+  .set_user_lex("sp_lex", lex_d)
+  .save_user_lex("sp_lex")
 
   ## ---- IPA-override lexicon -----------------------------------------------
-  lex_i <- get("sp_ipa_lex", envir = as.environment("package:Fonology"))
+  lex_i <- .get_user_lex("sp_ipa_lex")
   lex_i <- lex_i[!names(lex_i) %in% plain]
 
-  sp_ipa_lex <- lex_i
-  save(sp_ipa_lex,
-       file = file.path(find.package("Fonology"), "data", "sp_ipa_lex.rda"),
-       compress = "xz")
-  .lex_assign("sp_ipa_lex", lex_i)
+  .set_user_lex("sp_ipa_lex", lex_i)
+  .save_user_lex("sp_ipa_lex")
 
   invisible(list(diacritized = lex_d, ipa = lex_i))
 }

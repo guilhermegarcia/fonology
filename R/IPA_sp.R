@@ -6,6 +6,9 @@
 #' @noRd
 
 ipa_sp <- function(word = "comportamento") {
+  sp_ipa_lex <- .get_user_lex("sp_ipa_lex")
+  sp_lex <- .get_user_lex("sp_lex")
+
   wd <- stringr::str_to_lower(word) |>
     stringr::str_remove_all("[:punct:]")
 

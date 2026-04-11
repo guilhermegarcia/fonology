@@ -36,18 +36,14 @@ add_lex_fr <- function(words, ipa) {
   plain <- plain[keep]
   ipa   <- ipa[keep]
 
-  lex <- get("fr_ipa_lex", envir = as.environment("package:Fonology"))
+  lex <- .get_user_lex("fr_ipa_lex")
 
   new_entries       <- ipa
   names(new_entries) <- plain
   lex <- c(lex[!names(lex) %in% plain], new_entries)
 
-  fr_ipa_lex <- lex
-  save(fr_ipa_lex,
-       file = file.path(find.package("Fonology"), "data", "fr_ipa_lex.rda"),
-       compress = "xz")
-
-  .lex_assign("fr_ipa_lex", lex)
+  .set_user_lex("fr_ipa_lex", lex)
+  .save_user_lex("fr_ipa_lex")
 
   invisible(lex)
 }

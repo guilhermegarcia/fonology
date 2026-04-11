@@ -68,18 +68,14 @@ add_lex_it <- function(words, ipa = NULL) {
     plain <- plain[keep]
     ipa   <- ipa[keep]
 
-    lex <- get("it_ipa_lex", envir = as.environment("package:Fonology"))
+    lex <- .get_user_lex("it_ipa_lex")
 
     new_entries       <- ipa
     names(new_entries) <- plain
     lex <- c(lex[!names(lex) %in% plain], new_entries)
 
-    it_ipa_lex <- lex
-    save(it_ipa_lex,
-         file = file.path(find.package("Fonology"), "data", "it_ipa_lex.rda"),
-         compress = "xz")
-
-    .lex_assign("it_ipa_lex", lex)
+    .set_user_lex("it_ipa_lex", lex)
+    .save_user_lex("it_ipa_lex")
 
     return(invisible(lex))
   }
@@ -97,17 +93,14 @@ add_lex_it <- function(words, ipa = NULL) {
   words <- words[keep]
   plain <- plain[keep]
 
-  lex <- get("it_lex", envir = as.environment("package:Fonology"))
+  lex <- .get_user_lex("it_lex")
 
   new_entries <- words
   names(new_entries) <- plain
   lex <- c(lex[!names(lex) %in% plain], new_entries)
 
-  it_lex <- lex
-  save(it_lex, file = file.path(find.package("Fonology"), "data", "it_lex.rda"),
-       compress = "xz")
-
-  .lex_assign("it_lex", lex)
+  .set_user_lex("it_lex", lex)
+  .save_user_lex("it_lex")
 
   invisible(lex)
 }

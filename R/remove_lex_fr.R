@@ -12,14 +12,11 @@ remove_lex_fr <- function(words) {
 
   plain <- stringr::str_to_lower(words)
 
-  lex <- get("fr_ipa_lex", envir = as.environment("package:Fonology"))
+  lex <- .get_user_lex("fr_ipa_lex")
   lex <- lex[!names(lex) %in% plain]
 
-  fr_ipa_lex <- lex
-  save(fr_ipa_lex,
-       file = file.path(find.package("Fonology"), "data", "fr_ipa_lex.rda"),
-       compress = "xz")
-  .lex_assign("fr_ipa_lex", lex)
+  .set_user_lex("fr_ipa_lex", lex)
+  .save_user_lex("fr_ipa_lex")
 
   invisible(lex)
 }
