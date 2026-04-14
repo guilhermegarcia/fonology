@@ -9,6 +9,10 @@
 #' @export
 
 cleanText <- function(text = "") {
+  # Treat hyphens/dashes as token boundaries before punctuation stripping,
+  # otherwise forms like "MOBY-DICK" collapse into a single token.
+  text <- stringr::str_replace_all(text, "[-\u2010\u2011\u2012\u2013\u2014\u2015]", " ")
+
   # Input is not tokenized yet:
   if (length(text) == 1) {
     tokens <- stringr::str_split(text, pattern = " ") |> unlist()
