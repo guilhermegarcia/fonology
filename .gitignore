@@ -14,3 +14,7 @@ tableaux.R
 /Meta/
 
 /.quarto/
+/data-raw/
+/manual/**
+!/manual/
+!/manual/*.pdf
