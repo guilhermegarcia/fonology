@@ -20,6 +20,9 @@ cleanText <- function(text = "") {
     # Empty cases:
     tokens <- tokens[!tokens %in% ""]
 
+    # Protect lookup/fallback markers before stripping punctuation.
+    tokens <- stringr::str_replace_all(tokens, "\\*", "FONOLOGYSTAR")
+
     # Remove stress:
     tokens <- tokens |>
       stringr::str_remove_all(pattern = "[\u02c8\u02cc]")
@@ -30,6 +33,9 @@ cleanText <- function(text = "") {
 
     # Punctuation:
     output <- stringr::str_remove_all(tokens, "[:punct:]")
+
+    # Restore lookup/fallback markers.
+    output <- stringr::str_replace_all(output, "FONOLOGYSTAR", "*")
 
     # Case:
     output <- stringr::str_to_lower(output)
@@ -52,6 +58,9 @@ cleanText <- function(text = "") {
     # tokens[stringr::str_detect(tokens, "^[^a-zA-Z]+$")] <- NA
     tokens[stringr::str_detect(tokens, "^[^\\p{L}]+$")] <- NA
 
+    # Protect lookup/fallback markers before stripping punctuation.
+    tokens <- stringr::str_replace_all(tokens, "\\*", "FONOLOGYSTAR")
+
     # Remove stress:
     tokens <- tokens |>
       stringr::str_remove_all(pattern = "[\u02c8\u02cc]")
@@ -66,6 +75,9 @@ cleanText <- function(text = "") {
 
     # Punctuation:
     output <- stringr::str_remove_all(tokens, "[:punct:]")
+
+    # Restore lookup/fallback markers.
+    output <- stringr::str_replace_all(output, "FONOLOGYSTAR", "*")
 
     # Case:
     output <- stringr::str_to_lower(output)
