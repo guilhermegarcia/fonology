@@ -16,10 +16,13 @@
 
 ipa2typst <- function(string, pre = '#ipa("', post = '")') {
 
+  # Match ipa2tipa(): combine multi-word/vector IPA output into one string.
+  ipa <- paste(string, collapse = " ")
+
   # ── Step 1: Normalize Unicode (NFD) ──
   # NFD decomposes precomposed characters (e.g., ã → a + combining tilde)
   # so that combining diacritics are always separate for matching.
-  ipa <- stringi::stri_trans_nfd(string)
+  ipa <- stringi::stri_trans_nfd(ipa)
 
   # ── Step 2: Build the reverse mapping (Unicode → phonokit code) ──
   # Based on phonokit/ipa.typ mappings.
@@ -248,7 +251,7 @@ ipa2typst <- function(string, pre = '#ipa("', post = '")') {
   # Add pre/post
   result <- paste0(pre, result, post)
 
-  message("Done! Here's your phonokit code:")
+  message("Done! Here's your Typst code using phonokit:")
   cat(result)
   return(invisible(result))
 }
