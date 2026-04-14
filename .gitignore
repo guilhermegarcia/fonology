@@ -12,8 +12,7 @@ toUTF.R
 tableaux.R
 /doc/
 /Meta/
-Fonology.pdf
-
 /.quarto/
 /data-raw/
-/manual/
+/manual/*
+!/manual/Fonology.pdf
