@@ -18,3 +18,22 @@ test_that("French ipa() remains vectorized", {
     c("pa.\u0281i", "li.\u0254\u0303", "m\u025bt\u0281")
   )
 })
+
+test_that("syllable() treats schwa as a nucleus", {
+  phon <- c("d\u0279\u026am", "d\u0259", "\u0279i")
+
+  expect_equal(
+    phon |> getSyl(pos = 1) |> syllable(const = "onset"),
+    c("d\u0279", "d", "\u0279")
+  )
+
+  expect_equal(
+    phon |> getSyl(pos = 1) |> syllable(const = "nucleus"),
+    c("\u026a", "\u0259", "i")
+  )
+
+  expect_equal(
+    phon |> getSyl(pos = 1) |> syllable(const = "coda"),
+    c("m", NA, NA)
+  )
+})
