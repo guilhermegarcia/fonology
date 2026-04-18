@@ -1,7 +1,7 @@
 Package: Fonology
 Type: Package
 Title: Phonological Analysis in R
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: person(given = c("Guilherme", "D."), family = "Garcia",
                   role = c("aut", "cre", "cph"),
                   email = "guilherme.garcia@lli.ulaval.ca",
@@ -14,7 +14,11 @@ Encoding: UTF-8
 LazyData: true
 LazyDataCompression: gzip
 VignetteBuilder: knitr
-Suggests: knitr, rmarkdown
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
 Depends: 
     R (>= 4.1)
 RoxygenNote: 7.3.3

@@ -12,25 +12,33 @@ ipa_sp <- function(word = "comportamento") {
   wd <- stringr::str_to_lower(word) |>
     stringr::str_remove_all("[:punct:]")
 
-  if (sum(stringr::str_detect(wd, pattern = "\\d")) > 0) {
+  if (any(stringr::str_detect(wd, pattern = "\\d"))) {
     message("Input contains a number and will be ignored.")
-    return(NA)
   }
 
-  if (sum(stringr::str_detect(wd, pattern = "-")) > 0) {
+  wd[stringr::str_detect(wd, pattern = "\\d")] <- NA
+
+  if (any(stringr::str_detect(stats::na.omit(wd), pattern = "-"))) {
     message("Input must be monomorphemic. Stress assignment may be incorrect.")
   }
 
-  # IPA-override check: return stored IPA verbatim, bypassing the pipeline
-  if (wd %in% names(sp_ipa_lex)) return(unname(sp_ipa_lex[wd]))
+  wd_plain <- wd
+  ipa_override <- !is.na(wd) & wd %in% names(sp_ipa_lex)
 
-  matches <- wd %in% names(sp_lex)
+  matches <- !is.na(wd) & wd %in% names(sp_lex)
   if (any(matches)) wd[matches] <- sp_lex[wd[matches]]
 
-  wd <- wd |>
-    transcribe_sp() |>
-    syllabify_sp() |>
-    stress_sp()
+  not_na <- !is.na(wd)
+  if (any(not_na)) {
+    wd[not_na] <- wd[not_na] |>
+      transcribe_sp() |>
+      syllabify_sp() |>
+      stress_sp()
+  }
+
+  if (any(ipa_override)) {
+    wd[ipa_override] <- unname(sp_ipa_lex[wd_plain[ipa_override]])
+  }
 
   return(wd)
 }

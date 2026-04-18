@@ -1,3 +1,8 @@
+# Fonology 1.1.1
+
+- Fixed vector handling in Spanish and French `ipa()` so multi-word inputs no longer fail on user IPA override checks
+- Added regression tests for vectorized `ipa()` behavior in Spanish and French
+
 # Fonology 1.1.0
 
 - Added English support to `ipa()` via CMU-backed lookup with user IPA overrides and heuristic fallback for out-of-vocabulary forms
