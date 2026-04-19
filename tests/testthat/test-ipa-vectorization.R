@@ -19,6 +19,34 @@ test_that("French ipa() remains vectorized", {
   )
 })
 
+test_that("Portuguese ipa() handles mixed valid and digit-bearing vector input", {
+  expect_equal(
+    ipa(c("agosto", 1869, "bella"), lg = "pt"),
+    c("a.\u02c8gos.to", NA, "\u02c8be.la")
+  )
+})
+
+test_that("Portuguese syllabification does not allow sm onsets", {
+  expect_equal(
+    ipa("transmitti", lg = "pt"),
+    "trans.mi.\u02c8ti"
+  )
+})
+
+test_that("Spanish loanwords keep falling au diphthongs", {
+  expect_equal(
+    ipa("Auckland", lg = "sp"),
+    "aw.\u02c8klan.d"
+  )
+})
+
+test_that("Italian loanwords keep falling au diphthongs", {
+  expect_equal(
+    ipa("Auckland", lg = "it"),
+    "\u02c8aw.kland"
+  )
+})
+
 test_that("syllable() treats schwa as a nucleus", {
   phon <- c("d\u0279\u026am", "d\u0259", "\u0279i")
 

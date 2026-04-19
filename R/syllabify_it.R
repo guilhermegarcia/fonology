@@ -37,6 +37,12 @@ syllabify_it <- function(word) {
     "\\1\\2."
   )
 
+  # Step 4b: Falling diphthongs with postvocalic i/u remain tautosyllabic.
+  word <- stringr::str_replace_all(word,
+    "([aeo\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00f2\u00f3\u00f4])\\.([iu\u00ec\u00ed\u00ee\u00f9\u00fa\u00fb])",
+    "\\1\\2."
+  )
+
   # Step 5a: Geminate affricate split — the exposed first consonant moves to
   # the preceding coda; the base affricate becomes the onset of the next syllable.
   #   ddʒ → d.dʒ  (stored as  \.d(DJ)  → d.DJ)

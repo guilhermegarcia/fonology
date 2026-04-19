@@ -35,6 +35,9 @@ transcribe_sp <- function(word) {
   # Clean word of double Cs:
   word <- double_C(word)
 
+  # English-style <ck> spells a single /k/ in common loanwords.
+  word <- stringr::str_replace_all(word, "ck", "k")
+
   word <- stringr::str_replace_all(word, "diaria", "di.\u00e1.ri.a")
 
 

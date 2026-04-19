@@ -20,18 +20,21 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
   wd_plain <- wd
   ipa_override <- !is.na(wd) & wd %in% names(pt_ipa_lex)
 
-  matches <- wd %in% names(pt_lex_user)
+  matches <- !is.na(wd) & wd %in% names(pt_lex_user)
   if (any(matches)) wd[matches] <- pt_lex_user[wd[matches]]
 
-  wd <- wd |>
-    transcribe_pt_vec() |>
-    syllabify_pt_vec() |>
-    stress_pt_vec() |>
-    stringr::str_remove_all(pattern = "\\.$")
+  not_na <- !is.na(wd)
+  if (any(not_na)) {
+    wd[not_na] <- wd[not_na] |>
+      transcribe_pt_vec() |>
+      syllabify_pt_vec() |>
+      stress_pt_vec() |>
+      stringr::str_remove_all(pattern = "\\.$")
+  }
 
   # Check for narrow transcription:
   if (narrow == T) {
-    wd <- wd |>
+    wd[not_na] <- wd[not_na] |>
       narrow_pt_vec()
   }
 

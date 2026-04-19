@@ -69,6 +69,13 @@ syllabify_pt_vec <- function(word = "") {
     replacement = "\\1.\\2"
   )
 
+  # Loanwords such as "transmitti" should not license sm as an onset.
+  word <- stringr::str_replace_all(
+    string = word,
+    pattern = "\\.s([mn])",
+    replacement = "s.\\1"
+  )
+
   # Remove h:
   word <- stringr::str_remove_all(
     string = word,

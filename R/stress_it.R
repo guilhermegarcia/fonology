@@ -83,6 +83,7 @@ stress_it <- function(word) {
   # ── Post-stress glide formation ────────────────────────────────────────────
   # Unstressed i/u adjacent to another vowel become glides after stress is placed.
   output <- stringr::str_replace_all(output, "u([aeiou])", "w\\1")
+  output <- stringr::str_replace_all(output, "([aeo])u([^aeiou]|$)", "\\1w\\2")
   output <- stringr::str_replace_all(output, "([aeou])i([^aeiou]|$)", "\\1j\\2")
 
   # ── Remove double dots ─────────────────────────────────────────────────────

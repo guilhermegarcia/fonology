@@ -9,6 +9,8 @@
 #' @return The transcribed word
 
 transcribe_it <- function(word) {
+  # English-style <ck> spells a single /k/ in common loanwords.
+  word <- stringr::str_replace_all(word, "ck", "k")
 
   # IMPORTANT: Digraphs involving <h> (ch, gh, sch) must be resolved BEFORE
   # the silent-h deletion rule, or "chiesa" would lose its <h> and "cie" would
