@@ -92,13 +92,16 @@ maxent <- function(tableau,
     input_totals <- stats::ave(dplyr::pull(data, dplyr::all_of(obs_col)), data$input, FUN = sum)
     exp_viols <- colSums(violations * (data$pred_prob * input_totals))
 
+    # Gradient of the negative log-likelihood is observed minus expected.
     grad <- obs_viols - exp_viols
 
     if (!is.null(mu) && !is.null(sigma)) {
-      grad <- grad - (weights - mu) / sigma^2
+      grad <- grad + (weights - mu) / sigma^2
     }
 
-    grad[weights == 0 & grad < 0] <- 0
+    # At the lower bound, only gradients that would push weights negative
+    # should be projected away.
+    grad[weights == 0 & grad > 0] <- 0
     return(grad)
   }
 
