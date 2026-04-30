@@ -13,7 +13,7 @@ syllabify_sp <- function(word) {
   # Corrections:
 
   # Falling diphthongs with unstressed high vowels stay in one syllable.
-  word <- stringr::str_replace_all(word, "([aeoáéó])\\.([iuü])", "\\1\\2.")
+  word <- stringr::str_replace_all(word, "([aeo\u00e1\u00e9\u00f3])\\.([iu\u00fc])", "\\1\\2.")
 
   # Onset clusters:
   word <- stringr::str_replace_all(word, "\\.([pbtdkgsmn\u027e\u0272\u028el])([^aeiou\u00e9\u00ed\u00e1\u00f3jw])", "\\1.\\2")

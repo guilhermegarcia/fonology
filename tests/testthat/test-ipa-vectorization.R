@@ -33,6 +33,13 @@ test_that("Portuguese syllabification does not allow sm onsets", {
   )
 })
 
+test_that("Portuguese ipa() uses lexical x in known words", {
+  expect_equal(
+    ipa("abacaxi", lg = "pt"),
+    "a.ba.ka.\u02c8\u0283i"
+  )
+})
+
 test_that("Spanish loanwords keep falling au diphthongs", {
   expect_equal(
     ipa("Auckland", lg = "sp"),
