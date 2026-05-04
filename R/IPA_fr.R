@@ -5,6 +5,21 @@
 #' @return The phonemic transcription for the string in question
 #' @noRd
 
+.fr_cache <- new.env(parent = emptyenv())
+
+.get_fr_default_lex <- function() {
+  if (!exists("default_lex", envir = .fr_cache, inherits = FALSE)) {
+    default_lex <- stats::setNames(
+      as.character(fr_lex$ipa),
+      fr_lex$word
+    )
+
+    assign("default_lex", default_lex, envir = .fr_cache)
+  }
+
+  get("default_lex", envir = .fr_cache, inherits = FALSE)
+}
+
 ipa_fr <- function(word = "comportamento") {
   fr_ipa_lex <- .get_user_lex("fr_ipa_lex")
 
@@ -23,17 +38,25 @@ ipa_fr <- function(word = "comportamento") {
 
   wd_plain <- wd
   ipa_override <- !is.na(wd) & wd %in% names(fr_ipa_lex)
+  default_lex <- .get_fr_default_lex()
+  matches <- !is.na(wd) & wd %in% names(default_lex)
 
-  not_na <- !is.na(wd)
-  if (any(not_na)) {
-    wd[not_na] <- wd[not_na] |>
+  out <- rep(NA_character_, length(wd))
+
+  if (any(matches)) {
+    out[matches] <- unname(default_lex[wd[matches]])
+  }
+
+  unmatched <- !is.na(wd) & is.na(out)
+  if (any(unmatched)) {
+    out[unmatched] <- wd[unmatched] |>
       transcribe_fr() |>
       syllabify_fr()
   }
 
   if (any(ipa_override)) {
-    wd[ipa_override] <- unname(fr_ipa_lex[wd_plain[ipa_override]])
+    out[ipa_override] <- unname(fr_ipa_lex[wd_plain[ipa_override]])
   }
 
-  return(wd)
+  return(out)
 }

@@ -333,6 +333,31 @@
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 "fr_ipa_lex"
 
+#' Data: French Lexique 4-derived lexicon
+#'
+#' A compact French lexicon derived from Lexique 4 and used by
+#' \code{ipa(lg = "French")} before the regex-based fallback. It stores one
+#' default IPA transcription per orthographic form, converted from Lexique's
+#' phonological code and syllabified representation.
+#'
+#' @format A data frame with 170,782 rows and 5 variables:
+#' \describe{
+#'   \item{\code{word}}{French orthographic form}
+#'   \item{\code{ipa}}{IPA transcription with syllabification}
+#'   \item{\code{phon_lexique}}{Original Lexique phonological code}
+#'   \item{\code{ipa_plain}}{Original Lexique IPA transcription without syllabification}
+#'   \item{\code{syll_lexique}}{Original Lexique syllabified phonological code}
+#' }
+#' @usage data(fr_lex)
+#' @source New, B., Pallier, C., Schalchli, G., Bourgin, J., & Gimenes,
+#'   M. (2026). Lexique 4: A major upgrade of the "Lexique" French lexical
+#'   database. \emph{Behavior Research Methods}. Lexique 4 is distributed
+#'   through OpenLexicon under CC BY-SA 4.0. See
+#'   \url{https://www.lexique.org/?lang=en&page_id=841}.
+#' @seealso \code{\link{add_lex_fr}}, \code{\link{ipa}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"fr_lex"
+
 #' Data: Italian IPA-override lexicon
 #'
 #' A named character vector used by \code{ipa(lg = "Italian")} to store

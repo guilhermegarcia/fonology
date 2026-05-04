@@ -19,6 +19,32 @@ test_that("French ipa() remains vectorized", {
   )
 })
 
+test_that("French ipa() uses Lexique lookup before regex fallback", {
+  expect_equal(
+    ipa(c("femme", "oignon", "ch\u00e2teau", "accueil", "informatique"), lg = "fr"),
+    c("fam", "\u0254.\u0272\u0254\u0303", "\u0283a.to", "a.k\u0153j", "\u025b\u0303.f\u0254\u0281.ma.tik")
+  )
+})
+
+test_that("French ipa() falls back to regex for words absent from Lexique", {
+  expect_false("flopranto" %in% fr_lex$word)
+  expect_equal(
+    ipa("flopranto", lg = "fr"),
+    "flo.p\u0281\u0251\u0303.to"
+  )
+})
+
+test_that("French user IPA overrides take priority over Lexique", {
+  old_lex <- .get_user_lex("fr_ipa_lex")
+  on.exit(.set_user_lex("fr_ipa_lex", old_lex), add = TRUE)
+
+  override <- "f\u0259m"
+  new_lex <- c(old_lex[names(old_lex) != "femme"], femme = override)
+  .set_user_lex("fr_ipa_lex", new_lex)
+
+  expect_equal(ipa("femme", lg = "fr"), override)
+})
+
 test_that("Portuguese ipa() handles mixed valid and digit-bearing vector input", {
   expect_equal(
     ipa(c("agosto", 1869, "bella"), lg = "pt"),

@@ -1,14 +1,14 @@
 Package: Fonology
 Type: Package
 Title: Phonological Analysis in R
-Version: 1.1.1
+Version: 1.1.2
 Authors@R: person(given = c("Guilherme", "D."), family = "Garcia",
                   role = c("aut", "cre", "cph"),
                   email = "guilherme.garcia@lli.ulaval.ca",
                   comment = c(
                               ORCID = "0000-0003-1412-3856")) 
 Maintainer: Guilherme D. Garcia <guilherme.garcia@lli.ulaval.ca>
-Description: A collection of tools for phonological analysis, with primary support for Portuguese, Spanish, French, and Italian, plus CMU-backed English transcription with user-correctable overrides and heuristic fallback for out-of-vocabulary forms. Functions include grapheme-to-phoneme conversion with syllabification and stress assignment, sonority dispersion calculation, minimal matrices for natural classes given a set of features, maxent models, and more.
+Description: A collection of tools for phonological analysis, with primary support for Portuguese, Spanish, French, and Italian, plus Lexique-backed French and CMU-backed English transcription with user-correctable overrides and heuristic fallback for out-of-vocabulary forms. Functions include grapheme-to-phoneme conversion with syllabification and stress assignment, sonority dispersion calculation, minimal matrices for natural classes given a set of features, maxent models, and more.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -21,7 +21,7 @@ Suggests:
 Config/testthat/edition: 3
 Depends: 
     R (>= 4.1)
-RoxygenNote: 7.3.3
+RoxygenNote: 8.0.0
 Imports: 
     dplyr,
     forcats,

@@ -99,6 +99,10 @@ adding `narrow = T` to the function. Run `ipa_pt_test()`,
 each language. By default, `ipa()` assumes that `lg = "Portuguese"` (or
 `lg = "pt"`) and `narrow = F`.
 
+French transcription uses a Lexique 4-backed lookup before falling back
+to regular-expression rules for out-of-vocabulary forms. User IPA
+overrides added with `add_lex_fr()` take priority over both.
+
 ``` r
 ipa("atletico")
 #> [1] "a.tle.ˈti.ko"
@@ -355,8 +359,9 @@ look at the complete list of functions available.
 If `ipa()` produces a wrong result for a word—wrong stress, wrong
 segment, or a loanword the rules don’t handle—please [open an
 issue](https://github.com/guilhermegarcia/fonology/issues) with the
-word, the current output, and the expected IPA. This is the most
-reliable way to get the fix into the package for everyone.
+word, the current output, and the expected IPA. You can also use
+`add_lex_fr()` or the corresponding language-specific `add_lex_*()`
+helper to create local IPA overrides.
 
 ## Acknowledgements and funding
 
@@ -366,7 +371,9 @@ Council of Canada (**SSHRC**). Different undergraduate research
 assistants at Université Laval have worked on the Spanish and French
 grapheme-to-phoneme conversion functions: Nicolas C. Bustos, Emmy
 Dumont, and Linda Wong. Matéo Levesque implemented comprehensive regular
-expressions for French transcription.
+expressions for French transcription. French lookup data are derived
+from Lexique 4 (New, Pallier, Schalchli, Bourgin, & Gimenes, 2026),
+distributed through OpenLexicon under CC BY-SA 4.0.
 
 ## References
 

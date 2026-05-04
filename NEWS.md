@@ -1,5 +1,6 @@
-# Fonology 1.1.1
+# Fonology 1.1.2
 
+- Added Lexique 4-backed French lookup (`fr_lex`) before the regex fallback, with `fr_ipa_lex` user overrides taking final priority
 - Fixed vector handling in Spanish and French `ipa()` so multi-word inputs no longer fail on user IPA override checks
 - Added regression tests for vectorized `ipa()` behavior in Spanish and French
 
