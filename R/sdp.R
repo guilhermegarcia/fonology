@@ -9,6 +9,12 @@
 #' @export
 
 sonDisp <- function(demi = "") {
+  demi <- .strip_fallback_markers(demi)
+
+  if (length(demi) == 0L || is.na(demi) || !nzchar(demi)) {
+    return(NA_real_)
+  }
+
   # Define classes by sonority:
   vowels <- "aeiou\u025b\u0254\u00f8\u0251\u0259\u026a\u028a\u00e6\u0153\u025b\u0303\u0153\u0303\u0254\u0303" |>
     stringr::str_split("") |>
@@ -56,6 +62,11 @@ sonDisp <- function(demi = "") {
   d2 <- tibble::tibble(phoneme = d) |>
     dplyr::left_join(sonority, by = "phoneme")
   score <- d2 |> dplyr::pull(score)
+
+  if (any(is.na(score)) || length(score) < 2L) {
+    return(NA_real_)
+  }
+
   combs <- combn(score, 2)
   diffs <- combs[1, ] - combs[2, ]
   D <- sum(1 / diffs^2)

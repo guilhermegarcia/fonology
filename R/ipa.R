@@ -1,8 +1,8 @@
 #' IPA transcriber
 #'
 #' Given a string, the function returns its IPA transcription with stress and
-#' syllabification. Regex-derived French and English fallback forms are marked
-#' with \code{"*"}.
+#' syllabification. Regex-derived Portuguese, French, and English fallback
+#' forms are marked with \code{"*"}.
 #' @param word A possible string in its orthographic form
 #' @param narrow Boolean. Whether a narrow transcription is desired (default is \code{FALSE})
 #' Narrow transcription is only available for Portuguese inputs and will be ignored for other languages

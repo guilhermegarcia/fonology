@@ -60,14 +60,21 @@ test_that("French user IPA overrides take priority over Lexique", {
 test_that("Portuguese ipa() handles mixed valid and digit-bearing vector input", {
   expect_equal(
     ipa(c("agosto", 1869, "bella"), lg = "pt"),
-    c("a.\u02c8gos.to", NA, "\u02c8be.la")
+    c("a.\u02c8gos.to", NA, "\u02c8be.la*")
   )
 })
 
 test_that("Portuguese syllabification does not allow sm onsets", {
   expect_equal(
     ipa("transmitti", lg = "pt"),
-    "trans.mi.\u02c8ti"
+    "trans.mi.\u02c8ti*"
+  )
+})
+
+test_that("Portuguese regex fallback marker is not treated as a segment", {
+  expect_equal(
+    ipa("transmitti", lg = "pt") |> getSyl(pos = 1) |> syllable(const = "coda"),
+    NA_character_
   )
 })
 

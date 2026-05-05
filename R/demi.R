@@ -12,6 +12,7 @@
 
 demi <- function(word = c(), d = 1) {
   word <- word |>
+    .strip_fallback_markers() |>
     stringr::str_split(pattern = "\\.") |>
     unlist() |>
     stringr::str_remove_all(pattern = "\'|\u02c8")

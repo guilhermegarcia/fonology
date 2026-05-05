@@ -1,8 +1,11 @@
 # Fonology 1.1.2
 
 - Added Lexique 4-backed French lookup (`fr_lex`) before the regex fallback, with `fr_ipa_lex` user overrides taking final priority
+- Marked regex-derived Portuguese and French fallback forms with `*`, matching the English fallback convention
+- Updated Portuguese `ipa()` to treat PSL-backed lexical matches as the unmarked lookup path
+- Updated helper functions to ignore fallback markers when parsing phonological material
 - Fixed vector handling in Spanish and French `ipa()` so multi-word inputs no longer fail on user IPA override checks
-- Added regression tests for vectorized `ipa()` behavior in Spanish and French
+- Added regression tests for vectorized `ipa()` behavior in Spanish, French, and Portuguese
 
 # Fonology 1.1.0
 

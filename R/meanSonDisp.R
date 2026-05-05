@@ -23,7 +23,10 @@ meanSonDisp <- function(word = c(), phonemic = F) {
       lapply(sonDisp) |>
       unlist()
 
-    meanD <- mean(c(d1, d2))
+    meanD <- mean(c(d1, d2), na.rm = TRUE)
+    if (is.nan(meanD)) {
+      return(NA_real_)
+    }
     return(round(meanD, 2))
   }
 
@@ -39,7 +42,10 @@ meanSonDisp <- function(word = c(), phonemic = F) {
     lapply(sonDisp) |>
     unlist()
 
-  meanD <- mean(c(d1, d2))
+  meanD <- mean(c(d1, d2), na.rm = TRUE)
+  if (is.nan(meanD)) {
+    return(NA_real_)
+  }
 
   return(round(meanD, 2))
 }

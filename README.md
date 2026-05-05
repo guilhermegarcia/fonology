@@ -99,21 +99,23 @@ adding `narrow = T` to the function. Run `ipa_pt_test()`,
 each language. By default, `ipa()` assumes that `lg = "Portuguese"` (or
 `lg = "pt"`) and `narrow = F`.
 
-French transcription uses a Lexique 4-backed lookup before falling back
-to regular-expression rules for out-of-vocabulary forms. User IPA
-overrides added with `add_lex_fr()` take priority over both.
-Regex-derived French forms are marked with a final `*`, as in English;
-helper functions ignore this marker when parsing phonological material.
+Portuguese, French, and English use lexical lookup before falling back to
+regular-expression rules for out-of-vocabulary forms. French lookup is
+backed by Lexique 4, and Portuguese lookup is based on the Portuguese
+Stress Lexicon. User IPA overrides take priority over both lookup and
+regex fallback. Regex-derived Portuguese, French, and English forms are
+marked with a final `*`; helper functions ignore this marker when
+parsing phonological material.
 
 ``` r
 ipa("atletico")
-#> [1] "a.tle.ˈti.ko"
+#> [1] "a.tle.ˈti.ko*"
 ipa("cantalo", narrow = T)
-#> [1] "kãn.ˈta.lʊ"
+#> [1] "kãn.ˈta.lʊ*"
 ipa("antidepressivo", narrow = T)
 #> [1] "ˌãn.t͡ʃi.ˌde.pɾe.ˈsi.vʊ"
 ipa("feris")
-#> [1] "fe.ˈɾis"
+#> [1] "fe.ˈris*"
 ipa("mejorado", lg = "sp")
 #> [1] "me.xo.ˈɾa.do"
 ipa("nuevos", lg = "sp")

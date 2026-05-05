@@ -15,9 +15,11 @@ ipa_pt(word = "palavra", narrow = FALSE)
 The phonemic transcription for the string in question
 }
 \description{
-Given a string, the function returns its IPA transcription with stress and syllabification.
-Stress is assigned on the basis of the Portuguese Stress Lexicon for existing words, or lexical regularities
-and probabilistic distributions in certain cases for hypothetical words.
+Given a string, the function returns its IPA transcription with stress and
+syllabification. Stress is assigned on the basis of the Portuguese Stress
+Lexicon for existing words, or lexical regularities and probabilistic
+distributions in certain cases for hypothetical words. Regex-derived
+out-of-vocabulary forms are marked with \code{"*"}.
 }
 \examples{
 ipa_pt(word = "palado")

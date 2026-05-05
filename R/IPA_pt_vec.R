@@ -1,6 +1,8 @@
 #' Vectorized IPA transcriber for Portuguese
 #'
-#' Given a string, the function returns its IPA transcription with stress and syllabification.
+#' Given a string, the function returns its IPA transcription with stress and
+#' syllabification. PSL-backed and user-override forms are returned directly;
+#' regex-derived out-of-vocabulary forms are marked with \code{"*"}.
 #' @param word A possible string in Portuguese in its orthographic form
 #' @param narrow Boolean. Whether a narrow transcription is desired (defaults to \code{FALSE})
 #' @return The phonemic transcription for the string in question
@@ -20,6 +22,14 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
   wd_plain <- wd
   ipa_override <- !is.na(wd) & wd %in% names(pt_ipa_lex)
 
+  transcribe_pipeline <- function(x) {
+    x |>
+      transcribe_pt_vec() |>
+      syllabify_pt_vec() |>
+      stress_pt_vec() |>
+      stringr::str_remove_all(pattern = "\\.$")
+  }
+
   user_matches <- !is.na(wd) & wd %in% names(pt_lex_user)
   if (any(user_matches)) wd[user_matches] <- pt_lex_user[wd[user_matches]]
 
@@ -35,13 +45,15 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
       )
   }
 
-  fallback <- !is.na(wd) & !lex_matches
+  if (any(user_matches)) {
+    wd[user_matches] <- wd[user_matches] |>
+      transcribe_pipeline()
+  }
+
+  fallback <- !is.na(wd) & !lex_matches & !user_matches
   if (any(fallback)) {
     wd[fallback] <- wd[fallback] |>
-      transcribe_pt_vec() |>
-      syllabify_pt_vec() |>
-      stress_pt_vec() |>
-      stringr::str_remove_all(pattern = "\\.$")
+      transcribe_pipeline()
   }
 
   # Check for narrow transcription:
@@ -49,6 +61,11 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
     not_na <- !is.na(wd)
     wd[not_na] <- wd[not_na] |>
       narrow_pt_vec()
+  }
+
+  if (any(fallback)) {
+    wd[fallback] <- wd[fallback] |>
+      stringr::str_c("*")
   }
 
   # Apply IPA overrides last (highest priority; bypass result of pipeline)
