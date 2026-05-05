@@ -12,6 +12,7 @@
 #' @export
 
 getStress <- function(word = c("kom.pu.ta.\u02c8dor"), stress = "\u02c8", syl = FALSE) {
+  word <- .strip_fallback_markers(word)
   input_length <- length(word)
 
   # Handle NA input

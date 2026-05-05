@@ -12,6 +12,7 @@
 
 getSyl <- function(word = c("pa.la.do"), pos = 1, from_right = TRUE, syl = "\\.") {
   syllables <- word |>
+    .strip_fallback_markers() |>
     stringr::str_remove_all(pattern = "\'|\u02c8|\u02cc") |>
     stringr::str_split(pattern = syl)
 

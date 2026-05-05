@@ -102,6 +102,8 @@ each language. By default, `ipa()` assumes that `lg = "Portuguese"` (or
 French transcription uses a Lexique 4-backed lookup before falling back
 to regular-expression rules for out-of-vocabulary forms. User IPA
 overrides added with `add_lex_fr()` take priority over both.
+Regex-derived French forms are marked with a final `*`, as in English;
+helper functions ignore this marker when parsing phonological material.
 
 ``` r
 ipa("atletico")

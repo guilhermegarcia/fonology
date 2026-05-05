@@ -9,6 +9,7 @@
 #' @export
 
 getWeight <- function(word, lg = "Portuguese") {
+  word <- .strip_fallback_markers(word)
   has_space <- stringr::str_detect(word, " ")
 
   if (any(has_space, na.rm = TRUE)) {

@@ -18,7 +18,9 @@ Narrow transcription is only available for Portuguese inputs and will be ignored
 The phonemic transcription for the string in question
 }
 \description{
-Given a string, the function returns its IPA transcription with stress and syllabification.
+Given a string, the function returns its IPA transcription with stress and
+syllabification. Regex-derived French and English fallback forms are marked
+with \code{"*"}.
 }
 \examples{
 ipa(word = "palado")

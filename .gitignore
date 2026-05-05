@@ -18,3 +18,4 @@ tableaux.R
 !/data-raw/build_fr_lex.R
 /manual/*
 !/manual/Fonology.pdf
+/Fonology.pdf

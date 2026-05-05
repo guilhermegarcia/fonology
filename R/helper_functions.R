@@ -1,3 +1,13 @@
+#' Remove lookup/fallback metadata markers from phonemic strings
+#'
+#' @param x A character vector with phonemic strings
+#' @return The same vector with non-segmental fallback markers removed
+#' @noRd
+
+.strip_fallback_markers <- function(x) {
+  stringr::str_remove_all(x, "\\*")
+}
+
 #' Word generator for Portuguese
 #'
 #' Returns IPA phonemic transcription for a nonce word given a specific weight profile.

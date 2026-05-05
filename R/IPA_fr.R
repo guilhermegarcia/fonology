@@ -1,6 +1,8 @@
 #' IPA transcriber for French
 #'
-#' Given a string, the function returns its IPA transcription with stress and syllabification.
+#' Given a string, the function returns its IPA transcription with stress and
+#' syllabification. Lexique-backed and user-override forms are returned
+#' directly; regex-derived out-of-vocabulary forms are marked with \code{"*"}.
 #' @param word A possible string in French in its orthographic form
 #' @return The phonemic transcription for the string in question
 #' @noRd
@@ -51,7 +53,8 @@ ipa_fr <- function(word = "comportamento") {
   if (any(unmatched)) {
     out[unmatched] <- wd[unmatched] |>
       transcribe_fr() |>
-      syllabify_fr()
+      syllabify_fr() |>
+      stringr::str_c("*")
   }
 
   if (any(ipa_override)) {

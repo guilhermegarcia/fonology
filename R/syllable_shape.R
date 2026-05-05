@@ -12,6 +12,7 @@
 
 cv <- function(word = c(""), stress = FALSE) {
   output <- word |>
+    .strip_fallback_markers() |>
     # NOTE: First, remove nasal diacritic
     stringi::stri_trans_nfd() |>
     stringr::str_remove_all("\u0303") |>
