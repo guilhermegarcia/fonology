@@ -16,6 +16,7 @@
 #' @export
 
 ipa2tipa <- function(string, pre = "/ ", post = " /") {
+  string <- .strip_fallback_markers(string)
   ipa <- string
   ipa <- stringr::str_replace_all(string, pattern = "$", replacement = "#")
   ipa <- stringr::str_split(ipa, "") |> unlist()

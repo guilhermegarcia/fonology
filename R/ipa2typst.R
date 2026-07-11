@@ -17,6 +17,7 @@
 ipa2typst <- function(string, pre = '#ipa("', post = '")') {
 
   # Match ipa2tipa(): combine multi-word/vector IPA output into one string.
+  string <- .strip_fallback_markers(string)
   ipa <- paste(string, collapse = " ")
 
   # ── Step 1: Normalize Unicode (NFD) ──
