@@ -12,6 +12,8 @@
 
 
 plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
+  word <- .strip_fallback_markers(word)
+
   lo_v <- "a.\u0276.\u0251.\u0252.\u00e6.\u0250" |>
     stringr::str_split("\\.") |>
     unlist()
