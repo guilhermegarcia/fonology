@@ -134,7 +134,12 @@ mid-vowel quality in French and Italian, unadapted loanwords in Spanish,
 and (in English, where orthography is deepest) vowel quality
 generally—starred English forms are phonotactically plausible
 approximations rather than dictionary-grade transcriptions. These are
-exactly the cases `add_lex_en()` and friends are for.
+exactly the cases `add_lex_en()` and friends are for. Note that
+`add_lex_*()` entries are stored per machine (under
+`tools::R_user_dir()`), not in your script: for reproducible analyses,
+declare your entries at the top of the script (calls are idempotent) or
+ship them with `export_lex()`—and if a *common* word is mistranscribed,
+please open an issue so the fix benefits everyone.
 
 ``` r
 ipa("atletico")
