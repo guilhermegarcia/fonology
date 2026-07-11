@@ -39,7 +39,7 @@
   get("cmu_complement_lex", envir = .en_cache, inherits = FALSE)
 }
 
-.ipa_vowels_en <- c("e\u026a", "o\u028a", "a\u028a", "\u0254\u026a", "a\u026a", "i", "u", "\u025b", "\u026a", "\u0251", "\u028c", "\u00e6", "\u0259", "\u025a", "\u028a", "\u0254")
+.ipa_vowels_en <- c("e\u026a", "o\u028a", "a\u028a", "\u0254\u026a", "a\u026a", "i", "u", "\u025b", "\u026a", "\u0251", "\u028c", "\u00e6", "\u0259", "\u025a", "\u025d", "\u028a", "\u0254")
 .ipa_multiseg_en <- c("t\u0283", "d\u0292", .ipa_vowels_en)
 
 .legal_medial_onsets_ipa_en <- c(
@@ -175,24 +175,12 @@
     return(FALSE)
   }
 
-  branching_nucleus <- parsed$nucleus %in% c("e\u026a", "o\u028a", "a\u028a", "\u0254\u026a", "a\u026a")
+  branching_nucleus <- parsed$nucleus %in% c("e\u026a", "o\u028a", "a\u028a", "\u0254\u026a", "a\u026a", "\u025d", "\u025a")
 
   branching_nucleus || length(parsed$coda) > 0L
 }
 
-.is_superheavy_syllable_ipa_en <- function(syl) {
-  parsed <- .parse_syllable_ipa_en(syl)
-
-  if (length(parsed$nucleus) == 0L) {
-    return(FALSE)
-  }
-
-  branching_nucleus <- parsed$nucleus %in% c("e\u026a", "o\u028a", "a\u028a", "\u0254\u026a", "a\u026a")
-
-  (branching_nucleus && length(parsed$coda) > 0L) || length(parsed$coda) >= 2L
-}
-
-.stress_index_from_suffix_en <- function(word, n_syl, final_superheavy) {
+.stress_index_from_suffix_en <- function(word, n_syl) {
   if (n_syl <= 0L) {
     return(NA_integer_)
   }
@@ -233,8 +221,7 @@
     return(stringr::str_c("\u02c8", syllables))
   }
 
-  final_superheavy <- .is_superheavy_syllable_ipa_en(syllables[n_syl])
-  stress_idx <- .stress_index_from_suffix_en(word, n_syl, final_superheavy)
+  stress_idx <- .stress_index_from_suffix_en(word, n_syl)
 
   if (is.na(stress_idx)) {
     if (n_syl == 2L) {
@@ -250,6 +237,18 @@
   syllables[stress_idx] <- stringr::str_c("\u02c8", syllables[stress_idx])
 
   stringr::str_c(syllables, collapse = ".")
+}
+
+.postprocess_stressed_ipa_en <- function(x) {
+  syls <- stringr::str_split(x, stringr::fixed("."))[[1]]
+  stressed <- stringr::str_detect(syls, "\u02c8")
+
+  syls[!stressed] <- syls[!stressed] |>
+    stringr::str_replace_all("\u025d", "\u025a") |>
+    stringr::str_replace_all("[\u0251\u0254]\u0279$", "\u025a") |>
+    stringr::str_replace_all("[\u028c\u00e6\u0251\u025b]", "\u0259")
+
+  stringr::str_c(syls, collapse = ".")
 }
 
 .collapse_double_consonants_ipa_en <- function(x) {
@@ -275,8 +274,22 @@
 
 .simple_vowel_map_en <- function(chars) {
   chars <- chars |>
+    stringr::str_replace_all("([aeiou])rr(?=[aeiou])", "\\1r") |>
+    stringr::str_replace_all("wor(?![aeiou])", "w__R_ER__") |>
+    stringr::str_replace_all("oar(?![aeiou])", "__R_OR__") |>
+    stringr::str_replace_all("eer(?![aeiou])", "__R_IR__") |>
+    stringr::str_replace_all("ear(?=[bcdfghjklmnpqrstvwxz])", "__R_ER__") |>
+    stringr::str_replace_all("ear(?![aeiou])", "__R_IR__") |>
+    stringr::str_replace_all("air(?![aeiou])", "__R_EIR__") |>
+    stringr::str_replace_all("oor(?![aeiou])", "__R_UR__") |>
+    stringr::str_replace_all("our(?![aeiou])", "__R_OR__") |>
+    stringr::str_replace_all("ar(?![aeiou])", "__R_AR__") |>
+    stringr::str_replace_all("or(?![aeiou])", "__R_OR__") |>
+    stringr::str_replace_all("[eiu]r(?![aeiou])", "__R_ER__") |>
     stringr::str_replace_all("ee", "__V_EE__") |>
+    stringr::str_replace_all("oo(?=k)", "\u028a") |>
     stringr::str_replace_all("oo", "__V_OO__") |>
+    stringr::str_replace_all("ow$", "__V_OA__") |>
     stringr::str_replace_all("ai", "__V_AI__") |>
     stringr::str_replace_all("ay", "__V_AI__") |>
     stringr::str_replace_all("oa", "__V_OA__") |>
@@ -287,6 +300,13 @@
     stringr::str_replace_all("au", "__V_AU__") |>
     stringr::str_replace_all("ea", "__V_EE__") |>
     stringr::str_replace_all("ie", "__V_EE__") |>
+    stringr::str_replace_all("ey", "__V_AI__") |>
+    stringr::str_replace_all("ei", "__V_EE__") |>
+    stringr::str_replace_all("ew", "__V_OO__") |>
+    stringr::str_replace_all("ue", "__V_OO__") |>
+    stringr::str_replace_all("ui", "__V_OO__") |>
+    stringr::str_replace_all("aw", "__V_AU__") |>
+    stringr::str_replace_all("oe", "__V_OA__") |>
     stringr::str_replace_all("e", "\u025b") |>
     stringr::str_replace_all("i", "\u026a") |>
     stringr::str_replace_all("o", "\u0251") |>
@@ -294,11 +314,18 @@
     stringr::str_replace_all("a", "\u00e6") |>
     stringr::str_replace_all("__V_EE__", "i") |>
     stringr::str_replace_all("__V_OO__", "u") |>
+    stringr::str_replace_all("__V_IGH__", "a\u026a") |>
     stringr::str_replace_all("__V_AI__", "e\u026a") |>
     stringr::str_replace_all("__V_OA__", "o\u028a") |>
     stringr::str_replace_all("__V_OW__", "a\u028a") |>
     stringr::str_replace_all("__V_OI__", "\u0254\u026a") |>
-    stringr::str_replace_all("__V_AU__", "\u0254")
+    stringr::str_replace_all("__V_AU__", "\u0254") |>
+    stringr::str_replace_all("__R_IR__", "\u026a\u0279") |>
+    stringr::str_replace_all("__R_ER__", "\u025d") |>
+    stringr::str_replace_all("__R_EIR__", "\u025b\u0279") |>
+    stringr::str_replace_all("__R_AR__", "\u0251\u0279") |>
+    stringr::str_replace_all("__R_OR__", "\u0254\u0279") |>
+    stringr::str_replace_all("__R_UR__", "\u028a\u0279")
 
   chars
 }
@@ -307,12 +334,56 @@
   consonant <- "[bcdfghjklmnpqrstvwxyz]"
 
   x <- x |>
+    stringr::str_replace("^kn", "n") |>
+    stringr::str_replace("^wr", "r") |>
+    stringr::str_replace("^gn", "n") |>
+    stringr::str_replace("^ps", "s") |>
+    stringr::str_replace("mb$", "m") |>
+    stringr::str_replace("mn$", "m") |>
+    stringr::str_replace("ture$", "t\u0283\u025a") |>
+    stringr::str_replace("que$", "k") |>
+    stringr::str_replace("are$", "\u025b\u0279") |>
+    stringr::str_replace("ere$", "\u026a\u0279") |>
+    stringr::str_replace("ire$", "a\u026a\u025a") |>
+    stringr::str_replace("ore$", "\u0254\u0279") |>
+    stringr::str_replace("ure$", "\u028a\u0279") |>
+    stringr::str_replace("(sh|ch|ss|x|z)es$", "\\1__IZ__") |>
+    stringr::str_replace("stle(s)?$", "s\u0259l\\1")
+
+  long_map <- c(
+    a = "__V_AI__", e = "__V_EE__", i = "__V_IGH__",
+    o = "__V_OA__", u = "__V_OO__", y = "__V_IGH__"
+  )
+
+  for (v in names(long_map)) {
+    long <- long_map[[v]]
+    v <- paste0("(?<![aeiou])", v)
+    x <- x |>
+      stringr::str_replace(paste0(v, "([bdfgkpt])le(s)?$"), paste0(long, "\\1\u0259l\\2")) |>
+      stringr::str_replace(paste0(v, "ces$"), paste0(long, "s__IZ__")) |>
+      stringr::str_replace(paste0(v, "ced$"), paste0(long, "st")) |>
+      stringr::str_replace(paste0(v, "ce$"), paste0(long, "s")) |>
+      stringr::str_replace(paste0(v, "ges$"), paste0(long, "d\u0292__IZ__")) |>
+      stringr::str_replace(paste0(v, "ged$"), paste0(long, "d\u0292d")) |>
+      stringr::str_replace(paste0(v, "ge$"), paste0(long, "d\u0292")) |>
+      stringr::str_replace(
+        paste0(v, "([bdfjklmnpqstvz])e(s|d)?$"),
+        paste0(long, "\\1\\2")
+      )
+  }
+
+  x <- x |>
+    stringr::str_replace("([bcdfghkmnprstz])le(s)?$", "\\1\u0259l\\2") |>
+    stringr::str_replace("ies$", "iz") |>
+    stringr::str_replace("ied$", "id") |>
+    stringr::str_replace("([td])ed$", "\\1\u026ad") |>
+    stringr::str_replace("([bcfghjklmnpqsvz])ed$", "\\1__ED__") |>
     stringr::str_replace("e$", "") |>
     stringr::str_replace("ify$", "if__YLONG__") |>
     stringr::str_replace("^y(?=[aeiou])", "__YGLIDE__") |>
     stringr::str_replace("^sy(?=[^aeiou])", "s__YSHORT__") |>
     stringr::str_replace("^ty(?=[^aeiou])", "t__YLONG__") |>
-    stringr::str_replace_all(paste0("(", consonant, ")y(?=", consonant, "{2,}|$)"), "\\1__YSHORT__") |>
+    stringr::str_replace_all(paste0("(", consonant, ")y(?=", consonant, ")"), "\\1__YSHORT__") |>
     stringr::str_replace_all("y$", "i")
 
   x
@@ -333,29 +404,48 @@
   x <- .preprocess_fallback_en(x)
 
   replacements <- c(
+    "ssion" = "\u0283\u0259n",
+    "([aeiour])sion" = "\\1\u0292\u0259n",
+    "sion" = "\u0283\u0259n",
     "tion" = "\u0283\u0259n",
-    "ture" = "t\u0283\u028a\u0279",
-    "ough" = "\u028cf",
+    "cian" = "\u0283\u0259n",
+    "[ct]ial" = "\u0283\u0259l",
+    "[ct]ious" = "\u0283\u0259s",
+    "ous$" = "\u0259s",
+    "ture" = "t\u0283\u025a",
+    "aigh" = "e\u026a",
     "eigh" = "e\u026a",
+    "augh" = "\u0254",
+    "ough(?=t)" = "\u0254",
+    "al(?=k)" = "\u0254",
     "igh" = "a\u026a",
+    "ough" = "\u028cf",
+    "^gh" = "g",
+    "([aeiou])gh" = "\\1",
     "ph" = "f",
+    "sch" = "sk",
     "sh" = "\u0283",
+    "tch" = "t\u0283",
     "ch" = "t\u0283",
+    "([aeiou])th(?=[aeiou])" = "\\1\u00f0",
     "th" = "\u03b8",
     "dh" = "\u00f0",
+    "n(?=k|c(?![eiy]|__Y))" = "\u014b",
     "ng" = "\u014b",
     "ck" = "k",
     "qu" = "kw",
     "wh" = "w",
-    "wr" = "r",
-    "kn" = "n",
     "x" = "ks",
+    "dg" = "d\u0292",
+    "sc(?=[eiy]|__Y)" = "s",
+    "c(?=[eiy]|__Y)" = "s",
     "c" = "k",
-    "q" = "k"
+    "q" = "k",
+    "g(?=[eiy]|__Y)" = "d\u0292"
   )
 
   for (pattern in names(replacements)) {
-    x <- stringr::str_replace_all(x, stringr::fixed(pattern), replacements[[pattern]])
+    x <- stringr::str_replace_all(x, pattern, replacements[[pattern]])
   }
 
   x <- .simple_vowel_map_en(x)
@@ -375,10 +465,16 @@
     stringr::str_replace_all("__YGLIDE__", "j") |>
     stringr::str_replace_all("__YLONG__", "a\u026a") |>
     stringr::str_replace_all("__YSHORT__", "\u026a") |>
+    stringr::str_replace_all("__IZ__", "\u026az") |>
+    stringr::str_replace("([pkf\u03b8s\u0283])__ED__", "\\1t") |>
+    stringr::str_replace_all("__ED__", "d") |>
+    stringr::str_replace("([pkf\u03b8s\u0283])d$", "\\1t") |>
+    stringr::str_replace("([bdgv\u00f0mnl\u014b\u0279\u0292])s$", "\\1z") |>
     stringr::str_replace_all("\\s+", "") |>
     .collapse_double_consonants_ipa_en() |>
     .syllabify_fallback_ipa_en() |>
     .assign_stress_fallback_ipa_en(word = word_clean) |>
+    .postprocess_stressed_ipa_en() |>
     stringr::str_c("*")
 }
 

@@ -123,30 +123,13 @@ stress_sp <- function(word) {
     stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
     stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
     stringr::str_replace(pattern = "\u02c8(?=.*\u02c8)", replacement = "") |>
-    stringr::str_replace(pattern = "\u028ee\u027e$", replacement = "\u028e\u025b\u027e") |>
-    stringr::str_replace(pattern = "a.o$", replacement = "aw") |>
-    stringr::str_replace(pattern = "a.os$", replacement = "aws")
-
-  # Adjustments post-stress:
-  output <- output |>
-    stringr::str_replace_all("(\\w*)(i)\\.\u02c8([aeiou])",
-      replacement = "\u02c8\\1j\\3"
-    )
+    stringr::str_replace(pattern = "\u028ee\u027e$", replacement = "\u028e\u025b\u027e")
 
   # Diphthongs/triphthongs:
-  output <- stringr::str_replace_all(output, "u([aeoi])", "w\\1")
-  output <- stringr::str_replace_all(output, "([aeou])[yi]", "\\1j")
-  output <- stringr::str_replace_all(output, "i([ae\u00e9o\u00f3u])", "j\\1")
-  output <- stringr::str_replace_all(output, "([aeoi])u", "\\1w")
-  output <- stringr::str_replace_all(output, "[u\u00fc]([aeo\u00e1\u00e9\u00f3])[iy]", "w\\1j")
-  output <- stringr::str_replace_all(output, "[i]([aeo\u00e1\u00e9\u00f3])[iy]", "j\\1j")
-  output <- stringr::str_replace_all(output, "[iy]([aeo\u00e1\u00e9\u00f3])[u]", "j\\1w")
-  output <- stringr::str_replace_all(output, "[u\u00fc]([aeo\u00e1\u00e9\u00f3])[u]", "w\\1w")
-  # Paraguay words:
-  output <- stringr::str_replace_all(output, "\\.(\\w*)u\\.\u02c8([aeoi])", "\\.\u02c8\\1w\\2")
-  # Sociedad words:
-  output <- stringr::str_replace_all(output, "\\.(\\w*)i\\.([aeo])", "\\.\\1j\\2")
-  output <- stringr::str_replace_all(output, "\\.(\\w*)u\\.([aeo])", "\\.\\1w\\2")
+  output <- stringr::str_replace_all(output, "[u\u00fc]([aeo\u00e1\u00e9\u00f3])[iy]", "w\\1i")
+  output <- stringr::str_replace_all(output, "[i]([aeo\u00e1\u00e9\u00f3])[iy]", "j\\1i")
+  output <- stringr::str_replace_all(output, "[iy]([aeo\u00e1\u00e9\u00f3])[u]", "j\\1u")
+  output <- stringr::str_replace_all(output, "[u\u00fc]([aeo\u00e1\u00e9\u00f3])[u]", "w\\1u")
 
   output <- stringr::str_replace_all(output, "i\u00f3n$", "jon")
 

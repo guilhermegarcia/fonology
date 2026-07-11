@@ -18,11 +18,11 @@ remove_lex_sp <- function(words) {
     stringr::str_remove_all("\\p{M}")
 
   ## ---- Diacritized-form lexicon -------------------------------------------
-  lex_d <- .get_user_lex("sp_lex")
+  lex_d <- .get_user_lex("sp_lex_user")
   lex_d <- lex_d[!names(lex_d) %in% plain]
 
-  .set_user_lex("sp_lex", lex_d)
-  .save_user_lex("sp_lex")
+  .set_user_lex("sp_lex_user", lex_d)
+  .save_user_lex("sp_lex_user")
 
   ## ---- IPA-override lexicon -----------------------------------------------
   lex_i <- .get_user_lex("sp_ipa_lex")

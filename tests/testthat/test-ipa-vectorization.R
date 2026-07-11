@@ -15,7 +15,7 @@ test_that("Spanish ipa() handles mixed valid and digit-bearing vector input", {
 test_that("French ipa() remains vectorized", {
   expect_equal(
     ipa(c("Paris", "Lyon", "mettre"), lg = "fr"),
-    c("pa.\u0281i", "li.\u0254\u0303*", "m\u025bt\u0281")
+    c("pa.\u0281i", "lj\u0254\u0303*", "m\u025bt\u0281")
   )
 })
 
@@ -67,7 +67,7 @@ test_that("Portuguese ipa() handles mixed valid and digit-bearing vector input",
 test_that("Portuguese syllabification does not allow sm onsets", {
   expect_equal(
     ipa("transmitti", lg = "pt"),
-    "trans.mi.\u02c8ti*"
+    "tranz.mi.\u02c8ti*"
   )
 })
 
@@ -85,18 +85,38 @@ test_that("Portuguese ipa() uses lexical x in known words", {
   )
 })
 
-test_that("Spanish loanwords keep falling au diphthongs", {
+test_that("Spanish fallback keeps falling au diphthongs tautosyllabic", {
   expect_equal(
-    ipa("Auckland", lg = "sp"),
-    "aw.\u02c8klan.d"
+    ipa("flauteca", lg = "sp"),
+    "flau.\u02c8te.ka*"
+  )
+})
+
+test_that("Spanish ipa() uses Wiktionary lookup before regex fallback", {
+  expect_equal(
+    ipa(c("casa", "coraz\u00f3n", "guerra", "llave"), lg = "sp"),
+    c("\u02c8ka.sa", "ko.\u027ea.\u02c8son", "\u02c8ge.ra", "\u02c8\u029da.be")
   )
 })
 
 test_that("Italian loanwords keep falling au diphthongs", {
   expect_equal(
     ipa("Auckland", lg = "it"),
-    "\u02c8aw.kland"
+    "\u02c8aw.kland*"
   )
+})
+
+test_that("Italian ipa() uses Wiktionary lookup before regex fallback", {
+  expect_equal(
+    ipa(c("casa", "perch\u00e9", "farmacia", "stazione"), lg = "it"),
+    c("\u02c8ka.sa", "per.\u02c8ke", "far.ma.\u02c8t\u0283i.a", "stat.\u02c8tsjo.ne")
+  )
+})
+
+test_that("Italian regex fallback is starred and user lexica take priority", {
+  expect_equal(ipa("brantolo", lg = "it"), "\u02c8bran.to.lo*")
+  # diacritized user entry (it_lex_user) beats the corpus lexicon
+  expect_equal(ipa("chiedere", lg = "it"), "\u02c8kj\u025b.de.re")
 })
 
 test_that("syllable() treats schwa as a nucleus", {

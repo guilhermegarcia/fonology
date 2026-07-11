@@ -82,14 +82,14 @@ add_lex_sp <- function(words, ipa = NULL) {
   words <- words[keep]
   plain <- plain[keep]
 
-  lex <- .get_user_lex("sp_lex")
+  lex <- .get_user_lex("sp_lex_user")
 
   new_entries <- words
   names(new_entries) <- plain
   lex <- c(lex[!names(lex) %in% plain], new_entries)
 
-  .set_user_lex("sp_lex", lex)
-  .save_user_lex("sp_lex")
+  .set_user_lex("sp_lex_user", lex)
+  .save_user_lex("sp_lex_user")
 
   invisible(lex)
 }

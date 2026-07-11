@@ -10,11 +10,11 @@
   "en_ipa_lex",
   "fr_ipa_lex",
   "it_ipa_lex",
-  "it_lex",
+  "it_lex_user",
   "pt_ipa_lex",
   "pt_lex_user",
   "sp_ipa_lex",
-  "sp_lex"
+  "sp_lex_user"
 )
 
 .get_pkg_data <- function(name) {

@@ -51,6 +51,17 @@ transcribe_pt <- function(word = "") {
     pattern = "^h"
   )
 
+  # Diaeresis marks a pronounced glide (freq\u00fcente, ag\u00fcia):
+  word <- stringr::str_replace_all(word,
+    pattern = "q\u00fc",
+    replacement = "kw"
+  )
+
+  word <- stringr::str_replace_all(word,
+    pattern = "g\u00fc",
+    replacement = "gw"
+  )
+
   # Odd diacritics:
   word <- stringr::str_replace_all(word,
     pattern = "\u00fc",
@@ -91,8 +102,13 @@ transcribe_pt <- function(word = "") {
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "(gu)([aeo\u00e9\u00e1\u00f3\u00ea\u00f4]n)",
+    pattern = "(gu)([ao\u00e1\u00f3\u00f4]n)",
     replacement = "gw\\2"
+  )
+
+  word <- stringr::str_replace_all(word,
+    pattern = "gu([a\u00e1\u00e2\u00e3o\u00f3\u00f4])",
+    replacement = "gw\\1"
   )
 
   word <- stringr::str_replace_all(word,
@@ -183,7 +199,7 @@ transcribe_pt <- function(word = "") {
 
   # Intervocalic S
   word <- stringr::str_replace_all(word,
-    pattern = "([aeiou\u00f3\u00e9\u00e1\u00ea\u00f4\u00e3])s([aeiou\u00f3\u00e9\u00e1\u00ea\u00f4\u00e3])",
+    pattern = "([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4\u00e3\u00f5])s([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4\u00e3\u00f5])",
     replacement = "\\1z\\2"
   )
 
@@ -191,6 +207,13 @@ transcribe_pt <- function(word = "") {
   word <- stringr::str_replace_all(word,
     pattern = "ss|\u00e7|s\u00e7",
     replacement = "s"
+  )
+
+  # Posttonic -ceo(s) is categorically sjo(s) in the PSL (bombac\u00e1ceo);
+  # J is a placeholder so the glide survives the j -> \u0292 rule below:
+  word <- stringr::str_replace_all(word,
+    pattern = "ceo(s?)$",
+    replacement = "sJo\\1"
   )
 
   # C before e,i
@@ -256,67 +279,32 @@ transcribe_pt <- function(word = "") {
     replacement = "\u0283"
   )
 
+  # Initial ex + vowel is systematically voiced (exame, \u00eaxodo):
   word <- stringr::str_replace_all(word,
-    pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][a])x([a])",
-    replacement = "\\1\u0283\\2"
-  )
-
-  word <- stringr::str_replace_all(word,
-    pattern = "(^[a])x([a])",
-    replacement = "\\1\u0283\\2"
-  )
-
-
-  word <- stringr::str_replace_all(word,
-    pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][i])x([o])",
-    replacement = "\\1\u0283\\2"
-  )
-
-  word <- stringr::str_replace_all(word,
-    pattern = "(^[i])x([o])",
-    replacement = "\\1\u0283\\2"
-  )
-
-  word <- stringr::str_replace_all(word,
-    pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][o])x([u])",
-    replacement = "\\1\u0283\\2"
-  )
-
-  word <- stringr::str_replace_all(word,
-    pattern = "(^[o])x([u])",
-    replacement = "\\1\u0283\\2"
-  )
-
-  word <- stringr::str_replace_all(word,
-    pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][u])x([a]])",
-    replacement = "\\1\u0283\\2"
-  )
-
-  word <- stringr::str_replace_all(word,
-    pattern = "(^[u])x([a]])",
-    replacement = "\\1\u0283\\2"
-  )
-
-
-  word <- stringr::str_replace_all(word,
-    pattern = "([pbtdkgszfv\u0283\u0292\u028e\u0272mnlr][aeiou])x([aeiou])",
+    pattern = "^([e\u00ea])x([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])",
     replacement = "\\1z\\2"
   )
 
+  # Remaining intervocalic x defaults to the majority outcome in the PSL:
   word <- stringr::str_replace_all(word,
-    pattern = "(^[aeiou])x([aeiou])",
-    replacement = "\\1z\\2"
+    pattern = "([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4\u00e3\u00f5])x([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])",
+    replacement = "\\1\u0283\\2"
   )
 
-
   word <- stringr::str_replace_all(word,
-    pattern = "([aeiou])x([pbtdkgmn])",
+    pattern = "([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])x([pbtdkgmn])",
     replacement = "\\1s\\2"
   )
 
   word <- stringr::str_replace_all(word,
     pattern = "xs",
     replacement = "s"
+  )
+
+  # Coda s voices before voiced consonants (esloveno, desbordo):
+  word <- stringr::str_replace_all(word,
+    pattern = "s([bdglmnrvz\u0292])",
+    replacement = "z\\1"
   )
 
   # Remove diacritics
@@ -329,12 +317,6 @@ transcribe_pt <- function(word = "") {
   #                                 replacement = "e")
 
   # lh + nh
-
-  word <- stringr::str_replace_all(word,
-    pattern = "lia",
-    replacement = "\u028ea"
-  )
-
 
   word <- stringr::str_replace_all(word,
     pattern = "lher",
@@ -379,20 +361,30 @@ transcribe_pt <- function(word = "") {
   # Diphthongs
 
   # ==================
-  # Addition in May 2024 given verbs in the simple past (3rd PRS SG)
+  # i before n/m + vowel is a true diphthong (paineira), not a nasal:
   word <- stringr::str_replace_all(word,
-    pattern = "([aeiou\u0254\u025b])i?!u([^mn])",
+    pattern = "([aeou\u0254\u025b])i([nm])([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])",
+    replacement = "\\1j\\2\\3"
+  )
+
+  word <- stringr::str_replace_all(word,
+    pattern = "([aeou\u0254\u025b])i([^mn])",
     replacement = "\\1j\\2"
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "([aeiou\u0254\u025b])i([aeio])",
+    pattern = "([aeou\u0254\u025b])i([aeio])",
     replacement = "\\1j\\2"
+  )
+
+  word <- stringr::str_replace_all(word,
+    pattern = "([aeou\u0254\u025b])i$",
+    replacement = "\\1j"
   )
 
   # ==================
   word <- stringr::str_replace_all(word,
-    pattern = "([aeiou\u0254\u025b])u",
+    pattern = "([aeio\u0254\u025b])u",
     replacement = "\\1w"
   )
 
@@ -531,7 +523,7 @@ transcribe_pt <- function(word = "") {
 
   # s.r + n.r
   word <- stringr::str_replace_all(word,
-    pattern = "([nmsz])r",
+    pattern = "([nmslz])r",
     replacement = "\\1x"
   )
 
@@ -541,6 +533,11 @@ transcribe_pt <- function(word = "") {
   #   replacement = "\u027e"
   # )
 
+  # Resolve glide placeholder:
+  word <- stringr::str_replace_all(word,
+    pattern = "J",
+    replacement = "j"
+  )
 
   return(word)
 }

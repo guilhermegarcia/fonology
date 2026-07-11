@@ -54,8 +54,8 @@ export_lex <- function(lg, file, ipa = FALSE) {
 
   lex_name <- switch(
     lg,
-    "it" = "it_lex",
-    "sp" = "sp_lex",
+    "it" = "it_lex_user",
+    "sp" = "sp_lex_user",
     "pt" = "pt_lex_user",
     "fr" = stop("French only supports IPA-override mode: use export_lex(\"fr\", file, ipa = TRUE)."),
     "en" = stop("English only supports IPA-override mode: use export_lex(\"en\", file, ipa = TRUE)."),

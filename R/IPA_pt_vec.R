@@ -23,11 +23,13 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
   ipa_override <- !is.na(wd) & wd %in% names(pt_ipa_lex)
 
   transcribe_pipeline <- function(x) {
-    x |>
+    out <- x |>
       transcribe_pt_vec() |>
       syllabify_pt_vec() |>
       stress_pt_vec() |>
       stringr::str_remove_all(pattern = "\\.$")
+
+    posttonic_pt_vec(out, ortho = x)
   }
 
   user_matches <- !is.na(wd) & wd %in% names(pt_lex_user)
@@ -37,10 +39,10 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
   if (any(lex_matches)) {
     lex_idx <- match(wd[lex_matches], pt_lex$word)
     wd[lex_matches] <- pt_lex$pro[lex_idx] |>
-      stringr::str_replace(pattern = "\'", replacement = "\u02c8") |>
-      stringr::str_replace(pattern = "\u027e", replacement = "r") |>
+      stringr::str_replace_all(pattern = "\'", replacement = "\u02c8") |>
+      stringr::str_replace_all(pattern = "\u027e", replacement = "r") |>
       stringr::str_replace(
-        pattern = "\u028ee\u027e$",
+        pattern = "\u028ee[r\u027e]$",
         replacement = "\u028e\u025br"
       )
   }

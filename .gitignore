@@ -16,6 +16,8 @@ tableaux.R
 /.quarto/
 /data-raw/*
 !/data-raw/build_fr_lex.R
+!/data-raw/build_it_lex.R
+!/data-raw/build_sp_lex.R
 /manual/*
 !/manual/Fonology.pdf
 /Fonology.pdf

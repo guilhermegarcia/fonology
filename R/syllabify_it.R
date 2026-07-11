@@ -9,17 +9,17 @@ syllabify_it <- function(word) {
 
   # Step 1: Protect BASE affricates only (NOT their geminate forms).
   #
-  # Geminate affricates (ddʒ, ttʃ, tts) are intentionally left with their
+  # Geminate affricates (dd\u0292, tt\u0283, tts) are intentionally left with their
   # first consonant exposed so the split rules below can move it to the coda.
-  # For example, ddʒ becomes d+DJ: the 'd' participates in the dot-placement
+  # For example, dd\u0292 becomes d+DJ: the 'd' participates in the dot-placement
   # logic normally, then step 5a moves it to the preceding coda.
   #
   # Order: longest first to prevent partial matches.
-  word <- stringr::str_replace_all(word, "t\u0283", "TC")   # tʃ  → TC
-  word <- stringr::str_replace_all(word, "d\u0292", "DJ")   # dʒ  → DJ
-  word <- stringr::str_replace_all(word, "dz", "DZ")        # dz  → DZ
-  word <- stringr::str_replace_all(word, "ts", "TZ")        # ts  → TZ
-  # After the above: ddʒ → dDJ, ttʃ → tTC, tts → tTZ (first consonant exposed)
+  word <- stringr::str_replace_all(word, "t\u0283", "TC")   # t\u0283  \u2192 TC
+  word <- stringr::str_replace_all(word, "d\u0292", "DJ")   # d\u0292  \u2192 DJ
+  word <- stringr::str_replace_all(word, "dz", "DZ")        # dz  \u2192 DZ
+  word <- stringr::str_replace_all(word, "ts", "TZ")        # ts  \u2192 TZ
+  # After the above: dd\u0292 \u2192 dDJ, tt\u0283 \u2192 tTC, tts \u2192 tTZ (first consonant exposed)
 
   # Step 2: Insert syllable boundary after every vowel (onset maximization)
   word <- stringr::str_replace_all(word,
@@ -31,7 +31,7 @@ syllabify_it <- function(word) {
   word <- stringr::str_remove_all(word, "\\.$")
 
   # Step 4: Move glides back to their nucleus (diphthong protection)
-  # e.g. V.jC → Vj.C  and  V.wC → Vw.C
+  # e.g. V.jC \u2192 Vj.C  and  V.wC \u2192 Vw.C
   word <- stringr::str_replace_all(word,
     "([aeiou\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00ec\u00ed\u00ee\u00f2\u00f3\u00f4\u00f9\u00fa\u00fb])\\.([jw])",
     "\\1\\2."
@@ -39,27 +39,27 @@ syllabify_it <- function(word) {
 
   # Step 4b: Falling diphthongs with postvocalic i/u remain tautosyllabic.
   word <- stringr::str_replace_all(word,
-    "([aeo\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00f2\u00f3\u00f4])\\.([iu\u00ec\u00ed\u00ee\u00f9\u00fa\u00fb])",
+    "([aeo\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00f2\u00f3\u00f4])\\.([u\u00f9\u00fa\u00fb])",
     "\\1\\2."
   )
 
-  # Step 5a: Geminate affricate split — the exposed first consonant moves to
+  # Step 5a: Geminate affricate split \u2014 the exposed first consonant moves to
   # the preceding coda; the base affricate becomes the onset of the next syllable.
-  #   ddʒ → d.dʒ  (stored as  \.d(DJ)  → d.DJ)
-  #   ttʃ → t.tʃ  (stored as  \.t(TC)  → t.TC)
-  #   tts → t.ts  (stored as  \.t(TZ)  → t.TZ)
+  #   dd\u0292 \u2192 d.d\u0292  (stored as  \.d(DJ)  \u2192 d.DJ)
+  #   tt\u0283 \u2192 t.t\u0283  (stored as  \.t(TC)  \u2192 t.TC)
+  #   tts \u2192 t.ts  (stored as  \.t(TZ)  \u2192 t.TZ)
   word <- stringr::str_replace_all(word, "\\.d(DJ)", "d.\\1")
   word <- stringr::str_replace_all(word, "\\.t(TC)", "t.\\1")
   word <- stringr::str_replace_all(word, "\\.t(TZ)", "t.\\1")
 
-  # Step 5b: Plain geminate consonant split — first copy goes to coda, second to onset.
+  # Step 5b: Plain geminate consonant split \u2014 first copy goes to coda, second to onset.
   word <- stringr::str_replace_all(word,
-    "\\.([pbtdkgfvszmnlr\u0272\u028e\u014b])(\\1)",
+    "\\.([pbtdkgfvszmnlr\u0272\u028e\u014b\u0283])(\\1)",
     "\\1.\\2"
   )
 
-  # Step 6a: Sonorants (l, m, n, r, ɲ, ʎ, ŋ) followed by another consonant
-  # → sonorant moves to coda of preceding syllable.
+  # Step 6a: Sonorants (l, m, n, r, \u0272, \u028e, \u014b) followed by another consonant
+  # \u2192 sonorant moves to coda of preceding syllable.
   # Do NOT apply this before glides j/w: clusters such as lj and nj belong
   # to the following onset in forms like "italiano".
   word <- stringr::str_replace_all(word,
@@ -67,7 +67,7 @@ syllabify_it <- function(word) {
     "\\1.\\2"
   )
 
-  # Step 6b: s before a consonant → s goes to preceding coda
+  # Step 6b: s before a consonant \u2192 s goes to preceding coda
   word <- stringr::str_replace_all(word,
     "\\.s([pbtdkgfv])",
     "s.\\1"
@@ -80,6 +80,23 @@ syllabify_it <- function(word) {
     ".\\1\\2"
   )
 
+  # Step 6b2: ks clusters (from <x>) close the preceding syllable (eks.tra)
+  word <- stringr::str_replace_all(word, "\\.ks", "ks.")
+
+  # Step 6b3: word-final postvocalic i is a falling diphthong (sillabai \u2192 baj)
+  word <- stringr::str_replace_all(word,
+    "([aeo\u00e0\u00e1\u00e2\u00e8\u00e9\u00ea\u00f2\u00f3\u00f4])\\.i$",
+    "\\1j"
+  )
+
+  # Step 6d: A consonant stranded between two dots attaches leftward as a coda
+  # (australopiteci: aw.s.tra \u2192 aws.tra; fraintesa: frai.n.te \u2192 frain.te)
+  word <- stringr::str_replace_all(word, "\\.\\.", ".")
+  word <- stringr::str_replace_all(word,
+    "\\.([pbtdkgfvszmnlr\u0272\u028e\u014b\u0283])\\.",
+    "\\1."
+  )
+
   # Step 7: Restore base affricate tokens (reverse of Step 1)
   word <- stringr::str_replace_all(word, "TC", "t\u0283")
   word <- stringr::str_replace_all(word, "DJ", "d\u0292")
@@ -87,7 +104,7 @@ syllabify_it <- function(word) {
   word <- stringr::str_replace_all(word, "TZ", "ts")
 
   # Step 8: Merge word-final nucleus-less syllable back into preceding coda.
-  # Loanwords ending in consonant(s) (e.g. "thriller" → "tril.le.r") get a
+  # Loanwords ending in consonant(s) (e.g. "thriller" \u2192 "tril.le.r") get a
   # stranded final segment from the vowel-dot insertion in step 2. Remove the
   # dot before any word-final sequence that contains no vowel at all.
   word <- stringr::str_replace_all(word,

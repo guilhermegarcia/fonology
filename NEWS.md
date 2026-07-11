@@ -1,3 +1,40 @@
+# Fonology 1.2.0
+
+## Lexical lookup for all five languages
+
+- Added corpus-backed lexicons for Italian (`it_lex`, ~82K words) and Spanish
+  (`sp_lex`, ~130K words), derived from the English Wiktionary via Wiktextract
+  (kaikki.org, CC BY-SA); reproducible build scripts in `data-raw/`
+- All five languages now use lexical lookup before the regex fallback, and all
+  regex-derived forms are marked with `*` (new for Italian and Spanish)
+- Renamed the user diacritized lexicons `it_lex` -> `it_lex_user` and
+  `sp_lex` -> `sp_lex_user` (matching `pt_lex_user`); existing entries migrated
+
+## Fallback accuracy overhauls (benchmarked against each language's lexicon)
+
+- English: 8.6% -> 27% exact match (magic e, vowel+r, soft c/g, -s/-ed
+  morphophonology, schwa reduction in unstressed syllables)
+- Portuguese: 82% -> 95% exact (categorical coda s-voicing, posttonic glide
+  formation, PSL-mined stressed mid-vowel lowering; new `posttonic_pt_vec()`)
+- French: 48.6% -> 71% exact (ph/ch ordering fixes, -ment suffix family,
+  verb-future schwa, nasal/glide protection, onset-cluster syllabification)
+- Italian: 43.5% -> 70% exact (antepenult suffix classes, intervocalic
+  gemination, z-affricate voicing, mined mid-vowel quality rules)
+- Spanish: 67.5% -> 95% exact (yeismo, final tap, coda obstruent voicing,
+  rising glides moved before stress assignment)
+
+## Fixes
+
+- Italian accent convention now follows standard orthography: grave = open-mid
+  (è/ò -> ɛ/ɔ), acute/circumflex = close-mid (é/ó/ê/ô -> e/o); user lexicon
+  entries auto-migrated
+- Portuguese lookup normalization fixed (`mulher` -> mu.ˈʎɛr; tap replacement
+  now global)
+- Spanish `ll` digraph no longer collapsed before yeismo applies; overlapping
+  tap-rule matches fixed; word-initial `z` -> dz no longer destroyed
+- README now reports per-language lookup coverage and fallback accuracy in a
+  summary table
+
 # Fonology 1.1.2
 
 - Added Lexique 4-backed French lookup (`fr_lex`) before the regex fallback, with `fr_ipa_lex` user overrides taking final priority

@@ -99,13 +99,42 @@ adding `narrow = T` to the function. Run `ipa_pt_test()`,
 each language. By default, `ipa()` assumes that `lg = "Portuguese"` (or
 `lg = "pt"`) and `narrow = F`.
 
-Portuguese, French, and English use lexical lookup before falling back to
+All five languages use lexical lookup before falling back to
 regular-expression rules for out-of-vocabulary forms. French lookup is
-backed by Lexique 4, and Portuguese lookup is based on the Portuguese
-Stress Lexicon. User IPA overrides take priority over both lookup and
-regex fallback. Regex-derived Portuguese, French, and English forms are
-marked with a final `*`; helper functions ignore this marker when
-parsing phonological material.
+backed by Lexique 4, Portuguese lookup is based on the Portuguese Stress
+Lexicon (Garcia 2014), and the Italian (~82K words) and Spanish (~130K
+words) lookups are derived from Wiktionary (via Wiktextract/kaikki.org).
+User IPA overrides take priority over both lookup and regex fallback.
+Regex-derived forms are marked with a final `*`; helper functions ignore
+this marker when parsing phonological material.
+
+Lookup transcriptions are dictionary-grade by construction. The
+rule-based fallback is benchmarked per language against 4,000 held-out
+words from the corresponding lexicon; the table reports how often it
+reproduces the dictionary transcription exactly (including stress and
+syllabification). Token coverage is measured on running-text samples, so
+overall accuracy on ordinary text combines both:
+
+| Language | Lookup source | Entries | Token coverage | Fallback (exact) | Overall |
+|----|----|---:|---:|---:|---:|
+| English | CMU Pronouncing Dictionary | ~133K | ~99.9% | 27% | ~99.9% |
+| French | Lexique 4 | ~171K | ~99% | 71% | ~99% |
+| Spanish | Wiktionary (kaikki.org) | ~130K | ~83%¹ | 95% | ~98% |
+| Italian | Wiktionary (kaikki.org) | ~82K | ~92% | 70% | ~97% |
+| Portuguese | Portuguese Stress Lexicon | ~129K | ~25%² | 95% | ~94% |
+
+¹ Measured on a classical text (Don Quijote); modern text runs higher.
+
+² The PSL contains non-verbs only, so function words and verbs are
+served by the fallback—which is why the Portuguese fallback was tuned to
+near-dictionary accuracy.
+
+The main residual fallback errors are lexically variable material:
+mid-vowel quality in French and Italian, unadapted loanwords in Spanish,
+and (in English, where orthography is deepest) vowel quality
+generally—starred English forms are phonotactically plausible
+approximations rather than dictionary-grade transcriptions. These are
+exactly the cases `add_lex_en()` and friends are for.
 
 ``` r
 ipa("atletico")
@@ -128,47 +157,9 @@ ipa("hospital", lg = "en")
 #> [1] "ˈhɑs.pɪ.təl"
 ipa("naive", lg = "en")
 #> [1] "naɪ.ˈiv"
+ipa("spling", lg = "en")
+#> [1] "ˈsplɪŋ*"
 ```
-
-### A note on stress
-
-A more detailed function, `ipa_pt()`, is available for Portuguese only.
-In it, stress is assigned based on two scenarios. First, **real** words
-(non-verbs) have their stress assignment derived from the [Portuguese
-Stress Lexicon](psl.html) (Garcia 2014)—if the word is listed there.
-Second, **nonce** words follow the general patterns of Portuguese stress
-*as well as* probabilistic tendencies shown in my work (Garcia, 2017a,
-2017b, 2019). As a result, a nonce word *may* have antepenultimate
-stress under the right conditions based on lexical statistics in the
-language. Likewise, words with other so-called exceptional stress
-patterns are also generated probabilistically (e.g., `LH]` words with
-penultimate stress). Stress and weight are also used to apply both
-spondaic and dactylic lowering to narrow transcriptions, following work
-such as Wetzels (2007). Secondary stress is provided when `narrow = T`.
-In the function `ipa()`, stress is *not* probabilistic (and therefore
-not variable): it merely follows the orthography as well as the typical
-stress rules in Portuguese (and Spanish).
-
-### A note on key assumptions
-
-There are several assumptions about surface-forms when `narrow = T`
-(Portuguese only). Most of these assumptions can (and probably will) be
-adjusted as the package improves its accuracy and coverage.
-Diphthongization, for example, is sensitive to phonotactics. A word such
-as `CV.ˈV.CV` will be narrowly transcribed as `ˈCGV.CV` (except when the
-initial consonant is an affricate (allophonic), which *seems* to lower
-the probability of diphthongization based on my judgement).
-Diphthongization is not applied if the onset is complex. Needless to
-say, these assumptions are based on a particular dialect of Brazilian
-Portuguese, and I do not expect all of them to seamlessly apply to other
-dialects (although some assumptions are more easily generalizable than
-others).
-
-Narrow transcription also includes (final) vowel reduction, voicing
-assimilation, l-vocalization, vowel devoicing, palatalization, and
-epenthesis in `sC` clusters and other consonant sequences that are
-expected to be repaired on surface forms (e.g., *kt*, *gn*). Examples
-can be generated with the function `ipa_pt_test()`.
 
 ### Helper functions
 
@@ -224,7 +215,7 @@ maxent(tableau = maxent_data)
 #> 
 #> $weights
 #>    ident_vce no_vce_final 
-#>   0.05410679   0.63904039 
+#>   0.05410682   0.63904035 
 #> 
 #> $log_likelihood
 #> [1] -78.72152
@@ -407,9 +398,5 @@ distributed through OpenLexicon under CC BY-SA 4.0.
   Hume, & K. Rice (Eds.), *The Blackwell companion to phonology*
   (pp. 1160–1184). Wiley Online Library.
   <https://doi.org/10.1002/9781444335262.wbctp0049>
-
-- Wetzels, L., (2007) Primary Word Stress in Brazilian Portuguese and
-  the Weight Parameter, *Journal of Portuguese Linguistics* 6(1), 9-58.
-  doi: <https://doi.org/10.5334/jpl.144>
 
 [^1]: Functions without `_pt`, `_fr` or `_sp` are language-independent.

@@ -24,8 +24,12 @@ syllabify_fr <- function(word) {
   word <- stringr::str_replace_all(word, pattern = "O", replacement = "\u0254\u0303")
   word <- stringr::str_replace_all(word, pattern = "U", replacement = "\u0153\u0303")
 
-  # Gestion des consonnes seules en fin de mots
-  word <- stringr::str_replace_all(word, pattern = "-(n|\u0281|k|l|s|d|b|t|v)(s|t|b|\u0281|k|d|p|f|l|\u0281|v|n)", replacement = "\\1-\\2")
+  # Gestion des groupes consonantiques: on ne separe jamais obstruante + liquide
+  # (d\u0281, k\u0281, t\u0281, bl...); tout autre groupe se partage coda-attaque.
+  word <- stringr::str_replace_all(word, pattern = "-([pbtdkgfvsz\u0283\u0292mnl\u0281])([pbtdkgfvsz\u0283\u0292mn])", replacement = "\\1-\\2")
+  word <- stringr::str_replace_all(word, pattern = "-([pbtdkgfvsz\u0283\u0292mnl\u0281])([pbtdkgfvsz\u0283\u0292mn])", replacement = "\\1-\\2")
+  word <- stringr::str_replace_all(word, pattern = "-([lmn\u0281sz])([l\u0281])", replacement = "\\1-\\2")
+  word <- stringr::str_replace_all(word, pattern = "-([pbtdkgfvsz\u0283\u0292][l\u0281])$", replacement = "\\1")
   word <- stringr::str_replace_all(word, pattern = "-([pbtdkgsz\u0283\u0292fvl\u0281mn\u0272jw]$)", replacement = "\\1")
   word <- stringr::str_replace_all(word, pattern = "-([pbtdkgsz\u0283\u0292fvl\u0281mn\u0272jw](?= ))", replacement = "\\1")
 

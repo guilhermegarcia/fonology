@@ -3,23 +3,28 @@
 \docType{data}
 \name{it_lex}
 \alias{it_lex}
-\title{Data: Italian lexicon for stress and vowel-quality exceptions}
+\title{Data: Italian lexicon}
 \format{
-A named character vector (initially empty; grows via \code{add_lex()})
+A data frame with 2 variables:
+\describe{
+  \item{\code{word}}{Italian orthographic form}
+  \item{\code{ipa}}{IPA transcription with syllabification and stress}
+}
 }
 \usage{
 data(it_lex)
 }
 \description{
-A named character vector used by \code{ipa(lg = "Italian")} to handle
-stress irregularities and mid-vowel quality distinctions that cannot be
-inferred from orthography alone. Keys are plain orthographic forms;
-values are diacritized forms encoding stress position and, optionally,
-vowel quality (e.g. \code{"chiedere" -> "chi\u00e9dere"},
-\code{"livello" -> "liv\u00e9llo"}). Use \code{add_lex()} to populate it.
+An Italian pronunciation lexicon used by \code{ipa(lg = "Italian")} for
+lexical lookup before the rule-based pipeline. Derived from the English
+Wiktionary via Wiktextract (Ylonen 2022), as distributed by
+\url{https://kaikki.org}; Wiktionary content is available under
+CC BY-SA. When a word lists multiple pronunciations, the first
+(standard) variant is kept. Transcriptions are converted to the package's
+Italian conventions in \code{data-raw/build_it_lex.R}.
 }
 \seealso{
-\code{\link{add_lex_it}}
+\code{\link{add_lex_it}}, \code{\link{ipa}}
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})

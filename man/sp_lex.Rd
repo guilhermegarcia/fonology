@@ -3,20 +3,29 @@
 \docType{data}
 \name{sp_lex}
 \alias{sp_lex}
-\title{Data: Spanish user lexicon for stress exceptions}
+\title{Data: Spanish lexicon}
 \format{
-A named character vector (initially empty; grows via \code{add_lex_sp()})
+A data frame with 2 variables:
+\describe{
+  \item{\code{word}}{Spanish orthographic form}
+  \item{\code{ipa}}{IPA transcription with syllabification and stress}
+}
 }
 \usage{
 data(sp_lex)
 }
 \description{
-A named character vector used by \code{ipa(lg = "Spanish")} to handle
-stress irregularities. Keys are plain orthographic forms; values are
-diacritized forms encoding stress position. Use \code{add_lex_sp()} to populate it.
+A Spanish pronunciation lexicon used by \code{ipa(lg = "Spanish")} for
+lexical lookup before the rule-based pipeline. Derived from the English
+Wiktionary via Wiktextract (Ylonen 2022), as distributed by
+\url{https://kaikki.org}; Wiktionary content is available under CC BY-SA.
+The first phonemic variant without Castilian theta or palatal lateral is kept,
+matching the package's seseo and yeismo conventions. Segments and stress
+come from Wiktionary; syllable boundaries are derived with the package
+syllabifier in \code{data-raw/build_sp_lex.R}.
 }
 \seealso{
-\code{\link{add_lex_sp}}
+\code{\link{add_lex_sp}}, \code{\link{ipa}}
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})
