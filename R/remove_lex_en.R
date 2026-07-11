@@ -5,7 +5,7 @@
 #' @param words A character vector of words to remove.
 #' @return Invisibly returns the updated IPA lexicon.
 #' @seealso \code{\link{add_lex_en}}, \code{\link{export_lex}}
-#' @noRd
+#' @export
 
 remove_lex_en <- function(words) {
   plain <- stringr::str_to_lower(words)

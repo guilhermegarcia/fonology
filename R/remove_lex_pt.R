@@ -10,7 +10,7 @@
 #' @return Invisibly returns a list with the updated lexicons:
 #'   \code{diacritized} (\code{pt_lex_user}) and \code{ipa} (\code{pt_ipa_lex}).
 #' @seealso \code{\link{add_lex_pt}}, \code{\link{export_lex}}
-#' @noRd
+#' @export
 
 remove_lex_pt <- function(words) {
 

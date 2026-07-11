@@ -8,9 +8,9 @@
 #' @param words A character vector of words to remove (plain or diacritized
 #'   orthographic forms).
 #' @return Invisibly returns a list with the updated lexicons:
-#'   \code{diacritized} (\code{it_lex}) and \code{ipa} (\code{it_ipa_lex}).
+#'   \code{diacritized} (\code{it_lex_user}) and \code{ipa} (\code{it_ipa_lex}).
 #' @seealso \code{\link{add_lex_it}}, \code{\link{export_lex}}
-#' @noRd
+#' @export
 
 remove_lex_it <- function(words) {
 

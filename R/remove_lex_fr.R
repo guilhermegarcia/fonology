@@ -6,7 +6,7 @@
 #'   forms).
 #' @return Invisibly returns the updated IPA-override lexicon.
 #' @seealso \code{\link{add_lex_fr}}, \code{\link{export_lex}}
-#' @noRd
+#' @export
 
 remove_lex_fr <- function(words) {
 
