@@ -21,13 +21,54 @@
   get(name, envir = as.environment("package:Fonology"))
 }
 
+# Installed packages lazy-load their data from Rdata.rdb, so writing .rda
+# files into the installation's data/ directory has no effect (and may not
+# even be permitted). User edits are therefore persisted under
+# tools::R_user_dir(). A source checkout loaded with devtools::load_all()
+# (detected by the absence of the Meta/ directory that installed packages
+# have) keeps the original behavior of writing to the package's own data/
+# directory, so that entries can be committed.
+.is_source_checkout <- function() {
+  !dir.exists(file.path(find.package("Fonology"), "Meta"))
+}
+
+.user_lex_path <- function(name) {
+  if (.is_source_checkout()) {
+    file.path(find.package("Fonology"), "data", paste0(name, ".rda"))
+  } else {
+    file.path(
+      tools::R_user_dir("Fonology", which = "data"),
+      paste0(name, ".rda")
+    )
+  }
+}
+
+.load_user_lex_file <- function(name) {
+  path <- .user_lex_path(name)
+
+  if (!file.exists(path)) {
+    return(NULL)
+  }
+
+  e <- new.env(parent = emptyenv())
+  load(path, envir = e)
+
+  if (!exists(name, envir = e, inherits = FALSE)) {
+    return(NULL)
+  }
+
+  get(name, envir = e, inherits = FALSE)
+}
+
 .init_user_lex_state <- function() {
   if (isTRUE(.fonology_state$initialized)) {
     return(invisible(NULL))
   }
 
   for (name in .user_lex_names) {
-    assign(name, .get_pkg_data(name), envir = .fonology_state)
+    value <- .load_user_lex_file(name)
+    if (is.null(value)) value <- .get_pkg_data(name)
+    assign(name, value, envir = .fonology_state)
   }
 
   .fonology_state$initialized <- TRUE
@@ -47,10 +88,14 @@
 
 .save_user_lex <- function(name) {
   .init_user_lex_state()
+
+  path <- .user_lex_path(name)
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
+
   save(
     list = name,
     envir = .fonology_state,
-    file = file.path(find.package("Fonology"), "data", paste0(name, ".rda")),
+    file = path,
     compress = "xz"
   )
 

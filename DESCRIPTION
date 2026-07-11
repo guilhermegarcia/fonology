@@ -24,6 +24,7 @@ Depends:
 RoxygenNote: 8.0.0
 Imports: 
     dplyr,
+    tools,
     forcats,
     ggplot2,
     graphics,
