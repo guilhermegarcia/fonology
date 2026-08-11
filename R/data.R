@@ -166,14 +166,30 @@
 #' The list is based on PanPhon, by Mortensen et al (2016), whose GitHub can be found
 #' at https://github.com/dmort27/panphon
 #'
-#' @format A data frame with with one IPA symbol per row and one feature per column
-#' The (abbreviated) available features are: \code{syl}, \code{son},
+#' The table is an adaptation of PanPhon, not a copy: three columns are renamed
+#' (\code{delrel}, \code{voi} and \code{velaric} become \code{DR}, \code{vce}
+#' and \code{vel}), the velar stop is written with ASCII \code{g} rather than
+#' PanPhon's script g \enc{ɡ}{(U+0261)}, \code{back} and \code{tense} are
+#' hand-adapted, and
+#' \code{approx} is an additional column with no PanPhon equivalent. See
+#' \code{data-raw/build_allFeatures.R} for the full derivation.
+#'
+#' IPA symbols are stored in Unicode NFD (decomposed) form, so \code{ã} is
+#' \code{a} followed by a combining tilde. \code{getFeat()} and
+#' \code{getPhon()} normalise their input the same way, so either composition
+#' works there.
+#'
+#' @format A tibble with 6,367 rows (one IPA symbol per row) and 26 columns: the
+#' \code{ipa} symbol plus 25 features. Every feature cell is \code{"+"},
+#' \code{"-"} or \code{"0"}; there are no missing values. The (abbreviated)
+#' available features are: \code{syl}, \code{son},
 #' \code{cons}, \code{cont}, \code{DR}, \code{lat}, \code{nas}, \code{strid},
 #' \code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
 #' \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
 #' \code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}
 #' @usage data(allFeatures)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @seealso \code{\link{getFeat}}, \code{\link{getPhon}}
 #' @source Adapted from <https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
 "allFeatures"
 
@@ -482,7 +498,29 @@
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @format A vector containing the consonants and glides in Spanish
 #' @usage data(consonants_sp)
+#' @seealso \code{\link{getFeat}}, \code{\link{getPhon}}
 "consonants_sp"
+
+#' Data: vowel inventory for English
+#'
+#' The inventory of vowels in English, including the r-coloured vowels
+#' \enc{ɚ}{(U+025A)} and \enc{ɝ}{(U+025D)}
+#'
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @format A vector containing the vowels in English
+#' @usage data(vowels_en)
+#' @seealso \code{\link{getFeat}}, \code{\link{getPhon}}
+"vowels_en"
+
+#' Data: consonant inventory for English
+#'
+#' The inventory of consonants and glides in English
+#'
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @format A vector containing the consonants and glides in English
+#' @usage data(consonants_en)
+#' @seealso \code{\link{getFeat}}, \code{\link{getPhon}}
+"consonants_en"
 
 #' Data: sample tableau for NHG (1)
 #'

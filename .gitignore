@@ -15,6 +15,8 @@ tableaux.R
 /Meta/
 /.quarto/
 /data-raw/*
+!/data-raw/build_allFeatures.R
+!/data-raw/build_inventories.R
 !/data-raw/build_fr_lex.R
 !/data-raw/build_it_lex.R
 !/data-raw/build_sp_lex.R

@@ -9,7 +9,6 @@
 #' @importFrom dplyr where
 #' @importFrom forcats fct_reorder
 #' @importFrom graphics lines
-#' @importFrom gtools combinations
 #' @importFrom ngram get.phrasetable
 #' @importFrom ngram ngram
 #' @importFrom purrr map

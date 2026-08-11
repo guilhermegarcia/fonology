@@ -1,6 +1,12 @@
 utils::globalVariables(c(
   "pt_lex", "it_lex", "it_lex_user", "sp_lex", "sp_lex_user", "pt_lex_user",
   "en_lex", "fr_lex",
+  "allFeatures",
+  "vowels_pt", "consonants_pt",
+  "vowels_sp", "consonants_sp",
+  "vowels_fr", "consonants_fr",
+  "vowels_it", "consonants_it",
+  "vowels_en", "consonants_en",
   ".", "pro",
   "proB", "ipa", "syl",
   "cons", "son", "cont",

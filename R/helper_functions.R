@@ -8,6 +8,152 @@
   stringr::str_remove_all(x, "\\*")
 }
 
+#' Feature names available in allFeatures
+#'
+#' The 25 abbreviated feature names, in the column order used by
+#' \code{allFeatures}.
+#' @noRd
+
+.feature_names <- c(
+  "syl", "son", "cons", "cont", "DR", "lat", "nas", "strid", "vce",
+  "sg", "cg", "ant", "cor", "distr", "lab", "hi", "lo", "back", "round",
+  "vel", "tense", "long", "hitone", "hireg", "approx"
+)
+
+#' Language names accepted by getFeat() and getPhon()
+#'
+#' Maps every accepted spelling to a two-letter code.
+#' @noRd
+
+.available_lg <- c(
+  portuguese = "pt", pt = "pt",
+  spanish = "sp", sp = "sp",
+  french = "fr", fr = "fr",
+  italian = "it", it = "it",
+  english = "en", en = "en"
+)
+
+#' Phonemic inventory for a language
+#'
+#' Single source of truth for the segments belonging to a language. The
+#' inventories live in the \code{vowels_XX}/\code{consonants_XX} datasets, so
+#' the feature functions and the documented datasets can never disagree.
+#' @param lg A two-letter code, or any spelling accepted by \code{.available_lg}
+#' @return A character vector of IPA segments
+#' @noRd
+
+.inventory <- function(lg) {
+  code <- .available_lg[[stringr::str_to_lower(lg)]]
+
+  switch(code,
+    pt = c(vowels_pt, consonants_pt),
+    sp = c(vowels_sp, consonants_sp),
+    fr = c(vowels_fr, consonants_fr),
+    it = c(vowels_it, consonants_it),
+    en = c(vowels_en, consonants_en)
+  )
+}
+
+#' Resolve the lg argument of getFeat()/getPhon()
+#'
+#' A length-one \code{lg} names a language; anything longer is a user-supplied
+#' inventory.
+#' @param lg A language name or a vector of IPA segments
+#' @return A character vector of IPA segments
+#' @noRd
+
+.resolve_lg <- function(lg) {
+  lg <- as.character(lg)
+
+  if (length(lg) == 1) {
+    if (is.na(lg) || !stringr::str_to_lower(lg) %in% names(.available_lg)) {
+      stop("Language not supported (or misspelled). If you're providing your own inventory, remember it must be in a vector. For example, lg = c('a', 'i', 'u', 'p', 'b').")
+    }
+
+    return(.inventory(lg))
+  }
+
+  lg
+}
+
+#' Alias map for IPA spellings that allFeatures does not use
+#'
+#' Names are alternative spellings, values are the spelling stored in
+#' \code{allFeatures}. Single-codepoint aliases are substituted anywhere in a
+#' string; the affricate aliases are ambiguous as substrings (a plain sequence
+#' of /t/ and /s/ is not an affricate), so they only apply to a whole segment.
+#' @noRd
+
+.ipa_aliases_any <- c(
+  "\u0261" = "g", # script g -> ASCII g
+  "\u025a" = "\u0259\u02de", # r-coloured schwa
+  "\u025d" = "\u025c\u02de" # r-coloured open-mid central vowel
+)
+
+.ipa_aliases_exact <- c(
+  "t\u0283" = "t\u0361\u0283",
+  "d\u0292" = "d\u0361\u0292",
+  "ts" = "t\u0361s",
+  "dz" = "d\u0361z"
+)
+
+#' Normalise IPA symbols for lookup in allFeatures
+#'
+#' Applies NFD normalisation (allFeatures stores decomposed forms, so
+#' precomposed input such as a precomposed a-tilde would not match otherwise)
+#' plus the alias map above.
+#' @param x A character vector of IPA segments
+#' @return The same vector in the spelling used by \code{allFeatures}
+#' @noRd
+
+.norm_ipa <- function(x) {
+  x <- stringi::stri_trans_nfd(as.character(x))
+
+  for (from in names(.ipa_aliases_any)) {
+    x <- stringr::str_replace_all(x, stringr::fixed(from), .ipa_aliases_any[[from]])
+  }
+
+  hit <- match(x, names(.ipa_aliases_exact))
+  x[!is.na(hit)] <- unname(.ipa_aliases_exact)[hit[!is.na(hit)]]
+
+  x
+}
+
+#' Feature table restricted to an inventory
+#'
+#' Looks every segment up in \code{allFeatures} and errors, naming the culprits,
+#' if any is absent - segments must never be dropped silently, since a dropped
+#' segment yields a wrong (but plausible) feature matrix.
+#' @param inv A character vector of IPA segments
+#' @return A tibble with one row per segment. The \code{ipa} column holds the
+#' caller's own spelling, so results are returned in the notation that was
+#' provided.
+#' @noRd
+
+.feature_table <- function(inv) {
+  inv <- as.character(inv)
+
+  if (length(inv) == 0) {
+    stop("Empty phonemic inventory.")
+  }
+
+  inv <- unique(inv[!is.na(inv)])
+  rows <- match(.norm_ipa(inv), allFeatures$ipa)
+
+  if (anyNA(rows)) {
+    stop(
+      "Segment(s) absent from allFeatures: ",
+      stringr::str_c(inv[is.na(rows)], collapse = " "),
+      ". Check the transcription, or see data(allFeatures) for the symbols available."
+    )
+  }
+
+  out <- allFeatures[rows, , drop = FALSE]
+  out$ipa <- inv
+
+  out
+}
+
 #' Word generator for Portuguese
 #'
 #' Returns IPA phonemic transcription for a nonce word given a specific weight profile.

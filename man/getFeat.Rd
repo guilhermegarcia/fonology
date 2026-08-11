@@ -10,15 +10,33 @@ getFeat(ph, lg)
 \item{ph}{The phonemes of interest}
 
 \item{lg}{The language of interest: English, French, Italian, Portuguese, Spanish.
-Alternatively, you can also provide your own inventory as a vector}
+Alternatively, you can also provide your own inventory as a vector. Every
+segment must be listed in \code{allFeatures}; unknown segments raise an error
+rather than being ignored}
 }
 \value{
-The minimal matrix of features given \code{ph} and \code{lg}
+The minimal matrix of features given \code{ph} and \code{lg}, as a
+character vector such as \code{c("-son", "-cont", "+lab")}. If the phonemes
+do not form a natural class, the message
+\code{"Not a natural class in this language."} is returned instead
 }
 \description{
-Generates a feature matrix for a given set of phonemes in a given language.
+Generates the minimal feature matrix that picks out a given set of phonemes,
+and only that set, within a given inventory. If no set of features isolates
+the phonemes provided, they do not form a natural class in that language.
+}
+\details{
+The built-in inventories (\code{vowels_pt}, \code{consonants_pt}
+and so on) list the phonemes a language is analysed as having, not the
+symbols \code{\link{ipa}} prints. Portuguese, for instance, is analysed with
+oral vowels only. To work with surface segments, pass the inventory you want
+as \code{lg} instead of a language name.
 }
 \examples{
 getFeat(ph = c("i", "u"), lg = "english")
 getFeat(ph = c("i", "u"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"))
+getFeat(ph = c("p", "b"), lg = "portuguese")
+}
+\seealso{
+\code{\link{getPhon}} for the inverse operation
 }

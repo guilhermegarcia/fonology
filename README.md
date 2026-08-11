@@ -68,7 +68,14 @@ getFeat(ph = c("p", "b"), lg = "Portuguese")
 #> [1] "-son"  "-cont" "+lab"
 getFeat(ph = c("k", "g"), lg = "Italian")
 #> [1] "+cons" "+back"
+getFeat(ph = c("s", "z", "ʃ", "ʒ"), lg = "Portuguese")
+#> [1] "+strid" "+cor"
 ```
+
+The inventories come from the `vowels_XX` and `consonants_XX` datasets,
+so you can inspect exactly which segments a language contains. A segment
+that is not in the inventory raises an error naming it, rather than
+being ignored.
 
 ### From features to phonemes
 
@@ -80,12 +87,18 @@ your own phonemic inventory as a vector.
 
 ``` r
 getPhon(ft = c("+syl", "+hi"), lg = "French")
-#> [1] "u" "i" "y"
+#> [1] "i" "y" "u"
 getPhon(ft = c("-DR", "-cont", "-son"), lg = "English")
-#> [1] "t" "d" "b" "k" "g" "p"
+#> [1] "p" "b" "t" "d" "k" "g"
 getPhon(ft = c("-son", "+vce"), lg = "Spanish")
-#> [1] "z" "d" "b" "ʝ" "g" "v"
+#> [1] "b" "v" "d" "g" "z" "ʝ"
+getPhon(ft = c("+strid", "+cor"), lg = "Portuguese")
+#> [1] "s" "z" "ʃ" "ʒ"
 ```
+
+Phonemes are returned in inventory order, and `getFeat()` and
+`getPhon()` are inverses of each other: feeding the matrix returned by
+one into the other recovers the original set.
 
 ## IPA transcription
 

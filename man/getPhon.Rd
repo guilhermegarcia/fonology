@@ -11,13 +11,20 @@ getPhon(ft, lg)
 \code{cons}, \code{cont}, \code{DR}, \code{lat}, \code{nas}, \code{strid},
 \code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
 \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
-\code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}}
+\code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}.
+Each must be immediately preceded by \code{+}, \code{-} or \code{0}, and no
+feature may be given twice}
 
 \item{lg}{The language of interest: English, French, Italian, Portuguese, Spanish.
-Alternatively, you can also provide your own inventory as a vector}
+Alternatively, you can also provide your own inventory as a vector. Every
+segment must be listed in \code{allFeatures}; unknown segments raise an error
+rather than being ignored}
 }
 \value{
-The phonemes given the features provided
+The phonemes given the features provided, in inventory order and in
+the notation used by the inventory. If nothing matches, the message
+\code{"No phonemes with the features provided given the inventory in question."}
+is returned instead
 }
 \description{
 Returns a set of phonemes given different distinctive feature values.
@@ -25,4 +32,8 @@ Returns a set of phonemes given different distinctive feature values.
 \examples{
 getPhon(ft = c("+hi", "+tense"), lg = "english")
 getPhon(ft = c("+hi", "+tense"), lg = c("i", "u", "a", "p", "t", "k", "l", "m", "n"))
+getPhon(ft = c("-son", "+vce"), lg = "spanish")
+}
+\seealso{
+\code{\link{getFeat}} for the inverse operation
 }
