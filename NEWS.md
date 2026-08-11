@@ -1,3 +1,57 @@
+# Fonology 1.3.0
+
+## `getFeat()` and `getPhon()` audited and repaired
+
+Both functions were rewritten around a shared inventory and lookup layer;
+neither had test coverage before.
+
+### Corrected results
+
+- `/g/` was silently dropped from every language (the segment list spelled it
+  `ɡ`, the data uses `g`), so e.g. `getFeat(c("k", "g"), "Italian")` returned
+  the matrix for `/k/` alone and `getFeat("b", "Portuguese")` gained a spurious
+  `-cor`
+- `+long` behaved as `+lo`, and `+hitone`/`+hireg` as `+hi` (leftmost-first
+  regex alternation); all 25 features are now reachable
+- French `ɑ̃`, `ɔ̃` and `ɱ` were rejected by `getFeat()` but returned by
+  `getPhon()`; the two functions now agree
+- `[strid]` was `0` for every sibilant: `getFeat(c("s", "z", "ʃ", "ʒ"), "pt")`
+  returned `0strid`, now `+strid +cor`
+- Among equally small matrices, specified values are preferred over `0`
+
+### Robustness
+
+- Segments absent from the inventory or from `allFeatures` now raise an error
+  naming them, instead of being dropped from the computation
+- Fixed crashes on whole-inventory input, one-segment inventories and empty
+  input; repeated or contradictory features now give a clear error
+- Precomposed and decomposed IPA, and affricates with or without a tie bar,
+  are both accepted
+
+### Data
+
+- `allFeatures` rebuilt (`data-raw/build_allFeatures.R`): 120 duplicate IPA keys
+  removed (6,487 -> 6,367 rows), `strid` taken from upstream PanPhon, symbols
+  normalised to NFD, `ɚ`/`ɝ` corrected to mid and unrounded
+- Inventories now come from the `vowels_XX`/`consonants_XX` datasets
+  (`data-raw/build_inventories.R`): new `vowels_en`/`consonants_en`, `n` added
+  to Spanish, `x` to Portuguese, `ɚ`/`ɝ` to English, `ɱ` removed from French.
+  Portuguese keeps oral vowels only — nasal vowels are treated as derived from
+  vowel + nasal, so they are not valid input to these functions
+
+### Breaking changes
+
+- `getPhon()` returns phonemes in inventory order rather than merge-sort order;
+  the sets are unchanged, but positional indexing may need updating
+- `getFeat()` on an entire inventory returns a message instead of erroring
+
+### Other
+
+- Minimal-matrix search vectorised; `gtools` dropped from Imports
+- New `tests/testthat/test-features.R`, including a property test verifying that
+  `getFeat()` and `getPhon()` are inverses across all one- and two-phoneme sets
+  in all five languages
+
 # Fonology 1.2.0
 
 ## Lexical lookup for all five languages
