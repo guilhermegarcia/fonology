@@ -16,10 +16,10 @@
 #' produces a wrong transcription that cannot be fixed with diacritics alone
 #' (e.g. loanwords whose segmental make-up the rules do not handle).
 #'
-#' Changes made by this function are local to the current package
-#' installation. When used from a source checkout loaded with
-#' \code{devtools::load_all()}, the corresponding data file in the source tree
-#' is updated and can be committed.
+#' Entries added here are local to the current machine: they are written to
+#' the user data directory returned by \code{tools::R_user_dir("Fonology")} and
+#' survive package updates. They are kept separate from the corrections that
+#' ship with the package, which they override; see \code{\link{promote_lex}}.
 #'
 #' IPA-override entries take priority over diacritized-form entries, which in
 #' turn take priority over the default pipeline.
@@ -62,6 +62,9 @@ add_lex_pt <- function(words, ipa = NULL) {
     keep  <- !duplicated(plain, fromLast = TRUE)
     plain <- plain[keep]
     ipa   <- ipa[keep]
+
+    .check_ipa_override(plain, ipa, fn = "add_lex_pt")
+
 
     lex <- .get_user_lex("pt_ipa_lex")
 

@@ -5,7 +5,10 @@
 \alias{sp_ipa_lex}
 \title{Data: Spanish IPA-override lexicon}
 \format{
-A named character vector (initially empty; grows via \code{add_lex_sp()})
+A named character vector. Local to this installation and empty in
+  the shipped package; grows via \code{add_lex_sp()}. The corrections distributed with the
+  package live in the corresponding \code{*_fix} dataset, which this layer
+  overrides.
 }
 \usage{
 data(sp_ipa_lex)

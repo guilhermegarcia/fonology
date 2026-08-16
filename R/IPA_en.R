@@ -479,7 +479,7 @@
 }
 
 ipa_en <- function(word = "hospital") {
-  en_ipa_lex <- .get_user_lex("en_ipa_lex")
+  en_ipa_lex <- .lex("en_ipa_lex")
 
   wd <- stringr::str_to_lower(word)
   has_digit <- stringr::str_detect(wd, "\\d")

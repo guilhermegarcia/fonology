@@ -11,7 +11,7 @@ remove_lex_en <- function(words) {
   plain <- stringr::str_to_lower(words)
 
   lex <- .get_user_lex("en_ipa_lex")
-  lex <- lex[!names(lex) %in% plain]
+  lex <- .drop_lex(lex, plain, "en_ipa_lex")
 
   .set_user_lex("en_ipa_lex", lex)
   .save_user_lex("en_ipa_lex")

@@ -39,7 +39,7 @@ export_lex <- function(lg, file, ipa = FALSE) {
       cli::cli_abort("{.arg lg} must be one of {.val it}, {.val sp}, {.val pt}, {.val fr}, or {.val en}.")
     )
 
-    lex <- .get_user_lex(lex_name)
+    lex <- .lex(lex_name)
 
     if (length(lex) == 0) {
       cli::cli_alert_info("IPA lexicon is empty \u2014 nothing to export.")
@@ -68,7 +68,7 @@ export_lex <- function(lg, file, ipa = FALSE) {
     cli::cli_abort("{.arg lg} must be one of {.val it}, {.val sp}, {.val pt}, {.val fr}, or {.val en}.")
   )
 
-  lex <- .get_user_lex(lex_name)
+  lex <- .lex(lex_name)
 
   if (length(lex) == 0) {
     cli::cli_alert_info("Lexicon is empty \u2014 nothing to export.")

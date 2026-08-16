@@ -19,14 +19,14 @@ remove_lex_pt <- function(words) {
 
   ## ---- Diacritized-form lexicon -------------------------------------------
   lex_d <- .get_user_lex("pt_lex_user")
-  lex_d <- lex_d[!names(lex_d) %in% plain]
+  lex_d <- .drop_lex(lex_d, plain, "pt_lex_user")
 
   .set_user_lex("pt_lex_user", lex_d)
   .save_user_lex("pt_lex_user")
 
   ## ---- IPA-override lexicon -----------------------------------------------
   lex_i <- .get_user_lex("pt_ipa_lex")
-  lex_i <- lex_i[!names(lex_i) %in% plain]
+  lex_i <- .drop_lex(lex_i, plain, "pt_ipa_lex")
 
   .set_user_lex("pt_ipa_lex", lex_i)
   .save_user_lex("pt_ipa_lex")

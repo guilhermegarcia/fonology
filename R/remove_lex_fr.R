@@ -13,7 +13,7 @@ remove_lex_fr <- function(words) {
   plain <- stringr::str_to_lower(words)
 
   lex <- .get_user_lex("fr_ipa_lex")
-  lex <- lex[!names(lex) %in% plain]
+  lex <- .drop_lex(lex, plain, "fr_ipa_lex")
 
   .set_user_lex("fr_ipa_lex", lex)
   .save_user_lex("fr_ipa_lex")

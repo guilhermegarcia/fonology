@@ -23,10 +23,10 @@ stored verbatim and returned directly---the transcription pipeline is
 bypassed entirely.
 }
 \details{
-Changes made by this function are local to the current package
-installation. When used from a source checkout loaded with
-\code{devtools::load_all()}, the corresponding data file in the source tree
-is updated and can be committed.
+Entries added here are local to the current machine: they are written to
+the user data directory returned by \code{tools::R_user_dir("Fonology")} and
+survive package updates. They are kept separate from the corrections that
+ship with the package, which they override; see \code{\link{promote_lex}}.
 }
 \examples{
 \dontrun{

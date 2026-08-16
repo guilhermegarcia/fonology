@@ -275,7 +275,10 @@
 #' populate it. Entries here take priority over the corpus-backed
 #' \code{\link{sp_lex}}.
 #'
-#' @format A named character vector (grows via \code{add_lex_sp()})
+#' @format A named character vector. Local to this installation and empty in
+#'   the shipped package; grows via \code{add_lex_sp()}. The corrections distributed with the
+#'   package live in the corresponding \code{*_fix} dataset, which this layer
+#'   overrides.
 #' @usage data(sp_lex_user)
 #' @seealso \code{\link{add_lex_sp}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
@@ -310,7 +313,10 @@
 #' lexicon. Keys are plain orthographic forms; values are diacritized forms.
 #' Use \code{add_lex_pt()} to populate it.
 #'
-#' @format A named character vector (initially empty; grows via \code{add_lex_pt()})
+#' @format A named character vector. Local to this installation and empty in
+#'   the shipped package; grows via \code{add_lex_pt()}. The corrections distributed with the
+#'   package live in the corresponding \code{*_fix} dataset, which this layer
+#'   overrides.
 #' @usage data(pt_lex_user)
 #' @seealso \code{\link{add_lex_pt}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
@@ -327,7 +333,10 @@
 #' close-mid). Use \code{add_lex_it()} to populate it.
 #' Entries here take priority over the corpus-backed \code{\link{it_lex}}.
 #'
-#' @format A named character vector (grows via \code{add_lex_it()})
+#' @format A named character vector. Local to this installation and empty in
+#'   the shipped package; grows via \code{add_lex_it()}. The corrections distributed with the
+#'   package live in the corresponding \code{*_fix} dataset, which this layer
+#'   overrides.
 #' @usage data(it_lex_user)
 #' @seealso \code{\link{add_lex_it}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
@@ -362,7 +371,10 @@
 #' over \code{pt_lex_user}. Use \code{add_lex_pt(word, ipa = "...")} to
 #' populate it.
 #'
-#' @format A named character vector (initially empty; grows via \code{add_lex_pt()})
+#' @format A named character vector. Local to this installation and empty in
+#'   the shipped package; grows via \code{add_lex_pt()}. The corrections distributed with the
+#'   package live in the corresponding \code{*_fix} dataset, which this layer
+#'   overrides.
 #' @usage data(pt_ipa_lex)
 #' @seealso \code{\link{add_lex_pt}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
@@ -375,7 +387,10 @@
 #' Keys are plain orthographic forms; values are complete IPA strings.
 #' Use \code{add_lex_sp(word, ipa = "...")} to populate it.
 #'
-#' @format A named character vector (initially empty; grows via \code{add_lex_sp()})
+#' @format A named character vector. Local to this installation and empty in
+#'   the shipped package; grows via \code{add_lex_sp()}. The corrections distributed with the
+#'   package live in the corresponding \code{*_fix} dataset, which this layer
+#'   overrides.
 #' @usage data(sp_ipa_lex)
 #' @seealso \code{\link{add_lex_sp}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
@@ -388,7 +403,10 @@
 #' Keys are plain orthographic forms; values are complete IPA strings.
 #' Use \code{add_lex_fr(word, ipa = "...")} to populate it.
 #'
-#' @format A named character vector (initially empty; grows via \code{add_lex_fr()})
+#' @format A named character vector. Local to this installation and empty in
+#'   the shipped package; grows via \code{add_lex_fr()}. The corrections distributed with the
+#'   package live in the corresponding \code{*_fix} dataset, which this layer
+#'   overrides.
 #' @usage data(fr_ipa_lex)
 #' @seealso \code{\link{add_lex_fr}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
@@ -426,7 +444,10 @@
 #' Keys are plain orthographic forms; values are complete IPA strings.
 #' Use \code{add_lex_it(word, ipa = "...")} to populate it.
 #'
-#' @format A named character vector (initially empty; grows via \code{add_lex_it()})
+#' @format A named character vector. Local to this installation and empty in
+#'   the shipped package; grows via \code{add_lex_it()}. The corrections distributed with the
+#'   package live in the corresponding \code{*_fix} dataset, which this layer
+#'   overrides.
 #' @usage data(it_ipa_lex)
 #' @seealso \code{\link{add_lex_it}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
@@ -460,7 +481,10 @@
 #' incorrect. Keys are plain orthographic forms; values are complete IPA
 #' strings. Use \code{add_lex_en(word, ipa = "...")} to populate it.
 #'
-#' @format A named character vector (initially empty; grows via \code{add_lex_en()})
+#' @format A named character vector. Local to this installation and empty in
+#'   the shipped package; grows via \code{add_lex_en()}. The corrections distributed with the
+#'   package live in the corresponding \code{*_fix} dataset, which this layer
+#'   overrides.
 #' @usage data(en_ipa_lex)
 #' @seealso \code{\link{add_lex_en}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
@@ -553,3 +577,112 @@
 #' @author Guilherme D. Garcia
 #' @usage data(features_Hayes_2009)
 "features_Hayes_2009"
+
+
+# ---- Shipped lexicon layer ---------------------------------------------------
+# These are the maintainer-curated corrections distributed with the package.
+# They are merged with the user's own (local) lexicon at run time, with the
+# local layer winning. See promote_lex().
+
+#' Data: Portuguese shipped lexicon corrections
+#'
+#' A named character vector of maintainer-curated stress and vowel-quality
+#' corrections distributed with the package and used by
+#' \code{ipa(lg = "Portuguese")}. Keys are plain orthographic forms; values are
+#' diacritized forms. It is merged at run time with the user's own
+#' \code{\link{pt_lex_user}}, which takes priority. Populate it from local
+#' entries with \code{\link{promote_lex}}.
+#'
+#' @format A named character vector
+#' @usage data(pt_lex_fix)
+#' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_pt}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"pt_lex_fix"
+
+#' Data: Spanish shipped lexicon corrections
+#'
+#' A named character vector of maintainer-curated corrections distributed with
+#' the package and used by \code{ipa(lg = "Spanish")}. Keys are plain
+#' orthographic forms; values are diacritized forms. Merged at run time with
+#' \code{\link{sp_lex_user}}, which takes priority.
+#'
+#' @format A named character vector
+#' @usage data(sp_lex_fix)
+#' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_sp}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"sp_lex_fix"
+
+#' Data: Italian shipped lexicon corrections
+#'
+#' A named character vector of maintainer-curated stress and mid-vowel quality
+#' corrections distributed with the package and used by
+#' \code{ipa(lg = "Italian")}. Keys are plain orthographic forms; values are
+#' diacritized forms. Merged at run time with \code{\link{it_lex_user}}, which
+#' takes priority.
+#'
+#' @format A named character vector
+#' @usage data(it_lex_fix)
+#' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_it}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"it_lex_fix"
+
+#' Data: Portuguese shipped IPA overrides
+#'
+#' A named character vector of maintainer-curated IPA overrides distributed
+#' with the package. Keys are plain orthographic forms; values are complete IPA
+#' strings that bypass the transcription pipeline. Merged at run time with
+#' \code{\link{pt_ipa_lex}}, which takes priority.
+#'
+#' @format A named character vector
+#' @usage data(pt_ipa_fix)
+#' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_pt}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"pt_ipa_fix"
+
+#' Data: Spanish shipped IPA overrides
+#'
+#' A named character vector of maintainer-curated IPA overrides distributed
+#' with the package. Merged at run time with \code{\link{sp_ipa_lex}}, which
+#' takes priority.
+#'
+#' @format A named character vector
+#' @usage data(sp_ipa_fix)
+#' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_sp}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"sp_ipa_fix"
+
+#' Data: Italian shipped IPA overrides
+#'
+#' A named character vector of maintainer-curated IPA overrides distributed
+#' with the package. Merged at run time with \code{\link{it_ipa_lex}}, which
+#' takes priority.
+#'
+#' @format A named character vector
+#' @usage data(it_ipa_fix)
+#' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_it}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"it_ipa_fix"
+
+#' Data: French shipped IPA overrides
+#'
+#' A named character vector of maintainer-curated IPA overrides distributed
+#' with the package. Merged at run time with \code{\link{fr_ipa_lex}}, which
+#' takes priority.
+#'
+#' @format A named character vector
+#' @usage data(fr_ipa_fix)
+#' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_fr}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"fr_ipa_fix"
+
+#' Data: English shipped IPA overrides
+#'
+#' A named character vector of maintainer-curated IPA overrides distributed
+#' with the package. Merged at run time with \code{\link{en_ipa_lex}}, which
+#' takes priority.
+#'
+#' @format A named character vector
+#' @usage data(en_ipa_fix)
+#' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_en}}
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+"en_ipa_fix"

@@ -14,10 +14,10 @@
 #' \code{ipa}. The IPA is stored verbatim and returned directly—the
 #' transcription pipeline is bypassed entirely.
 #'
-#' Changes made by this function are local to the current package
-#' installation. When used from a source checkout loaded with
-#' \code{devtools::load_all()}, the corresponding data file in the source tree
-#' is updated and can be committed.
+#' Entries added here are local to the current machine: they are written to
+#' the user data directory returned by \code{tools::R_user_dir("Fonology")} and
+#' survive package updates. They are kept separate from the corrections that
+#' ship with the package, which they override; see \code{\link{promote_lex}}.
 #'
 #' IPA-override entries take priority over diacritized-form entries.
 #'
@@ -59,6 +59,9 @@ add_lex_sp <- function(words, ipa = NULL) {
     keep  <- !duplicated(plain, fromLast = TRUE)
     plain <- plain[keep]
     ipa   <- ipa[keep]
+
+    .check_ipa_override(plain, ipa, fn = "add_lex_sp")
+
 
     lex <- .get_user_lex("sp_ipa_lex")
 

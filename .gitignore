@@ -20,6 +20,7 @@ tableaux.R
 !/data-raw/build_fr_lex.R
 !/data-raw/build_it_lex.R
 !/data-raw/build_sp_lex.R
+!/data-raw/build_fix_lexicons.R
 /manual/*
 !/manual/Fonology.pdf
 /Fonology.pdf

@@ -5,7 +5,10 @@
 \alias{it_lex_user}
 \title{Data: Italian user lexicon for stress and vowel-quality exceptions}
 \format{
-A named character vector (grows via \code{add_lex_it()})
+A named character vector. Local to this installation and empty in
+  the shipped package; grows via \code{add_lex_it()}. The corrections distributed with the
+  package live in the corresponding \code{*_fix} dataset, which this layer
+  overrides.
 }
 \usage{
 data(it_lex_user)

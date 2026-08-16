@@ -5,7 +5,10 @@
 \alias{en_ipa_lex}
 \title{Data: English IPA-override lexicon}
 \format{
-A named character vector (initially empty; grows via \code{add_lex_en()})
+A named character vector. Local to this installation and empty in
+  the shipped package; grows via \code{add_lex_en()}. The corrections distributed with the
+  package live in the corresponding \code{*_fix} dataset, which this layer
+  overrides.
 }
 \usage{
 data(en_ipa_lex)

@@ -23,8 +23,8 @@
 }
 
 ipa_it <- function(word = "italiano") {
-  it_ipa_lex <- .get_user_lex("it_ipa_lex")
-  it_lex_user <- .get_user_lex("it_lex_user")
+  it_ipa_lex <- .lex("it_ipa_lex")
+  it_lex_user <- .lex("it_lex_user")
 
   wd <- stringr::str_to_lower(word) |>
     stringr::str_remove_all("[:punct:]")

@@ -1,3 +1,66 @@
+# Fonology 1.5.0
+
+## Lexical corrections are separated from your own lexicon
+
+Corrections used to live in a single per-language lexicon that was both the
+user's private store and the list of fixes shipped with the package. The two
+roles are now separate:
+
+- **Shipped layer** (`pt_lex_fix`, `pt_ipa_fix`, and the Spanish, Italian,
+  French and English equivalents): corrections curated by the maintainer and
+  distributed with the package
+- **Local layer** (`pt_lex_user`, `pt_ipa_lex`, ...): your own entries, added
+  with `add_lex_*()`, stored under `tools::R_user_dir("Fonology")` and empty in
+  a freshly installed package
+
+The two are merged at transcription time, with your entries taking priority.
+
+- **Fixes shipped in an update now reach everyone.** Previously a user's
+  lexicon file *replaced* the shipped data rather than merging with it, so
+  anyone who had ever called `add_lex_*()` stopped receiving the corrections
+  added in later releases
+- **New `promote_lex()`** (maintainer-facing) moves entries from the local
+  layer into the shipped layer, so a correction can be tested locally, then
+  shipped, after which the local layer can be reset to empty
+- **`remove_lex_*()` now distinguishes two cases.** Removing a word you had
+  overridden restores the shipped correction; removing a word you never touched
+  suppresses the shipped correction for you alone. Calling it twice does both
+  in turn
+- `add_lex_*()` no longer writes into the package's own `data/` directory when
+  run from a source checkout; the local layer is always the user data directory
+
+## A startup message
+
+`library(Fonology)` now prints a short banner with the package version, the
+supported languages and a few example calls. Silence it with
+`suppressPackageStartupMessages()` or `options(Fonology.quiet = TRUE)`.
+
+## Lexicon corrections
+
+- Four IPA-override entries stored orthography instead of IPA and were returned
+  verbatim, so `ipa("féra", lg = "pt")` emitted the literal text `féras`. They
+  have been removed: `bórda`, `féra` and `véra` in Portuguese, and `aquatique`
+  in French, which stripped the syllable boundaries `fr_lex` already provides
+  (`a.kwa.tik`)
+- The intent behind them now lives in the diacritized store, where it belongs:
+  `bordas` is `ˈbɔr.das`, `veras` is `ˈvɛ.ras` and `cleo` is `ˈklɛ.o`, all
+  previously wrong (`ˈbor.das`, `ˈve.ras`, `ˈkle.o`)
+
+- `add_lex_*()` now warns when an IPA-override value looks like orthography
+  rather than IPA (the mistake that produced the four entries above), naming
+  the offending value and pointing at the diacritized-form call that was
+  probably intended. The entry is still stored: it is a warning, not an error
+
+## Bug fixes
+
+- Source checkouts were misdetected as installed packages once the vignettes
+  had been built, because the test looked for a `Meta/` directory that vignette
+  building creates in the source tree. The check now reads the `Built` field of
+  `DESCRIPTION`
+- Lexicon data is read from the package namespace rather than the attached
+  search path, so the transcription functions also work when the package is
+  used with `::` and never attached
+
 # Fonology 1.4.0
 
 ## Console output rewritten with cli

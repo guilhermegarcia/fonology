@@ -6,10 +6,10 @@
 #' stored verbatim and returned directly---the transcription pipeline is
 #' bypassed entirely.
 #'
-#' Changes made by this function are local to the current package
-#' installation. When used from a source checkout loaded with
-#' \code{devtools::load_all()}, the corresponding data file in the source tree
-#' is updated and can be committed.
+#' Entries added here are local to the current machine: they are written to
+#' the user data directory returned by \code{tools::R_user_dir("Fonology")} and
+#' survive package updates. They are kept separate from the corrections that
+#' ship with the package, which they override; see \code{\link{promote_lex}}.
 #'
 #' @param words A character vector of French words in plain orthographic form.
 #' @param ipa A character vector of IPA strings the same length as
@@ -41,6 +41,9 @@ add_lex_fr <- function(words, ipa) {
   keep  <- !duplicated(plain, fromLast = TRUE)
   plain <- plain[keep]
   ipa   <- ipa[keep]
+
+  .check_ipa_override(plain, ipa, fn = "add_lex_fr")
+
 
   lex <- .get_user_lex("fr_ipa_lex")
 
