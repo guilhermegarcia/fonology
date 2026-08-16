@@ -14,11 +14,11 @@
 
 ipa_pt <- function(word = "palavra", narrow = FALSE) {
   if (any(stringr::str_detect(stringr::str_to_lower(word), pattern = "\\d"), na.rm = TRUE)) {
-    message("Input contains a number and will be ignored.")
+    cli::cli_alert_warning("Input contains a number and will be ignored.")
   }
 
   if (any(stringr::str_detect(stringr::str_to_lower(word), pattern = "-"), na.rm = TRUE)) {
-    message("Input must be monomorphemic. The function will remove any clitics it detects.")
+    cli::cli_alert_warning("Input must be monomorphemic; any clitics detected will be removed.")
   }
 
   ipa_pt_vec(word, narrow = narrow)

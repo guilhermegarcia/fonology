@@ -7,9 +7,6 @@
 #' @export
 
 ipa_pt_test <- function() {
-  message("Broad and narrow transcriptions using ipa_pt():")
-
-
   testWords <- c(
     "strada",
     "cam\u00f3tipo",
@@ -29,22 +26,19 @@ ipa_pt_test <- function() {
     "parangaricutirrimirruaro"
   )
 
+  broad <- ipa(testWords, narrow = FALSE)
+  narrow <- ipa(testWords, narrow = TRUE)
 
-  for (i in 1:length(testWords)) {
-    message(stringr::str_c(testWords[i], ":"))
+  names(broad) <- testWords
+  names(narrow) <- testWords
 
-    ipa(testWords[i]) |>
-      print()
+  cli::cli_h1("Broad and narrow transcriptions using {.fn ipa_pt}")
 
-    ipa(testWords[i], narrow = T) |>
-      print()
+  cli::cli_h2("Broad")
+  cli::cli_dl(broad)
 
-    message("========================")
-  }
+  cli::cli_h2("Narrow")
+  cli::cli_dl(narrow)
 
-  message("Vectorized version using ipa(..., narrow = F):")
-  print(ipa(testWords))
-
-  message("Vectorized version using ipa(..., narrow = T):")
-  print(ipa(testWords, narrow = T))
+  invisible(list(broad = broad, narrow = narrow))
 }

@@ -10,7 +10,7 @@
 #' @export
 
 ipa_it_test <- function() {
-  message("Transcriptions using ipa(lg = \"Italian\"):")
+  cli::cli_h1("Transcriptions using {.code ipa(lg = \"Italian\")}")
 
   testWords <- c(
     "italiano", "bambino", "amore",
@@ -22,9 +22,9 @@ ipa_it_test <- function() {
     "rosa", "casa"
   )
 
-  for (i in seq_along(testWords)) {
-    message(stringr::str_c(testWords[i], ":"))
-    ipa_it(testWords[i]) |> print()
-    message("========================")
-  }
+  out <- vapply(testWords, ipa_it, character(1), USE.NAMES = TRUE)
+
+  cli::cli_dl(out)
+
+  invisible(out)
 }

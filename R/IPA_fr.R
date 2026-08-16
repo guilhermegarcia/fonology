@@ -29,13 +29,13 @@ ipa_fr <- function(word = "comportamento") {
     stringr::str_remove_all("[:punct:]")
 
   if (any(stringr::str_detect(wd, pattern = "\\d"))) {
-    message("Input contains a number and will be ignored.")
+    cli::cli_alert_warning("Input contains a number and will be ignored.")
   }
 
   wd[stringr::str_detect(wd, pattern = "\\d")] <- NA
 
   if (any(stringr::str_detect(stats::na.omit(wd), pattern = "-"))) {
-    message("Input must be monomorphemic. Stress assignment may be incorrect.")
+    cli::cli_alert_warning("Input must be monomorphemic; stress assignment may be incorrect.")
   }
 
   wd_plain <- wd

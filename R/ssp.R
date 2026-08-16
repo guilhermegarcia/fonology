@@ -56,7 +56,7 @@ ssp <- function(demi = "", d = 1) {
   } else if (d == 2) {
     demi <- demi(word = demi, d = 2)
   } else {
-    message("d must be 1 or 2")
+    cli::cli_alert_danger("{.arg d} must be 1 or 2, not {.val {d}}.")
     return(NA)
   }
 
@@ -69,7 +69,7 @@ ssp <- function(demi = "", d = 1) {
     dplyr::pull(score)
 
   if (any(is.na(tib))) {
-    message("One of the phonemes you entered is not valid.")
+    cli::cli_alert_danger("One of the phonemes you entered is not valid.")
     return(NA)
   }
 

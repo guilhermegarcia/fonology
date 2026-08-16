@@ -7,8 +7,7 @@
 #' @export
 
 ipa_fr_test <- function() {
-  message("Transcriptions using ipa():")
-
+  cli::cli_h1("Transcriptions using {.code ipa(lg = \"French\")}")
 
   testWords <- c(
     "informatique", "combinaison",
@@ -20,13 +19,9 @@ ipa_fr_test <- function() {
     "tu", "couleur"
   )
 
+  out <- vapply(testWords, ipa_fr, character(1), USE.NAMES = TRUE)
 
-  for (i in 1:length(testWords)) {
-    message(stringr::str_c(testWords[i], ":"))
+  cli::cli_dl(out)
 
-    ipa_fr(testWords[i]) |>
-      print()
-
-    message("========================")
-  }
+  invisible(out)
 }

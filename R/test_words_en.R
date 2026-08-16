@@ -7,7 +7,7 @@
 #' @export
 
 ipa_en_test <- function() {
-  message("Transcriptions using ipa():")
+  cli::cli_h1("Transcriptions using {.code ipa(lg = \"English\")}")
 
   testWords <- c(
     "hospital", "comfortably",
@@ -18,12 +18,9 @@ ipa_en_test <- function() {
     "blick", "spling"
   )
 
-  for (i in seq_along(testWords)) {
-    message(stringr::str_c(testWords[i], ":"))
+  out <- vapply(testWords, function(w) ipa(w, lg = "en"), character(1), USE.NAMES = TRUE)
 
-    ipa(testWords[i], lg = "en") |>
-      print()
+  cli::cli_dl(out)
 
-    message("========================")
-  }
+  invisible(out)
 }

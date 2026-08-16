@@ -32,7 +32,10 @@ ipa <- function(word, lg = "Portuguese", narrow = FALSE) {
     output <- ipa_en(word) |>
       stringr::str_replace_all("\\.\\s+", " ")
   } else {
-    message("Only Portuguese, French, Spanish, Italian, and English are currently supported.")
+    cli::cli_alert_danger(c(
+      "Language {.val {lg}} is not supported. ",
+      "Currently available: Portuguese, French, Spanish, Italian, and English."
+    ))
     return(NA)
   }
 

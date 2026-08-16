@@ -110,7 +110,7 @@ syllable <- function(syl = "", const = "nucleus", glides_as_onsets = FALSE, glid
 
     return(output)
   } else {
-    message("Constituents must be \'onset\', \'nucleus\', or \'coda\'.")
+    cli::cli_alert_danger("{.arg const} must be {.val onset}, {.val nucleus}, or {.val coda}.")
     return(NA)
   }
 }

@@ -36,7 +36,7 @@ getFeat <- function(ph, lg) {
   ph <- as.character(ph)
 
   if (length(ph) == 0) {
-    stop("No phonemes provided.")
+    cli::cli_abort("No phonemes provided.")
   }
 
   phKey <- .norm_ipa(ph)
@@ -44,10 +44,10 @@ getFeat <- function(ph, lg) {
   unknown <- ph[!phKey %in% invKey]
 
   if (length(unknown) > 0) {
-    stop(
-      "Input doesn't match phonemic inventory in language. Not in the inventory: ",
-      stringr::str_c(unique(unknown), collapse = " ")
-    )
+    cli::cli_abort(c(
+      "Input doesn't match phonemic inventory in language.",
+      "x" = "Not in the inventory: {.val {unique(unknown)}}."
+    ))
   }
 
   isChosen <- invKey %in% unique(phKey)

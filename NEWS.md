@@ -1,3 +1,43 @@
+# Fonology 1.4.0
+
+## Console output rewritten with cli
+
+Every message, warning and error in the package now goes through
+[cli](https://cli.r-lib.org). Output is colour-coded and wrapped to the width of
+the terminal, values are quoted, and paths are clickable in editors that support
+it.
+
+- Errors name the offending value instead of describing it in the abstract:
+  `getFeat("i", "klingon")` now reports the language it received and lists the
+  ones available, and a `words`/`ipa` length mismatch in `add_lex_*()` reports
+  both lengths
+- Errors raised inside internal helpers are attributed to the function the user
+  actually called (`getFeat()`, `getPhon()`) rather than to the helper
+- The `ipa_pt_test()`, `ipa_fr_test()`, `ipa_sp_test()`, `ipa_it_test()` and
+  `ipa_en_test()` demos print an aligned word-to-transcription list under a
+  section header, replacing the previous row of `=` separators
+- `ipa2tipa()` and `ipa2typst()` print their output as a verbatim code block
+
+### Compatibility
+
+- Functions that returned `NA` after printing a message still return `NA`; only
+  the appearance of the message changed
+- cli messages are still R conditions of class `message`, so `suppressMessages()`
+  and `testthat::expect_message()` behave as before
+
+## Bug fixes
+
+- Four messages in `plotnGrams()` and `nGramTbl()` told users to run
+  `nGram_tbl()`, which does not exist; the function is `nGramTbl()`
+- Fixed a typo in the `biGram_pt()` input check ("Input most be phonemic")
+
+## Other
+
+- `cli` added to Imports; `glue` removed (it was used in one place, and cli
+  interpolates strings natively)
+- `ipa2tipa()` now returns the TeX string invisibly; it previously returned
+  `NULL`. `ipa_XX_test()` functions return their transcriptions invisibly
+
 # Fonology 1.3.0
 
 ## `getFeat()` and `getPhon()` audited and repaired

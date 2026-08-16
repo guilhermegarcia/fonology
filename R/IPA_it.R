@@ -33,7 +33,7 @@ ipa_it <- function(word = "italiano") {
   wd[stringr::str_detect(wd, "\\d")] <- NA
 
   if (any(stringr::str_detect(stats::na.omit(wd), "-"))) {
-    message("Input must be monomorphemic. Stress assignment may be incorrect.")
+    cli::cli_alert_warning("Input must be monomorphemic; stress assignment may be incorrect.")
   }
 
   # Save plain keys before any substitution

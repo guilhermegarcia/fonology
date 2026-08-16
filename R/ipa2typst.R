@@ -8,7 +8,7 @@
 #' @param string The phonemically transcribed sequence from a function such as \code{ipa()}
 #' @param pre Prefix for transcription. Defaults to \code{'#ipa("'}
 #' @param post Suffix for transcription. Defaults to \code{'")'}
-#' @return A string with phonokit notation (printed via \code{cat()} and returned invisibly)
+#' @return A string with phonokit notation (printed to the console and returned invisibly)
 #' @examples
 #' "bonito" |> ipa(lg = "Portuguese") |> ipa2typst()
 #' "chuva" |> ipa(lg = "Portuguese") |> ipa2typst()
@@ -252,7 +252,8 @@ ipa2typst <- function(string, pre = '#ipa("', post = '")') {
   # Add pre/post
   result <- paste0(pre, result, post)
 
-  message("Done! Here's your Typst code using phonokit:")
-  cat(result)
+  cli::cli_alert_success("Here's your Typst code using phonokit:")
+  cli::cli_verbatim(result)
+
   return(invisible(result))
 }

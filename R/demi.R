@@ -25,7 +25,7 @@ demi <- function(word = c(), d = 1) {
   } else if (d == 1) {
     return(d1)
   } else {
-    message("d must be 1 or 2")
+    cli::cli_alert_danger("{.arg d} must be 1 or 2, not {.val {d}}.")
     return(NA)
   }
 }

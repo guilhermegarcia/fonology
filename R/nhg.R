@@ -23,7 +23,6 @@
 #'
 #' nhg(tableau = tableaux, weights, n_sim = 100, noise_sd = 1)
 #' @importFrom rlang `:=`
-#' @importFrom glue glue
 #' @export
 
 nhg <- function(tableau,
@@ -40,7 +39,10 @@ nhg <- function(tableau,
 
   # Check that weights and constraints match length-wise:
   if (length(weights) != length(constraint_cols)) {
-    stop(glue::glue("Length of weights ({length(weights)}) does not match number of constraints columns ({length(constraint_cols)}): {paste(constraint_cols, collapse = ', ')}"))
+    cli::cli_abort(c(
+      "{.arg weights} must have one value per constraint column.",
+      "x" = "{.arg weights} has length {length(weights)}, but there {cli::qty(length(constraint_cols))}{?is/are} {length(constraint_cols)} constraint column{?s}: {.val {constraint_cols}}."
+    ))
   }
 
   # Ensure numeric constraint violations

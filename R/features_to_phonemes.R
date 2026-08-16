@@ -27,7 +27,7 @@ getPhon <- function(ft, lg) {
   ft <- as.character(ft)
 
   if (length(ft) == 0) {
-    stop("No features provided.")
+    cli::cli_abort("No features provided.")
   }
 
   # Split at the first character rather than matching feature names with a
@@ -36,15 +36,21 @@ getPhon <- function(ft, lg) {
   values <- substr(ft, 1, 1)
   features <- substr(ft, 2, nchar(ft))
 
-  if (!all(values %in% c("+", "-", "0")) || !all(features %in% .feature_names)) {
-    stop("Incorrect feature. Type ?getPhon to see which features are allowed. All features must be immediately preceded by +, -, or 0.")
+  invalid <- ft[!values %in% c("+", "-", "0") | !features %in% .feature_names]
+
+  if (length(invalid) > 0) {
+    cli::cli_abort(c(
+      "Incorrect feature{?s}: {.val {invalid}}.",
+      "i" = "Every feature must be immediately preceded by {.code +}, {.code -}, or {.code 0}.",
+      "i" = "See {.fn getPhon} for the features available."
+    ))
   }
 
   if (anyDuplicated(features)) {
-    stop(
-      "Each feature may only be given once. Repeated: ",
-      stringr::str_c(unique(features[duplicated(features)]), collapse = " ")
-    )
+    cli::cli_abort(c(
+      "Each feature may only be given once.",
+      "x" = "Repeated: {.val {unique(features[duplicated(features)])}}."
+    ))
   }
 
   targetLanguage <- .resolve_lg(lg)

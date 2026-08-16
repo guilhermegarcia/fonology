@@ -36,19 +36,19 @@ export_lex <- function(lg, file, ipa = FALSE) {
       "pt" = "pt_ipa_lex",
       "fr" = "fr_ipa_lex",
       "en" = "en_ipa_lex",
-      stop("lg must be one of: \"it\", \"sp\", \"pt\", \"fr\", \"en\"")
+      cli::cli_abort("{.arg lg} must be one of {.val it}, {.val sp}, {.val pt}, {.val fr}, or {.val en}.")
     )
 
     lex <- .get_user_lex(lex_name)
 
     if (length(lex) == 0) {
-      message("IPA lexicon is empty - nothing to export.")
+      cli::cli_alert_info("IPA lexicon is empty \u2014 nothing to export.")
       return(invisible(lex))
     }
 
     lines <- paste(names(lex), unname(lex), sep = "\t")
     writeLines(lines, file)
-    message(length(lex), " IPA-override entries written to ", file)
+    cli::cli_alert_success("{length(lex)} IPA-override entr{?y/ies} written to {.file {file}}.")
     return(invisible(lex))
   }
 
@@ -57,19 +57,25 @@ export_lex <- function(lg, file, ipa = FALSE) {
     "it" = "it_lex_user",
     "sp" = "sp_lex_user",
     "pt" = "pt_lex_user",
-    "fr" = stop("French only supports IPA-override mode: use export_lex(\"fr\", file, ipa = TRUE)."),
-    "en" = stop("English only supports IPA-override mode: use export_lex(\"en\", file, ipa = TRUE)."),
-    stop("lg must be one of: \"it\", \"sp\", \"pt\", \"fr\", \"en\"")
+    "fr" = cli::cli_abort(c(
+      "French only supports IPA-override mode.",
+      "i" = "Use {.code export_lex(\"fr\", file, ipa = TRUE)}."
+    )),
+    "en" = cli::cli_abort(c(
+      "English only supports IPA-override mode.",
+      "i" = "Use {.code export_lex(\"en\", file, ipa = TRUE)}."
+    )),
+    cli::cli_abort("{.arg lg} must be one of {.val it}, {.val sp}, {.val pt}, {.val fr}, or {.val en}.")
   )
 
   lex <- .get_user_lex(lex_name)
 
   if (length(lex) == 0) {
-    message("Lexicon is empty - nothing to export.")
+    cli::cli_alert_info("Lexicon is empty \u2014 nothing to export.")
     return(invisible(character(0)))
   }
 
   writeLines(unname(lex), file)
-  message(length(lex), " entries written to ", file)
+  cli::cli_alert_success("{length(lex)} entr{?y/ies} written to {.file {file}}.")
   invisible(unname(lex))
 }

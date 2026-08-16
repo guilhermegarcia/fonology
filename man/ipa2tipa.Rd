@@ -14,7 +14,7 @@ ipa2tipa(string, pre = "/ ", post = " /")
 \item{post}{Suffix for transcription. Defaults to " /"}
 }
 \value{
-The tex code using \code{TIPA}
+The TeX code using \code{TIPA} (printed to the console and returned invisibly)
 }
 \description{
 Translates a phonemically transcribed sequence into \code{TIPA} commands for LaTeX.

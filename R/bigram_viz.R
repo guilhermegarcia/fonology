@@ -139,7 +139,7 @@ nGramTbl <- function(text = "", n = 2) {
 
     return(ng_tbl)
   } else {
-    message("n must be 1, 2, or 3.")
+    cli::cli_alert_danger("{.arg n} must be 1, 2, or 3, not {.val {n}}.")
     return(NA)
   }
 }
@@ -161,34 +161,49 @@ plotnGrams <- function(ngrams, type = "lollipop", n = 5) {
 
   if (nCols == 4) {
     if (!(sum(names(ngrams) == c("nGrams", "n1", "freq", "prop"))) == 4) {
-      message("Your input is invalid. You must first run nGram_tbl(..., n = {1,2,3}) to create an appropriate input.")
+      cli::cli_alert_danger(c(
+        "{.arg ngrams} is not a valid nGram table. ",
+        "Create one first with {.code nGramTbl(..., n = 1)}, {.code n = 2}, or {.code n = 3}."
+      ))
       return(NA)
     }
   } else if (nCols == 5) {
     if (!(sum(names(ngrams) == c("nGrams", "n1", "n2", "freq", "prop"))) == 5) {
-      message("Your input is invalid. You must first run nGram_tbl(..., n = {1,2,3}) to create an appropriate input.")
+      cli::cli_alert_danger(c(
+        "{.arg ngrams} is not a valid nGram table. ",
+        "Create one first with {.code nGramTbl(..., n = 1)}, {.code n = 2}, or {.code n = 3}."
+      ))
       return(NA)
     }
   } else if (nCols == 6) {
     if (!(sum(names(ngrams) == c("nGrams", "n1", "n2", "n3", "freq", "prop"))) == 6) {
-      message("Your input is invalid. You must first run nGram_tbl(..., n = {1,2,3}) to create an appropriate input.")
+      cli::cli_alert_danger(c(
+        "{.arg ngrams} is not a valid nGram table. ",
+        "Create one first with {.code nGramTbl(..., n = 1)}, {.code n = 2}, or {.code n = 3}."
+      ))
       return(NA)
     }
   } else {
-    message("Your input is invalid. You must first run nGram_tbl(..., n = {1,2,3}) to create an appropriate input.")
+    cli::cli_alert_danger(c(
+      "{.arg ngrams} is not a valid nGram table. ",
+      "Create one first with {.code nGramTbl(..., n = 1)}, {.code n = 2}, or {.code n = 3}."
+    ))
     return(NA)
   }
 
   # Requirement for heat:
   if (type == "heat" & nCols != 5) {
-    message("Your input is invalid. You must first run nGram_tbl(..., n = 2) to create an appropriate input for a heat map.")
+    cli::cli_alert_danger(c(
+      "A heat map needs a bigram table. ",
+      "Create one first with {.code nGramTbl(..., n = 2)}."
+    ))
     return(NA)
   }
 
 
 
   if (nrow(ngrams) < n) {
-    message("Text has fewer ngrams than the desired n.")
+    cli::cli_alert_danger("Text has only {nrow(ngrams)} nGram{?s}, but {.arg n} is {n}.")
     return(NA)
   }
 
@@ -245,7 +260,7 @@ plotnGrams <- function(ngrams, type = "lollipop", n = 5) {
   } else if (stringr::str_to_lower(type) == "heat") {
     return(heat)
   } else {
-    message("The only two types of plots available are 'lollipop' and 'heat'.")
+    cli::cli_alert_danger("{.arg type} must be {.val lollipop} or {.val heat}, not {.val {type}}.")
     return(NA)
   }
 }

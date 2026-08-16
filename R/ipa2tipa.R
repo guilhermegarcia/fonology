@@ -10,7 +10,7 @@
 #' @param string The phonemically transcribed sequence from a function such as \code{ipa()}
 #' @param pre Prefix for transcription. Defaults to "/ "
 #' @param post Suffix for transcription. Defaults to " /"
-#' @return The tex code using \code{TIPA}
+#' @return The TeX code using \code{TIPA} (printed to the console and returned invisibly)
 #' @examples
 #' ipa2tipa(string = "bo.ni.to")
 #' @export
@@ -115,6 +115,8 @@ ipa2tipa <- function(string, pre = "/ ", post = " /") {
   output <- stringr::str_c(output, collapse = "") |>
     stringr::str_c(post, collapse = "")
 
-  message("Done! Here\'s your tex code using TIPA:")
-  return(cat(output))
+  cli::cli_alert_success("Here's your TeX code using TIPA:")
+  cli::cli_verbatim(output)
+
+  return(invisible(output))
 }

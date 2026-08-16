@@ -62,12 +62,19 @@
 #' @return A character vector of IPA segments
 #' @noRd
 
-.resolve_lg <- function(lg) {
+.resolve_lg <- function(lg, call = rlang::caller_env()) {
   lg <- as.character(lg)
 
   if (length(lg) == 1) {
     if (is.na(lg) || !stringr::str_to_lower(lg) %in% names(.available_lg)) {
-      stop("Language not supported (or misspelled). If you're providing your own inventory, remember it must be in a vector. For example, lg = c('a', 'i', 'u', 'p', 'b').")
+      cli::cli_abort(
+        c(
+          "Language not supported (or misspelled): {.val {lg}}.",
+          "i" = "Available: {.val {names(.available_lg)}}.",
+          "i" = "To use your own inventory, pass a vector instead, e.g. {.code lg = c(\"a\", \"i\", \"u\", \"p\", \"b\")}."
+        ),
+        call = call
+      )
     }
 
     return(.inventory(lg))
@@ -130,21 +137,25 @@
 #' provided.
 #' @noRd
 
-.feature_table <- function(inv) {
+.feature_table <- function(inv, call = rlang::caller_env()) {
   inv <- as.character(inv)
 
   if (length(inv) == 0) {
-    stop("Empty phonemic inventory.")
+    cli::cli_abort("Empty phonemic inventory.", call = call)
   }
 
   inv <- unique(inv[!is.na(inv)])
   rows <- match(.norm_ipa(inv), allFeatures$ipa)
 
   if (anyNA(rows)) {
-    stop(
-      "Segment(s) absent from allFeatures: ",
-      stringr::str_c(inv[is.na(rows)], collapse = " "),
-      ". Check the transcription, or see data(allFeatures) for the symbols available."
+    missing_seg <- inv[is.na(rows)]
+
+    cli::cli_abort(
+      c(
+        "{length(missing_seg)} segment{?s} absent from allFeatures: {.val {missing_seg}}.",
+        "i" = "Check the transcription, or see {.code data(allFeatures)} for the symbols available."
+      ),
+      call = call
     )
   }
 
@@ -559,7 +570,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
 
 biGram_pt_helper <- function(word = "") {
   if (sum(stringr::str_detect(string = word, pattern = "[chqyw]")) > 0) {
-    message("Input most be phonemic, not orthographic.")
+    cli::cli_alert_danger("Input must be phonemic, not orthographic.")
     return(NA)
   }
   word <- word |>

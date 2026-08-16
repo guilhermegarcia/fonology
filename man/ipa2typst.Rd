@@ -14,7 +14,7 @@ ipa2typst(string, pre = "#ipa(\\"", post = "\\")")
 \item{post}{Suffix for transcription. Defaults to \code{'")'}}
 }
 \value{
-A string with phonokit notation (printed via \code{cat()} and returned invisibly)
+A string with phonokit notation (printed to the console and returned invisibly)
 }
 \description{
 Translates a phonemically transcribed sequence (IPA Unicode) into

@@ -25,10 +25,16 @@
 
 add_lex_en <- function(words, ipa) {
   if (missing(ipa)) {
-    stop("English requires IPA-override mode: supply both `words` and `ipa`.")
+    cli::cli_abort(c(
+      "English requires IPA-override mode.",
+      "i" = "Supply both {.arg words} and {.arg ipa}, e.g. {.code add_lex_en(\"naive\", ipa = \"na.\u02c8iv\")}."
+    ))
   }
   if (length(words) != length(ipa)) {
-    stop("`words` and `ipa` must have the same length.")
+    cli::cli_abort(c(
+      "{.arg words} and {.arg ipa} must have the same length.",
+      "x" = "{.arg words} has length {length(words)}, but {.arg ipa} has length {length(ipa)}."
+    ))
   }
 
   plain <- stringr::str_to_lower(words)

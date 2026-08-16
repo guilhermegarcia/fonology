@@ -17,7 +17,7 @@ getSyl <- function(word = c("pa.la.do"), pos = 1, from_right = TRUE, syl = "\\."
     stringr::str_split(pattern = syl)
 
   if (!is.logical(from_right) || length(from_right) != 1) {
-    stop("from_right requires a single TRUE or FALSE value.")
+    cli::cli_abort("{.arg from_right} must be a single {.code TRUE} or {.code FALSE}.")
   }
 
   if (from_right) {

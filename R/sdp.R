@@ -72,7 +72,7 @@ sonDisp <- function(demi = "") {
   D <- sum(1 / diffs^2)
 
   if (is.infinite(D)) {
-    message("This is a plateau.")
+    cli::cli_alert_info("This is a plateau.")
     return(NA)
   }
   return(round(D, 2))

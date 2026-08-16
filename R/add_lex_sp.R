@@ -49,7 +49,10 @@ add_lex_sp <- function(words, ipa = NULL) {
   ## ---- IPA-override mode --------------------------------------------------
   if (!is.null(ipa)) {
     if (length(words) != length(ipa)) {
-      stop("`words` and `ipa` must have the same length.")
+      cli::cli_abort(c(
+        "{.arg words} and {.arg ipa} must have the same length.",
+        "x" = "{.arg words} has length {length(words)}, but {.arg ipa} has length {length(ipa)}."
+      ))
     }
 
     plain <- words

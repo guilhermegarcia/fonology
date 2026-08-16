@@ -13,7 +13,7 @@ getWeight <- function(word, lg = "Portuguese") {
   has_space <- stringr::str_detect(word, " ")
 
   if (any(has_space, na.rm = TRUE)) {
-    message("Input must be a single word, phonemically transcribed and syllabified")
+    cli::cli_alert_danger("Input must be a single word, phonemically transcribed and syllabified.")
     return(NA)
   }
 
@@ -38,7 +38,10 @@ getWeight <- function(word, lg = "Portuguese") {
 
     return(output)
   } else {
-    message("Only Portuguese, Spanish, French, Italian, and English are currently supported.")
+    cli::cli_alert_danger(c(
+      "Language {.val {lg}} is not supported. ",
+      "Currently available: Portuguese, Spanish, French, Italian, and English."
+    ))
     return(NA)
   }
 }

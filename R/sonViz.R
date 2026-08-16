@@ -123,7 +123,7 @@ plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
   }
 
   if (length(absent) > 0) {
-    message("The following phonemes are not supported by the function:")
+    cli::cli_alert_danger("The following phoneme{?s} {?is/are} not supported: {.val {unlist(absent)}}.")
     return(absent)
   }
 
@@ -141,10 +141,13 @@ plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
 
       # If likely polysyllabic, throw error
       if (n_vowels > 1) {
-        stop("Input appears to be polysyllabic but is not syllabified. Please add syllable boundaries (. or -).")
+        cli::cli_abort(c(
+          "Input appears to be polysyllabic but is not syllabified.",
+          "i" = "Add syllable boundaries ({.val .} or {.val -}), e.g. {.val pa.la.do}."
+        ))
       }
       # If monosyllabic, proceed without syllable boundaries
-      message("Monosyllabic input detected. Proceeding without syllable boundaries.")
+      cli::cli_alert_info("Monosyllabic input detected. Proceeding without syllable boundaries.")
     }
 
     word_simple <- word |>
@@ -222,7 +225,7 @@ plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
 
     if (save_plot) {
       ggplot2::ggsave(sonPlot, filename = "sonPlot.jpeg", dpi = 1000, height = 5, width = nrow(word_son))
-      message("The plot has been saved in your current working directory.")
+      cli::cli_alert_success("Plot saved to {.file {file.path(getwd(), 'sonPlot.jpeg')}}.")
     }
 
 
@@ -262,7 +265,7 @@ plotSon <- function(word = "", syl = FALSE, save_plot = FALSE) {
 
   if (save_plot) {
     ggplot2::ggsave(sonPlot, filename = "sonPlot.jpeg", dpi = 1000, height = 5, width = nrow(word_son))
-    message("The plot has been saved in your current working directory.")
+    cli::cli_alert_success("Plot saved to {.file {file.path(getwd(), 'sonPlot.jpeg')}}.")
   }
 
   return(sonPlot)
