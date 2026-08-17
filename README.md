@@ -7,10 +7,8 @@
 <a href = "https://github.com/guilhermegarcia/fonology"><img src = "https://badgen.net/github/last-commit/guilhermegarcia/fonology" alt="Last commit"></a>
 <a href = "https://github.com/guilhermegarcia/fonology/issues"><img src = "https://img.shields.io/github/issues/guilhermegarcia/fonology"></a>
 <a href = "https://gdgarcia.ca/fonology/" target = "_blank"><img src = "https://img.shields.io/badge/Package-website-critical"></a>
-<a href = "https://osf.io/7ta53/" target = "_blank"><img src = "https://img.shields.io/badge/OSF-Repo-9cf"></a>
+<a href = "https://doi.org/10.5281/zenodo.7811254" target = "_blank"><img src = "https://zenodo.org/badge/DOI/10.5281/zenodo.7811254.svg" alt="DOI"></a>
 </p>
-
-<!-- [![DOI](https://zenodo.org/badge/597557920.svg)](https://zenodo.org/badge/latestdoi/597557920) -->
 
 ## Fonology
 
