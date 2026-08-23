@@ -11,9 +11,10 @@
 
 .get_sp_default_lex <- function() {
   if (!exists("default_lex", envir = .sp_cache, inherits = FALSE)) {
+    lex <- .get_pkg_data("sp_lex")
     default_lex <- stats::setNames(
-      as.character(sp_lex$ipa),
-      sp_lex$word
+      as.character(lex$ipa),
+      lex$word
     )
 
     assign("default_lex", default_lex, envir = .sp_cache)

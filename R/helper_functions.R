@@ -44,13 +44,9 @@
 
 .inventory <- function(lg) {
   code <- .available_lg[[stringr::str_to_lower(lg)]]
-
-  switch(code,
-    pt = c(vowels_pt, consonants_pt),
-    sp = c(vowels_sp, consonants_sp),
-    fr = c(vowels_fr, consonants_fr),
-    it = c(vowels_it, consonants_it),
-    en = c(vowels_en, consonants_en)
+  c(
+    .get_pkg_data(paste0("vowels_", code)),
+    .get_pkg_data(paste0("consonants_", code))
   )
 }
 
@@ -139,13 +135,14 @@
 
 .feature_table <- function(inv, call = rlang::caller_env()) {
   inv <- as.character(inv)
+  all_features <- .get_pkg_data("allFeatures")
 
   if (length(inv) == 0) {
     cli::cli_abort("Empty phonemic inventory.", call = call)
   }
 
   inv <- unique(inv[!is.na(inv)])
-  rows <- match(.norm_ipa(inv), allFeatures$ipa)
+  rows <- match(.norm_ipa(inv), all_features$ipa)
 
   if (anyNA(rows)) {
     missing_seg <- inv[is.na(rows)]
@@ -159,7 +156,7 @@
     )
   }
 
-  out <- allFeatures[rows, , drop = FALSE]
+  out <- all_features[rows, , drop = FALSE]
   out$ipa <- inv
 
   out
@@ -569,6 +566,8 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
 #' @noRd
 
 biGram_pt_helper <- function(word = "") {
+  bigrams <- .get_pkg_data("bigrams_pt")
+
   if (sum(stringr::str_detect(string = word, pattern = "[chqyw]")) > 0) {
     cli::cli_alert_danger("Input must be phonemic, not orthographic.")
     return(NA)
@@ -587,7 +586,7 @@ biGram_pt_helper <- function(word = "") {
     tidyr::uncount(freq) |>
     dplyr::mutate(ngrams = str_remove_all(ngrams, pattern = "\\s")) |>
     dplyr::select(-c(prop)) |>
-    dplyr::left_join(bigrams_pt, by = "ngrams") |>
+    dplyr::left_join(bigrams, by = "ngrams") |>
     dplyr::filter(!ngrams %in% c("^^", "$$", "^$", "$^"))
 
   bigramProb[is.na(bigramProb$prop), ]$prop <- 1e-10

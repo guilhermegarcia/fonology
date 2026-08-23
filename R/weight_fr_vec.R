@@ -6,7 +6,7 @@
 #' @noRd
 
 getWeight_fr <- function(word = c("\u025b\u0303.f\u0254\u0281.ma.tik")) {
-  vowels <- get("vowels_fr", envir = as.environment("package:Fonology"))
+  vowels <- .get_pkg_data("vowels_fr")
   heavy_vowels <- c(
     "\u0251", "e", "\u00f8", "o",
     "\u025b\u0303", "\u0153\u0303", "\u0254\u0303", "\u0251\u0303"

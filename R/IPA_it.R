@@ -11,9 +11,10 @@
 
 .get_it_default_lex <- function() {
   if (!exists("default_lex", envir = .it_cache, inherits = FALSE)) {
+    lex <- .get_pkg_data("it_lex")
     default_lex <- stats::setNames(
-      as.character(it_lex$ipa),
-      it_lex$word
+      as.character(lex$ipa),
+      lex$word
     )
 
     assign("default_lex", default_lex, envir = .it_cache)

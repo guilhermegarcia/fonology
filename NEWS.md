@@ -1,3 +1,11 @@
+# Fonology 1.6.1
+
+## Namespace-only use
+
+- Data-backed functions now work through `Fonology::` without first attaching
+  the package, including transcription in all five languages, feature lookup,
+  syllable weight and Portuguese bigram probabilities
+
 # Fonology 1.6.0
 
 ## Consistent citation-form stress

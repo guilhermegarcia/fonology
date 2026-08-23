@@ -11,6 +11,7 @@
 ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
   pt_ipa_lex <- .lex("pt_ipa_lex")
   pt_lex_user <- .lex("pt_lex_user")
+  pt_lex <- .get_pkg_data("pt_lex")
 
   wd <- stringr::str_to_lower(word) |>
     stringr::str_remove_all(pattern = "[:punct:]") |>

@@ -12,6 +12,7 @@
 
 .get_en_default_lex <- function() {
   if (!exists("default_lex", envir = .en_cache, inherits = FALSE)) {
+    en_lex <- .get_pkg_data("en_lex")
     default_lex <- en_lex[en_lex$alt == 0L, c("word", "ipa_syll")]
     default_lex <- default_lex[!duplicated(default_lex$word), ]
 
@@ -23,10 +24,7 @@
 
 .get_en_cmu_complement_lex <- function() {
   if (!exists("cmu_complement_lex", envir = .en_cache, inherits = FALSE)) {
-    cmu_complement <- get(
-      "lex_en_cmu_complement",
-      envir = as.environment("package:Fonology")
-    )
+    cmu_complement <- .get_pkg_data("lex_en_cmu_complement")
 
     complement_lex <- stats::setNames(
       as.character(cmu_complement$ipa),
@@ -480,6 +478,7 @@
 
 ipa_en <- function(word = "hospital") {
   en_ipa_lex <- .lex("en_ipa_lex")
+  en_lex <- .get_pkg_data("en_lex")
 
   wd <- stringr::str_to_lower(word)
   has_digit <- stringr::str_detect(wd, "\\d")
