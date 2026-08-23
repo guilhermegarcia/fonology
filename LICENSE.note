@@ -1,0 +1,32 @@
+Fonology's R code and original documentation are licensed under the MIT
+License stated in DESCRIPTION and LICENSE.
+
+The following data components have separate licenses:
+
+* data/fr_lex.rda is adapted from Lexique 4, distributed through
+  OpenLexicon under the Creative Commons Attribution-ShareAlike 4.0
+  International License (CC BY-SA 4.0):
+  https://lexique.org/databases/Lexique400/README-Lexique.txt
+
+* data/sp_lex.rda and data/it_lex.rda are adapted from English Wiktionary
+  data extracted by Wiktextract and distributed by Kaikki. They are licensed
+  under CC BY-SA 4.0. The adaptations select language and dialect variants,
+  normalize IPA symbols, and add package syllabification where documented:
+  https://en.wiktionary.org/wiki/Wiktionary:Copyrights
+  https://kaikki.org
+
+* data/pt_lex_fix.rda combines original maintainer corrections with a curated
+  set of Portuguese stress and vowel-quality corrections adapted from English
+  Wiktionary data extracted by Wiktextract/Kaikki. The combined dataset is
+  distributed under CC BY-SA 4.0. The adaptation retains only unambiguous
+  general-Brazil pronunciation facts, converts them to diacritized Portuguese
+  forms, and derives broad IPA through Fonology's Portuguese pipeline.
+
+Copyright in Wiktionary material belongs to the individual Wiktionary
+contributors. Attribution is provided through the source and history pages at
+https://en.wiktionary.org. Wiktionary-derived data were modified as described
+above; neither the Wikimedia Foundation, Wiktionary contributors, Wiktextract,
+nor Kaikki endorses Fonology.
+
+CC BY-SA 4.0 license text:
+https://creativecommons.org/licenses/by-sa/4.0/legalcode

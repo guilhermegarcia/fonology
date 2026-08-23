@@ -128,8 +128,11 @@ words in both languages. By default, `ipa()` assumes that
 
 Portuguese, French, and English use lexical lookup before falling back to
 regular-expression rules for out-of-vocabulary forms. French lookup is
-backed by Lexique 4, and Portuguese lookup is based on the Portuguese
-Stress Lexicon. User IPA overrides take priority over both lookup and
+backed by Lexique 4, and Portuguese lookup combines the Portuguese Stress
+Lexicon with a small, audited general-Brazil Wiktionary correction complement.
+Only forms that correct the previous fallback are included, and their IPA is
+regenerated through the package's broad Portuguese pipeline. User IPA
+overrides take priority over both lookup and
 regex fallback. Regex-derived Portuguese, French, and English forms are
 marked with a final `*`; helper functions ignore this marker when
 parsing phonological material.
@@ -329,7 +332,7 @@ look at the complete list of functions available.
 
 ## Acknowledgements and funding
 
-Parts of this project have benefited from funding from the ENVOL program at Université Laval and from the Social Sciences and Humanities Research Council of Canada (**SSHRC**). Different undergraduate research assistants at Université Laval have worked on the Spanish and French grapheme-to-phoneme conversion functions: Nicolas C. Bustos, Emmy Dumont, and Linda Wong. Matéo Levesque implemented comprehensive regular expressions for French transcription. French lookup data are derived from Lexique 4 (New, Pallier, Schalchli, Bourgin, & Gimenes, 2026), distributed through OpenLexicon under CC BY-SA 4.0.
+Parts of this project have benefited from funding from the ENVOL program at Université Laval and from the Social Sciences and Humanities Research Council of Canada (**SSHRC**). Different undergraduate research assistants at Université Laval have worked on the Spanish and French grapheme-to-phoneme conversion functions: Nicolas C. Bustos, Emmy Dumont, and Linda Wong. Matéo Levesque implemented comprehensive regular expressions for French transcription. French lookup data are derived from Lexique 4 (New, Pallier, Schalchli, Bourgin, & Gimenes, 2026), distributed through OpenLexicon under CC BY-SA 4.0. Spanish and Italian lookup data, together with the audited Portuguese correction complement, are adapted from English Wiktionary data extracted by Wiktextract/Kaikki under CC BY-SA 4.0. See `LICENSE.note` for component-level attribution and licensing.
 
 
 ## References
@@ -359,6 +362,9 @@ Parts of this project have benefited from funding from the ENVOL program at Univ
   Hume, & K. Rice (Eds.), _The Blackwell companion to phonology_
   (pp. 1160–1184). Wiley Online Library.
   <https://doi.org/10.1002/9781444335262.wbctp0049>
+
+- Ylonen, T. (2022). Wiktextract: Wiktionary as machine-readable structured
+  data. _Proceedings of LREC 2022_, 1317–1325.
 
 - Wetzels, L., (2007) Primary Word Stress in Brazilian Portuguese and
   the Weight Parameter, _Journal of Portuguese Linguistics_ 6(1), 9-58.

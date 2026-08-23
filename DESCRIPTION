@@ -1,12 +1,17 @@
 Package: Fonology
 Type: Package
 Title: Phonological Analysis in R
-Version: 1.6.1
-Authors@R: person(given = c("Guilherme", "D."), family = "Garcia",
-                  role = c("aut", "cre", "cph"),
-                  email = "guilherme.garcia@lli.ulaval.ca",
-                  comment = c(
-                              ORCID = "0000-0003-1412-3856")) 
+Version: 1.7.0
+Authors@R: c(
+    person(given = c("Guilherme", "D."), family = "Garcia",
+           role = c("aut", "cre", "cph"),
+           email = "guilherme.garcia@lli.ulaval.ca",
+           comment = c(ORCID = "0000-0003-1412-3856")),
+    person(family = "Wiktionary contributors", role = "cph",
+           comment = "Spanish and Italian lexicons and curated Portuguese corrections"),
+    person(family = "Lexique 4 contributors", role = "cph",
+           comment = "French pronunciation lexicon")
+  )
 Maintainer: Guilherme D. Garcia <guilherme.garcia@lli.ulaval.ca>
 Description: A collection of tools for phonological analysis, with primary support for Portuguese, Spanish, French, and Italian, plus PSL-backed Portuguese, Lexique-backed French, and CMU-backed English transcription with user-correctable overrides and heuristic fallback for out-of-vocabulary forms. Functions include grapheme-to-phoneme conversion with syllabification and stress assignment, sonority dispersion calculation, minimal matrices for natural classes given a set of features, maxent models, and more.
 License: MIT + file LICENSE

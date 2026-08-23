@@ -18,7 +18,9 @@ data(sp_lex)
 A Spanish pronunciation lexicon used by \code{ipa(lg = "Spanish")} for
 lexical lookup before the rule-based pipeline. Derived from the English
 Wiktionary via Wiktextract (Ylonen 2022), as distributed by
-\url{https://kaikki.org}; Wiktionary content is available under CC BY-SA.
+\url{https://kaikki.org}; Wiktionary content is available under CC BY-SA
+4.0. The package adaptation is documented in the top-level
+\file{LICENSE.note}.
 The first phonemic variant without Castilian theta or palatal lateral is kept,
 matching the package's seseo and yeismo conventions. Segments and stress
 come from Wiktionary; syllable boundaries are derived with the package

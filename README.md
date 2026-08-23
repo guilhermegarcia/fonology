@@ -112,8 +112,9 @@ each language. By default, `ipa()` assumes that `lg = "Portuguese"` (or
 
 All five languages use lexical lookup before falling back to
 regular-expression rules for out-of-vocabulary forms. French lookup is
-backed by Lexique 4, Portuguese lookup is based on the Portuguese Stress
-Lexicon (Garcia 2014), and the Italian (~82K words) and Spanish (~130K
+backed by Lexique 4, Portuguese lookup combines the Portuguese Stress
+Lexicon (Garcia 2014) with a small set of audited general-Brazil
+Wiktionary corrections, and the Italian (~82K words) and Spanish (~130K
 words) lookups are derived from Wiktionary (via Wiktextract/kaikki.org).
 User IPA overrides take priority over both lookup and regex fallback.
 Regex-derived forms are marked with a final `*`; helper functions ignore
@@ -132,13 +133,19 @@ overall accuracy on ordinary text combines both:
 | French | Lexique 4 | ~171K | ~99% | 71% | ~99% |
 | Spanish | Wiktionary (kaikki.org) | ~130K | ~83%¹ | 95% | ~98% |
 | Italian | Wiktionary (kaikki.org) | ~82K | ~92% | 70% | ~97% |
-| Portuguese | Portuguese Stress Lexicon | ~129K | ~25%² | 95% | ~94% |
+| Portuguese | PSL + 154 curated Wiktionary corrections | ~129K | ~28%² | 95% | ~96% |
 
 ¹ Measured on a classical text (Don Quijote); modern text runs higher.
 
-² The PSL contains non-verbs only, so function words and verbs are
-served by the fallback—which is why the Portuguese fallback was tuned to
-near-dictionary accuracy.
+² The PSL contains non-verbs only, so most function words and verbs are
+served by the fallback. The curated complement does not turn every predictable
+fallback into a lookup: it includes only forms whose stress, syllabification,
+or stressed mid-vowel quality differed from an unambiguous general-Brazil
+Wiktionary pronunciation. On the bundled frequency corpus, these corrections
+affect 2.43% of tokens and cover 95% of the validated correction-bearing token
+mass. Every corrected form is regenerated through the package's broad
+Portuguese pipeline; Wiktionary surface allophones are not copied into broad
+output.
 
 The main residual fallback errors are lexically variable material:
 mid-vowel quality in French and Italian, unadapted loanwords in Spanish,
@@ -384,7 +391,11 @@ grapheme-to-phoneme conversion functions: Nicolas C. Bustos, Emmy
 Dumont, and Linda Wong. Matéo Levesque implemented comprehensive regular
 expressions for French transcription. French lookup data are derived
 from Lexique 4 (New, Pallier, Schalchli, Bourgin, & Gimenes, 2026),
-distributed through OpenLexicon under CC BY-SA 4.0.
+distributed through OpenLexicon under CC BY-SA 4.0. Spanish and Italian
+lookup data, together with the audited Portuguese correction complement,
+are adapted from English Wiktionary data extracted by Wiktextract/Kaikki
+under CC BY-SA 4.0. See `LICENSE.note` for component-level attribution and
+licensing.
 
 ## References
 
@@ -414,5 +425,8 @@ distributed through OpenLexicon under CC BY-SA 4.0.
   Hume, & K. Rice (Eds.), *The Blackwell companion to phonology*
   (pp. 1160–1184). Wiley Online Library.
   <https://doi.org/10.1002/9781444335262.wbctp0049>
+
+- Ylonen, T. (2022). Wiktextract: Wiktionary as machine-readable
+  structured data. *Proceedings of LREC 2022*, 1317–1325.
 
 [^1]: Functions without `_pt`, `_fr` or `_sp` are language-independent.

@@ -8,6 +8,53 @@
   stringr::str_remove_all(x, "\\*")
 }
 
+#' Validate Portuguese broad transcriptions
+#'
+#' The Portuguese narrow pass introduces reduced vowels, affricates, regional
+#' rhotics and other surface notation. Lookup and correction data must contain
+#' none of those: they are broad inputs to narrow_pt_vec(), not pre-narrowed
+#' outputs. This predicate is intentionally stricter than the general feature
+#' inventory and also checks citation stress and syllable structure.
+#' @param x Character vector of Portuguese IPA strings without fallback markers
+#' @return A logical vector
+#' @noRd
+.is_pt_broad_ipa <- function(x) {
+  x <- as.character(x)
+  nfd <- stringi::stri_trans_nfd(x)
+
+  inventory_chars <- .inventory("pt") |>
+    paste0(collapse = "") |>
+    stringr::str_split("", simplify = TRUE) |>
+    as.character() |>
+    unique()
+  allowed_chars <- c(inventory_chars, ".", "\u02C8", "\u0303")
+
+  chars_ok <- vapply(strsplit(nfd, ""), function(chars) {
+    all(chars %in% allowed_chars)
+  }, logical(1))
+
+  one_stress <- stringr::str_count(nfd, stringr::fixed("\u02C8")) == 1L
+  boundaries_ok <- !stringr::str_detect(nfd, "^\\.|\\.$|\\.{2,}")
+  no_marker <- !stringr::str_detect(nfd, stringr::fixed("*"))
+  no_surface <- !stringr::str_detect(
+    nfd,
+    paste0(
+      "[\u0250\u0268\u026A\u028A\u0281\u027B\u0279\u014B",
+      "\u02CC\u02D0\u02D1\u0361\u035C\\[\\]()]"
+    )
+  )
+
+  syllables_ok <- vapply(stringr::str_split(nfd, stringr::fixed(".")), function(syls) {
+    length(syls) > 0L && all(stringr::str_detect(
+      syls,
+      "[aeiou\u025B\u0254]"
+    ))
+  }, logical(1))
+
+  !is.na(x) & nzchar(x) & chars_ok & one_stress & boundaries_ok &
+    no_marker & no_surface & syllables_ok
+}
+
 #' Feature names available in allFeatures
 #'
 #' The 25 abbreviated feature names, in the column order used by
@@ -561,7 +608,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
 #'
 #' Given a phonemically transcribed string, the function returns its bigram probability in log using the lexicon in the Portuguese Stress Lexicon as reference
 #'
-#' @param word A possible string in Portuguese in its phonemic form without syllabification or stress. The only diacritic that should be used is the tilde for nasals, e.g., ã.
+#' @param word A possible string in Portuguese in its phonemic form without syllabification or stress. The only diacritic that should be used is a tilde for nasals.
 #' @return The phonemic transcription for the string in question
 #' @noRd
 

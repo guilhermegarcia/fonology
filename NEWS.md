@@ -1,3 +1,13 @@
+# Fonology 1.7.0
+
+## Audited Portuguese correction complement
+
+- Added 154 audited Wiktionary-derived corrections behind the Portuguese PSL
+  lookup, raising token lookup coverage from 25.5% to 28.0% while retaining
+  broad/phonemic output and the existing regex fallback
+- Added a reproducible correction audit, exhaustive broad-IPA tests, and
+  component-level CC BY-SA 4.0 attribution for derived lexical data
+
 # Fonology 1.6.1
 
 ## Namespace-only use

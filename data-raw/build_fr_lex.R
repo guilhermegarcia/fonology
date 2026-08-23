@@ -1,9 +1,9 @@
 # Build French lexicon object from Lexique 4.
 #
 # Source:
-# http://www.lexique.org/databases/Lexique400/Lexique400.zip
+# https://lexique.org/databases/Lexique400/Lexique400.zip
 
-source_url <- "http://www.lexique.org/databases/Lexique400/Lexique400.zip"
+source_url <- "https://lexique.org/databases/Lexique400/Lexique400.zip"
 source_zip <- file.path(tempdir(), "Lexique400.zip")
 source_path <- file.path(tempdir(), "Lexique4.tsv")
 

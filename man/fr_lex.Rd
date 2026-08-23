@@ -19,7 +19,7 @@ New, B., Pallier, C., Schalchli, G., Bourgin, J., & Gimenes,
   M. (2026). Lexique 4: A major upgrade of the "Lexique" French lexical
   database. \emph{Behavior Research Methods}. Lexique 4 is distributed
   through OpenLexicon under CC BY-SA 4.0. See
-  \url{https://www.lexique.org/?lang=en&page_id=841}.
+  \url{https://lexique.org/databases/Lexique400/README-Lexique.txt}.
 }
 \usage{
 data(fr_lex)

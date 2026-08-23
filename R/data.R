@@ -289,7 +289,9 @@
 #' A Spanish pronunciation lexicon used by \code{ipa(lg = "Spanish")} for
 #' lexical lookup before the rule-based pipeline. Derived from the English
 #' Wiktionary via Wiktextract (Ylonen 2022), as distributed by
-#' \url{https://kaikki.org}; Wiktionary content is available under CC BY-SA.
+#' \url{https://kaikki.org}; Wiktionary content is available under CC BY-SA
+#' 4.0. The package adaptation is documented in the top-level
+#' \file{LICENSE.note}.
 #' The first phonemic variant without Castilian theta or palatal lateral is kept,
 #' matching the package's seseo and yeismo conventions. Segments and stress
 #' come from Wiktionary; syllable boundaries are derived with the package
@@ -348,7 +350,8 @@
 #' lexical lookup before the rule-based pipeline. Derived from the English
 #' Wiktionary via Wiktextract (Ylonen 2022), as distributed by
 #' \url{https://kaikki.org}; Wiktionary content is available under
-#' CC BY-SA. When a word lists multiple pronunciations, the first
+#' CC BY-SA 4.0. The package adaptation is documented in the top-level
+#' \file{LICENSE.note}. When a word lists multiple pronunciations, the first
 #' (standard) variant is kept. Transcriptions are converted to the package's
 #' Italian conventions in \code{data-raw/build_it_lex.R}.
 #'
@@ -432,7 +435,7 @@
 #'   M. (2026). Lexique 4: A major upgrade of the "Lexique" French lexical
 #'   database. \emph{Behavior Research Methods}. Lexique 4 is distributed
 #'   through OpenLexicon under CC BY-SA 4.0. See
-#'   \url{https://www.lexique.org/?lang=en&page_id=841}.
+#'   \url{https://lexique.org/databases/Lexique400/README-Lexique.txt}.
 #' @seealso \code{\link{add_lex_fr}}, \code{\link{ipa}}
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 "fr_lex"
@@ -586,17 +589,25 @@
 
 #' Data: Portuguese shipped lexicon corrections
 #'
-#' A named character vector of maintainer-curated stress and vowel-quality
-#' corrections distributed with the package and used by
+#' A named character vector of maintainer-curated and Wiktionary-audited stress
+#' and vowel-quality corrections distributed with the package and used by
 #' \code{ipa(lg = "Portuguese")}. Keys are plain orthographic forms; values are
 #' diacritized forms. It is merged at run time with the user's own
 #' \code{\link{pt_lex_user}}, which takes priority. Populate it from local
-#' entries with \code{\link{promote_lex}}.
+#' entries with \code{\link{promote_lex}}. Wiktionary-derived entries include
+#' only unambiguous general-Brazil pronunciation facts for which the previous
+#' fallback differed; source IPA is converted to these diacritized forms so
+#' the package's existing broad Portuguese pipeline remains authoritative.
+#' The combined dataset is distributed under CC BY-SA 4.0; see the top-level
+#' \file{LICENSE.note}.
 #'
 #' @format A named character vector
 #' @usage data(pt_lex_fix)
 #' @seealso \code{\link{promote_lex}}, \code{\link{add_lex_pt}}
-#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
+#' @source Portuguese Stress Lexicon corrections by Guilherme D. Garcia;
+#'   selected additional pronunciation facts from English Wiktionary via
+#'   Wiktextract/Kaikki, \url{https://kaikki.org}, CC BY-SA 4.0.
+#' @author Guilherme D. Garcia (\url{https://gdgarcia.ca}); Wiktionary contributors
 "pt_lex_fix"
 
 #' Data: Spanish shipped lexicon corrections

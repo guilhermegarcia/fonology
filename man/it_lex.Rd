@@ -19,7 +19,8 @@ An Italian pronunciation lexicon used by \code{ipa(lg = "Italian")} for
 lexical lookup before the rule-based pipeline. Derived from the English
 Wiktionary via Wiktextract (Ylonen 2022), as distributed by
 \url{https://kaikki.org}; Wiktionary content is available under
-CC BY-SA. When a word lists multiple pronunciations, the first
+CC BY-SA 4.0. The package adaptation is documented in the top-level
+\file{LICENSE.note}. When a word lists multiple pronunciations, the first
 (standard) variant is kept. Transcriptions are converted to the package's
 Italian conventions in \code{data-raw/build_it_lex.R}.
 }
