@@ -52,6 +52,16 @@ ipa_sp <- function(word = "comportamento") {
 
   if (any(lex_matches)) {
     out[lex_matches] <- unname(default_lex[wd[lex_matches]])
+
+    # Corpus sources preserve stressless function-word pronunciations, but
+    # ipa() transcribes tokens in isolation.  Normalize those entries to the
+    # same citation-form convention used by the Spanish and Portuguese
+    # fallback pipelines: every token receives primary stress.
+    missing_stress <- lex_matches &
+      !stringr::str_detect(out, "\u02c8")
+    if (any(missing_stress)) {
+      out[missing_stress] <- stress_sp(out[missing_stress])
+    }
   }
 
   if (any(user_matches)) {

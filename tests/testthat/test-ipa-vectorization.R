@@ -99,6 +99,13 @@ test_that("Spanish ipa() uses Wiktionary lookup before regex fallback", {
   )
 })
 
+test_that("Spanish corpus entries use citation-form stress", {
+  expect_equal(
+    ipa(c("como", "la", "las", "los", "de"), lg = "sp"),
+    c("\u02c8ko.mo", "\u02c8la", "\u02c8las", "\u02c8los", "\u02c8de")
+  )
+})
+
 test_that("Italian loanwords keep falling au diphthongs", {
   expect_equal(
     ipa("Auckland", lg = "it"),

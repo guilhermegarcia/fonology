@@ -1,3 +1,12 @@
+# Fonology 1.6.0
+
+## Consistent citation-form stress
+
+- Spanish lexicon-backed transcriptions now receive primary stress when the
+  source pronunciation omits it, matching the token-level convention already
+  used by the Spanish and Portuguese fallback pipelines (for example,
+  `como` → `ˈko.mo` and `las` → `ˈlas`)
+
 # Fonology 1.5.0
 
 ## Lexical corrections are separated from your own lexicon
