@@ -6,7 +6,7 @@
 #' \describe{
 #'   \item{\code{word}}{Portuguese word in orthographic form}
 #'   \item{\code{freq}}{Frequency count of the word}
-#'   \item{\code{ipa}}{IPA phonemic transcription}
+#'   \item{\code{ipa}}{IPA phonemic transcription. Rhotics follow the phonemic convention introduced in version 1.7.1: the strong rhotic is written \code{r} and the tap \enc{ɾ}{(U+027E)}. A small number of transcriptions keep the orthographic letter \code{x} where the transcriber that generated this list did not convert it}
 #'   \item{\code{apu}}{antepenultimate syllable if applicable}
 #'   \item{\code{pu}}{penultimate syllable if applicable}
 #'   \item{\code{u}}{final syllable}
@@ -19,11 +19,14 @@
 
 #' Data: Portuguese Stress Lexicon - simplified
 #'
-#' Comprehensive list of non-verbs in Portuguese and their phonemic transcription.
-#' This data set is used by different functions in Fonology. Unlike the original PSL data base,
-#' \code{pt_lex} uses slightly different transcription conventions.
+#' The distinct word and pronunciation pairs in the Portuguese Stress Lexicon
+#' (\code{psl}), with the PSL notation converted to IPA. This is the lookup used by
+#' \code{ipa(lg = "pt")} before it falls back to its regex transcriber. Rhotics are
+#' phonemic: the strong rhotic is written \code{r} and the tap \enc{ɾ}{(U+027E)}, and
+#' \code{ipa(narrow = TRUE)} realises the strong rhotic as [x]. The object is built by
+#' \code{data-raw/build_pt_lex.R}.
 #'
-#' @format A data frame with 154,610 rows and 2 columns:
+#' @format A data frame with 128,854 rows and 2 columns:
 #' \describe{
 #'   \item{\code{word}}{A word in its orthographic form}
 #'   \item{\code{pro}}{The phonemic transcription of a word}
@@ -35,15 +38,24 @@
 
 #' Data: Portuguese Stress Lexicon
 #'
-#' The Portuguese Stress Lexicon (PSL; Garcia (2014)) contains non-verbs in the Portuguese language (excluding monosyllables). The lexicon is largely based on the list of words in the Houaiss Dictionary (Houaiss et al. 2001), which is the most comprehensive dictionary in Portuguese. PSL contains 154,610 entries and 62 columns, which provide a comprehensive set of variables (including pronunciation, syllabification, stress position, syllabic constituents, intervals, CV profiles and weight profiles).
+#' The Portuguese Stress Lexicon (PSL; Garcia (2014)) contains non-verbs in the Portuguese language (excluding monosyllables). The lexicon is largely based on the list of words in the Houaiss Dictionary (Houaiss et al. 2001), which is the most comprehensive dictionary in Portuguese. PSL contains 154,610 entries and 83 columns, which provide a comprehensive set of variables (including pronunciation, syllabification, stress position, syllabic constituents, intervals, CV profiles and weight profiles).
 #' Comprehensive list of non-verbs in Portuguese.
 #' The lexicon is coded for a number of phonological variables.
 #'
+#' The original 62 columns keep the PSL's own ASCII notation, over which
+#' \code{bigramProb}, \code{nDensity} and \code{POU} were computed. Since version
+#' 1.7.1, each column that holds segmental material has an IPA counterpart with the
+#' suffix \code{.ipa}, appended after the original columns so that their positions
+#' are unchanged. The IPA columns follow the conventions of \code{ipa()}, with one
+#' addition: in the coda columns, a nasal coda is written \code{N}, the nasal
+#' archiphoneme, reflecting the PSL analysis of a nasal vowel as an oral vowel
+#' closed by a nasal coda. They are built by \code{data-raw/build_psl_ipa.R}.
+#'
 #' @usage data(psl)
-#' @format A data frame with 154,610 rows and 62 columns:
+#' @format A data frame with 154,610 rows and 83 columns:
 #' \describe{
 #'   \item{\code{word}}{A word in its orthographic form}
-#'   \item{\code{pro}}{The phonemic transcription of a word. This uses slightly different conventions than those in Fonology transcriptions}
+#'   \item{\code{pro}}{The phonemic transcription of a word, in the PSL notation: \code{-} marks syllable boundaries, an apostrophe marks stress, \code{R} the strong rhotic, \code{r} the tap and \code{~} nasality. See \code{pro.ipa} for the IPA version}
 #'   \item{\code{nSyl}}{Number of syllables in a word}
 #'   \item{\code{stressSylNum}}{The position of the stressed syllable starting from the right edge of the word}
 #'   \item{\code{nSylPre}}{Number of pre-tonic syllables}
@@ -91,7 +103,7 @@
 #'   \item{\code{wordProfile}}{Word profile in Cs and Vs}
 #'   \item{\code{finalWordProfile}}{wordProfile for trisyllabic window}
 #'   \item{\code{proU}}{Phonemic transcription excluding syllabification and stress}
-#'   \item{\code{stemPro}}{proU excluding final phoneme}
+#'   \item{\code{stemPro}}{proU excluding final phoneme. Up to version 1.7.0, 6,587 entries carried syllable boundaries and stress; these were removed in 1.7.1}
 #'   \item{\code{antSyl}}{Syllable in antepenultimate position}
 #'   \item{\code{penSyl}}{Syllable in penultimate position}
 #'   \item{\code{finSyl}}{Syllable in final position}
@@ -104,6 +116,27 @@
 #'   \item{\code{nDensityStd}}{Standardized neighbourhood density}
 #'   \item{\code{POU}}{Point of uniqueness: the sound, from beginning to end of the word, where it diverges from all other morphologically unrelated words}
 #'   \item{\code{POUstd}}{Standardized point of uniqueness}
+#'   \item{\code{pro.ipa}}{IPA version of \code{pro}}
+#'   \item{\code{proU.ipa}}{IPA version of \code{proU}}
+#'   \item{\code{stemPro.ipa}}{IPA version of \code{stemPro}}
+#'   \item{\code{antSyl.ipa}}{IPA version of \code{antSyl}}
+#'   \item{\code{penSyl.ipa}}{IPA version of \code{penSyl}}
+#'   \item{\code{finSyl.ipa}}{IPA version of \code{finSyl}}
+#'   \item{\code{onset.ant.ipa}}{IPA version of \code{onset.ant}}
+#'   \item{\code{onset.pen.ipa}}{IPA version of \code{onset.pen}}
+#'   \item{\code{onset.fin.ipa}}{IPA version of \code{onset.fin}}
+#'   \item{\code{onset.stress.ipa}}{IPA version of \code{onset.stress}}
+#'   \item{\code{onset.alt.ipa}}{IPA version of \code{onset.alt}}
+#'   \item{\code{vowel.ant.ipa}}{IPA version of \code{vowel.ant}}
+#'   \item{\code{vowel.pen.ipa}}{IPA version of \code{vowel.pen}}
+#'   \item{\code{vowel.fin.ipa}}{IPA version of \code{vowel.fin}}
+#'   \item{\code{vowel.stress.ipa}}{IPA version of \code{vowel.stress}}
+#'   \item{\code{vowel.alt.ipa}}{IPA version of \code{vowel.alt}}
+#'   \item{\code{coda.ant.ipa}}{IPA version of \code{coda.ant}; a nasal coda is written \code{N}, the nasal archiphoneme}
+#'   \item{\code{coda.pen.ipa}}{IPA version of \code{coda.pen}; a nasal coda is written \code{N}, the nasal archiphoneme}
+#'   \item{\code{coda.fin.ipa}}{IPA version of \code{coda.fin}; a nasal coda is written \code{N}, the nasal archiphoneme}
+#'   \item{\code{coda.stress.ipa}}{IPA version of \code{coda.stress}; a nasal coda is written \code{N}, the nasal archiphoneme}
+#'   \item{\code{coda.alt.ipa}}{IPA version of \code{coda.alt}; a nasal coda is written \code{N}, the nasal archiphoneme}
 
 #' }
 #' @source <https://gdgarcia.ca/psl>
@@ -171,7 +204,11 @@
 #' and \code{vel}), the velar stop is written with ASCII \code{g} rather than
 #' PanPhon's script g \enc{ɡ}{(U+0261)}, \code{back} and \code{tense} are
 #' hand-adapted, and
-#' \code{approx} is an additional column with no PanPhon equivalent. See
+#' \code{approx}, \code{tap} and \code{trill} are additional columns with no
+#' PanPhon equivalent. \code{tap} and \code{trill} follow Hayes (2009), whose
+#' table ships as \code{features_Hayes_2009}: without them taps and trills had
+#' identical matrices, so neither Portuguese nor Spanish /r/ and /\enc{ɾ}{(U+027E)}/
+#' could be described on their own. See
 #' \code{data-raw/build_allFeatures.R} for the full derivation.
 #'
 #' IPA symbols are stored in Unicode NFD (decomposed) form, so \code{ã} is
@@ -179,14 +216,15 @@
 #' \code{getPhon()} normalise their input the same way, so either composition
 #' works there.
 #'
-#' @format A tibble with 6,367 rows (one IPA symbol per row) and 26 columns: the
-#' \code{ipa} symbol plus 25 features. Every feature cell is \code{"+"},
+#' @format A tibble with 6,367 rows (one IPA symbol per row) and 28 columns: the
+#' \code{ipa} symbol plus 27 features. Every feature cell is \code{"+"},
 #' \code{"-"} or \code{"0"}; there are no missing values. The (abbreviated)
 #' available features are: \code{syl}, \code{son},
 #' \code{cons}, \code{cont}, \code{DR}, \code{lat}, \code{nas}, \code{strid},
 #' \code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
 #' \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
-#' \code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}
+#' \code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx},
+#' \code{tap}, \code{trill}
 #' @usage data(allFeatures)
 #' @author Guilherme D. Garcia (\url{https://gdgarcia.ca})
 #' @seealso \code{\link{getFeat}}, \code{\link{getPhon}}
@@ -205,7 +243,10 @@
 
 #' Data: bigrams in Portuguese
 #'
-#' Set of bigrams extracted from the Portuguese Stress Lexicon using the ngram package.
+#' Set of bigrams over the transcriptions in \code{pt_lex}, i.e. the Portuguese Stress
+#' Lexicon, with word boundaries marked by \code{^} and \code{$}. Segments are grapheme
+#' clusters, so a nasal glide counts as one segment. Rhotics follow the phonemic
+#' convention of \code{ipa()}. The table is built by \code{data-raw/build_bigrams_pt.R}.
 #'
 #' @format A tibble with bigrams, frequency, and proportions
 #' @usage data(bigrams_pt)

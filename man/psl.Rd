@@ -5,10 +5,10 @@
 \alias{psl}
 \title{Data: Portuguese Stress Lexicon}
 \format{
-A data frame with 154,610 rows and 62 columns:
+A data frame with 154,610 rows and 83 columns:
 \describe{
   \item{\code{word}}{A word in its orthographic form}
-  \item{\code{pro}}{The phonemic transcription of a word. This uses slightly different conventions than those in Fonology transcriptions}
+  \item{\code{pro}}{The phonemic transcription of a word, in the PSL notation: \code{-} marks syllable boundaries, an apostrophe marks stress, \code{R} the strong rhotic, \code{r} the tap and \code{~} nasality. See \code{pro.ipa} for the IPA version}
   \item{\code{nSyl}}{Number of syllables in a word}
   \item{\code{stressSylNum}}{The position of the stressed syllable starting from the right edge of the word}
   \item{\code{nSylPre}}{Number of pre-tonic syllables}
@@ -56,7 +56,7 @@ A data frame with 154,610 rows and 62 columns:
   \item{\code{wordProfile}}{Word profile in Cs and Vs}
   \item{\code{finalWordProfile}}{wordProfile for trisyllabic window}
   \item{\code{proU}}{Phonemic transcription excluding syllabification and stress}
-  \item{\code{stemPro}}{proU excluding final phoneme}
+  \item{\code{stemPro}}{proU excluding final phoneme. Up to version 1.7.0, 6,587 entries carried syllable boundaries and stress; these were removed in 1.7.1}
   \item{\code{antSyl}}{Syllable in antepenultimate position}
   \item{\code{penSyl}}{Syllable in penultimate position}
   \item{\code{finSyl}}{Syllable in final position}
@@ -69,6 +69,27 @@ A data frame with 154,610 rows and 62 columns:
   \item{\code{nDensityStd}}{Standardized neighbourhood density}
   \item{\code{POU}}{Point of uniqueness: the sound, from beginning to end of the word, where it diverges from all other morphologically unrelated words}
   \item{\code{POUstd}}{Standardized point of uniqueness}
+  \item{\code{pro.ipa}}{IPA version of \code{pro}}
+  \item{\code{proU.ipa}}{IPA version of \code{proU}}
+  \item{\code{stemPro.ipa}}{IPA version of \code{stemPro}}
+  \item{\code{antSyl.ipa}}{IPA version of \code{antSyl}}
+  \item{\code{penSyl.ipa}}{IPA version of \code{penSyl}}
+  \item{\code{finSyl.ipa}}{IPA version of \code{finSyl}}
+  \item{\code{onset.ant.ipa}}{IPA version of \code{onset.ant}}
+  \item{\code{onset.pen.ipa}}{IPA version of \code{onset.pen}}
+  \item{\code{onset.fin.ipa}}{IPA version of \code{onset.fin}}
+  \item{\code{onset.stress.ipa}}{IPA version of \code{onset.stress}}
+  \item{\code{onset.alt.ipa}}{IPA version of \code{onset.alt}}
+  \item{\code{vowel.ant.ipa}}{IPA version of \code{vowel.ant}}
+  \item{\code{vowel.pen.ipa}}{IPA version of \code{vowel.pen}}
+  \item{\code{vowel.fin.ipa}}{IPA version of \code{vowel.fin}}
+  \item{\code{vowel.stress.ipa}}{IPA version of \code{vowel.stress}}
+  \item{\code{vowel.alt.ipa}}{IPA version of \code{vowel.alt}}
+  \item{\code{coda.ant.ipa}}{IPA version of \code{coda.ant}; a nasal coda is written \code{N}, the nasal archiphoneme}
+  \item{\code{coda.pen.ipa}}{IPA version of \code{coda.pen}; a nasal coda is written \code{N}, the nasal archiphoneme}
+  \item{\code{coda.fin.ipa}}{IPA version of \code{coda.fin}; a nasal coda is written \code{N}, the nasal archiphoneme}
+  \item{\code{coda.stress.ipa}}{IPA version of \code{coda.stress}; a nasal coda is written \code{N}, the nasal archiphoneme}
+  \item{\code{coda.alt.ipa}}{IPA version of \code{coda.alt}; a nasal coda is written \code{N}, the nasal archiphoneme}
 }
 }
 \source{
@@ -78,9 +99,19 @@ A data frame with 154,610 rows and 62 columns:
 data(psl)
 }
 \description{
-The Portuguese Stress Lexicon (PSL; Garcia (2014)) contains non-verbs in the Portuguese language (excluding monosyllables). The lexicon is largely based on the list of words in the Houaiss Dictionary (Houaiss et al. 2001), which is the most comprehensive dictionary in Portuguese. PSL contains 154,610 entries and 62 columns, which provide a comprehensive set of variables (including pronunciation, syllabification, stress position, syllabic constituents, intervals, CV profiles and weight profiles).
+The Portuguese Stress Lexicon (PSL; Garcia (2014)) contains non-verbs in the Portuguese language (excluding monosyllables). The lexicon is largely based on the list of words in the Houaiss Dictionary (Houaiss et al. 2001), which is the most comprehensive dictionary in Portuguese. PSL contains 154,610 entries and 83 columns, which provide a comprehensive set of variables (including pronunciation, syllabification, stress position, syllabic constituents, intervals, CV profiles and weight profiles).
 Comprehensive list of non-verbs in Portuguese.
 The lexicon is coded for a number of phonological variables.
+}
+\details{
+The original 62 columns keep the PSL's own ASCII notation, over which
+\code{bigramProb}, \code{nDensity} and \code{POU} were computed. Since version
+1.7.1, each column that holds segmental material has an IPA counterpart with the
+suffix \code{.ipa}, appended after the original columns so that their positions
+are unchanged. The IPA columns follow the conventions of \code{ipa()}, with one
+addition: in the coda columns, a nasal coda is written \code{N}, the nasal
+archiphoneme, reflecting the PSL analysis of a nasal vowel as an oral vowel
+closed by a nasal coda. They are built by \code{data-raw/build_psl_ipa.R}.
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})

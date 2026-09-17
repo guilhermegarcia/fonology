@@ -4,8 +4,8 @@ test_that("audited Portuguese corrections fix high-impact broad forms", {
     "querem", "fazem", "homens"
   )
   expected <- c(
-    "a.ˈgɔ.ra", "ˈkɛr", "ˈkɛ.ro", "ˈpɔ.so", "por.ˈke", "sa.ˈir",
-    "ˈpɔ.dem", "ˈkɛ.rem", "ˈfa.zem", "ˈo.mens"
+    "a.ˈgɔ.ɾa", "ˈkɛɾ", "ˈkɛ.ɾo", "ˈpɔ.so", "poɾ.ˈke", "sa.ˈiɾ",
+    "ˈpɔ.dem", "ˈkɛ.ɾem", "ˈfa.zem", "ˈo.mens"
   )
 
   expect_equal(ipa(words, lg = "pt"), expected)
@@ -33,13 +33,16 @@ test_that("Portuguese correction data are valid and broad exhaustively", {
 })
 
 test_that("surface allophones remain confined to narrow Portuguese output", {
-  broad <- ipa(c("tivesse", "quero"), lg = "pt", narrow = FALSE)
-  narrow <- ipa(c("tivesse", "quero"), lg = "pt", narrow = TRUE)
+  broad <- ipa(c("tivesse", "quero", "carro"), lg = "pt", narrow = FALSE)
+  narrow <- ipa(c("tivesse", "quero", "carro"), lg = "pt", narrow = TRUE)
 
-  expect_equal(broad, c("ti.ˈvɛ.se", "ˈkɛ.ro"))
+  expect_equal(broad, c("ti.ˈvɛ.se", "ˈkɛ.ɾo", "ˈka.ro"))
   expect_true(all(Fonology:::.is_pt_broad_ipa(broad)))
-  expect_false(any(stringr::str_detect(broad, "[ɪʊ͡]")))
+  expect_false(any(stringr::str_detect(broad, "[ɪʊ͡x]")))
   expect_true(any(stringr::str_detect(narrow, "[ɪʊ͡]")))
+  # The strong rhotic is /r/ in broad and [x] in narrow transcription.
+  expect_true(stringr::str_detect(narrow[3], "x"))
+  expect_false(Fonology:::.is_pt_broad_ipa(narrow[3]))
 })
 
 test_that("local Portuguese entries still override audited corrections", {
@@ -49,7 +52,7 @@ test_that("local Portuguese entries still override audited corrections", {
   local <- c(old[names(old) != "agora"], agora = "agôra")
   Fonology:::.set_user_lex("pt_lex_user", local)
 
-  expect_equal(ipa("agora", lg = "pt"), "a.ˈgo.ra")
+  expect_equal(ipa("agora", lg = "pt"), "a.ˈgo.ɾa")
 })
 
 test_that("PSL precedence and starred fallback behaviour are unchanged", {

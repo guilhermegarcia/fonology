@@ -124,8 +124,9 @@ test_that("affricates work with and without a tie bar", {
 })
 
 test_that("segments emitted by ipa() are usable", {
-  # Portuguese /x/, Spanish /n/, English r-coloured vowels.
-  expect_no_error(getFeat("x", "pt"))
+  # Portuguese /r/ and /\u027e/, Spanish /n/, English r-coloured vowels.
+  expect_no_error(getFeat("r", "pt"))
+  expect_no_error(getFeat("\u027e", "pt"))
   expect_no_error(getFeat("n", "sp"))
   expect_equal(getFeat(c("\u025a", "\u025d"), "en"), c("+syl", "-ant"))
 })
@@ -228,7 +229,9 @@ test_that("classic natural classes come out right", {
   expect_equal(getFeat(c("p", "t", "k"), "pt"), c("-cont", "-vce"))
   expect_equal(getFeat(c("m", "n", "\u0272"), "pt"), "+nas")
   expect_equal(getFeat(c("l", "r", "\u027e", "\u028e"), "pt"), c("+cons", "+approx"))
-  expect_equal(getFeat(c("f", "v", "s", "z", "\u0283", "\u0292", "x"), "pt"), c("-son", "+cont"))
+  # Every Portuguese fricative is strident: the only non-strident one used to be
+  # [x], which is an allophone of /r/ and not in the inventory.
+  expect_equal(getFeat(c("f", "v", "s", "z", "\u0283", "\u0292"), "pt"), "+strid")
   expect_equal(
     getFeat(c("t\u0361\u0283", "d\u0361\u0292", "t\u0361s", "d\u0361z"), "it"), "+DR"
   )
@@ -281,4 +284,27 @@ test_that("a feature matrix is never larger than it needs to be", {
       }
     }
   }
+})
+
+test_that("taps and trills have distinct matrices", {
+  # PanPhon has no feature separating them, so r and \u027e used to be identical
+  # and neither was a natural class on its own. tap and trill follow Hayes (2009).
+  expect_equal(getFeat("r", "pt"), "+trill")
+  expect_equal(getFeat("\u027e", "pt"), "+tap")
+  expect_equal(getFeat("r", "sp"), "+trill")
+  expect_equal(getFeat("\u027e", "sp"), "+tap")
+  expect_equal(getPhon("+trill", "pt"), "r")
+  expect_equal(getPhon("+tap", "pt"), "\u027e")
+
+  af <- Fonology:::.get_pkg_data("allFeatures")
+  expect_identical(tail(names(af), 2), c("tap", "trill"))
+  expect_false(any(af$tap == "+" & af$trill == "+"))
+  # Diacritic and length variants inherit the value of their base.
+  expect_equal(af$trill[af$ipa == stringi::stri_trans_nfd("r\u02d0")], "+")
+  expect_equal(af$tap[af$ipa == stringi::stri_trans_nfd("\u027e\u0325")], "+")
+})
+
+test_that("[x] is not a Portuguese phoneme", {
+  expect_error(getFeat("x", "pt"), "Not in the inventory")
+  expect_false("x" %in% Fonology:::.inventory("pt"))
 })

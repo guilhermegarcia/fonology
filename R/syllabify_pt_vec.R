@@ -38,14 +38,14 @@ syllabify_pt_vec <- function(word = "") {
   # in Portuguese, so always move them to the preceding coda.
   word <- stringr::str_replace_all(
     string = word,
-    pattern = "\\.([lmn\u027ersz])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mnlr])",
+    pattern = "\\.([lmn\u027ersz])([pbtdkgsx\u0280zfv\u0283\u0292\u028e\u0272mnlr])",
     replacement = "\\1.\\2"
   )
   # Stops (p, b, k, g) split before another obstruent or nasal, but NOT
   # before l \u2014 pl, bl, kl, gl are valid onsets in Portuguese.
   word <- stringr::str_replace_all(
     string = word,
-    pattern = "\\.([kgpb])([pbtdkgsxzfv\u0283\u0292\u028e\u0272mn])",
+    pattern = "\\.([kgpb])([pbtdkgsx\u0280zfv\u0283\u0292\u028e\u0272mn])",
     replacement = "\\1.\\2"
   )
 
@@ -113,7 +113,7 @@ syllabify_pt_vec <- function(word = "") {
   # Adjust complex nasal diphthongs (especially when followed by clitics)
   word <- word |>
     stringr::str_replace(
-      pattern = "(j\u0303)([pbtdgkfvl\u028emnrsz\u027e\u0283\u0292x])",
+      pattern = "(j\u0303)([pbtdgkfvl\u028emnrsz\u027e\u0283\u0292x\u0280])",
       replacement = "\\1.\\2"
     )
 
@@ -140,7 +140,7 @@ syllabify_pt_vec <- function(word = "") {
   # Vowelless syllables word-finally:
   word <- word |>
     stringr::str_replace_all(
-      pattern = "(\\w+)\\.([bdfgklmnp\u027erstvxz]+$)",
+      pattern = "(\\w+)\\.([bdfgklmnp\u027erstvx\u0280z]+$)",
       replacement = "\\1\\2"
     )
 

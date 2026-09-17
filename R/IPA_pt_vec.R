@@ -13,9 +13,11 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
   pt_lex_user <- .lex("pt_lex_user")
   pt_lex <- .get_pkg_data("pt_lex")
 
+  # Enclitics are removed before punctuation: stripping punctuation first
+  # deletes the hyphen strip_clitic_pt() needs, so it never matched.
   wd <- stringr::str_to_lower(word) |>
-    stringr::str_remove_all(pattern = "[:punct:]") |>
-    strip_clitic_pt()
+    strip_clitic_pt() |>
+    stringr::str_remove_all(pattern = "[:punct:]")
 
   wd[stringr::str_detect(wd, "\\d")] <- NA
 
@@ -30,7 +32,8 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
       stress_pt_vec() |>
       stringr::str_remove_all(pattern = "\\.$")
 
-    posttonic_pt_vec(out, ortho = x)
+    posttonic_pt_vec(out, ortho = x) |>
+      phonemic_rhotics_pt()
   }
 
   user_matches <- !is.na(wd) & wd %in% names(pt_lex_user)
@@ -41,10 +44,9 @@ ipa_pt_vec <- function(word = c("palavra"), narrow = FALSE) {
     lex_idx <- match(wd[lex_matches], pt_lex$word)
     wd[lex_matches] <- pt_lex$pro[lex_idx] |>
       stringr::str_replace_all(pattern = "\'", replacement = "\u02c8") |>
-      stringr::str_replace_all(pattern = "\u027e", replacement = "r") |>
       stringr::str_replace(
-        pattern = "\u028ee[r\u027e]$",
-        replacement = "\u028e\u025br"
+        pattern = "\u028ee\u027e$",
+        replacement = "\u028e\u025b\u027e"
       )
   }
 

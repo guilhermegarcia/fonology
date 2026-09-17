@@ -5,7 +5,8 @@
 #' \code{cons}, \code{cont}, \code{DR}, \code{lat}, \code{nas}, \code{strid},
 #' \code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
 #' \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
-#' \code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}.
+#' \code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx},
+#' \code{tap}, \code{trill}.
 #' Each must be immediately preceded by \code{+}, \code{-} or \code{0}, and no
 #' feature may be given twice
 #' @param lg The language of interest: English, French, Italian, Portuguese, Spanish.

@@ -286,15 +286,30 @@ transcribe_pt_vec <- function(word = "") {
     replacement = "\\1z\\2"
   )
 
-  # Remaining intervocalic x defaults to the majority outcome in the PSL:
+  # Remaining intervocalic x defaults to the majority outcome in the PSL. The
+  # context is matched with lookarounds rather than captured: a captured vowel
+  # is consumed by the first match and hides a following x, so x-V-x sequences
+  # (araxixa) were left half-converted. Nasal vowels count as vowels on both
+  # sides (caxao, amuxa).
   word <- stringr::str_replace_all(word,
-    pattern = "([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4\u00e3\u00f5])x([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])",
-    replacement = "\\1\u0283\\2"
+    pattern = "(?<=[aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4\u00e3\u00f5])x(?=[aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4\u00e3\u00f5])",
+    replacement = "\u0283"
   )
 
+  # Before w, x is ks (maxwelliano -> mak.swe...).
   word <- stringr::str_replace_all(word,
-    pattern = "([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])x([pbtdkgmn])",
-    replacement = "\\1s\\2"
+    pattern = "(?<=[aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])x(?=w)",
+    replacement = "ks"
+  )
+
+  # Before any other consonant letter x is s, the majority outcome in the PSL
+  # (extremo, exfoliar, felixlandense). The context is spelled, not
+  # transcribed: at this point ch, c and l are still letters. s is excluded
+  # because xs is handled below. The coda-s voicing rule that follows voices it
+  # where appropriate.
+  word <- stringr::str_replace_all(word,
+    pattern = "(?<=[aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])x(?=[bcdfghjklmnpqrtvz\u00e7])",
+    replacement = "s"
   )
 
   word <- stringr::str_replace_all(word,
@@ -336,7 +351,7 @@ transcribe_pt_vec <- function(word = "") {
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "nh",
+    pattern = "nh|\u00f1",
     replacement = "\u0272"
   )
 
@@ -408,6 +423,12 @@ transcribe_pt_vec <- function(word = "") {
 
   word <- stringr::str_replace_all(word,
     pattern = "\u00e3e",
+    replacement = "\u00e3j\u0303"
+  )
+
+  # cãibra: spelled ãi is the same nasal diphthong as ãe.
+  word <- stringr::str_replace_all(word,
+    pattern = "\u00e3i",
     replacement = "\u00e3j\u0303"
   )
 
@@ -515,16 +536,26 @@ transcribe_pt_vec <- function(word = "") {
     replacement = "\\1\\2\u0283"
   )
 
+  # Any x still left is in a context no rule above covers, e.g. after a
+  # consonant (aljorxe). It defaults to \u0283, the majority outcome in the PSL.
+  # Orthographic x must not reach syllabification: it is not a phoneme of
+  # Portuguese, and it used to surface verbatim in broad transcriptions.
+  word <- stringr::str_replace_all(word, pattern = "x", replacement = "\u0283")
+
   # [R
+  # The strong rhotic is emitted as a placeholder, U+0280, not as x: it must
+  # stay distinct from the tap (r) through syllabification and stress, and it
+  # must not be confused with an orthographic x that survived the grapheme
+  # rules above. phonemic_rhotics_pt() rewrites it once the pipeline is done.
   word <- stringr::str_replace_all(word,
     pattern = "^r|rr",
-    replacement = "x"
+    replacement = "\u0280"
   )
 
   # s.r + n.r + l.r
   word <- stringr::str_replace_all(word,
     pattern = "([nmslz])r",
-    replacement = "\\1x"
+    replacement = "\\1\u0280"
   )
 
   # Resolve glide placeholder:

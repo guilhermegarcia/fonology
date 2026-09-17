@@ -10,7 +10,9 @@ transcribe_pt(word = "")
 \item{word}{The string of interest}
 }
 \value{
-The IPA transcription of said string without syllabification or stress
+The IPA transcription of said string without syllabification or stress.
+  Rhotics are phonemic: the strong rhotic is written \code{r} and the tap
+  \enc{ɾ}{(U+027E)}, as in \code{ipa()}.
 }
 \description{
 Returns IPA phonemic transcription for a given string.

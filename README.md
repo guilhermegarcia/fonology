@@ -167,7 +167,7 @@ ipa("cantalo", narrow = T)
 ipa("antidepressivo", narrow = T)
 #> [1] "ˌãn.t͡ʃi.ˌde.pɾe.ˈsi.vʊ"
 ipa("feris")
-#> [1] "fe.ˈris*"
+#> [1] "fe.ˈɾis*"
 ipa("mejorado", lg = "sp")
 #> [1] "me.xo.ˈɾa.do"
 ipa("nuevos", lg = "sp")

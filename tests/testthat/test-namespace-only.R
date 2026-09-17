@@ -7,10 +7,12 @@ test_that("exported data-backed functions work without attaching Fonology", {
   was_attached <- "package:Fonology" %in% search()
   if (was_attached) {
     detach("package:Fonology", unload = FALSE, character.only = TRUE)
+    # Re-attach the namespace that is already loaded. library() would attach
+    # whichever version is installed, which under devtools::test() is not
+    # necessarily the one being tested, and every later test file would then
+    # run against it.
     on.exit(
-      suppressPackageStartupMessages(
-        library("Fonology", character.only = TRUE)
-      ),
+      suppressPackageStartupMessages(attachNamespace("Fonology")),
       add = TRUE
     )
   }

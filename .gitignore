@@ -24,6 +24,10 @@ tableaux.R
 !/data-raw/pt_wikt_corrections.tsv
 !/data-raw/pt_manual_lex_fix.tsv
 !/data-raw/build_fix_lexicons.R
+!/data-raw/build_pt_lex.R
+!/data-raw/build_bigrams_pt.R
+!/data-raw/build_psl_ipa.R
+!/data-raw/convert_pt_freq_rhotics.R
 /manual/*
 !/manual/Fonology.pdf
 /Fonology.pdf

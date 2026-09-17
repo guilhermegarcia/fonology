@@ -4,18 +4,60 @@
 \alias{cleanText}
 \title{Text cleaner}
 \usage{
-cleanText(text = "")
+cleanText(text = "", hyphen = c("split", "join", "keep"), clitics = FALSE)
 }
 \arguments{
-\item{text}{A possible string or text, in which case the function will first tokenize the text,
-or a vector with words already tokenized, in which case tokenization is skipped}
+\item{text}{A string, or a vector of strings already split into words}
+
+\item{hyphen}{How to treat hyphens and dashes: \code{"split"} (default),
+\code{"join"} or \code{"keep"}. See the Hyphens section.}
+
+\item{clitics}{If \code{TRUE}, remove a hyphenated Portuguese enclitic
+before hyphens are handled, so \code{"diz-me"} yields \code{"diz"}
+instead of two tokens. Portuguese-specific, and \code{FALSE} by default:
+dropping the clitic removes a syllable from the prosodic word, which is
+not always what you want.}
 }
 \value{
-A vector with all words in the input, stripped of punctuation
+A character vector of cleaned tokens, with no \code{NA} and no
+  empty strings
 }
 \description{
-Given a string, the function removes punctuation, empty tokens, numbers, and normalizes lower case.
+Given a string or a vector of strings, the function tokenizes on whitespace
+and then strips punctuation, digits, stress marks and case, returning a
+vector of cleaned tokens.
 }
+\details{
+The return value is a vector of tokens, so it is generally \emph{not} the
+same length as the input: a hyphenated form may yield two tokens and an
+empty or punctuation-only element yields none. Do not call this function
+inside \code{dplyr::mutate()} on a word-list column, where a changed length
+is silently recycled against the other columns.
+}
+\section{Hyphens}{
+
+Hyphenated words in Portuguese fall into classes that call for different
+treatment, and the function cannot reliably tell a derivational prefix
+(\code{anti-aborto}) from a lexicalised compound (\code{guarda-chuva}), so
+the choice is the caller's:
+
+\itemize{
+  \item \code{"split"} (default) treats a hyphen as a token boundary, so
+    \code{"guarda-chuva"} yields two tokens. This keeps the output inside
+    the lexicon: \code{guarda} and \code{chuva} both have dictionary
+    transcriptions.
+  \item \code{"join"} removes the hyphen and returns one token,
+    \code{"guardachuva"}. Useful when the prosodic word is the unit of
+    interest, but be aware that joined forms are usually out of vocabulary,
+    so \code{ipa()} falls back to its heuristic and marks the result.
+  \item \code{"keep"} leaves the hyphen in place, so the caller can decide
+    downstream.
+}
+}
+
 \examples{
-cleanText(text = "Este é um texto em português? This is a text in English!")
+cleanText(text = "Este \u00e9 um texto em portugu\u00eas? This is a text in English!")
+cleanText(text = "guarda-chuva")
+cleanText(text = "guarda-chuva", hyphen = "join")
+cleanText(text = "diz-me", clitics = TRUE)
 }

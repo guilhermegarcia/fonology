@@ -29,9 +29,10 @@ getFeat <- function(ph, lg) {
 
   # Feature table for the inventory. Column order matters: it decides which
   # matrix wins when several are equally small, so the historical order
-  # (ipa, syl, cons, son, then cont onwards) is preserved.
+  # (ipa, syl, cons, son, then cont onwards) is preserved. tap and trill were
+  # added last for that reason.
   targetF <- .feature_table(targetLanguage) |>
-    dplyr::select("ipa", "syl", "cons", "son", "cont":"approx")
+    dplyr::select("ipa", "syl", "cons", "son", "cont":"trill")
 
   ph <- as.character(ph)
 

@@ -5,14 +5,15 @@
 \alias{allFeatures}
 \title{Data: comprehensive table with distinctive features}
 \format{
-A tibble with 6,367 rows (one IPA symbol per row) and 26 columns: the
-\code{ipa} symbol plus 25 features. Every feature cell is \code{"+"},
+A tibble with 6,367 rows (one IPA symbol per row) and 28 columns: the
+\code{ipa} symbol plus 27 features. Every feature cell is \code{"+"},
 \code{"-"} or \code{"0"}; there are no missing values. The (abbreviated)
 available features are: \code{syl}, \code{son},
 \code{cons}, \code{cont}, \code{DR}, \code{lat}, \code{nas}, \code{strid},
 \code{vce}, \code{sg}, \code{cg}, \code{ant}, \code{cor}, \code{distr},
 \code{lab}, \code{hi}, \code{lo}, \code{back}, \code{round}, \code{vel},
-\code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx}
+\code{tense}, \code{long}, \code{hitone}, \code{hireg}, \code{approx},
+\code{tap}, \code{trill}
 }
 \source{
 Adapted from <https://github.com/dmort27/panphon/blob/master/panphon/data/ipa_all.csv>
@@ -31,7 +32,11 @@ The table is an adaptation of PanPhon, not a copy: three columns are renamed
 and \code{vel}), the velar stop is written with ASCII \code{g} rather than
 PanPhon's script g \enc{ɡ}{(U+0261)}, \code{back} and \code{tense} are
 hand-adapted, and
-\code{approx} is an additional column with no PanPhon equivalent. See
+\code{approx}, \code{tap} and \code{trill} are additional columns with no
+PanPhon equivalent. \code{tap} and \code{trill} follow Hayes (2009), whose
+table ships as \code{features_Hayes_2009}: without them taps and trills had
+identical matrices, so neither Portuguese nor Spanish /r/ and /\enc{ɾ}{(U+027E)}/
+could be described on their own. See
 \code{data-raw/build_allFeatures.R} for the full derivation.
 
 IPA symbols are stored in Unicode NFD (decomposed) form, so \code{ã} is

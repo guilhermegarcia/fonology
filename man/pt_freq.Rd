@@ -10,7 +10,7 @@ A data frame with 60,380 rows and 8 variables:
 \describe{
   \item{\code{word}}{Portuguese word in orthographic form}
   \item{\code{freq}}{Frequency count of the word}
-  \item{\code{ipa}}{IPA phonemic transcription}
+  \item{\code{ipa}}{IPA phonemic transcription. Rhotics follow the phonemic convention introduced in version 1.7.1: the strong rhotic is written \code{r} and the tap \enc{ɾ}{(U+027E)}. A small number of transcriptions keep the orthographic letter \code{x} where the transcriber that generated this list did not convert it}
   \item{\code{apu}}{antepenultimate syllable if applicable}
   \item{\code{pu}}{penultimate syllable if applicable}
   \item{\code{u}}{final syllable}

@@ -14,7 +14,10 @@ A tibble with bigrams, frequency, and proportions
 data(bigrams_pt)
 }
 \description{
-Set of bigrams extracted from the Portuguese Stress Lexicon using the ngram package.
+Set of bigrams over the transcriptions in \code{pt_lex}, i.e. the Portuguese Stress
+Lexicon, with word boundaries marked by \code{^} and \code{$}. Segments are grapheme
+clusters, so a nasal glide counts as one segment. Rhotics follow the phonemic
+convention of \code{ipa()}. The table is built by \code{data-raw/build_bigrams_pt.R}.
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})

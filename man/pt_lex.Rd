@@ -5,7 +5,7 @@
 \alias{pt_lex}
 \title{Data: Portuguese Stress Lexicon - simplified}
 \format{
-A data frame with 154,610 rows and 2 columns:
+A data frame with 128,854 rows and 2 columns:
 \describe{
   \item{\code{word}}{A word in its orthographic form}
   \item{\code{pro}}{The phonemic transcription of a word}
@@ -18,9 +18,12 @@ A data frame with 154,610 rows and 2 columns:
 data(pt_lex)
 }
 \description{
-Comprehensive list of non-verbs in Portuguese and their phonemic transcription.
-This data set is used by different functions in Fonology. Unlike the original PSL data base,
-\code{pt_lex} uses slightly different transcription conventions.
+The distinct word and pronunciation pairs in the Portuguese Stress Lexicon
+(\code{psl}), with the PSL notation converted to IPA. This is the lookup used by
+\code{ipa(lg = "pt")} before it falls back to its regex transcriber. Rhotics are
+phonemic: the strong rhotic is written \code{r} and the tap \enc{ɾ}{(U+027E)}, and
+\code{ipa(narrow = TRUE)} realises the strong rhotic as [x]. The object is built by
+\code{data-raw/build_pt_lex.R}.
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})

@@ -25,6 +25,11 @@
 #      unspecified. getPhon("+strid", "pt") returned only f and v, and
 #      getFeat(c("s","z","ʃ","ʒ"), "pt") returned "0strid". The column is taken
 #      from upstream PanPhon, which specifies it throughout.
+#   4. PanPhon has no feature separating taps from trills, so r and ɾ (and ʙ,
+#      ʀ, ɽ, ɺ) had identical matrices and neither r nor ɾ was a natural class
+#      on its own. This matters wherever both are phonemic (Portuguese caro ~
+#      carro, Spanish pero ~ perro). Two columns, tap and trill, are added after
+#      approx, following Hayes (2009), whose table ships as features_Hayes_2009.
 #   3. PanPhon has no rhoticity feature and encodes the rhotic hook by copying
 #      /ɹ/'s dorsal and labial values onto the base vowel, so ə˞ and ɜ˞ (ɚ and
 #      ɝ, both in the English inventory) came out [+hi] and [+round]. Height and
@@ -117,11 +122,32 @@ stopifnot(
   sum(allFeatures$ipa %in% rhotic) == 2
 )
 
+# Taps and trills (Hayes 2009: [+tap] ɾ ɺ ɽ, [+trill] r ʙ ʀ; ⱱ is the IPA
+# labiodental flap). Every other segment is [-tap, -trill]. The base symbol is
+# found by stripping combining marks and modifier letters, so diacritic and
+# length variants (r̥, rː, ɾ̃) inherit the value of their base. The columns go
+# after approx so that, in getFeat(), they only win when no description of the
+# same size exists without them: ties are broken by column order.
+tap_base <- stringi::stri_trans_nfd(c("ɾ", "ɺ", "ɽ", "ⱱ"))
+trill_base <- stringi::stri_trans_nfd(c("r", "ʙ", "ʀ"))
+base <- stringi::stri_replace_all_regex(allFeatures$ipa, "[\\p{M}\\p{Lm}]", "")
+allFeatures <- allFeatures |>
+  dplyr::mutate(
+    tap = ifelse(base %in% tap_base, "+", "-"),
+    trill = ifelse(base %in% trill_base, "+", "-")
+  )
+
+stopifnot(
+  allFeatures$tap[allFeatures$ipa == "ɾ"] == "+",
+  allFeatures$trill[allFeatures$ipa == "r"] == "+",
+  !any(allFeatures$tap == "+" & allFeatures$trill == "+")
+)
+
 stopifnot(
   !anyDuplicated(allFeatures$ipa),
   nrow(allFeatures) == 6367,
-  ncol(allFeatures) == 26,
-  identical(names(allFeatures), names(adapted)),
+  ncol(allFeatures) == 28,
+  identical(names(allFeatures), c(setdiff(names(adapted), c("tap", "trill")), "tap", "trill")),
   !anyNA(allFeatures),
   all(unlist(allFeatures[-1]) %in% c("+", "-", "0")),
   identical(allFeatures$ipa, stringi::stri_trans_nfd(allFeatures$ipa))

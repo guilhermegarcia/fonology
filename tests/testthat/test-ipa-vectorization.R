@@ -67,7 +67,7 @@ test_that("Portuguese ipa() handles mixed valid and digit-bearing vector input",
 test_that("Portuguese syllabification does not allow sm onsets", {
   expect_equal(
     ipa("transmitti", lg = "pt"),
-    "tranz.mi.\u02c8ti*"
+    "t\u027eanz.mi.\u02c8ti*"
   )
 })
 

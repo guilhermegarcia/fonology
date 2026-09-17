@@ -10,7 +10,7 @@
 # aliasing); the assertion at the end of this script enforces that.
 #
 # Scope: broad phonemic transcription, i.e. the segments ipa(narrow = FALSE)
-# can emit. Narrow-only allophones (Portuguese ɪ ʊ ɾ ŋ, palatalised affricates)
+# can emit. Narrow-only allophones (Portuguese ɪ ʊ x ŋ, palatalised affricates)
 # are deliberately excluded.
 
 devtools::load_all(quiet = TRUE)
@@ -18,7 +18,9 @@ devtools::load_all(quiet = TRUE)
 split_ipa <- function(x) unlist(strsplit(x, ".", fixed = TRUE))
 
 # Portuguese -----------------------------------------------------------------
-# /x/ is emitted by ipa(lg = "pt") and was previously absent.
+# Rhotics: /r/ (strong) and /ɾ/ (tap) are the two contrastive rhotic phonemes.
+# [x] is a narrow-transcription allophone of /r/ and is not listed; up to
+# 1.7.0 it was, because broad transcription wrote the strong rhotic as x.
 #
 # The nasal vowels are deliberately NOT listed: they are taken to be derived
 # from an underlying vowel + nasal sequence rather than phonemic in their own
@@ -27,7 +29,7 @@ split_ipa <- function(x) unlist(strsplit(x, ".", fixed = TRUE))
 # error names the segment.
 vowels_pt <- split_ipa("a.e.i.o.u.ɛ.ɔ")
 consonants_pt <- split_ipa(
-  "j.w.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.x.m.n.ɲ.l.r.ɾ.ʎ"
+  "j.w.p.b.t.d.k.g.f.v.s.z.ʃ.ʒ.m.n.ɲ.l.r.ɾ.ʎ"
 )
 
 # Spanish --------------------------------------------------------------------

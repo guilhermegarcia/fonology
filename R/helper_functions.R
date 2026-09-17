@@ -36,10 +36,13 @@
   one_stress <- stringr::str_count(nfd, stringr::fixed("\u02C8")) == 1L
   boundaries_ok <- !stringr::str_detect(nfd, "^\\.|\\.$|\\.{2,}")
   no_marker <- !stringr::str_detect(nfd, stringr::fixed("*"))
+  # Surface-only symbols. The rhotic allophones are among them: broad
+  # transcription writes the strong rhotic as /r/, and [x] is its narrow
+  # realisation, alongside the other rhotic allophones listed here.
   no_surface <- !stringr::str_detect(
     nfd,
     paste0(
-      "[\u0250\u0268\u026A\u028A\u0281\u027B\u0279\u014B",
+      "[\u0250\u0268\u026A\u028A\u0281\u027B\u0279\u014Bx",
       "\u02CC\u02D0\u02D1\u0361\u035C\\[\\]()]"
     )
   )
@@ -64,7 +67,7 @@
 .feature_names <- c(
   "syl", "son", "cons", "cont", "DR", "lat", "nas", "strid", "vce",
   "sg", "cg", "ant", "cor", "distr", "lab", "hi", "lo", "back", "round",
-  "vel", "tense", "long", "hitone", "hireg", "approx"
+  "vel", "tense", "long", "hitone", "hireg", "approx", "tap", "trill"
 )
 
 #' Language names accepted by getFeat() and getPhon()
@@ -224,13 +227,13 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
   semivowels <- "j.w" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
-  liquids <- "l.x.r.\u028e" |>
+  liquids <- "l.\u0280.r.\u028e" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
   nasals <- "m.n.\u0272" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
-  fricatives <- "f.v.s.z.\u0283.\u0292.x" |>
+  fricatives <- "f.v.s.z.\u0283.\u0292.\u0280" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
   plosives <- "p.b.t.d.k.g" |>
@@ -246,7 +249,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
 
   # Phonotactics:
   nucleus <- vowels
-  onsets <- "p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.x.m.n.l.x" |>
+  onsets <- "p.b.t.d.k.g.f.v.s.z.\u0283.\u0292.\u0280.m.n.l.\u0280" |>
     stringr::str_split(pattern = "\\.") |>
     unlist()
   codas <- "s.l.r.m.n" |>
@@ -510,7 +513,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "m\\.(\u02c8?[fvsztdkg\u0292\u0283x])",
+    pattern = "m\\.(\u02c8?[fvsztdkg\u0292\u0283x\u0280])",
     replacement = "n.\\1"
   )
 
@@ -601,6 +604,10 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
     replacement = "\\1d"
   )
 
+  # The strong rhotic was built with the U+0280 placeholder and the tap as r;
+  # write both as phonemes.
+  word <- phonemic_rhotics_pt(word)
+
   return(word)
 }
 
@@ -615,7 +622,7 @@ gen_pt <- function(profile = "LLL", palatalization = F) {
 biGram_pt_helper <- function(word = "") {
   bigrams <- .get_pkg_data("bigrams_pt")
 
-  if (sum(stringr::str_detect(string = word, pattern = "[chqyw]")) > 0) {
+  if (sum(stringr::str_detect(string = word, pattern = "[chqy]")) > 0) {
     cli::cli_alert_danger("Input must be phonemic, not orthographic.")
     return(NA)
   }
