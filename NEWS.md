@@ -1,3 +1,34 @@
+# Fonology 1.8.0
+
+This release adds `orthDepth()`, which reports how transparent the spelling of
+each supported language is, in both reading and writing.
+
+## New: `orthDepth()`
+
+`orthDepth()` prints the orthographic depth of the five supported languages,
+following OTEANN (Marjou 2021): the percentage of unseen words whose
+pronunciation is predicted correctly from their spelling (read), and whose
+spelling is predicted correctly from their pronunciation (write).
+`orthDepth()` prints all five side by side; `orthDepth("pt")` prints one
+language, and returns all scores invisibly as a data frame.
+
+- **What it reports.** Read and write accuracy, per word and per letter (or
+  sound); OTEANN's published scores, for comparison; complexity (the entropy
+  that context rules remove, after Schmalz et al. 2015); and onset entropy
+  (Borgwaldt et al. 2005). A short guide to the table is printed below it
+  (`explain = FALSE` turns it off), and `?orthDepth` documents the method,
+  how it differs from OTEANN, and its limits.
+- **One reference for all languages.** Every language is measured on English
+  Wiktionary pronunciations (via kaikki.org), not on the lexicons `ipa()` uses,
+  so the scores are comparable across languages. Built by
+  `data-raw/build_orth_depth.R`.
+
+Reference: Marjou, X. (2021). OTEANN: Estimating the transparency of
+orthographies with an artificial neural network. In E. Vylomova et al. (Eds.),
+*Proceedings of the Third Workshop on Computational Typology and Multilingual
+NLP* (pp. 1–9). Association for Computational Linguistics.
+<https://doi.org/10.18653/v1/2021.sigtyp-1.1>
+
 # Fonology 1.7.1
 
 This release makes Portuguese transcription phonemic with respect to rhotics,

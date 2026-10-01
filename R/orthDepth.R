@@ -1,0 +1,220 @@
+#' Orthographic depth of the supported languages
+#'
+#' Prints how transparent each language's orthography is: how often an
+#' unseen word can be read correctly from its spelling, and written correctly
+#' from its pronunciation. A shallow (transparent) orthography maps letters
+#' to sounds predictably; a deep (opaque) one does not (Katz and Frost 1992).
+#' The measures follow OTEANN (Marjou 2021). Scores are precomputed with the
+#' same method and the same kind of reference for every language, so they
+#' can be compared across languages; the build is documented in
+#' \file{data-raw/build_orth_depth.R}.
+#'
+#' @section What the table reports:
+#' \describe{
+#'   \item{Read, words}{Percentage of unseen words whose pronunciation is
+#'     predicted entirely correctly from their spelling. This is OTEANN's
+#'     reading score: how often you can pronounce a word you have never seen.}
+#'   \item{Read, letters}{The same, scored letter by letter instead of word by
+#'     word. For each letter, the prediction is the sound(s) it begins, or
+#'     that it is silent, or that it continues the previous grapheme (the
+#'     \emph{h} of \emph{ch}). Finding silent letters and grapheme boundaries
+#'     is part of reading.}
+#'   \item{Write, words}{Percentage of unseen words whose spelling is
+#'     predicted entirely correctly from their pronunciation. This is
+#'     OTEANN's writing score.}
+#'   \item{Write, sounds}{The same, scored sound by sound.}
+#'   \item{OTEANN}{The reading and writing scores published by Marjou (2021,
+#'     Table 3), for comparison. They come from a different model and data
+#'     (see below), so they are a check on the ranking, not on exact values.}
+#'   \item{Complexity}{How much uncertainty about a letter's pronunciation,
+#'     in bits, the letter on each side removes. High complexity means that
+#'     many pronunciations depend on context rules (Portuguese \emph{t} is
+#'     /t\enc{ʃ}{S}/ before /i/ and /t/ elsewhere), as opposed to being
+#'     unpredictable (Schmalz et al. 2015).}
+#'   \item{Onset}{Onset entropy: the uncertainty, in bits, of a word's first
+#'     sound given its first letter, averaged over letters (Borgwaldt,
+#'     Hellwig and De Groot 2005). Lower is more predictable. Included for
+#'     comparison with that literature.}
+#' }
+#'
+#' @section How the scores are calculated:
+#' \enumerate{
+#'   \item \strong{Data.} Pronunciations come from the English Wiktionary
+#'     (via Wiktextract and \url{https://kaikki.org}), for one variety per
+#'     language: Brazilian Portuguese, Latin American Spanish (with seseo and
+#'     ye\enc{í}{i}smo), standard French and Italian, and General American
+#'     English. Proper nouns, abbreviations, affixes and multiword entries are
+#'     excluded, and the first listed pronunciation of each word is kept.
+#'     Stress marks and syllable boundaries are removed from the
+#'     pronunciations. The same reference is used for every language, so the
+#'     scores do not depend on the lexicons \code{\link{ipa}} uses for lookup.
+#'   \item \strong{Alignment.} Each word's letters are aligned to its sounds
+#'     with a many-to-many expectation-maximisation aligner (Jiampojamarn,
+#'     Kondrak and Sherif 2007). A unit may be one, two or three letters
+#'     corresponding to one sound (\emph{lh} \eqn{\to} /\enc{ʎ}{L}/), one letter
+#'     corresponding to two sounds (\emph{x} \eqn{\to} /ks/), or a silent
+#'     letter.
+#'   \item \strong{Prediction.} 90\% of words are used to learn, for each
+#'     letter and its context, the most frequent label (and for each sound
+#'     and its context, the most frequent spelling, silent letters included).
+#'     The context is up to three letters (or sounds) on each side; a context
+#'     never seen in training falls back to a narrower one, and ultimately to
+#'     the letter (or sound) alone. When writing, the context also includes
+#'     stress (whether the sound is the stressed vowel, and whether stress is
+#'     final, penultimate or antepenultimate), because a writer hears stress
+#'     and written accents depend on it. The predictions are scored on the
+#'     remaining 10\% of words.
+#'   \item \strong{Entropy.} For a letter whose labels occur with
+#'     probabilities \eqn{p_1, p_2, \ldots}, the entropy is
+#'     \eqn{H = -\sum_i p_i \log_2 p_i}: 0 bits for one possible label, 1 bit
+#'     for two equally likely ones. Averaging over letters, weighted by
+#'     frequency, gives the context-free entropy; complexity subtracts the
+#'     same quantity computed for each letter-plus-neighbours context.
+#' }
+#'
+#' @section Interpreting the scores:
+#' Reading and writing can differ sharply. French is far easier to read than
+#' to write, because many spellings share one sound (\emph{-er}, \emph{-ez},
+#' \emph{-ai}, \emph{-et}); Italian is the reverse, because the spelling does
+#' not show stress, vowel quality (e/\enc{ɛ}{E}, o/\enc{ɔ}{O}) or the voicing of
+#' \emph{s} and \emph{z}, but each sound has essentially one spelling.
+#' Word-level scores are much lower than letter-level ones, because one
+#' error anywhere makes the word wrong. English reads 87\% of letters
+#' correctly but under 40\% of words; its vowel letters are read correctly
+#' 76\% of the time, against 95\% for consonant letters.
+#'
+#' @section Comparison with OTEANN:
+#' The rankings agree closely with Marjou (2021), but the values differ, for
+#' known reasons. OTEANN uses a transformer that sees the whole word; this
+#' function uses a frequency table over a seven-letter window, which is
+#' transparent and reproducible but cannot use information further away.
+#' OTEANN kept primary stress in some pronunciations, so its readers had to
+#' predict stress; here they do not, which mainly raises Spanish and Italian
+#' reading. Here writers are given stress, which mainly raises Spanish
+#' writing (accents were OTEANN's most common Spanish error). OTEANN also
+#' drew on each language's own Wiktionary, without separating varieties, and
+#' tested 1,000 words per language.
+#'
+#' @section Limitations:
+#' \itemize{
+#'   \item The context is local. Rules that look further, or that depend on
+#'     stress when reading, count as unpredictable: Portuguese unstressed
+#'     vowel reduction (final \emph{o} \eqn{\to} /u/), which a reader could
+#'     infer from accents and word endings, and accents that depend on how a
+#'     word ends. The scores are therefore lower bounds on predictability.
+#'   \item Morphology is not used. English \emph{-ed} and French verbal
+#'     \emph{-ent} are predictable given the word's structure, but the
+#'     measure only sees letters.
+#'   \item Scores depend on how narrowly the source transcribes each
+#'     language. Wiktionary's Brazilian Portuguese records predictable
+#'     variants such as /t\enc{ʃ}{S}/ and final /i u/, which raises complexity.
+#' }
+#'
+#' @param lg Language: \code{"pt"}, \code{"sp"}, \code{"fr"}, \code{"it"},
+#'   \code{"en"}, or the language name. If \code{NULL} (default), all five
+#'   languages are printed.
+#' @param explain If \code{TRUE} (default), print a short guide to reading
+#'   the table below it.
+#' @return Invisibly, a data frame with one row per language printed and
+#'   these columns (proportions, not percentages):
+#' \describe{
+#'   \item{\code{lg}, \code{language}, \code{variety}}{Language code, name, and the variety whose transcriptions were used}
+#'   \item{\code{n_words}}{Number of words measured (10\% held out for testing)}
+#'   \item{\code{read}, \code{write}}{Proportion of held-out words read, or written, entirely correctly}
+#'   \item{\code{read_letters}, \code{write_sounds}}{The same, per letter or per sound}
+#'   \item{\code{read_vowels}, \code{read_consonants}}{\code{read_letters}, restricted to vowel or consonant letters}
+#'   \item{\code{read_nocontext}, \code{write_nocontext}}{\code{read} and \code{write} when each letter (or sound) is predicted without context}
+#'   \item{\code{read_entropy}, \code{read_entropy_context}}{Entropy of a letter's label given the letter, without and with the letter on each side, in bits}
+#'   \item{\code{complexity}}{\code{read_entropy - read_entropy_context}}
+#'   \item{\code{write_entropy}, \code{write_entropy_context}}{Entropy of a sound's spelling given the sound, without and with the sound on each side and stress}
+#'   \item{\code{onset_entropy}}{Onset entropy (Borgwaldt et al. 2005)}
+#'   \item{\code{oteann_read}, \code{oteann_write}}{The scores published by Marjou (2021, Table 3)}
+#' }
+#' @references
+#' Borgwaldt, S. R., Hellwig, F. M., & De Groot, A. M. B. (2005). Onset
+#' entropy matters: Letter-to-phoneme mappings in seven languages.
+#' \emph{Reading and Writing}, 18, 211--229.
+#'
+#' Jiampojamarn, S., Kondrak, G., & Sherif, T. (2007). Applying many-to-many
+#' alignments and hidden Markov models to letter-to-phoneme conversion.
+#' \emph{Proceedings of NAACL-HLT 2007}, 372--379.
+#'
+#' Katz, L., & Frost, R. (1992). The reading process is different for
+#' different orthographies: The orthographic depth hypothesis. In R. Frost &
+#' L. Katz (Eds.), \emph{Orthography, phonology, morphology, and meaning}
+#' (pp. 67--84). North-Holland.
+#'
+#' Marjou, X. (2021). OTEANN: Estimating the transparency of orthographies
+#' with an artificial neural network. In E. Vylomova, E. Salesky, S. Mielke,
+#' G. Lapesa, R. Kumar, H. Hammarstr\enc{ö}{o}m, I. Vuli\enc{ć}{c}, A. Korhonen,
+#' R. Reichart, E. M. Ponti, & R. Cotterell (Eds.), \emph{Proceedings of the
+#' Third Workshop on Computational Typology and Multilingual NLP} (pp. 1--9).
+#' Association for Computational Linguistics.
+#' \doi{10.18653/v1/2021.sigtyp-1.1}
+#'
+#' Schmalz, X., Marinus, E., Coltheart, M., & Castles, A. (2015). Getting to
+#' the bottom of orthographic depth. \emph{Psychonomic Bulletin & Review},
+#' 22, 1614--1629.
+#' @examples
+#' orthDepth()
+#' orthDepth("pt")
+#' orthDepth("en", explain = FALSE)
+#' @export
+
+orthDepth <- function(lg = NULL, explain = TRUE) {
+  od <- orth_depth
+
+  if (!is.null(lg)) {
+    if (length(lg) != 1 || is.na(lg) ||
+        !stringr::str_to_lower(lg) %in% names(.available_lg)) {
+      cli::cli_abort(c(
+        "Language not supported (or misspelled): {.val {lg}}.",
+        "i" = "Available: {.val {unique(unname(.available_lg))}}."
+      ))
+    }
+    od <- od[od$lg == .available_lg[[stringr::str_to_lower(lg)]], ]
+  }
+  od <- od[order(-od$read), ]
+
+  pct <- function(x) sprintf("%.1f%%", 100 * x)
+  cols <- list(
+    c("", "Language", od$language),
+    c("Read", "words", pct(od$read)),
+    c("", "letters", pct(od$read_letters)),
+    c("Write", "words", pct(od$write)),
+    c("", "sounds", pct(od$write_sounds)),
+    c("OTEANN", "read", pct(od$oteann_read)),
+    c("", "write", pct(od$oteann_write)),
+    c("", "Complexity", sprintf("%.2f", od$complexity)),
+    c("", "Onset", sprintf("%.2f", od$onset_entropy))
+  )
+  cols[[1]] <- formatC(cols[[1]], width = -max(nchar(cols[[1]])))
+  cols[-1] <- lapply(cols[-1], function(x) formatC(x, width = max(nchar(x))))
+  # group labels sit left-aligned over their first column
+  for (k in c(2, 4, 6)) {
+    cols[[k]][1] <- formatC(trimws(cols[[k]][1]), width = -nchar(cols[[k]][1]))
+  }
+  lines <- trimws(do.call(paste, c(cols, sep = "  ")), which = "right")
+
+  title <- if (nrow(od) == 1) {
+    paste0("Orthographic depth: ", od$language, " (", od$variety, ")")
+  } else {
+    "Orthographic depth"
+  }
+  cli::cli_h1(title)
+  cli::cli_verbatim(lines)
+
+  if (explain) {
+    cli::cli_text("")
+    cli::cli_bullets(c(
+      "*" = "{.strong Read}: % of unseen words (and letters) whose pronunciation is predicted correctly from the spelling.",
+      "*" = "{.strong Write}: % of unseen words (and sounds) whose spelling is predicted correctly from the pronunciation and stress.",
+      "*" = "{.strong OTEANN}: the published scores of Marjou (2021), for comparison; different model and data.",
+      "*" = "{.strong Complexity}: bits of uncertainty removed by the neighbouring letters. Higher = more context rules.",
+      "*" = "{.strong Onset}: entropy of a word's first sound given its first letter, in bits (Borgwaldt et al. 2005). Lower = more predictable.",
+      "i" = "Higher percentages = shallower orthography. Measured on {format(sum(od$n_words), big.mark = ',')} Wiktionary words; see {.code ?orthDepth} for the method and its limits."
+    ))
+  }
+
+  invisible(od)
+}
