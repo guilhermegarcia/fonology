@@ -1,3 +1,16 @@
+# Fonology 1.9.1
+
+This release updates the manual and changes no package code or data.
+
+## Manual
+
+- Covers `orthDepth()`, elided clitics and `cleanText()`'s `apostrophe` and
+  `hyphen` arguments, which it had not documented.
+- Its title page now gives the current version. It had said 1.5.0 since that
+  release.
+- Two stale examples now show current output: `coração` has a tap, following the
+  rhotic change in 1.7.1, and `poggy` matches the current English fallback.
+
 # Fonology 1.9.0
 
 This release fixes transcription errors found while re-measuring `ipa()` against
