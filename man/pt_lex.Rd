@@ -27,5 +27,10 @@ phonemic: the strong rhotic is written \code{r} and the tap \enc{ɾ}{(U+027E)}, 
 }
 \author{
 Guilherme D. Garcia (\url{https://gdgarcia.ca})
+As of version 1.9.0, \code{pt_lex} departs from the PSL in two ways (\code{psl}
+itself is unchanged): an accented g + front vowel is transcribed with
+the voiced fricative rather than /g/, and stressed mid vowels follow an
+unambiguous general-Brazil Wiktionary pronunciation in the words listed
+in \code{data-raw/pt_psl_corrections.tsv}.
 }
 \keyword{datasets}

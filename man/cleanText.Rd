@@ -4,7 +4,12 @@
 \alias{cleanText}
 \title{Text cleaner}
 \usage{
-cleanText(text = "", hyphen = c("split", "join", "keep"), clitics = FALSE)
+cleanText(
+  text = "",
+  hyphen = c("split", "join", "keep"),
+  clitics = FALSE,
+  apostrophe = c("remove", "keep")
+)
 }
 \arguments{
 \item{text}{A string, or a vector of strings already split into words}
@@ -17,6 +22,9 @@ before hyphens are handled, so \code{"diz-me"} yields \code{"diz"}
 instead of two tokens. Portuguese-specific, and \code{FALSE} by default:
 dropping the clitic removes a syllable from the prosodic word, which is
 not always what you want.}
+
+\item{apostrophe}{How to treat word-internal apostrophes: \code{"remove"}
+(default) or \code{"keep"}. See the Apostrophes section.}
 }
 \value{
 A character vector of cleaned tokens, with no \code{NA} and no
@@ -55,9 +63,20 @@ the choice is the caller's:
 }
 }
 
+\section{Apostrophes}{
+
+French and Italian elide function words before a vowel (\emph{l'homme},
+\emph{dell'acqua}). \code{"remove"} (default) deletes the apostrophe, which
+turns those forms into out-of-vocabulary strings such as \code{"lhomme"}.
+\code{"keep"} preserves a word-internal apostrophe, normalized to the straight form,
+so that \code{ipa()} can transcribe the clitic and its host separately. Use
+it for French and Italian text.
+}
+
 \examples{
 cleanText(text = "Este \u00e9 um texto em portugu\u00eas? This is a text in English!")
 cleanText(text = "guarda-chuva")
 cleanText(text = "guarda-chuva", hyphen = "join")
 cleanText(text = "diz-me", clitics = TRUE)
+cleanText(text = "l'homme", apostrophe = "keep")
 }

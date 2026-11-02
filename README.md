@@ -120,32 +120,32 @@ User IPA overrides take priority over both lookup and regex fallback.
 Regex-derived forms are marked with a final `*`; helper functions ignore
 this marker when parsing phonological material.
 
-Lookup transcriptions are dictionary-grade by construction. The
-rule-based fallback is benchmarked per language against 4,000 held-out
-words from the corresponding lexicon; the table reports how often it
+Lookup transcriptions are as good as the lexicon they come from. The
+rule-based fallback is scored against the lexicon itself, on 5 random
+samples of 4,000 words per language; the table reports how often it
 reproduces the dictionary transcription exactly (including stress and
-syllabification). Token coverage is measured on running-text samples, so
-overall accuracy on ordinary text combines both:
+syllabification). The rules were tuned on these same lexicons, so this
+is not a measure on unseen data. Token coverage is the share of
+running-text tokens found in the lexicon, measured on novels and
+subtitle frequency lists. Overall is coverage + (1 − coverage) ×
+fallback, an estimate that assumes lookups are correct. The figures are
+reproduced by `data-raw/benchmark_ipa.R`:
 
 | Language | Lookup source | Entries | Token coverage | Fallback (exact) | Overall |
 |----|----|---:|---:|---:|---:|
-| English | CMU Pronouncing Dictionary | ~133K | ~99.9% | 27% | ~99.9% |
-| French | Lexique 4 | ~171K | ~99% | 71% | ~99% |
-| Spanish | Wiktionary (kaikki.org) | ~130K | ~83%¹ | 95% | ~98% |
-| Italian | Wiktionary (kaikki.org) | ~82K | ~92% | 70% | ~97% |
-| Portuguese | PSL + 154 curated Wiktionary corrections | ~129K | ~28%² | 95% | ~96% |
+| English | CMU Pronouncing Dictionary | ~133K | ~99% | 27% | ~99% |
+| French | Lexique 4 | ~171K | ~97% | 70% | ~99% |
+| Spanish | Wiktionary (kaikki.org) | ~130K | ~83%¹ | 95% | ~99% |
+| Italian | Wiktionary (kaikki.org) | ~82K | ~87% | 68% | ~96% |
+| Portuguese | PSL + curated Wiktionary corrections | ~129K | ~28%² | 95% | ~96% |
 
-¹ Measured on a classical text (Don Quijote); modern text runs higher.
+¹ 81.5% on *Don Quijote*, 85% on subtitles.
 
 ² The PSL contains non-verbs only, so most function words and verbs are
-served by the fallback. The curated complement does not turn every predictable
-fallback into a lookup: it includes only forms whose stress, syllabification,
-or stressed mid-vowel quality differed from an unambiguous general-Brazil
-Wiktionary pronunciation. On the bundled frequency corpus, these corrections
-affect 2.43% of tokens and cover 95% of the validated correction-bearing token
-mass. Every corrected form is regenerated through the package's broad
-Portuguese pipeline; Wiktionary surface allophones are not copied into broad
-output.
+served by the fallback. Checked against general-Brazil Wiktionary
+pronunciations for the 77% of tokens where one is unambiguous, 97% agree
+on stress, stressed mid-vowel quality and a coarse segmental comparison.
+That comparison ignores unstressed vowel quality.
 
 The main residual fallback errors are lexically variable material:
 mid-vowel quality in French and Italian, unadapted loanwords in Spanish,

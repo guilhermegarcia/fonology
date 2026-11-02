@@ -15,7 +15,7 @@ test_that("audited Portuguese corrections fix high-impact broad forms", {
 test_that("Portuguese correction data are valid and broad exhaustively", {
   fix <- Fonology:::.get_pkg_data("pt_lex_fix")
 
-  expect_length(fix, 264)
+  expect_length(fix, 278)
   expect_identical(anyDuplicated(names(fix)), 0L)
   expect_true(all(stringi::stri_trans_nfc(names(fix)) == names(fix)))
   expect_true(all(stringr::str_detect(

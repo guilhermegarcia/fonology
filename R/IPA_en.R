@@ -463,6 +463,8 @@
     stringr::str_replace_all("__YGLIDE__", "j") |>
     stringr::str_replace_all("__YLONG__", "a\u026a") |>
     stringr::str_replace_all("__YSHORT__", "\u026a") |>
+    # Any <y> no rule above resolved is the glide; it must not leak as IPA [y].
+    stringr::str_replace_all("y", "j") |>
     stringr::str_replace_all("__IZ__", "\u026az") |>
     stringr::str_replace("([pkf\u03b8s\u0283])__ED__", "\\1t") |>
     stringr::str_replace_all("__ED__", "d") |>

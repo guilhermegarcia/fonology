@@ -1,3 +1,56 @@
+# Fonology 1.9.0
+
+This release fixes transcription errors found while re-measuring `ipa()` against
+Wiktionary, adds elided clitics to French and Italian, corrects the accuracy
+figures reported in the documentation, and adds the script that reproduces them.
+Some transcriptions change.
+
+## Accuracy figures
+
+The README, manual and website reported figures from version 1.2.0. Re-measured,
+token coverage was overstated, most of all for Italian (~92%, now ~87%) and French
+(~99%, now ~97%); estimated overall accuracy is now ~99% for English, French and
+Spanish and ~96% for Italian and Portuguese. Fallback samples were described as
+"held-out", but the rules were tuned on the same lexicons, so that wording is gone.
+`data-raw/benchmark_ipa.R` reproduces the table.
+
+## French and Italian: elided clitics
+
+- `ipa()` transcribes clitic and host separately: `l'homme` is `lɔm`, `s'en` is
+  `sɑ̃` (not `sen`), `dell'acqua` is `del.ˈlak.kwa`, `c'era` is `ˈtʃɛ.ra`. French
+  forms spelled with an apostrophe (`aujourd'hui`) now reach the lexicon.
+- `cleanText()` gains `apostrophe = c("remove", "keep")`. The default is unchanged;
+  use `"keep"` for French and Italian text, or the apostrophe is gone before
+  `ipa()` sees it.
+
+## Portuguese
+
+- **`g` before an accented front vowel** is /ʒ/ (`gélido`, `gêmeos`), which also
+  fixes the corrections `guerra` (was `gu.ˈɛ.ra`) and `gesto` (was `ˈgɛs.to`).
+- **`pt_lex`:** the same /g/ error in the PSL's transcriptions is corrected
+  (`analgésico`, `evangélico`), as are stressed mid vowels in 106 words that
+  disagree with an unambiguous general-Brazil Wiktionary form (`papel`, `melhor`,
+  `futebol`), listed in `data-raw/pt_psl_corrections.tsv`. `psl` is untouched.
+- **`qu`, `gu`:** `pequeno` and `esquentar` have no glide; `frequência`,
+  `sequência` and `aguentar` do.
+- **Other fallback rules:** `próxim-` has /s/; `saiu`, `caiu` and `traiu` end in
+  stressed /iw/; `escolher` has /e/; `irmãs` has final stress; `ck` is /k/.
+- **Corrections:** `sexo`, `sexy`, `táxi`, `fluxo`, `boxe` and `galáxia` have /ks/;
+  `voz`, `dez`, `pede` and `peças` have open mid vowels.
+
+## Italian
+
+- `del`, `della`, `nel`, `nella`, `col` and related forms have close-mid vowels;
+  `cui`, `sui` and `tue` are disyllabic; imperfects in `-evo` have /e/ (`sapevo`).
+- Literal `y` no longer leaks into the output (`okay`).
+
+## Spanish and English
+
+- Spanish words ending in a falling diphthong no longer lose their stress or end
+  in a stray boundary (`troy` was `tɾoi.`), and coda /s/ stays in its syllable
+  (`amáis` was `a.ˈmai.s`), in both the fallback and `sp_lex`.
+- Literal `y` no longer leaks into English fallback forms (`hiya`).
+
 # Fonology 1.8.0
 
 This release adds `orthDepth()`, which reports how transparent the spelling of

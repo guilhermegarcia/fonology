@@ -12,6 +12,10 @@ transcribe_it <- function(word) {
   # English-style <ck> spells a single /k/ in common loanwords.
   word <- stringr::str_replace_all(word, "ck", "k")
 
+  # <y> in loanwords is /j/ next to a vowel and /i/ elsewhere (okay, hobby).
+  word <- stringr::str_replace_all(word, "(?<=[aeiou])y|y(?=[aeiou])", "j")
+  word <- stringr::str_replace_all(word, "y", "i")
+
   # IMPORTANT: Digraphs involving <h> (ch, gh, sch) must be resolved BEFORE
   # the silent-h deletion rule, or "chiesa" would lose its <h> and "cie" would
   # be misread as the palatal sequence /t\u0283e/ instead of /ke/.

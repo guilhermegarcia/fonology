@@ -128,6 +128,9 @@ stress_it <- function(word) {
   # -ore, -oso, -etta, -ezza, -ese, -esco, -evole).
   keep_e <- stringr::str_detect(output, "(n\\.to|t\\.t[oaie]|t\\.ts[ae]|e\\.[zs]e|s\\.ko|o\\.l[ei]|men\\.te|s\\.s[ei]|s\\.te|e\\.v[ai]|e\\.te|\u0272\\.\u0272[oaie])$") &
     !stringr::str_detect(output, "n\\.tsa$")
+  # Imperfect -evo (volevo, sapevo). Not stressed monosyllabic stems (devo, levo)
+  # or -ievo nouns (allievo, sollievo), which have an open vowel.
+  keep_e <- keep_e | stringr::str_detect(output, "\\.\u02c8[^.j]*e\\.vo$")
   keep_o <- stringr::str_detect(output, "(o\\.n[eio]|o\\.re|o\\.r[ei]$|o\\.zo|o\\.z[aie]|r\\.so)$")
 
   # Diacritic-marked words have their quality resolved by the accent itself

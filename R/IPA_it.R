@@ -27,6 +27,8 @@ ipa_it <- function(word = "italiano") {
   it_ipa_lex <- .lex("it_ipa_lex")
   it_lex_user <- .lex("it_lex_user")
 
+  raw <- stringr::str_replace_all(stringr::str_to_lower(word), "\u2019", "'")
+
   wd <- stringr::str_to_lower(word) |>
     stringr::str_remove_all("[:punct:]")
 
@@ -79,6 +81,10 @@ ipa_it <- function(word = "italiano") {
   if (any(ipa_override)) {
     out[ipa_override] <- unname(it_ipa_lex[wd_plain[ipa_override]])
   }
+
+  # Elided clitic + host (dell'acqua). This must see the apostrophe, which wd
+  # has lost.
+  out <- .apply_elision(out, raw, skip = is.na(wd_plain), .elision_it, ipa_it, stressed = TRUE)
 
   return(out)
 }

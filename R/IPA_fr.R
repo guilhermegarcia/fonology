@@ -26,6 +26,8 @@
 ipa_fr <- function(word = "comportamento") {
   fr_ipa_lex <- .lex("fr_ipa_lex")
 
+  raw <- stringr::str_replace_all(stringr::str_to_lower(word), "\u2019", "'")
+
   wd <- stringr::str_to_lower(word) |>
     stringr::str_remove_all("[:punct:]")
 
@@ -61,6 +63,15 @@ ipa_fr <- function(word = "comportamento") {
   if (any(ipa_override)) {
     out[ipa_override] <- unname(fr_ipa_lex[wd_plain[ipa_override]])
   }
+
+  # Lexical forms spelled with an apostrophe (aujourd'hui), then elided
+  # clitic + host (l'homme). Both must see the apostrophe, which wd has lost.
+  lex_apostrophe <- !is.na(raw) & !is.na(wd) & raw != wd & raw %in% names(default_lex)
+  if (any(lex_apostrophe)) {
+    out[lex_apostrophe] <- unname(default_lex[raw[lex_apostrophe]])
+  }
+
+  out <- .apply_elision(out, raw, skip = is.na(wd) | lex_apostrophe, .elision_fr, ipa_fr)
 
   return(out)
 }

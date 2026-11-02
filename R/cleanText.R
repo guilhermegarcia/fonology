@@ -29,6 +29,14 @@
 #'     downstream.
 #' }
 #'
+#' @section Apostrophes:
+#' French and Italian elide function words before a vowel (\emph{l'homme},
+#' \emph{dell'acqua}). \code{"remove"} (default) deletes the apostrophe, which
+#' turns those forms into out-of-vocabulary strings such as \code{"lhomme"}.
+#' \code{"keep"} preserves a word-internal apostrophe, normalized to the straight form,
+#' so that \code{ipa()} can transcribe the clitic and its host separately. Use
+#' it for French and Italian text.
+#'
 #' @param text A string, or a vector of strings already split into words
 #' @param hyphen How to treat hyphens and dashes: \code{"split"} (default),
 #'   \code{"join"} or \code{"keep"}. See the Hyphens section.
@@ -37,6 +45,8 @@
 #'   instead of two tokens. Portuguese-specific, and \code{FALSE} by default:
 #'   dropping the clitic removes a syllable from the prosodic word, which is
 #'   not always what you want.
+#' @param apostrophe How to treat word-internal apostrophes: \code{"remove"}
+#'   (default) or \code{"keep"}. See the Apostrophes section.
 #' @return A character vector of cleaned tokens, with no \code{NA} and no
 #'   empty strings
 #' @examples
@@ -44,11 +54,13 @@
 #' cleanText(text = "guarda-chuva")
 #' cleanText(text = "guarda-chuva", hyphen = "join")
 #' cleanText(text = "diz-me", clitics = TRUE)
+#' cleanText(text = "l'homme", apostrophe = "keep")
 #' @export
 
 cleanText <- function(text = "", hyphen = c("split", "join", "keep"),
-                      clitics = FALSE) {
+                      clitics = FALSE, apostrophe = c("remove", "keep")) {
   hyphen <- match.arg(hyphen)
+  apostrophe <- match.arg(apostrophe)
 
   DASHES <- "[-\u2010\u2011\u2012\u2013\u2014\u2015]"
 
@@ -71,6 +83,12 @@ cleanText <- function(text = "", hyphen = c("split", "join", "keep"),
   # Protect lookup/fallback markers before stripping punctuation.
   tokens <- stringr::str_replace_all(tokens, "\\*", "FONOLOGYSTAR")
 
+  if (apostrophe == "keep") {
+    tokens <- stringr::str_replace_all(
+      tokens, "(?<=\\p{L})['\u2019](?=\\p{L})", "FONOLOGYAPOSTROPHE"
+    )
+  }
+
   # Stress marks, digits, degree sign:
   tokens <- tokens |>
     stringr::str_remove_all(pattern = "[\u02c8\u02cc]") |>
@@ -83,6 +101,7 @@ cleanText <- function(text = "", hyphen = c("split", "join", "keep"),
   # Restore markers.
   output <- stringr::str_replace_all(output, "FONOLOGYSTAR", "*")
   output <- stringr::str_replace_all(output, "FONOLOGYHYPHEN", "-")
+  output <- stringr::str_replace_all(output, "FONOLOGYAPOSTROPHE", "'")
 
   # Case:
   output <- stringr::str_to_lower(output)

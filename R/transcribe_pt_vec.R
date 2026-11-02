@@ -15,6 +15,12 @@ transcribe_pt_vec <- function(word = "") {
     replacement = "ks"
   )
 
+  # English-style <ck> spells a single /k/ in loanwords (rock, jack):
+  word <- stringr::str_replace_all(word,
+    pattern = "ck",
+    replacement = "k"
+  )
+
   double_C <- function(s = "") {
     Cs <- c("bcdfghjklmnpqtvxywz")
     doubleCs <- Cs |>
@@ -120,13 +126,21 @@ transcribe_pt_vec <- function(word = "") {
     replacement = "gw\\1"
   )
 
+  # <gu> + ent has a pronounced glide in a few stems (aguentar, unguento), but not
+  # in the -guento suffix (briguento):
   word <- stringr::str_replace_all(word,
-    pattern = "g([ei])",
+    pattern = "^(a|ensan|un)gu(ent)",
+    replacement = "\\1gw\\2"
+  )
+
+  # Accented front vowels pattern with plain ones (g\u00e9lido, g\u00eameos, g\u00edria):
+  word <- stringr::str_replace_all(word,
+    pattern = "g([ei\u00e9\u00ea\u00ed])",
     replacement = "\u0292\\1"
   )
 
   word <- stringr::str_replace_all(word,
-    pattern = "(gu)([e\u00ea])",
+    pattern = "(gu)([e\u00e9\u00ea])",
     replacement = "g\\2"
   )
 
@@ -157,7 +171,21 @@ transcribe_pt_vec <- function(word = "") {
 
 
   word <- stringr::str_replace_all(word,
-    pattern = "qu(en|a|\u00e1|\u00e3)",
+    pattern = "qu(a|\u00e1|\u00e3)",
+    replacement = "kw\\1"
+  )
+
+  # <qu\u00ean> is /kwen/ after e, o, n (frequ\u00eancia, eloqu\u00eancia, delinqu\u00eancia),
+  # but /ken/ elsewhere (aqu\u00eanio):
+  word <- stringr::str_replace_all(word,
+    pattern = "(?<=[eon])qu(\u00ean)",
+    replacement = "kw\\1"
+  )
+
+  # <quen> is /kwen/ (frequente, cinquenta) except in pequen- and in initial
+  # esquen-, requen- and aquen-, where the <u> is silent:
+  word <- stringr::str_replace_all(word,
+    pattern = "(?<!pe|^es|^re|^a)qu(en)",
     replacement = "kw\\1"
   )
 
@@ -280,6 +308,12 @@ transcribe_pt_vec <- function(word = "") {
     replacement = "\u0283"
   )
 
+  # The pr\u00f3xim- family has /s/ (pr\u00f3xima, aproximar):
+  word <- stringr::str_replace_all(word,
+    pattern = "(?<=pr[o\u00f3])x(?=im)",
+    replacement = "s"
+  )
+
   # Initial ex + vowel is systematically voiced (exame, \u00eaxodo):
   word <- stringr::str_replace_all(word,
     pattern = "^([e\u00ea])x([aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00e2\u00ea\u00f4])",
@@ -335,7 +369,7 @@ transcribe_pt_vec <- function(word = "") {
   # lh + nh
 
   word <- stringr::str_replace_all(word,
-    pattern = "lher",
+    pattern = "(?<=^mu)lher|lher(?=m)",
     replacement = "\u028e\u025br"
   )
 
@@ -373,6 +407,12 @@ transcribe_pt_vec <- function(word = "") {
     replacement = "\u0292\\1"
   )
 
+
+  # Preterite -iu after a/o is a stressed vowel + glide (saiu, caiu, traiu):
+  word <- stringr::str_replace_all(word,
+    pattern = "([ao])iu$",
+    replacement = "\\1\u00edu"
+  )
 
   # Diphthongs
   # ==================

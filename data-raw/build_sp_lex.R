@@ -130,6 +130,8 @@ sp_lex <- raw |>
   dplyr::arrange(.data$row_id) |>
   dplyr::distinct(.data$word, .keep_all = TRUE) |>
   dplyr::mutate(ipa = syllabify_gold_sp(.data$ipa_plain)) |>
+  # A coda /s/ after a falling diphthong stays in its syllable (am\u00e1is, not a.\u02c8mai.s).
+  dplyr::mutate(ipa = stringr::str_replace_all(.data$ipa, "([iu])\\.s(\\.|$)", "\\1s\\2")) |>
   dplyr::arrange(.data$word) |>
   dplyr::select("word", "ipa")
 

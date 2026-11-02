@@ -24,5 +24,11 @@ syllabify_sp <- function(word) {
   word <- stringr::str_replace_all(word, "\\.([l])([g])", "\\1.\\2")
   word <- stringr::str_replace_all(word, "\\.\\.", ".")
 
+  # A falling diphthong moves the boundary after the glide, so what follows it
+  # can be left as a coda on its own (ai.s) or the boundary left word-final.
+  word <- stringr::str_replace_all(word, "([iu\u00fc])\\.s\\.", "\\1s.")
+  word <- stringr::str_replace(word, "([iu\u00fc])\\.s$", "\\1s")
+  word <- stringr::str_remove(word, "\\.$")
+
   return(word)
 }

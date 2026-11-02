@@ -19,6 +19,27 @@ pt_lex <- tibble::tibble(word = psl$word, pro = as.character(psl$pro)) |>
   dplyr::distinct() |>
   dplyr::mutate(pro = psl_to_ipa(pro))
 
+# Corrections to the PSL's transcriptions (Fonology 1.9.0). The PSL is kept
+# untouched in `psl`; these apply to the lookup only.
+#
+# 1. An accented g + front vowel is /\u0292/ in the spelling's only reading
+#    (analg\u00e9sico, evang\u00e9lico, apolog\u00e9tico), but the PSL has /g/. The accent marks
+#    primary stress, so only the stressed onset changes.
+accented_g <- stringr::str_detect(as.character(pt_lex$word), "g[\u00e9\u00ea\u00ed]")
+pt_lex$pro[accented_g] <- stringr::str_replace(
+  pt_lex$pro[accented_g], "\u02c8g(?=[e\u025bi])", "\u02c8\u0292"
+)
+
+# 2. Stressed mid vowels that differ from an unambiguous general-Brazil
+#    Wiktionary pronunciation (papel, melhor, futebol).
+mid_fixes <- readr::read_tsv(
+  "data-raw/pt_psl_corrections.tsv",
+  show_col_types = FALSE, quote = ""
+)
+i <- match(mid_fixes$word, as.character(pt_lex$word))
+stopifnot(!anyNA(i), identical(pt_lex$pro[i], mid_fixes$from))
+pt_lex$pro[i] <- mid_fixes$to
+
 stopifnot(
   !anyNA(pt_lex$pro),
   !any(stringr::str_detect(pt_lex$pro, "x"))

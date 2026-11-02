@@ -28,6 +28,9 @@ tableaux.R
 !/data-raw/build_pt_lex.R
 !/data-raw/build_bigrams_pt.R
 !/data-raw/build_psl_ipa.R
+!/data-raw/pt_psl_corrections.tsv
+!/data-raw/build_lex_fixes_1_9_0.R
+!/data-raw/benchmark_ipa.R
 !/data-raw/convert_pt_freq_rhotics.R
 /manual/*
 !/manual/Fonology.pdf
