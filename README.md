@@ -394,8 +394,8 @@ from Lexique 4 (New, Pallier, Schalchli, Bourgin, & Gimenes, 2026),
 distributed through OpenLexicon under CC BY-SA 4.0. Spanish and Italian
 lookup data, together with the audited Portuguese correction complement,
 are adapted from English Wiktionary data extracted by Wiktextract/Kaikki
-under CC BY-SA 4.0. See `LICENSE.note` for component-level attribution and
-licensing.
+under CC BY-SA 4.0. See `LICENSE.note` for component-level attribution
+and licensing.
 
 ## References
 
