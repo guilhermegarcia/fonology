@@ -244,10 +244,10 @@ maxent(tableau = maxent_data)
 #> [1] -78.72152
 #> 
 #> $log_likelihood_norm
-#> [1] -7.872152
+#> [1] -0.6505911
 #> 
 #> $bic
-#> [1] 162.0482
+#> [1] 167.0346
 ```
 
 Finally, a couple of functions are dedicated to Noisy Harmonic Grammars.

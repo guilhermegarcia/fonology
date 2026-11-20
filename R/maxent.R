@@ -18,10 +18,10 @@
 #'   \item \code{predictions} — a tibble containing the original tableau(s) with added columns: \code{harmony} (score for each candidate), \code{max_h} (maximum harmony within each input), \code{exp_h}, \code{Z} (partition function within each input), \code{obs_prob} (observed probabilities), \code{pred_prob} (predicted probabilities), and \code{error} (difference between observed and predicted probabilities).
 #'   \item \code{weights} — a named numeric vector of the learned constraint weights.
 #'   \item \code{log_likelihood} — the log-likelihood of the model fit.
-#'   \item \code{log_likelihood_norm} — the normalized log-likelihood (log-likelihood divided by number of rows).
+#'   \item \code{log_likelihood_norm} — the normalized log-likelihood (log-likelihood divided by the total number of observations, i.e. the mean log-likelihood per token).
 #'   \item \code{bic} — the Bayesian Information Criterion of the fitted model,
 #'   \eqn{k \ln(n) - 2 \ln L}, where \eqn{k} is the number of constraints and
-#'   \eqn{n} the number of rows (candidates) in the tableau. Lower is better.
+#'   \eqn{n} the total number of observations (the sum of \code{obs_col}). Lower is better.
 #'   Versions before 1.9.2 returned \eqn{k \ln(n) + 2 \ln L}, which is wrong.
 #' }
 #' @examples
@@ -161,9 +161,9 @@ maxent <- function(tableau,
     dplyr::ungroup()
 
   log_likelihood <- sum(log(df$pred_prob + eps) * dplyr::pull(df, dplyr::all_of(obs_col)))
-  log_likelihood_norm <- log_likelihood / nrow(df)
+  n <- sum(dplyr::pull(df, dplyr::all_of(obs_col)))
+  log_likelihood_norm <- log_likelihood / n
   k <- length(constraint_cols)
-  n <- nrow(df)
   bic <- k * log(n) - 2 * log_likelihood
 
   return(list(

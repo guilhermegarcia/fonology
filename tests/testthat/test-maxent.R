@@ -28,12 +28,15 @@ devoicing_tableau <- function() {
   )
 }
 
-test_that("maxent BIC is k*log(n) - 2*logLik", {
-  fit <- maxent(devoicing_tableau())
+test_that("maxent BIC is k*log(n) - 2*logLik, with n = total observations", {
+  tab <- devoicing_tableau()
+  fit <- maxent(tab)
   k <- length(fit$weights)
-  n <- nrow(fit$predictions)
+  n <- sum(tab$obs) # tokens, not tableau rows
 
+  expect_equal(n, 121)
   expect_equal(fit$bic, k * log(n) - 2 * fit$log_likelihood)
+  expect_equal(fit$log_likelihood_norm, fit$log_likelihood / n)
   # logLik < 0, so a correct BIC is positive here (it was negative before 1.9.2)
   expect_gt(fit$bic, 0)
 })
