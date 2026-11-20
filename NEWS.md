@@ -2,18 +2,18 @@
 
 This release fixes two bugs in `maxent()`. The `bic` it returned had the wrong
 sign, so model comparisons by BIC from earlier versions picked the wrong
-grammar. Weights, predicted probabilities and log-likelihoods were correct and
-do not change.
+grammar. BIC and `log_likelihood_norm` now use the total number of observations
+as `n`. Weights, predicted probabilities and `log_likelihood` do not change.
 
 ## Bug fixes
 
 - **`maxent()` BIC**: `bic` was computed as `k * log(n) + 2 * logLik` instead of
   `k * log(n) - 2 * logLik`. Because the log-likelihood is negative, the value
-  came out too low by `4 * |logLik|`, and the grammar with the worse fit got
+  came out far too low, and the grammar with the worse fit got
   the lower (better) BIC. On the `?maxent` example, BIC was -152.8 and is now
-  162.0. **Recompute any BIC comparison made with version 1.9.1 or earlier.**
+  167.0. **Recompute any BIC comparison made with version 1.9.1 or earlier.**
   You can correct an old value from the same output:
-  `old$bic - 4 * old$log_likelihood`.
+  `old$bic - 4 * old$log_likelihood + length(old$weights) * log(sum(old$predictions$obs) / nrow(old$predictions))`.
 - **`maxent()` `obs_col`**: the observed probabilities read a column literally
   named `obs`, so any other `obs_col` failed with `object 'obs' not found`.
   `obs_col` is now used throughout, matched case-insensitively like the other
