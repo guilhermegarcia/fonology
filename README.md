@@ -247,7 +247,7 @@ maxent(tableau = maxent_data)
 #> [1] -7.872152
 #> 
 #> $bic
-#> [1] -152.8379
+#> [1] 162.0482
 ```
 
 Finally, a couple of functions are dedicated to Noisy Harmonic Grammars.

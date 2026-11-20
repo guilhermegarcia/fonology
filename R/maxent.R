@@ -19,7 +19,10 @@
 #'   \item \code{weights} — a named numeric vector of the learned constraint weights.
 #'   \item \code{log_likelihood} — the log-likelihood of the model fit.
 #'   \item \code{log_likelihood_norm} — the normalized log-likelihood (log-likelihood divided by number of rows).
-#'   \item \code{bic} — the Bayesian Information Criterion (BIC) value for the fitted model.
+#'   \item \code{bic} — the Bayesian Information Criterion of the fitted model,
+#'   \eqn{k \ln(n) - 2 \ln L}, where \eqn{k} is the number of constraints and
+#'   \eqn{n} the number of rows (candidates) in the tableau. Lower is better.
+#'   Versions before 1.9.2 returned \eqn{k \ln(n) + 2 \ln L}, which is wrong.
 #' }
 #' @examples
 #' maxent_data <- tibble::tibble(
@@ -31,6 +34,7 @@
 #' )
 #' maxent(tableau = maxent_data)
 #' @importFrom stats optim rnorm
+#' @importFrom rlang .data
 #' @export
 
 maxent <- function(tableau,
@@ -44,6 +48,14 @@ maxent <- function(tableau,
   df <- tableau
   df[is.na(df)] <- 0
   names(df) <- stringr::str_to_lower(names(df))
+  obs_col <- stringr::str_to_lower(obs_col)
+
+  if (!obs_col %in% names(df)) {
+    cli::cli_abort(c(
+      "{.arg tableau} has no observation column {.val {obs_col}}.",
+      "i" = "Set {.arg obs_col} to the column holding the counts."
+    ))
+  }
 
   constraint_cols <- setdiff(names(df), c("input", "output", obs_col))
   eps <- 1e-10
@@ -142,7 +154,7 @@ maxent <- function(tableau,
       max_h = max(harmony),
       exp_h = exp(-(harmony - max_h) / temperature),
       Z = sum(exp_h),
-      obs_prob = obs / sum(obs),
+      obs_prob = .data[[obs_col]] / sum(.data[[obs_col]]),
       pred_prob = exp_h / Z,
       error = obs_prob - pred_prob
     ) |>
@@ -152,7 +164,7 @@ maxent <- function(tableau,
   log_likelihood_norm <- log_likelihood / nrow(df)
   k <- length(constraint_cols)
   n <- nrow(df)
-  bic <- k * log(n) - 2 * (-log_likelihood)
+  bic <- k * log(n) - 2 * log_likelihood
 
   return(list(
     predictions = df,

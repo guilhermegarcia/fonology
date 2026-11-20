@@ -40,7 +40,10 @@ A list with the following components:
   \item \code{weights} — a named numeric vector of the learned constraint weights.
   \item \code{log_likelihood} — the log-likelihood of the model fit.
   \item \code{log_likelihood_norm} — the normalized log-likelihood (log-likelihood divided by number of rows).
-  \item \code{bic} — the Bayesian Information Criterion (BIC) value for the fitted model.
+  \item \code{bic} — the Bayesian Information Criterion of the fitted model,
+  \eqn{k \ln(n) - 2 \ln L}, where \eqn{k} is the number of constraints and
+  \eqn{n} the number of rows (candidates) in the tableau. Lower is better.
+  Versions before 1.9.2 returned \eqn{k \ln(n) + 2 \ln L}, which is wrong.
 }
 }
 \description{

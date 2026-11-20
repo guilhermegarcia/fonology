@@ -48,24 +48,35 @@ export(ssp)
 export(syllable)
 export(transcribe_pt)
 export(wug_pt)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,rowwise)
-importFrom(dplyr,select)
-importFrom(dplyr,where)
+importFrom(dplyr,
+  left_join,
+  mutate,
+  rowwise,
+  select,
+  where
+)
 importFrom(forcats,fct_reorder)
 importFrom(graphics,lines)
-importFrom(ngram,get.phrasetable)
-importFrom(ngram,ngram)
+importFrom(ngram,
+  get.phrasetable,
+  ngram
+)
 importFrom(purrr,map)
 importFrom(readr,write_lines)
-importFrom(rlang,`:=`)
+importFrom(rlang,
+  ":=",
+  .data
+)
 importFrom(scales,percent_format)
-importFrom(stats,approx)
-importFrom(stats,optim)
-importFrom(stats,rnorm)
-importFrom(stringi,stri_trans_nfc)
-importFrom(stringi,stri_trans_nfd)
+importFrom(stats,
+  approx,
+  optim,
+  rnorm
+)
+importFrom(stringi,
+  stri_trans_nfc,
+  stri_trans_nfd
+)
 importFrom(stringr,str_remove_all)
 importFrom(tibble,tibble)
 importFrom(tidyr,uncount)
