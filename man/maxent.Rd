@@ -34,9 +34,9 @@ higher values make distributions flatter (probabilities more even)}
 optimize its search for constraint weights}
 }
 \value{
-A list with the following components:
+An object of class \code{maxent_fit}: a list with the following components.
 \itemize{
-  \item \code{predictions} — a tibble containing the original tableau(s) with added columns: \code{harmony} (score for each candidate), \code{max_h} (maximum harmony within each input), \code{exp_h}, \code{Z} (partition function within each input), \code{obs_prob} (observed probabilities), \code{pred_prob} (predicted probabilities), and \code{error} (difference between observed and predicted probabilities).
+  \item \code{predictions} — a tibble containing the original tableau(s) with added columns: \code{harmony} (score for each candidate), \code{exp_h} (\eqn{e^{-H}}, i.e. \code{exp(-harmony / temperature)}), \code{Z} (sum of \code{exp_h} within each input), \code{obs_prob} (observed probabilities), \code{pred_prob} (predicted probabilities), and \code{error} (difference between observed and predicted probabilities).
   \item \code{weights} — a named numeric vector of the learned constraint weights.
   \item \code{log_likelihood} — the log-likelihood of the model fit.
   \item \code{log_likelihood_norm} — the normalized log-likelihood (log-likelihood divided by the total number of observations, i.e. the mean log-likelihood per token).
@@ -45,6 +45,16 @@ A list with the following components:
   \eqn{n} the total number of observations (the sum of \code{obs_col}). Lower is better.
   Versions before 1.9.2 returned \eqn{k \ln(n) + 2 \ln L}, which is wrong.
 }
+The object also carries the attributes \code{n} (total observations),
+\code{temperature}, \code{obs_col}, \code{mu}, \code{sigma},
+\code{convergence} and \code{optim_message} (both from
+\code{\link[stats]{optim}}; \code{convergence} is \code{0} on success).
+
+Printing the object shows a short summary. The usual model functions work on
+it: \code{coef()}, \code{predict()}, \code{logLik()}, \code{nobs()},
+\code{AIC()} and \code{BIC()}, the last two also with several models at
+once. See \code{\link{maxent_fit}}. Use \code{print(unclass(fit))} to see
+every component in full.
 }
 \description{
 Given an object with one or more tableaux, the function returns the
@@ -58,5 +68,22 @@ maxent_data <- tibble::tibble(
   no_vce_final = c(1, 0, 1, 0, 1, 0, 1, 0, 1, 0),
   obs = c(5, 15, 10, 20, 12, 18, 12, 17, 4, 8)
 )
-maxent(tableau = maxent_data)
+fit <- maxent(tableau = maxent_data)
+fit
+coef(fit)
+
+# Predicted probabilities for new inputs
+new_data <- tibble::tibble(
+  input = rep(c("bag", "tob"), each = 2),
+  output = c("bag", "bak", "tob", "top"),
+  ident_vce = c(0, 1, 0, 1),
+  no_vce_final = c(1, 0, 1, 0)
+)
+predict(fit, new_data)
+
+# Compare with a grammar without no_vce_final
+fit_small <- maxent_data |>
+  dplyr::select(-no_vce_final) |>
+  maxent()
+BIC(fit, fit_small)
 }

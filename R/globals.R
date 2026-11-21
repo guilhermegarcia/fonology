@@ -19,7 +19,7 @@ utils::globalVariables(c(
   "V1", "V2", "V3", "V4",
   "stress", "input", "output",
   "n_sim", "sd", "cand", "prob",
-  "max_h", "exp_h", "Z", "obs",
+  "min_h", "exp_h", "Z", "obs",
   "obs_prob", "pred_prob",
   "harmony", "winner", "n"
 ))

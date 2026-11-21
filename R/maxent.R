@@ -13,9 +13,9 @@
 #' higher values make distributions flatter (probabilities more even)
 #' @param use_gradient Whether the function should use a gradient function (default: TRUE) to
 #' optimize its search for constraint weights
-#' @return A list with the following components:
+#' @return An object of class \code{maxent_fit}: a list with the following components.
 #' \itemize{
-#'   \item \code{predictions} — a tibble containing the original tableau(s) with added columns: \code{harmony} (score for each candidate), \code{max_h} (maximum harmony within each input), \code{exp_h}, \code{Z} (partition function within each input), \code{obs_prob} (observed probabilities), \code{pred_prob} (predicted probabilities), and \code{error} (difference between observed and predicted probabilities).
+#'   \item \code{predictions} — a tibble containing the original tableau(s) with added columns: \code{harmony} (score for each candidate), \code{exp_h} (\eqn{e^{-H}}, i.e. \code{exp(-harmony / temperature)}), \code{Z} (sum of \code{exp_h} within each input), \code{obs_prob} (observed probabilities), \code{pred_prob} (predicted probabilities), and \code{error} (difference between observed and predicted probabilities).
 #'   \item \code{weights} — a named numeric vector of the learned constraint weights.
 #'   \item \code{log_likelihood} — the log-likelihood of the model fit.
 #'   \item \code{log_likelihood_norm} — the normalized log-likelihood (log-likelihood divided by the total number of observations, i.e. the mean log-likelihood per token).
@@ -24,6 +24,16 @@
 #'   \eqn{n} the total number of observations (the sum of \code{obs_col}). Lower is better.
 #'   Versions before 1.9.2 returned \eqn{k \ln(n) + 2 \ln L}, which is wrong.
 #' }
+#' The object also carries the attributes \code{n} (total observations),
+#' \code{temperature}, \code{obs_col}, \code{mu}, \code{sigma},
+#' \code{convergence} and \code{optim_message} (both from
+#' \code{\link[stats]{optim}}; \code{convergence} is \code{0} on success).
+#'
+#' Printing the object shows a short summary. The usual model functions work on
+#' it: \code{coef()}, \code{predict()}, \code{logLik()}, \code{nobs()},
+#' \code{AIC()} and \code{BIC()}, the last two also with several models at
+#' once. See \code{\link{maxent_fit}}. Use \code{print(unclass(fit))} to see
+#' every component in full.
 #' @examples
 #' maxent_data <- tibble::tibble(
 #'   input = rep(c("pad", "tab", "bid", "dog", "pok"), each = 2),
@@ -32,7 +42,24 @@
 #'   no_vce_final = c(1, 0, 1, 0, 1, 0, 1, 0, 1, 0),
 #'   obs = c(5, 15, 10, 20, 12, 18, 12, 17, 4, 8)
 #' )
-#' maxent(tableau = maxent_data)
+#' fit <- maxent(tableau = maxent_data)
+#' fit
+#' coef(fit)
+#'
+#' # Predicted probabilities for new inputs
+#' new_data <- tibble::tibble(
+#'   input = rep(c("bag", "tob"), each = 2),
+#'   output = c("bag", "bak", "tob", "top"),
+#'   ident_vce = c(0, 1, 0, 1),
+#'   no_vce_final = c(1, 0, 1, 0)
+#' )
+#' predict(fit, new_data)
+#'
+#' # Compare with a grammar without no_vce_final
+#' fit_small <- maxent_data |>
+#'   dplyr::select(-no_vce_final) |>
+#'   maxent()
+#' BIC(fit, fit_small)
 #' @importFrom stats optim rnorm
 #' @importFrom rlang .data
 #' @export
@@ -62,6 +89,15 @@ maxent <- function(tableau,
 
   df <- df |> dplyr::mutate(dplyr::across(dplyr::all_of(constraint_cols), as.numeric))
 
+  # Probabilities are computed internally as
+  #   exp(-(harmony - min_h) / temperature) / sum(...)
+  # Shifting by the smallest harmony in each input cancels out in the ratio
+  # and keeps every exponent <= 0, so exp() cannot overflow. (Up to 1.9.2 the
+  # shift was the largest harmony, which overflowed once the harmony gap
+  # within an input passed ~709 and made optim() abort.) The exp_h and Z
+  # columns returned to the user are NOT shifted: they are eH = e^-H and
+  # Z = sum(eH), as in the standard MaxEnt tableau (Hayes & Moore-Cantwell).
+
   # Negative log-likelihood
   nll <- function(weights, data) {
     violations <- as.matrix(data[, constraint_cols])
@@ -71,8 +107,8 @@ maxent <- function(tableau,
       dplyr::mutate(harmony = as.vector(harmony)) |>
       dplyr::group_by(input) |>
       dplyr::mutate(
-        max_h = max(harmony),
-        exp_h = exp(-(harmony - max_h) / temperature),
+        min_h = min(harmony),
+        exp_h = exp(-(harmony - min_h) / temperature),
         Z = sum(exp_h),
         pred_prob = exp_h / Z
       ) |>
@@ -95,8 +131,8 @@ maxent <- function(tableau,
     harmony <- violations %*% weights
 
     data$harmony <- as.vector(harmony)
-    max_h <- stats::ave(data$harmony, data$input, FUN = max)
-    data$exp_h <- exp(-(data$harmony - max_h) / temperature)
+    min_h <- stats::ave(data$harmony, data$input, FUN = min)
+    data$exp_h <- exp(-(data$harmony - min_h) / temperature)
     data$Z <- stats::ave(data$exp_h, data$input, FUN = sum)
     data$pred_prob <- data$exp_h / data$Z
 
@@ -151,11 +187,15 @@ maxent <- function(tableau,
     dplyr::mutate(harmony = as.vector(harmony)) |>
     dplyr::group_by(input) |>
     dplyr::mutate(
-      max_h = max(harmony),
-      exp_h = exp(-(harmony - max_h) / temperature),
+      # As in the MaxEnt tableau: eH = e^-H (with temperature T, e^(-H/T))
+      # and Z = sum of eH over the candidates of each input. These can
+      # underflow to 0 when every candidate of an input has H > ~745, so
+      # pred_prob is computed from shifted values instead (see above). The
+      # two agree whenever Z > 0.
+      exp_h = exp(-harmony / temperature),
       Z = sum(exp_h),
       obs_prob = .data[[obs_col]] / sum(.data[[obs_col]]),
-      pred_prob = exp_h / Z,
+      pred_prob = .softmax_shifted(harmony, temperature),
       error = obs_prob - pred_prob
     ) |>
     dplyr::ungroup()
@@ -166,11 +206,32 @@ maxent <- function(tableau,
   k <- length(constraint_cols)
   bic <- k * log(n) - 2 * log_likelihood
 
-  return(list(
-    predictions = df,
-    weights = final_weights,
-    log_likelihood = log_likelihood,
-    log_likelihood_norm = log_likelihood_norm,
-    bic = bic
-  ))
+  # The list keeps its five elements, so fit$weights etc. work as before.
+  # What predict(), logLik() and print() need on top of them travels as
+  # attributes, which leaves names(fit) unchanged.
+  structure(
+    list(
+      predictions = df,
+      weights = final_weights,
+      log_likelihood = log_likelihood,
+      log_likelihood_norm = log_likelihood_norm,
+      bic = bic
+    ),
+    class = "maxent_fit",
+    n = n,
+    temperature = temperature,
+    obs_col = obs_col,
+    mu = mu,
+    sigma = sigma,
+    convergence = fit$convergence,
+    optim_message = fit$message
+  )
+}
+
+# Probabilities within one input, from harmonies. Shifting by the smallest
+# harmony keeps every exponent <= 0 (no overflow) and gives the best
+# candidate exp(0) = 1 (the sum is never 0).
+.softmax_shifted <- function(harmony, temperature) {
+  e <- exp(-(harmony - min(harmony)) / temperature)
+  e / sum(e)
 }

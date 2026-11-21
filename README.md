@@ -204,12 +204,15 @@ for syllabification is the period.
 
 The function `maxent()` learns weights given a tableau object containing
 inputs, outputs, constraints, violations and observations (see
-documentation). The function returns a list with different objects,
-including learned weights, BIC value and predicted probabilities for
-each output. If the reader wishes to pursue a comprehensive MaxEnt
-analysis, I strongly recommend the `maxent.ot` package, which is
-dedicated exclusively to MaxEnt grammars (Mayer et al, 2024). Here’s an
-example of `maxent()` in action.
+documentation). It returns a fitted grammar (an object of class
+`maxent_fit`, which is a list): printing it shows the learned weights,
+the log-likelihood and the BIC, and `fit$predictions` holds the tableaux
+with the harmony, `exp_h` ($e^{-H}$), `Z` and predicted probability of
+each candidate. `predict()` applies the grammar to new tableaux, and
+`AIC()` and `BIC()` compare grammars. If the reader wishes to pursue a
+comprehensive MaxEnt analysis, I strongly recommend the `maxent.ot`
+package, which is dedicated exclusively to MaxEnt grammars (Mayer et al,
+2024). Here’s an example of `maxent()` in action.
 
 ``` r
 maxent_data <- tibble::tibble(
@@ -219,35 +222,41 @@ maxent_data <- tibble::tibble(
   no_vce_final = c(1, 0, 1, 0, 1, 0, 1, 0, 1, 0),
   obs = c(5, 15, 10, 20, 12, 18, 12, 17, 4, 8)
 )
-maxent(tableau = maxent_data)
-#> $predictions
-#> # A tibble: 10 × 12
-#>    input output ident_vce no_vce_final   obs harmony max_h exp_h     Z obs_prob
-#>    <chr> <chr>      <dbl>        <dbl> <dbl>   <dbl> <dbl> <dbl> <dbl>    <dbl>
-#>  1 pad   pad            0            1     5  0.639  0.639  1     2.79    0.25 
-#>  2 pad   pat            1            0    15  0.0541 0.639  1.79  2.79    0.75 
-#>  3 tab   tab            0            1    10  0.639  0.639  1     2.79    0.333
-#>  4 tab   tap            1            0    20  0.0541 0.639  1.79  2.79    0.667
-#>  5 bid   bid            0            1    12  0.639  0.639  1     2.79    0.4  
-#>  6 bid   bit            1            0    18  0.0541 0.639  1.79  2.79    0.6  
-#>  7 dog   dog            0            1    12  0.639  0.639  1     2.79    0.414
-#>  8 dog   dok            1            0    17  0.0541 0.639  1.79  2.79    0.586
-#>  9 pok   pog            1            1     4  0.693  0.693  1     3.00    0.333
-#> 10 pok   pok            0            0     8  0      0.693  2.00  3.00    0.667
-#> # ℹ 2 more variables: pred_prob <dbl>, error <dbl>
+fit <- maxent(tableau = maxent_data)
+fit
+#> MaxEnt grammar (maxent_fit)
+#> 2 constraints, 10 candidates, 5 inputs, n = 121
 #> 
-#> $weights
-#>    ident_vce no_vce_final 
-#>   0.05410682   0.63904035 
+#> Weights:
+#>   no_vce_final  0.639
+#>   ident_vce     0.054
 #> 
-#> $log_likelihood
-#> [1] -78.72152
-#> 
-#> $log_likelihood_norm
-#> [1] -0.6505911
-#> 
-#> $bic
-#> [1] 167.0346
+#> logLik = -78.722 (df = 2)   logLik/n = -0.6506   BIC = 167.035
+
+# Predicted probabilities for new inputs
+new_data <- tibble::tibble(
+  input = rep(c("bag", "tob"), each = 2),
+  output = c("bag", "bak", "tob", "top"),
+  ident_vce = c(0, 1, 0, 1),
+  no_vce_final = c(1, 0, 1, 0)
+)
+predict(fit, new_data)
+#> # A tibble: 4 × 6
+#>   input output ident_vce no_vce_final harmony pred_prob
+#>   <chr> <chr>      <dbl>        <dbl>   <dbl>     <dbl>
+#> 1 bag   bag            0            1  0.639      0.358
+#> 2 bag   bak            1            0  0.0541     0.642
+#> 3 tob   tob            0            1  0.639      0.358
+#> 4 tob   top            1            0  0.0541     0.642
+
+# Compare with a grammar without no_vce_final
+fit_small <- maxent_data |>
+  dplyr::select(-no_vce_final) |>
+  maxent()
+BIC(fit, fit_small)
+#>           df      BIC
+#> fit        2 167.0346
+#> fit_small  1 172.5374
 ```
 
 Finally, a couple of functions are dedicated to Noisy Harmonic Grammars.

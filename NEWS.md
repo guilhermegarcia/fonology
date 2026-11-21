@@ -1,3 +1,82 @@
+# Fonology 1.10.0
+
+`maxent()` now returns an object of class `maxent_fit`. It is still the same
+list, so `fit$weights`, `fit$bic` and the other components work as before. The
+class adds the usual model functions: a short `print()` summary, `coef()`,
+`predict()` for new tableaux, `logLik()` and `nobs()`, and through them base R's
+`AIC()` and `BIC()`, which also compare several grammars at once. The columns
+`exp_h` and `Z` in `fit$predictions` now hold the values of the standard MaxEnt
+tableau (Hayes & Moore-Cantwell 2026), and a numerical overflow that could make
+`maxent()` abort is fixed. Weights, predicted probabilities, log-likelihood and
+BIC do not change.
+
+## New features
+
+- **`maxent_fit` class and methods** (see `?maxent_fit`):
+  - `print(fit)` shows the weights (largest first), the log-likelihood and the
+    BIC. It also shows the temperature and the Gaussian prior when they are set,
+    and a warning line if the optimiser did not converge.
+  - `coef(fit)` returns the weights.
+  - `predict(fit, newdata)` returns the predicted probability of each candidate
+    in a new tableau, normalised within each input. It uses the model's
+    temperature unless you give another one. Column names are matched ignoring
+    case and missing violations count as 0, as in `maxent()`. A numeric column
+    the model has no weight for gives a warning. `predict(fit)` returns the
+    fitted tableau.
+  - `logLik(fit)` reports `df` = number of constraints and `nobs` = total
+    number of observations, so `AIC(fit)` and `BIC(fit)` work, and `BIC(fit)`
+    equals `fit$bic`. `BIC(fit, fit_small)` returns a comparison table:
+
+    ```
+              df      BIC
+    fit        2 167.0346
+    fit_small  1 172.5374
+    ```
+
+  - `nobs(fit)` returns the total number of observations.
+- The fitted object also stores, as attributes, the number of observations, the
+  temperature, the observation column, the prior (`mu`, `sigma`) and the
+  optimiser's convergence code and message. `names(fit)` is unchanged.
+
+## Changes to output
+
+- **`print(fit)` shows a summary** instead of every component in full. Use
+  `print(unclass(fit))` for the old output, or `fit$predictions` for the
+  tableau.
+- **`exp_h` and `Z` in `fit$predictions` are now the textbook values**:
+  `exp_h` = e^-H (e^(-H/T) with a temperature) and `Z` = the sum of `exp_h` over
+  the candidates of each input, so the columns can be checked against a MaxEnt
+  tableau or spreadsheet. Before, both were shifted by the largest harmony in
+  each input. On the `?maxent` example, /pad/ had `exp_h` 1.00 / 1.79 and `Z`
+  2.79; it now has 0.528 / 0.947 and 1.475. `pred_prob` is unchanged.
+- **The `max_h` column is removed** from `fit$predictions`. It was an
+  intermediate step of the calculation.
+
+## Bug fixes
+
+- **`maxent()` overflow**: within each input, harmonies were shifted by their
+  maximum before exponentiation, so a large harmony difference overflowed and
+  the fit aborted with `L-BFGS-B needs finite values of 'fn'`. With one
+  constraint and observations 10 / 0, this happened from 381 violations on.
+  The probabilities are now computed with the shift by the minimum, which
+  cannot overflow. Ordinary tableaux, with a few violations per cell, were not
+  affected, and their results do not change.
+
+## Documentation
+
+- The manual's Maxent section is rewritten. It describes the input tableau, the
+  fitting options, every component and attribute of the fitted object, how the
+  columns of `fit$predictions` map onto a MaxEnt tableau (with the /pad/
+  tableau typeset in `phonokit` from the fitted weights), and `predict()`,
+  `AIC()` and `BIC()`.
+- The README and the vignette show the new workflow: printing the fitted
+  grammar, `predict()` and `BIC(fit, fit_small)`.
+
+## References
+
+- Hayes, B., & Moore-Cantwell, C. (2026). *MaxEnt Optimality Theory: A guide
+  to analysis*. Manuscript, UCLA. To appear with Cambridge University Press.
+
 # Fonology 1.9.2
 
 This release fixes two bugs in `maxent()`. The `bic` it returned had the wrong

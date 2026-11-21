@@ -73,3 +73,80 @@ test_that("maxent honours obs_col throughout, in any case", {
 test_that("maxent errors clearly when obs_col is missing", {
   expect_error(maxent(devoicing_tableau(), obs_col = "count"), "no observation column")
 })
+
+# Up to 1.9.2, maxent() shifted harmonies by the per-input MAXIMUM before
+# exp(), so every exponent was >= 0 and a harmony gap above ~709 overflowed to
+# Inf: optim() aborted with "L-BFGS-B needs finite values of 'fn'". With obs
+# 10/0 it failed from 381 violations on, because optim() probes weights above
+# the starting value of 1. The shift is now the per-input minimum.
+gap_tableau <- function(v, obs) {
+  tibble::tibble(input = "x", output = c("a", "b"), c1 = c(0, v), obs = obs)
+}
+
+test_that("maxent fits tableaux with very large harmony gaps", {
+  for (v in c(381, 700, 710, 1000, 5000)) {
+    for (obs in list(c(10, 0), c(9, 1), c(5, 5))) {
+      label <- paste0("v = ", v, ", obs = ", paste(obs, collapse = "/"))
+      fit <- expect_no_error(maxent(gap_tableau(v, obs)), message = label)
+      expect_true(all(is.finite(fit$predictions$pred_prob)), info = label)
+      expect_true(is.finite(fit$log_likelihood), info = label)
+      expect_equal(sum(fit$predictions$pred_prob), 1, info = label)
+    }
+  }
+})
+
+test_that("large harmony gaps give the expected probabilities", {
+  # The violating candidate is never observed: it should get ~0.
+  fit <- maxent(gap_tableau(1000, c(10, 0)))
+  expect_equal(fit$predictions$pred_prob, c(1, 0), tolerance = 1e-8)
+
+  # Both candidates equally frequent: the weight goes to 0 and both get 0.5.
+  fit <- maxent(gap_tableau(1000, c(5, 5)))
+  expect_equal(unname(fit$weights), 0)
+  expect_equal(fit$predictions$pred_prob, c(0.5, 0.5))
+})
+
+test_that("exp_h and Z are the textbook eH = e^-H and Z = sum(eH)", {
+  # Hayes & Moore-Cantwell, (16): no shift in the reported columns
+  fit <- maxent(devoicing_tableau())
+  p <- fit$predictions
+
+  expect_equal(
+    names(p),
+    c("input", "output", "ident_vce", "no_vce_final", "obs",
+      "harmony", "exp_h", "Z", "obs_prob", "pred_prob", "error")
+  )
+  expect_equal(p$exp_h, exp(-p$harmony))
+  expect_equal(p$Z, stats::ave(p$exp_h, p$input, FUN = sum))
+  expect_equal(p$pred_prob, p$exp_h / p$Z)
+
+  # /pad/: H = 0.639 / 0.054, eH = 0.528 / 0.947, Z = 1.475, p = 0.358 / 0.642
+  expect_equal(p$exp_h[1:2], c(0.528, 0.947), tolerance = 1e-3)
+  expect_equal(p$Z[1:2], c(1.475, 1.475), tolerance = 1e-3)
+})
+
+test_that("with a temperature, exp_h is e^(-H/T)", {
+  fit <- maxent(devoicing_tableau(), temperature = 2)
+  p <- fit$predictions
+  expect_equal(p$exp_h, exp(-p$harmony / 2))
+  expect_equal(p$pred_prob, p$exp_h / p$Z)
+})
+
+test_that("pred_prob stays correct when eH and Z underflow to 0", {
+  # Both candidates have H = 1000: e^-1000 is 0 in double precision, so the
+  # reported eH and Z are 0 (as in a spreadsheet), but p is still 0.5 each.
+  tab <- tibble::tibble(input = "x", output = c("a", "b"), c1 = c(1000, 1000), obs = c(5, 5))
+  fit <- maxent(tab)
+  p <- fit$predictions
+  expect_equal(p$exp_h, c(0, 0))
+  expect_equal(p$Z, c(0, 0))
+  expect_equal(p$pred_prob, c(0.5, 0.5))
+  expect_true(is.finite(fit$log_likelihood))
+})
+
+test_that("the overflow fix leaves the fit unchanged (pinned 1.9.2 values)", {
+  fit <- maxent(devoicing_tableau())
+  expect_equal(unname(fit$weights), c(0.05410682, 0.63904035), tolerance = 1e-6)
+  expect_equal(fit$log_likelihood, -78.72152, tolerance = 1e-6)
+  expect_equal(fit$bic, 167.0346, tolerance = 1e-6)
+})
